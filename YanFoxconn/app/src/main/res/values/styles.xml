@@ -1,0 +1,211 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="edit_AlertDialog_style" parent="@android:style/Theme.Dialog">
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <!-- 是否启用标题栏 -->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <!-- 是否使用背景半透明 -->
+    </style>
+
+    <style name="dialog" parent="android:Theme.Dialog">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowBackground">@null</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowAnimationStyle">@null</item>
+    </style>
+
+    <style name="carTextName">
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:layout_width">@dimen/dimen_80</item>
+        <item name="android:layout_height">@dimen/dimen_30</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+    <style name="carTextNameXS">
+    <item name="android:textSize">@dimen/text_size_14</item>
+    <item name="android:layout_width">@dimen/dimen_65</item>
+    <item name="android:layout_height">@dimen/dimen_30</item>
+    <item name="android:gravity">center_vertical</item>
+</style>
+    <style name="forkliftTextName">
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/dimen_30</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+    <style name="crossTextName">
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="carTextBKG">
+        <item name="android:background">@color/color_cccccc</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/dimen_30</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingLeft">@dimen/dimen_5</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+    </style>
+    <style name="carTextBKGXS">
+        <item name="android:background">@color/color_cccccc</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/dimen_30</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+    </style>
+
+    <style name="carEditTextBKG">
+        <item name="android:background">@color/color_74afdb</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/dimen_30</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:paddingLeft">@dimen/dimen_4</item>
+    </style>
+    <style name="carLayoutTextBKG">
+        <item name="android:background">@color/color_74afdb</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/dimen_30</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+    <style name="tableRow">
+        <item name="android:paddingLeft">@dimen/dimen_10</item>
+        <item name="android:paddingRight">@dimen/dimen_10</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_marginTop">@dimen/dimen_2</item>
+    </style>
+    <style name="push_style">
+        <item name="android:hint">@string/style_hint</item>
+        <item name="android:inputType">number</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+    <style name="push_alias">
+        <item name="android:hint">@string/alias_hint</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+    <style name="push_mobilenumber">
+        <item name="android:hint">@string/mobilenumber_hint</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+    <style name="push_tag">
+        <item name="android:hint">@string/tag_hint</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+    <style name="input_box">
+        <item name="android:background">@color/color_74afdb</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/dimen_50</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textSize">@dimen/text_size_16</item>
+        <item name="android:layout_margin">@dimen/dimen_15</item>
+    </style>
+    <style name="mobile_message">
+        <item name="android:background">@color/color_e8e8e8</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/dimen_30</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingLeft">@dimen/dimen_5</item>
+        <item name="android:textColor">@color/result_view</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+    </style>
+
+    <style name="retreattableRow">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:paddingLeft">@dimen/dimen_10</item>
+        <item name="android:paddingRight">@dimen/dimen_10</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_marginTop">@dimen/dimen_2</item>
+    </style>
+    <style name="retreatTextName">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">@dimen/dimen_30</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/color_303030</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:background">@color/color_7edbf4</item>
+        <item name="android:layout_weight">1.2</item>
+    </style>
+
+    <style name="retreat_message">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:background">@color/color_e8e8e8</item>
+        <item name="android:layout_height">@dimen/dimen_30</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingLeft">@dimen/dimen_4</item>
+        <item name="android:textColor">@color/result_view</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:layout_weight">2</item>
+    </style>
+
+    <style name="spinner">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">@dimen/dimen_30</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingLeft">@dimen/dimen_4</item>
+        <item name="android:textColor">@color/result_view</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:layout_weight">2</item>
+    </style>
+
+    <style name="btn_zhiyinshui">
+        <item name="android:layout_marginLeft">@dimen/dimen_8</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">#5CD6D0</item>
+        <item name="android:textSize">@dimen/text_size_16</item>
+    </style>
+
+    <style name="btn_input">
+        <item name="android:layout_marginLeft">@dimen/dimen_8</item>
+        <item name="android:layout_marginTop">@dimen/dimen_16</item>
+        <item name="android:layout_marginRight">@dimen/dimen_8</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/text_size_20</item>
+    </style>
+    <!--    人資監餐 主頁按鈕-->
+    <style name="btn_dz_main">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textSize">@dimen/text_size_22</item>
+        <item name="android:layout_margin">@dimen/dimen_30</item>
+        <item name="android:background">@color/color_74afdb</item>
+
+    </style>
+    <!--    人資監餐 選餐按鈕-->
+    <style name="btn_dz_check">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textSize">@dimen/text_size_22</item>
+        <item name="android:layout_margin">@dimen/dimen_30</item>
+        <item name="android:background">@color/color_7edbf4</item>
+    </style>
+    
+    <!--点击二维码放大的界面样式-->
+    <style name="Transparent" parent="AppTheme">
+        <item name="colorPrimaryDark">@color/blank</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+</resources>

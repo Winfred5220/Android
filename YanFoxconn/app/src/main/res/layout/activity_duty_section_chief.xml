@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical">
+    <!--標題-->
+    <include layout="@layout/common_title"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <com.example.administrator.yanfoxconn.widget.ClockView
+            android:layout_marginBottom="@dimen/dimen_40"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            app:secondPointerColor="#FF3333"/>
+
+        <LinearLayout
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_before"
+                android:layout_width="match_parent"
+                android:layout_height="38dp"
+                android:layout_weight="2"
+                android:background="@color/color_009adb"
+                android:text="前一天"
+                android:textColor="@color/color_f8f7f7"
+                android:textSize="14dp"/>
+
+            <TextView
+                android:id="@+id/tv_date"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="@dimen/dimen_2"
+                android:layout_marginRight="@dimen/dimen_2"
+                android:layout_weight="1"
+                android:background="@drawable/login"
+                android:gravity="center"
+                android:hint="選擇時間"
+                android:textSize="@dimen/text_size_16"/>
+
+            <Button
+                android:id="@+id/btn_after"
+                android:layout_width="match_parent"
+                android:layout_height="38dp"
+                android:layout_weight="2"
+                android:background="@color/color_009adb"
+                android:text="後一天"
+                android:textColor="@color/color_f8f7f7"
+                android:textSize="14dp"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_chief"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_40"
+            android:layout_margin="10dp"
+            android:background="#21bb1a"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textColor="@color/color_f8f7f7"
+            android:textSize="18dp"/>
+
+        <Button
+            android:id="@+id/btn_sure"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@color/color_f5a306"
+            android:text="確 定"
+            android:textColor="@color/color_f8f7f7"
+            android:textSize="18dp"/>
+
+    </LinearLayout>
+</LinearLayout>

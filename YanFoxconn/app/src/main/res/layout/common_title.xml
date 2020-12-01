@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?><!--公用标题-->
+
+<!--公有的title-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dimen_50"
+    android:background="@color/color_009adb">
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:maxLines="1"
+        android:textColor="@color/color_ffdedede"
+        android:textSize="@dimen/text_size_16" />
+
+    <!--返回-->
+    <Button
+        android:id="@+id/btn_title_left"
+        android:layout_width="@dimen/dimen_80"
+        android:layout_height="match_parent"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/dimen_8"
+        android:background="@android:color/transparent"
+        android:drawableLeft="@mipmap/icon_back"
+        android:text="返回"
+        android:textColor="@color/color_ffdedede"
+        android:textSize="@dimen/text_size_14" />
+
+    <!--左侧图标-->
+    <ImageButton
+        android:id="@+id/ib_title_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/dimen_16"
+        android:layout_margin="@dimen/dimen_5"
+        android:background="@android:color/transparent"
+        android:scaleType="centerInside"
+        android:src="@mipmap/ic_launcher"
+        android:visibility="gone" />
+
+    <!--右侧添加-->
+    <Button
+        android:id="@+id/btn_title_right"
+        android:layout_width="@dimen/dimen_80"
+        android:layout_height="@dimen/dimen_30"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/dimen_10"
+        android:layout_marginRight="@dimen/dimen_10"
+        android:background="@android:color/transparent"
+        android:textColor="@color/color_ffdedede"
+        android:textSize="@dimen/text_size_14"
+        android:visibility="gone" />
+
+    <!--右侧图标-->
+    <ImageButton
+
+        android:id="@+id/ib_title_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/dimen_10"
+        android:layout_marginRight="@dimen/dimen_16"
+        android:background="@android:color/transparent"
+        android:scaleType="centerInside"
+        android:visibility="gone" />
+
+</RelativeLayout>

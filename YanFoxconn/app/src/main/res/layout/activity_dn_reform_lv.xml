@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?><!--宿舍整改 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/common_title" />
+<!--<ScrollView-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="match_parent">-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <LinearLayout
+            android:id="@+id/ll_tr"
+            android:layout_margin="@dimen/dimen_8"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TableRow
+                    android:layout_height="@dimen/dimen_50"
+                    android:layout_width="match_parent">
+                    <TextView
+                        android:text="區域"
+                        android:textColor="@color/color_303030"
+                        android:textSize="@dimen/text_size_16"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"/>
+
+                    <Spinner
+                        android:id="@+id/sp_area"
+                        android:layout_weight="5"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content">
+                    </Spinner>
+
+                    <TextView
+                        android:text="樓棟"
+                        android:textColor="@color/color_303030"
+                        android:textSize="@dimen/text_size_16"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"/>
+
+                    <Spinner
+                        android:id="@+id/sp_building"
+                        android:layout_weight="5"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content">
+                    </Spinner>
+                </TableRow>
+                <TableRow
+                    android:layout_height="@dimen/dimen_50"
+                    android:layout_width="match_parent">
+
+                    <TextView
+                        android:text="樓層"
+                        android:textColor="@color/color_303030"
+                        android:textSize="@dimen/text_size_16"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"/>
+
+                    <Spinner
+                        android:id="@+id/sp_floor"
+                        android:layout_weight="3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content">
+                    </Spinner>
+
+                    <TextView
+                        android:text="房間"
+                        android:textColor="@color/color_303030"
+                        android:textSize="@dimen/text_size_16"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"/>
+
+                    <Spinner
+                        android:id="@+id/sp_room"
+                        android:layout_weight="3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content">
+                    </Spinner>
+                    <Button
+                        android:id="@+id/btn_check"
+                        android:textColor="@color/color_303030"
+                        android:textSize="@dimen/text_size_16"
+                        android:layout_width="0dp"
+                        android:layout_weight="2"
+                        android:layout_height="wrap_content"
+                        android:text="查詢"
+                        />
+                </TableRow>
+
+            </TableLayout>
+
+        </LinearLayout>
+        <com.example.administrator.yanfoxconn.widget.SwipeListViewOne
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/lv_dn_remark"/>
+    </LinearLayout>
+
+<!--</ScrollView>-->
+
+</LinearLayout>

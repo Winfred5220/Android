@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?><!--異常維護界面--><!--總務臨時工 異常上傳，不需要時間和地點兩個欄位-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!--標題-->
+    <include layout="@layout/common_title" />
+
+    <LinearLayout
+        android:id="@+id/ll_ex"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="@dimen/dimen_10">
+        <!--文字描述-->
+        <EditText
+            android:id="@+id/et_description"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:textSize="@dimen/text_size_18"
+            android:hint="請輸入異常描述"/>
+
+        <!--地點-->
+        <EditText
+            android:id="@+id/et_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:textSize="@dimen/text_size_16"
+            android:hint="請輸入地點"/>
+
+        <!--日期時間-->
+        <TextView
+            android:id="@+id/tv_time_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size_16"
+            android:hint="選擇時間"
+            android:layout_marginLeft="@dimen/dimen_3"/>
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <GridView
+            android:id="@+id/gv_photo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/dimen_10"
+            android:horizontalSpacing="@dimen/dimen_2"
+            android:numColumns="4"
+            android:scrollbars="none"
+            android:verticalSpacing="@dimen/dimen_2" />
+
+        <!--空白圖片佔位-->
+        <ImageView
+            android:id="@+id/iv_empty"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_marginLeft="14dp"
+            android:layout_marginTop="@dimen/dimen_10"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/icon_addpic_unfocused" />
+
+    </RelativeLayout>
+</LinearLayout>

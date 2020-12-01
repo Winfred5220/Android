@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="main_color">#c2344b</color>
+    <color name="result_view">#b0000000</color>
+    <color name="viewfinder_mask">#60000000</color>
+    <color name="possible_result_points">#c0ffff00</color>
+    <color name="white">#FFFFFF</color>
+    <color name="blank">#000000</color>
+    <color name="action_sheet_curr_point">#ff9fa1a4</color>
+
+    <color name="color_fee123">#fee138</color>
+    <color name="color_333333">#333333</color>
+    <color name="color_ff552e">#ff552e</color>
+    <color name="color_009adb">#009adb</color>
+    <color name="color_eeeeee">#eeeeee</color>
+    <color name="color_484848">#484848</color>
+    <color name="color_858585">#858585</color>
+    <color name="color_616161">#616161</color>
+    <color name="color_f8f7f7">#f8f7f7</color>
+    <color name="color_e8e8e8">#e8e8e8</color>
+    <color name="color_74afdb">#74afdb</color>
+    <color name="color_7edbf4">#7edbf4</color>
+    <color name="color_cccccc">#cccccc</color>
+    <color name="color_c3c3c3">#c3c3c3</color>
+    <color name="color_303030">#303030</color>
+    <color name="color_e84e4e">#e84e4e</color>
+    <color name="color_ffdedede">#ffdedede</color>
+    <color name="color_00CCFF">#00CCFF</color>
+    <color name="color_f5a306">#f5a306</color>
+    <color name="color_d73d19">#d73d19</color>
+    <color name="color_42D42B">#42D42B</color>
+
+</resources>

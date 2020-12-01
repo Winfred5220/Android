@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?><!--s實際巡檢人員維護界面-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!--標題-->
+    <include layout="@layout/common_title" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:scrollbars="none"
+        android:layout_margin="@dimen/dimen_10">
+
+        <LinearLayout
+            android:id="@+id/ll_actual"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <include layout="@layout/edt" />
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/btn_up_name"
+        android:layout_weight="0"
+        android:text="提交"
+        android:textSize="18sp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:textColor="@color/color_ffdedede"
+        android:background="@color/color_009adb"
+        android:layout_marginRight="@dimen/dimen_20"
+        android:layout_marginLeft="@dimen/dimen_20"
+        android:layout_marginBottom="@dimen/dimen_20"/>
+</LinearLayout>

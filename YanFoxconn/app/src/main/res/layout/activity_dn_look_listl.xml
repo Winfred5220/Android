@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--宿舍查驗 列表界面-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--標題-->
+    <include layout="@layout/common_title"/>
+
+    <!--時間選擇-->
+    <RelativeLayout
+        android:id="@+id/rl_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dimen_10"
+
+        >
+
+        <TextView
+            android:id="@+id/tv_start_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="開始日期:"
+            android:textSize="@dimen/text_size_16"
+            android:focusable="true"/>
+
+        <EditText
+            android:id="@+id/et_start"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/btn_check"
+            android:layout_toRightOf="@+id/tv_start_date"
+            android:background="@color/color_f5a306"
+            android:ems="10"
+            android:focusable="false"
+            android:clickable="true"
+            android:textColor="@color/result_view"/>
+
+        <TextView
+            android:id="@+id/tv_end_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size_16"
+            android:text="結束日期:"
+            android:layout_marginTop="@dimen/dimen_5"
+            android:layout_below="@+id/tv_start_date"/>
+        <EditText
+            android:id="@+id/et_end"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:layout_toLeftOf="@+id/btn_check"
+            android:background="@color/color_f5a306"
+            android:layout_below="@+id/tv_start_date"
+            android:layout_toRightOf="@+id/tv_start_date"
+
+            android:layout_marginTop="@dimen/dimen_5"
+            android:focusable="false"
+            android:clickable="true"
+            />
+        <Button
+            android:id="@+id/btn_check"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/color_74afdb"
+            android:text="查看"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"/>
+
+    </RelativeLayout>
+
+    <!--異常列表-->
+    <ListView
+        android:id="@+id/lv_look"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/dimen_5"/>
+
+</LinearLayout>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?><!--行車日誌 選擇日期-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <!--標題-->
+    <include layout="@layout/common_title" />
+
+    <!--昨日日誌維護-->
+    <Button
+        android:id="@+id/btn_yesterday"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/dimen_10"
+        android:layout_weight="1"
+        android:text="昨日" />
+
+    <!--存在退件-->
+    <Button
+        android:id="@+id/btn_return"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dimen_10"
+        android:layout_marginRight="@dimen/dimen_10"
+        android:layout_weight="0"
+        android:background="@color/color_ff552e"
+        android:text="存在退件請注意!"
+        android:textColor="@color/color_eeeeee" />
+    <!--今日日誌維護-->
+    <Button
+        android:id="@+id/btn_today"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/dimen_10"
+        android:layout_weight="1"
+        android:text="今日" />
+</LinearLayout>

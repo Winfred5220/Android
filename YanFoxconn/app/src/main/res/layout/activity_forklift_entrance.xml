@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+    <!--標題-->
+    <include layout="@layout/common_title"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_200"
+            android:layout_margin="@dimen/dimen_30"
+            android:src="@mipmap/bg_forklift"/>
+
+        <Button
+            android:id="@+id/btn_baoxiu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@color/color_e84e4e"
+            android:text="報 修"
+            android:textColor="@color/color_f8f7f7"
+            android:textSize="18dp"/>
+
+        <Button
+            android:id="@+id/btn_xunjian"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="#21bb1a"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="巡檢/保養"
+            android:textColor="@color/color_f8f7f7"
+            android:textSize="18dp"/>
+
+        <Button
+            android:id="@+id/btn_weixiu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@color/color_f5a306"
+            android:text="維 修"
+            android:textColor="@color/color_f8f7f7"
+            android:textSize="18dp"/>
+
+    </LinearLayout>
+</LinearLayout>

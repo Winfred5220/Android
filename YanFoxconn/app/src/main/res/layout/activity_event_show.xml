@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--展示活動二維碼-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--標題-->
+    <include layout="@layout/common_title"/>
+    <!--活動名稱-->
+    <TextView
+        android:id="@+id/tv_event_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_74afdb"
+        android:gravity="center"
+        android:hint="點擊輸入活動名稱"
+        android:paddingLeft="10dp"
+        android:textSize="16sp"
+        android:layout_marginLeft="@dimen/dimen_10"
+        android:layout_marginRight="@dimen/dimen_10"
+        android:layout_marginTop="@dimen/dimen_30"
+        android:padding="@dimen/dimen_10"/>
+
+    <!--二維碼圖片-->
+    <ImageView
+        android:id="@+id/iv_code"
+        android:layout_width="@dimen/dimen_280"
+        android:layout_height="@dimen/dimen_280"
+        android:scaleType="center"
+        android:layout_marginTop="@dimen/dimen_40"
+        android:layout_gravity="center|center_vertical"
+        android:background="@color/color_74afdb"/>
+</LinearLayout>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?><!--行車日誌 列表界面-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!--標題-->
+    <include layout="@layout/common_title" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!--列表-->
+        <ListView
+            android:id="@+id/lv_log"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/btn_login"
+            android:layout_marginLeft="@dimen/dimen_5"
+            android:layout_marginRight="@dimen/dimen_5"/>
+        <!--增加按鈕-->
+        <Button
+            android:id="@+id/btn_add"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/dimen_10"
+            android:layout_marginLeft="@dimen/dimen_20"
+            android:layout_marginRight="@dimen/dimen_20"
+            android:background="@color/color_009adb"
+            android:text="增加"
+            android:textColor="@color/color_ffdedede"
+            android:textSize="18sp" />
+
+    </RelativeLayout>
+</LinearLayout>

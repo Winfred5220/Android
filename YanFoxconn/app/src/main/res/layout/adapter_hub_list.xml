@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?><!--HUB倉領取物品適配器-->
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <CheckBox
+            android:id="@+id/ck_chose"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="12dp"
+            android:scaleX="0.8"
+            android:scaleY="0.8"/>
+        <TextView
+            android:id="@+id/tv_list_no"
+            android:layout_height="@dimen/dimen_40"
+            android:layout_width="@dimen/dimen_40"
+            android:layout_marginTop="@dimen/dimen_28"
+            android:layout_marginLeft="@dimen/dimen_4"
+            android:layout_toRightOf="@id/ck_chose"
+            android:textColor="@color/color_303030"
+            style="@style/crossTextName"
+            android:text="編號"
+            />
+
+        <LinearLayout
+            android:id="@+id/ll_goods"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="32dp"
+            android:layout_marginTop="15dp"
+            android:layout_toRightOf="@id/ck_chose"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/color_303030"
+                android:text="物品名稱"
+                android:textSize="16sp"
+                android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/tv_model"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:text="規格型號"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="12sp"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="剩餘"
+                    android:textColor="@color/color_303030"
+                    android:textSize="16sp"
+                    android:textStyle="bold"/>
+                <TextView
+                    android:id="@+id/tv_all_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="390"
+                    android:layout_marginLeft="@dimen/dimen_2"
+                    android:textColor="@color/color_ff552e"
+                    android:textSize="18sp"
+                    android:textStyle="bold"/>
+                <LinearLayout
+                    android:id="@+id/rl_edit"
+                    android:layout_width="120dp"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="30dp">
+
+                    <TextView
+                        android:id="@+id/tv_sub"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_margin="1dp"
+                        android:layout_weight="1"
+                        android:background="@color/white"
+                        android:gravity="center"
+                        android:text=" - "/>
+
+                    <EditText
+                        android:id="@+id/et_get_num"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_margin="1dp"
+                        android:layout_weight="1"
+                        android:inputType="number"
+                        android:background="@color/white"
+                        android:gravity="center"
+                        android:text="1"
+                        />
+
+                    <TextView
+                        android:id="@+id/tv_add"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_margin="1dp"
+                        android:layout_weight="1"
+                        android:background="@color/white"
+                        android:gravity="center"
+                        android:text=" + "/>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="#F5F5DC"
+                    android:layout_below="@id/ll_goods"
+                    android:layout_marginTop="5dp"
+                    />
+    </RelativeLayout>

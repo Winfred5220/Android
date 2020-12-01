@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--工業安全巡檢添加隱患界面-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <!--標題-->
+    <include layout="@layout/common_title"/>
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_margin="@dimen/dimen_8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/color_e84e4e"
+                android:text="隱患類型"
+                android:textSize="@dimen/text_size_16"/>
+            <Spinner
+                android:id="@+id/sp_type"
+                android:layout_marginLeft="@dimen/dimen_8"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_weight="1">
+            </Spinner>
+        </LinearLayout>
+
+        <TextView
+        android:textColor="@color/color_e84e4e"
+        android:text="隱患圖片"
+        android:textSize="@dimen/text_size_16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.example.administrator.yanfoxconn.widget.MyGridView
+                android:id="@+id/gv_photo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignLeft="@+id/iv_empty"
+                android:layout_alignTop="@+id/iv_empty"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:horizontalSpacing="@dimen/dimen_2"
+                android:numColumns="4"
+                android:scrollbars="none"
+                android:verticalSpacing="@dimen/dimen_2"/>
+            <!--空白圖片佔位-->
+            <ImageView
+                android:id="@+id/iv_empty"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_marginLeft="14dp"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/icon_addpic_unfocused"/>
+        </RelativeLayout>
+
+        <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_16"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/color_e84e4e"
+            android:text="隱患描述"
+            android:textSize="@dimen/text_size_16"/>
+
+        <EditText
+            android:id="@+id/et_describe"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:paddingLeft="@dimen/dimen_5"/>
+    </LinearLayout>
+
+    <TextView
+        android:text="隱患相關信息"
+        android:textColor="@color/color_e84e4e"
+        android:textSize="@dimen/text_size_16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <LinearLayout
+        android:layout_marginTop="@dimen/dimen_8"
+        android:layout_width="match_parent"
+        android:gravity="center_vertical"
+        android:layout_height="30dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="隱患地點"
+            android:textSize="@dimen/text_size_16"/>
+        <TextView
+            android:id="@+id/tv_address"
+            android:hint="隱患地點"
+            android:gravity="center"
+            android:layout_marginLeft="@dimen/dimen_4"
+            android:textSize="@dimen/text_size_18"
+            android:paddingLeft="@dimen/dimen_8"
+            android:paddingRight="@dimen/dimen_8"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"/>
+        <EditText
+            android:id="@+id/et_position"
+            android:layout_marginLeft="@dimen/dimen_4"
+            android:background="@drawable/login_input"
+            android:hint="方位"
+            android:paddingLeft="@dimen/dimen_8"
+            android:paddingRight="@dimen/dimen_8"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="@dimen/dimen_8"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="責任單位"
+            android:textSize="@dimen/text_size_16"/>
+
+        <TextView
+            android:id="@+id/tv_department"
+            android:paddingLeft="@dimen/dimen_8"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="@dimen/dimen_4"
+            android:text="責任單位"
+            android:textSize="@dimen/text_size_18"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="@dimen/dimen_8"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="責任主管"
+            android:textSize="@dimen/text_size_16"/>
+
+        <Spinner
+            android:id="@+id/sp_supervisor"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginLeft="@dimen/dimen_8"
+            android:layout_weight="1">
+        </Spinner>
+
+        <TextView
+            android:text="棟主"
+            android:textSize="@dimen/text_size_16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <Spinner
+            android:id="@+id/sp_owner"
+            android:layout_marginLeft="@dimen/dimen_8"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_weight="1">
+        </Spinner>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="@dimen/dimen_8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:text="陪查人"
+            android:textSize="@dimen/text_size_16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <EditText
+            android:id="@+id/et_person"
+            android:layout_marginLeft="@dimen/dimen_8"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+        <ImageView
+            android:id="@+id/iv_sign"
+            android:visibility="gone"
+            android:layout_marginTop="@dimen/dimen_16"
+            android:layout_width="100dp"
+            android:layout_height="150dp"/>
+        <Button
+            android:id="@+id/btn_sign"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimen_8"
+            android:layout_marginRight="@dimen/dimen_8"
+            android:layout_marginTop="@dimen/dimen_14"
+            android:layout_marginBottom="@dimen/dimen_30"
+            android:background="@color/color_e84e4e"
+            android:text="現場確認人簽字"
+            android:textColor="@color/color_eeeeee"
+            android:textSize="@dimen/text_size_18"/>
+
+</LinearLayout>
+</ScrollView>
+</LinearLayout>

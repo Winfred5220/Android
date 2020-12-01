@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.ZhiyinshuiMaintainListActivity">
+    <!--標題-->
+    <include layout="@layout/common_title"/>
+    <TextView
+        android:layout_margin="@dimen/dimen_8"
+        android:textSize="@dimen/text_size_16"
+        android:textColor="@color/color_e84e4e"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="以下設備有配件將要到期，需更換"/>
+    <ListView
+        android:id="@+id/lv_option"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</LinearLayout>

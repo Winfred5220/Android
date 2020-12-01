@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--行車日誌列表 的 item-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<TextView
+    android:id="@+id/tv_start"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="起點"/>
+    <TextView
+        android:id="@+id/tv_mid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="途徑"/>
+    <TextView
+        android:id="@+id/tv_end"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="終點"/>
+</LinearLayout>

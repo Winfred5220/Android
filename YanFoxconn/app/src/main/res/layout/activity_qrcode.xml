@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?><!--二維碼掃描界面-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:orientation="vertical">
+
+<!--二維碼掃描框-->
+<RelativeLayout
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+
+    <SurfaceView
+        android:id="@+id/preview_view"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_gravity="center" />
+
+    <com.example.administrator.yanfoxconn.zxing.view.ViewfinderView
+        android:id="@+id/viewfinder_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <!--標題-->
+    <include layout="@layout/common_title"
+        />
+    <Button
+        android:id="@+id/btn_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15dp"
+        android:textColor="#ffffff"
+        android:padding="5dp"
+        android:drawableTop="@mipmap/icon_chayan"
+        android:background="#00ffffff"
+        android:drawablePadding="10dp"
+        android:text="點檢進度"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="@dimen/dimen_40"
+        android:visibility="gone"/>
+</RelativeLayout>
+
+</LinearLayout>

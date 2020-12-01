@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?><!--叉車報修界面-->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <!--標題-->
+    <include layout="@layout/common_title" />
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TableRow style="@style/tableRow">
+
+            <TextView
+                style="@style/forkliftTextName"
+                android:text="小時數："/>
+
+            <EditText
+                android:id="@+id/et_hours"
+                style="@style/mobile_message"
+                android:layout_weight="1"
+                android:background="@drawable/login_input"
+                android:hint="請輸入數字"
+                android:inputType="number"/>
+        </TableRow>
+
+        <TableRow style="@style/tableRow">
+
+            <TextView
+                style="@style/forkliftTextName"
+                android:text="位置："/>
+
+            <EditText
+                android:id="@+id/et_position"
+                style="@style/mobile_message"
+                android:layout_weight="1"
+                android:background="@drawable/login_input"/>
+        </TableRow>
+
+        <TableRow style="@style/tableRow">
+
+            <TextView
+                style="@style/forkliftTextName"
+                android:text="是否影響使用："/>
+
+            <RadioGroup
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/rb_true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="是"/>
+
+                <RadioButton
+                    android:id="@+id/rb_false"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="否"/>
+            </RadioGroup>
+        </TableRow>
+
+        <TableRow style="@style/tableRow">
+
+            <TextView
+                style="@style/forkliftTextName"
+                android:text="報修人："/>
+
+            <!--報修人-->
+            <EditText
+                android:id="@+id/tv_repair_person"
+                style="@style/mobile_message"
+                android:layout_weight="1"
+                android:background="@drawable/login_input"/>
+        </TableRow>
+
+        <TableRow style="@style/tableRow">
+
+            <TextView
+                style="@style/forkliftTextName"
+                android:text="聯繫方式："/>
+
+            <!--聯繫方式-->
+            <EditText
+                android:id="@+id/tv_contact"
+                style="@style/mobile_message"
+                android:layout_weight="1"
+                android:background="@drawable/login_input"/>
+        </TableRow>
+
+        <TableRow style="@style/tableRow">
+
+            <TextView
+                style="@style/forkliftTextName"
+                android:text="期望完成時間："/>
+
+            <!--期望完成時間-->
+            <TextView
+                android:id="@+id/tv_wish_date"
+                style="@style/mobile_message"
+                android:layout_weight="1"
+                android:background="@drawable/login_input"
+                android:hint="選擇時間"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_2"
+            android:paddingLeft="@dimen/dimen_10">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_30"
+                android:layout_gravity="left"
+                android:text="故障問題："
+                android:textSize="@dimen/text_size_14"/>
+
+            <EditText
+                android:id="@+id/et_question"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_100"
+                android:layout_weight="1"
+                android:background="@drawable/login_input"
+                android:gravity="left"
+                android:paddingLeft="@dimen/dimen_5"/>
+        </TableRow>
+
+    </TableLayout>
+
+    <RelativeLayout
+        android:layout_marginTop="@dimen/dimen_10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.example.administrator.yanfoxconn.widget.MyGridView
+            android:id="@+id/gv_photo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignLeft="@+id/iv_empty"
+            android:layout_alignTop="@+id/iv_empty"
+            android:horizontalSpacing="@dimen/dimen_2"
+            android:numColumns="4"
+            android:scrollbars="none"
+            android:verticalSpacing="@dimen/dimen_2"/>
+        <!--空白圖片佔位-->
+        <ImageView
+            android:id="@+id/iv_empty"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_marginLeft="14dp"
+            android:layout_marginTop="@dimen/dimen_10"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/icon_addpic_unfocused"/>
+    </RelativeLayout>
+</LinearLayout>

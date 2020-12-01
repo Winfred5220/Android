@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?><!--廢料出廠输入頁面-->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <!--標題-->
+    <include layout="@layout/common_title" />
+    <!--輸入工號-->
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_180">
+        <EditText
+            android:id="@+id/et_code"
+            style="@style/input_box"
+
+            android:hint="過磅單號後7位"
+            android:inputType="text"
+            android:maxLength="7"
+            android:paddingLeft="@dimen/dimen_5"/>
+    </RelativeLayout>
+
+    <!--提交按钮-->
+    <Button
+        android:layout_marginTop="@dimen/dimen_20"
+        android:id="@+id/btn_up"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/color_009adb"
+        android:text="提   交"
+        android:textSize="18dp"
+        android:textColor="#FFFFFF"
+        android:layout_marginRight="@dimen/dimen_15"
+        android:layout_marginLeft="@dimen/dimen_15"/>
+</LinearLayout>

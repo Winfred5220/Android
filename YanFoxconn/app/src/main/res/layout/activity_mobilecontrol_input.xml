@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?><!--移動上網設備管制输入厂牌頁面-->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <!--標題-->
+    <include layout="@layout/common_title" />
+    <!--輸入工號-->
+    <RelativeLayout
+        android:layout_marginTop="@dimen/dimen_150"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <EditText
+            android:id="@+id/et_code"
+            style="@style/input_box"
+            android:paddingLeft="@dimen/dimen_5"
+            android:hint="輸入工號"
+            android:inputType="text"
+            android:maxLength="11"/>
+
+        <!--扫描按钮-->
+        <ImageButton
+            android:id="@+id/btn_scan_brand"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:background="@color/color_74afdb"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="@dimen/dimen_25"
+            android:src="@mipmap/asy"
+            android:scaleType="fitCenter"/>
+    </RelativeLayout>
+    <!--掃一掃按钮-->
+    <Button
+        android:id="@+id/btn_scan"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/color_009adb"
+        android:text="掃  一  掃"
+        android:textSize="16dp"
+        android:textColor="@color/color_ffdedede"
+        android:layout_marginTop="@dimen/dimen_80"
+        android:layout_marginRight="@dimen/dimen_15"
+        android:layout_marginLeft="@dimen/dimen_15"/>
+    <!--提交按钮-->
+    <Button
+        android:layout_marginTop="@dimen/dimen_20"
+        android:id="@+id/btn_up"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/color_009adb"
+        android:text="提   交"
+        android:textSize="16dp"
+        android:textColor="@color/color_ffdedede"
+        android:layout_marginRight="@dimen/dimen_15"
+        android:layout_marginLeft="@dimen/dimen_15"/>
+</LinearLayout>

@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?><!--三防隱患通報-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <!--標題-->
+    <include layout="@layout/common_title" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <!--時間-->
+                <TableRow style="@style/tableRow">
+
+                    <TextView
+                        style="@style/forkliftTextName"
+                        android:text="稽核日期" />
+
+                    <TextView
+                        android:id="@+id/tv_date"
+                        style="@style/mobile_message"
+                        android:layout_weight="1"
+                        android:background="@drawable/login_input"
+                        android:hint="選擇時間" />
+                </TableRow>
+                <!--責任單位-->
+                <TableRow style="@style/tableRow">
+
+                    <TextView
+                        style="@style/carTextName"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:text="責任單位" />
+
+                    <EditText
+                        android:id="@+id/et_gate_post"
+                        style="@style/carEditTextBKG"
+                        android:layout_weight="1" />
+                </TableRow>
+                <!--責任單位-->
+                <TableRow
+                    android:id="@+id/tr_list_gate"
+                    style="@style/tableRow"
+                    android:visibility="gone">
+
+                    <TextView style="@style/carTextName" />
+
+                    <com.example.administrator.yanfoxconn.widget.MyListView
+                        android:id="@+id/lv_gate"
+                        style="@style/carTextBKG"
+                        android:layout_weight="1" />
+                </TableRow>
+                <!--區域-->
+                <TableRow style="@style/tableRow">
+
+                    <TextView
+
+                        android:id="@+id/textView4"
+                        style="@style/carTextName"
+                        android:text="區域" />
+
+                    <Spinner
+                        android:id="@+id/sp_area"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                </TableRow>
+                <!--樓棟-->
+                <TableRow style="@style/tableRow">
+
+                    <TextView
+                        style="@style/carTextName"
+                        android:text="樓棟" />
+
+                    <EditText
+                        android:id="@+id/et_zong"
+                        android:background="@drawable/login_input"
+                        style="@style/carEditTextBKG"
+                        android:layout_weight="1"
+                         />
+
+                </TableRow>
+                <!--隱患類別-->
+                <TableRow style="@style/tableRow">
+
+                    <TextView
+                        style="@style/carTextName"
+                        android:text="隱患類別" />
+
+                    <Spinner
+                        android:id="@+id/sp_type"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                </TableRow>
+                <!--稽核課隊-->
+                <TableRow style="@style/tableRow">
+
+                    <TextView
+                        style="@style/carTextName"
+                        android:text="稽核課隊" />
+
+                    <Spinner
+                        android:id="@+id/sp_team"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                </TableRow>
+
+                <!--隱患描述-->
+                <TableRow
+                    android:id="@+id/tr_wrong"
+                    style="@style/tableRow">
+
+                    <TextView
+                        style="@style/carTextName"
+                        android:layout_gravity="left"
+                        android:text="隱患描述" />
+
+                    <EditText
+                        android:id="@+id/et_wrong"
+                        style="@style/carEditTextBKG"
+                        android:background="@drawable/login_input"
+                        android:gravity="left"
+                        android:layout_height="@dimen/dimen_60"
+                        android:layout_weight="1"
+                        android:maxLength="25" />
+                </TableRow>
+            </TableLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <GridView
+                    android:id="@+id/gv_photo"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/dimen_10"
+                    android:horizontalSpacing="@dimen/dimen_2"
+                    android:numColumns="4"
+                    android:scrollbars="none"
+                    android:verticalSpacing="@dimen/dimen_2" />
+
+                <!--空白圖片佔位-->
+                <ImageView
+                    android:id="@+id/iv_empty"
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    android:layout_marginLeft="14dp"
+                    android:layout_marginTop="@dimen/dimen_10"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/icon_addpic_unfocused" />
+
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?><!--路線列表界面-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!--標題-->
+    <include layout="@layout/common_title"/>
+    <com.example.administrator.yanfoxconn.widget.MyScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <!--路線列表-->
+            <com.example.administrator.yanfoxconn.widget.SwipeListView
+                android:id="@+id/lv_route_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+    </com.example.administrator.yanfoxconn.widget.MyScrollView>
+</LinearLayout>

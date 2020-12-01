@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--員工進出異常登記表-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <!--標題-->
+    <include layout="@layout/common_title"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <!--工號-->
+            <TableRow style="@style/tableRow">
+
+                <TextView
+                    style="@style/carTextName"
+                    android:text="工號：" />
+
+                <TextView
+                    android:id="@+id/tv_id"
+                    style="@style/carTextBKG"
+                    android:layout_weight="1" />
+            </TableRow>
+            <!--姓名-->
+            <TableRow style="@style/tableRow">
+
+                <TextView
+                    style="@style/carTextName"
+                    android:text="姓名：" />
+
+                <TextView
+                    android:id="@+id/tv_name"
+                    style="@style/carTextBKG"
+                    android:layout_weight="1" />
+            </TableRow>
+            <!--身份證-->
+            <TableRow style="@style/tableRow">
+
+                <TextView
+                    style="@style/carTextName"
+                    android:text="身份證：" />
+
+                <TextView
+                    android:id="@+id/tv_identity"
+                    style="@style/carTextBKG"
+                    android:layout_weight="1" />
+            </TableRow>
+            <!--產品處-->
+            <TableRow style="@style/tableRow">
+
+                <TextView
+                    style="@style/carTextName"
+                    android:text="產品處：" />
+
+                <TextView
+                    android:id="@+id/tv_pro"
+                    style="@style/carTextBKG"
+                    android:layout_weight="1" />
+            </TableRow>
+            <!--部門-->
+            <TableRow style="@style/tableRow">
+
+                <TextView
+                    style="@style/carTextName"
+                    android:text="部門：" />
+
+                <TextView
+                    android:id="@+id/tv_dep"
+                    style="@style/carTextBKG"
+                    android:layout_weight="1" />
+            </TableRow>
+            <!--在職狀態-->
+            <TableRow style="@style/tableRow">
+
+                <TextView
+                    style="@style/carTextName"
+                    android:text="在職狀態：" />
+
+                <TextView
+                    android:id="@+id/tv_iswork"
+                    style="@style/carTextBKG"
+                    android:layout_weight="1" />
+            </TableRow>
+            <!--進/出-->
+            <TableRow style="@style/tableRow">
+
+                <TextView
+                    style="@style/carTextName"
+                    android:text="進/出：" />
+
+                <RadioGroup
+                    android:id="@+id/rg_in_out"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/rb_in_y"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:checked="true"
+                        android:text="進"/>
+
+                    <RadioButton
+                        android:id="@+id/rb_out_n"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="出"/>
+                </RadioGroup>
+            </TableRow>
+
+
+            <!--廠牌查扣-->
+            <TableRow
+                style="@style/tableRow"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    style="@style/carTextName"
+                    android:text="廠牌查扣：" />
+
+                <RadioGroup
+                    android:id="@+id/rg_brand_check"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/rb_check_y"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="是"/>
+
+                    <RadioButton
+                        android:id="@+id/rb_check_n"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="否"/>
+                </RadioGroup>
+
+            </TableRow>
+            <!--查扣原因-->
+            <TableRow style="@style/tableRow">
+
+                <TextView
+                    style="@style/carTextName"
+                    android:text="查扣原因：" />
+
+                <RadioGroup
+                    android:id="@+id/rg_check_why"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/rb_self"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="自離"/>
+
+                    <RadioButton
+                        android:id="@+id/rb_out"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="離職"/>
+                </RadioGroup>
+
+            </TableRow>
+            <!--稽核門崗-->
+            <TableRow style="@style/tableRow">
+
+                <TextView
+                    style="@style/carTextName"
+                    android:text="稽核門崗："
+                    android:focusable="true"
+                    android:focusableInTouchMode="true" />
+
+                <EditText
+                    android:id="@+id/et_gate_post"
+                    style="@style/carEditTextBKG"
+                    android:layout_weight="1" />
+            </TableRow>
+            <!--稽核時間-->
+            <TableRow style="@style/tableRow">
+                <TextView
+                    style="@style/carTextName"
+                    android:text="稽核時間："
+                    android:focusable="true"
+                    android:focusableInTouchMode="true" />
+
+                <!--稽核時間-->
+                <TextView
+                    android:id="@+id/tv_gate_date"
+                    style="@style/mobile_message"
+                    android:layout_weight="1"
+                    android:background="@drawable/login_input"
+                    android:hint="選擇時間"/>
+            </TableRow>
+            <!--稽核門崗列表-->
+            <TableRow style="@style/tableRow"
+                android:id="@+id/tr_list_gate"
+                android:visibility="gone">
+
+                <TextView
+                    style="@style/carTextName"
+                    />
+
+                <com.example.administrator.yanfoxconn.widget.MyListView
+                    android:id="@+id/lv_gate"
+                    style="@style/carTextBKG"
+                    android:layout_weight="1" />
+            </TableRow>
+            <!--稽核課隊-->
+            <TableRow style="@style/tableRow">
+
+                <TextView
+                    style="@style/carTextName"
+                    android:text="稽核課隊：" />
+
+                <Spinner
+                    android:id="@+id/sp_team"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+            </TableRow>
+            <!--異常描述-->
+            <TableRow style="@style/tableRow">
+
+                <TextView
+                    style="@style/carTextName"
+                    android:text="異常描述：" />
+
+                <Spinner
+                    android:id="@+id/sp_wrong"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+            </TableRow>
+            <!--異常其他描述-->
+            <TableRow
+                android:id="@+id/tr_other"
+                style="@style/tableRow"
+                android:visibility="gone">
+
+                <TextView
+                    style="@style/carTextName"/>
+
+                <EditText
+                    android:id="@+id/et_other"
+                    style="@style/carEditTextBKG"
+                    android:maxLength="25"
+                android:layout_height="@dimen/dimen_60"
+                    android:layout_weight="1"/>
+
+            </TableRow>
+        </TableLayout>
+    </ScrollView>
+</LinearLayout>

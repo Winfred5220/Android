@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--人資監餐 主界面-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<!--    標題-->
+    <include layout="@layout/common_title"/>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:id="@+id/ll_dz_check"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+        <Button
+            android:id="@+id/btn_breakfast"
+           style="@style/btn_dz_main"
+            android:text="早餐"/>
+        <Button
+            android:id="@+id/btn_lunch"
+            style="@style/btn_dz_main"
+            android:text="午餐" />
+        <Button
+            android:id="@+id/btn_dinner"
+            style="@style/btn_dz_main"
+            android:text="晚餐" />
+        <Button
+            android:id="@+id/btn_supper"
+            style="@style/btn_dz_main"
+            android:text="宵夜"/>
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="vertical"
+        android:id="@+id/ll_dz_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+        <Button
+            android:id="@+id/btn_start"
+            style="@style/btn_dz_check"
+            android:text="監餐開始簽到"/>
+        <Button
+            android:id="@+id/btn_up_food"
+            style="@style/btn_dz_check"
+            android:text="菜品信息上傳"/>
+        <Button
+            android:id="@+id/btn_up_abnormal"
+            style="@style/btn_dz_check"
+            android:text="異常問題上傳"/>
+        <Button
+            android:id="@+id/btn_end"
+            style="@style/btn_dz_check"
+            android:text="監餐結束簽退"/>
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="vertical"
+        android:id="@+id/ll_ga_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+        <Button
+            android:id="@+id/btn_sign_start"
+            style="@style/btn_dz_check"
+            android:text="上班開始簽到"/>
+        <Button
+            android:id="@+id/btn_up_ab"
+            style="@style/btn_dz_check"
+            android:text="異常問題上傳"/>
+
+        <Button
+            android:id="@+id/btn_ab_done"
+            style="@style/btn_dz_check"
+            android:text="異常查看整改"/>
+        <Button
+            android:id="@+id/btn_sign_end"
+            style="@style/btn_dz_check"
+            android:text="上班結束簽退"/>
+    </LinearLayout>
+</LinearLayout>

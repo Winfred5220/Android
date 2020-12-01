@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?> <!--員工違規登記表頁面-->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <!--標題-->
+    <include layout="@layout/common_title" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dimen_4"
+            android:orientation="vertical">
+            <!--300掃描提示顯示-->
+            <TextView
+                android:id="@+id/tv_show"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_30"
+                android:layout_marginTop="@dimen/dimen_2"
+                android:background="@color/possible_result_points"
+                android:gravity="center_vertical"
+                android:textSize="@dimen/text_size_16"
+                android:visibility="gone" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_2"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/carTextName"
+                    android:text="工號：" />
+
+                <TextView
+                    android:id="@+id/tv_packing_no"
+                    style="@style/carTextBKG" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_2"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/carTextName"
+                    android:text="姓名：" />
+
+                <TextView
+                    android:id="@+id/tv_flow_to"
+                    style="@style/carTextBKG"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_2"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/carTextName"
+                    android:text="產品處：" />
+
+                <TextView
+                    android:id="@+id/tv_start_name"
+                    style="@style/carTextBKG"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_2"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/carTextName"
+                    android:text="部門：" />
+
+                <TextView
+                    android:id="@+id/tv_end_name"
+                    style="@style/carTextBKG"
+                    android:layout_weight="1" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_2"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/carTextName"
+                    android:text="稽核門崗：" />
+
+                <EditText
+                    android:id="@+id/audit_gateway"
+                    style="@style/carTextBKG"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_2"
+                android:orientation="horizontal">
+                <TextView
+                    style="@style/carTextName"
+                    android:text="稽核課隊:" />
+
+                <Spinner
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/spinner"
+                    android:layout_weight="1"
+                    />
+             </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_2"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/carTextName"
+                    android:text="紀律描述：" />
+
+                <EditText
+                    android:id="@+id/discipline_description"
+                    style="@style/carTextBKG"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_ok"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="@dimen/dimen_20"
+                android:layout_marginRight="@dimen/dimen_20"
+                android:layout_marginTop="15dp"
+                android:background="@color/color_009adb"
+                android:text="提 交"
+                android:textColor="@color/color_ffdedede"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+    </ScrollView>
+</LinearLayout>

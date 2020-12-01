@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--碼頭放行 車輛列表 item -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/ll_route_item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/ll"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_30"
+                android:orientation="horizontal">
+                <!--車牌號-->
+                <TextView
+                    android:id="@+id/tv_car_id"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_30"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@+id/tv_count"
+                    android:layout_toRightOf="@+id/iv_round"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:gravity="center_vertical"
+                    android:maxLines="1"
+                    android:paddingLeft="@dimen/dimen_20"
+                    android:text="dffgf"
+                    android:textSize="@dimen/text_size_18" />
+                <!--碼頭-->
+                <TextView
+                    android:id="@+id/tv_dock"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_30"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/dimen_10"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="dffg"
+                    android:textSize="@dimen/text_size_18" />
+            </LinearLayout>
+
+
+
+            <TextView
+                android:id="@+id/tv_state"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dimen_30"
+                android:textSize="@dimen/text_size_18"
+                android:paddingLeft="@dimen/dimen_20"
+                android:layout_below="@+id/ll"
+                />
+            <TextView
+                android:id="@+id/tv_container"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_size_18"
+                android:paddingLeft="@dimen/dimen_20"
+                android:layout_toRightOf="@+id/tv_state"
+                android:ellipsize="none"
+                android:layout_below="@+id/ll"/>
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_size_18"
+                android:paddingLeft="@dimen/dimen_20"
+                android:text="dddddddddd"
+                android:layout_toRightOf="@+id/tv_container"
+                android:ellipsize="none"
+                android:layout_below="@+id/ll"
+                android:visibility="gone"
+                android:layout_alignParentRight="true"/>
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_1"
+            android:background="@color/color_858585" />
+    </LinearLayout>
+    <!--放行-->
+    <TextView
+        android:id="@+id/tv_let_go"
+        android:layout_width="80dp"
+        android:layout_height="match_parent"
+        android:background="#FFFF0000"
+        android:gravity="center"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:text="放行"
+        android:textColor="@android:color/white" />
+    <!--分割線-->
+    <View
+        android:layout_width="@dimen/dimen_1"
+        android:layout_height="match_parent"
+        android:background="@color/result_view" />
+    <!--上傳-->
+    <TextView
+        android:id="@+id/tv_up_photo"
+        android:layout_width="80dp"
+        android:layout_height="match_parent"
+        android:background="#FFFF0000"
+        android:gravity="center"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:text="上傳"
+        android:textColor="@android:color/white" />
+</LinearLayout>

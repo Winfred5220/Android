@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?><!--巡檢類型選擇 界面-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+    <include layout="@layout/common_title" />
+
+    <GridView
+        android:id="@+id/gv_types"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/dimen_10"
+        android:numColumns="3"/>
+</LinearLayout>

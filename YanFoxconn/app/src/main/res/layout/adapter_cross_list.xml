@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:layout_marginTop="@dimen/dimen_2">
+
+        <TextView
+            android:id="@+id/tv_list_no"
+            style="@style/crossTextName"
+            android:text="編號"
+            android:layout_weight="2"/>
+
+        <TextView
+            android:id="@+id/tv_list_name"
+            style="@style/crossTextName"
+            android:text="品名"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:id="@+id/tv_list_num"
+            style="@style/crossTextName"
+            android:singleLine="false"
+            android:text="數量"
+            android:layout_weight="2"
+            />
+
+        <TextView
+            android:id="@+id/tv_list_type"
+            style="@style/crossTextName"
+            android:text="單位"
+            android:layout_weight="2"/>
+
+
+</LinearLayout>

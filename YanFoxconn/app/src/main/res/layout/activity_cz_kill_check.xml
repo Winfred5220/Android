@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?><!--消殺點檢 查驗與維護界面-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <!--    標題-->
+    <include layout="@layout/common_title" />
+
+    <!--異常列表-->
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dimen_4"
+        android:layout_weight="0">
+        <!--                單號-->
+        <TableRow style="@style/tableRow">
+
+            <TextView
+                style="@style/carTextName"
+                android:text="單號" />
+
+            <TextView
+                android:id="@+id/tv_sq"
+                style="@style/carTextBKG"
+                android:layout_weight="1" />
+
+        </TableRow>
+        <!--                司機-->
+        <TableRow style="@style/tableRow">
+
+            <TextView
+                style="@style/carTextName"
+                android:text="司機" />
+
+            <TextView
+                android:id="@+id/tv_driver"
+                style="@style/carTextBKG"
+                android:layout_weight="1" />
+
+        </TableRow>
+        <!--車牌號-->
+        <TableRow style="@style/tableRow">
+
+            <TextView
+                style="@style/carTextName"
+                android:text="車牌號" />
+
+            <TextView
+                android:id="@+id/tv_car_num"
+                style="@style/carTextBKG"
+                android:layout_weight="1" />
+
+        </TableRow>
+        <!--                身份證-->
+        <TableRow style="@style/tableRow">
+
+            <TextView
+                style="@style/carTextName"
+                android:text="身份證" />
+
+            <TextView
+                android:id="@+id/tv_card_id"
+                style="@style/carTextBKG"
+                android:layout_weight="1" />
+
+        </TableRow>
+        <!--                区域-->
+        <TableRow style="@style/tableRow"
+            android:visibility="gone">
+
+            <TextView
+                style="@style/carTextName"
+                android:text="区域" />
+
+            <TextView
+                android:id="@+id/tv_area"
+                style="@style/carTextBKG"
+                android:layout_weight="1" />
+
+        </TableRow>
+    </TableLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <ListView
+                android:id="@+id/lv_abnormal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/action_sheet_curr_point" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <!--圖片列表-->
+                <ListView
+                    android:id="@+id/lv_picture"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/tv_description"
+                    android:visibility="gone" />
+
+                <LinearLayout
+                    android:id="@+id/ll_get_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_description"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                </LinearLayout>
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

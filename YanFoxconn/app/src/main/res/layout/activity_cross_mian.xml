@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--安保部 常用表單-->
+<!--掃描廠牌輸入工號-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/bg_3">
+    <!--標題-->
+    <include layout="@layout/common_title" />
+    <LinearLayout
+        android:gravity="bottom|center"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <!--掃描進入-->
+        <!--員工違規登記表-->
+        <Button
+            android:id="@+id/btn_scan"
+            android:background="@drawable/button_selector"
+            style="@style/btn_input"
+            android:text="掃描進入" />
+
+        <!--手動錄入-->
+        <!--員工進出異常登記表-->
+        <Button
+            android:id="@+id/btn_write"
+            android:background="@drawable/button_selector"
+            style="@style/btn_input"
+            android:text="手動錄入" />
+
+        <!--文字識別-->
+        <!--二輪車違規登記表-->
+        <Button
+            android:id="@+id/btn_ocr"
+            android:background="@drawable/button_selector"
+            android:layout_marginBottom="@dimen/dimen_150"
+            style="@style/btn_input"
+            android:text="文字識別" />
+    </LinearLayout>
+</LinearLayout>

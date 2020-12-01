@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@mipmap/bg_1"
+    android:id="@+id/ll_bg"
+    tools:context=".activity.ZhiyinshuiMenuActivity">
+
+    <include layout="@layout/common_title"/>
+
+    <LinearLayout
+        android:gravity="bottom"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/tv_name"
+            android:text="電源供應器"
+            android:textStyle="bold"
+            android:background="#5CD6D0"
+            android:layout_marginBottom="@dimen/dimen_280"
+            android:padding="@dimen/dimen_4"
+            android:textColor="@color/color_303030"
+            android:textSize="@dimen/text_size_28"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    <LinearLayout
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/btn_xunjian"
+            android:background="@drawable/button_selector"
+            style="@style/btn_zhiyinshui"
+            android:text="點  檢" />
+
+        <Button
+            android:id="@+id/btn_weibao"
+            android:background="@drawable/button_selector"
+            style="@style/btn_zhiyinshui"
+            android:text="維  保" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginBottom="@dimen/dimen_100"
+        android:layout_marginTop="@dimen/dimen_8"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/btn_view"
+            android:background="@drawable/button_selector"
+            style="@style/btn_zhiyinshui"
+            android:text="點檢進度" />
+
+        <Button
+            android:id="@+id/btn_weibao_view"
+            android:background="@drawable/button_selector"
+            style="@style/btn_zhiyinshui"
+            android:text="維保查詢" />
+
+        <Button
+            android:id="@+id/btn_exce"
+            android:background="@drawable/button_selector"
+            style="@style/btn_zhiyinshui"
+            android:text="異常查看" />
+    </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

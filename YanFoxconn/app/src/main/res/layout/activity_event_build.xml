@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--人資 活動生成 界面-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--titile-->
+    <include layout="@layout/common_title"/>
+
+    <!--活動名稱輸入-->
+    <EditText
+        android:id="@+id/name_event"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_74afdb"
+        android:gravity="center"
+        android:focusable="true"
+        android:hint="點擊輸入活動名稱"
+        android:inputType="text"
+        android:paddingLeft="10dp"
+        android:textColor="@color/color_ffdedede"
+        android:textColorHint="@color/color_ffdedede"
+        android:textSize="16sp"
+        android:layout_marginLeft="@dimen/dimen_10"
+        android:layout_marginRight="@dimen/dimen_10"
+        android:layout_marginTop="@dimen/dimen_130"
+        android:padding="@dimen/dimen_10"
+        android:maxLength="20"
+        />
+
+    <!--生成按鈕-->
+    <Button
+        android:id="@+id/btn_create"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="15dp"
+        android:background="@color/color_009adb"
+        android:text="生成"
+        android:textSize="18sp"
+        android:textColor="@color/color_ffdedede"
+        android:layout_marginRight="@dimen/dimen_20"
+        android:layout_marginLeft="@dimen/dimen_20"
+        />
+
+
+</LinearLayout>

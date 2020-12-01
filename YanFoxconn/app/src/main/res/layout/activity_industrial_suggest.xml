@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--工業安全巡檢添加巡查人陪查人界面-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical" android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <!--標題-->
+    <include layout="@layout/common_title"/>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:background="@drawable/indus_person"
+        android:layout_margin="@dimen/dimen_8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_40"
+            android:layout_gravity="center"
+            android:gravity="center">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_40"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="@drawable/indus_form"
+                android:textColor="@color/color_303030"
+                android:text="優點"
+                android:textSize="@dimen/text_size_18"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_40"
+                android:layout_weight="1"
+                android:background="@drawable/indus_form"
+                android:gravity="center"
+                android:textSize="@dimen/text_size_18"
+                android:textColor="@color/color_303030"
+                android:text="缺點"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_60"
+            android:layout_gravity="center"
+            android:gravity="center">
+
+            <EditText
+                android:id="@+id/et_advantage"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_60"
+                android:layout_weight="1"
+                android:background="@drawable/indus_form"
+                android:paddingLeft="@dimen/dimen_4"/>
+
+            <EditText
+                android:id="@+id/et_shortcoming"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_60"
+                android:layout_weight="1"
+                android:background="@drawable/indus_form"
+                android:paddingLeft="@dimen/dimen_4"/>
+        </LinearLayout>
+
+    </LinearLayout>
+    <TableLayout
+        android:background="@drawable/indus_person"
+        android:layout_margin="@dimen/dimen_8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <TableRow>
+        <EditText
+            android:id="@+id/editText"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_40"
+            android:layout_weight="1"
+            android:background="@drawable/indus_form"
+            android:gravity="center"
+            android:text="建議事項"
+            android:textColor="@color/color_303030"
+            android:textSize="@dimen/text_size_18"/>
+    </TableRow>
+    <TableRow>
+        <EditText
+            android:id="@+id/et_suggest"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_60"
+            android:layout_weight="1"
+            android:background="@drawable/indus_form"
+            android:paddingLeft="@dimen/dimen_4"/>
+
+    </TableRow>
+    </TableLayout>
+    <Button
+        android:id="@+id/btn_up"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dimen_8"
+        android:layout_marginRight="@dimen/dimen_8"
+        android:layout_marginTop="@dimen/dimen_14"
+        android:layout_marginBottom="@dimen/dimen_30"
+        android:background="@color/color_009adb"
+        android:text="提 交"
+        android:textColor="@color/color_eeeeee"
+        android:textSize="@dimen/text_size_18"/>
+</LinearLayout>

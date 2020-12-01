@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <!--標題-->
+    <include layout="@layout/common_title" />
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <!--工號姓名-->
+        <TableRow style="@style/retreattableRow">
+
+            <TextView
+                style="@style/retreatTextName"
+                android:text="工號"/>
+
+            <TextView
+                android:id="@+id/tv_code"
+                style="@style/retreat_message" />
+
+            <TextView
+                style="@style/retreatTextName"
+                android:text="姓名"/>
+
+            <TextView
+                android:id="@+id/tv_name"
+                style="@style/retreat_message"
+                />
+        </TableRow>
+        <!--身份證號-->
+        <TableRow style="@style/retreattableRow">
+
+            <TextView
+                style="@style/retreatTextName"
+                android:text="身份證號"/>
+
+            <TextView
+                android:layout_weight="5.2"
+                android:id="@+id/tv_sf_code"
+                style="@style/retreat_message"
+                />
+
+        </TableRow>
+        <!--報到日期-->
+        <TableRow style="@style/retreattableRow">
+
+            <TextView
+                style="@style/retreatTextName"
+                android:text="報到日期"/>
+
+            <TextView
+                android:layout_weight="5.2"
+                android:id="@+id/tv_report_date"
+                style="@style/retreat_message"/>
+
+        </TableRow>
+        <!--人力來源-->
+        <TableRow style="@style/retreattableRow">
+
+            <TextView
+                style="@style/retreatTextName"
+                android:text="人力來源"/>
+
+            <TextView
+                android:id="@+id/tv_rl_from"
+                style="@style/retreat_message"/>
+
+            <TextView
+                style="@style/retreatTextName"
+                android:text="人力性質"/>
+
+            <TextView
+                android:id="@+id/tv_yg_type"
+                style="@style/retreat_message"/>
+        </TableRow>
+        <!--退訓原因-->
+        <TableRow style="@style/retreattableRow">
+
+            <TextView
+                style="@style/retreatTextName"
+                android:text="退訓原因"/>
+
+            <TextView
+                android:layout_weight="5.2"
+                android:id="@+id/tv_tx_reason"
+                style="@style/retreat_message"
+                />
+
+        </TableRow>
+        <TableRow style="@style/retreattableRow">
+
+            <TextView
+                style="@style/retreatTextName"
+                android:text="退訓環節"/>
+
+            <TextView
+                android:layout_weight="5.2"
+                android:id="@+id/tv_tx_huanjie"
+                style="@style/retreat_message"/>
+        </TableRow>
+        <!--退訓類別-->
+        <TableRow style="@style/retreattableRow">
+
+            <TextView
+                style="@style/retreatTextName"
+                android:text="退訓類別"/>
+
+            <TextView
+                android:layout_weight="5.2"
+                android:id="@+id/tv_tx_type"
+                style="@style/retreat_message"/>
+
+        </TableRow>
+        <!--退訓日期-->
+        <TableRow style="@style/retreattableRow">
+
+            <TextView
+                style="@style/retreatTextName"
+                android:text="退訓日期"/>
+
+            <TextView
+                android:layout_weight="5.2"
+                android:id="@+id/tv_tx_date"
+                style="@style/retreat_message"/>
+
+        </TableRow>
+        <!--在廠天數-->
+        <TableRow style="@style/retreattableRow">
+
+            <TextView
+                style="@style/retreatTextName"
+                android:text="在廠天數"/>
+
+            <TextView
+                android:layout_weight="5.2"
+                android:id="@+id/tv_stay_date"
+                style="@style/retreat_message"/>
+
+        </TableRow>
+        <!--離職狀態-->
+        <TableRow style="@style/retreattableRow">
+
+            <TextView
+                style="@style/retreatTextName"
+                android:text="離職狀態"/>
+
+            <TextView
+                android:layout_weight="5.2"
+                android:id="@+id/tv_state"
+                style="@style/retreat_message"/>
+
+        </TableRow>
+        <!--生效日期-->
+
+        <TextView
+            style="@style/carTextName"
+            android:gravity="center"
+            android:textColor="@color/color_d73d19"
+            android:text="備註：此退訓單12H內有效，請儘快辦理搬離動作。"
+            android:layout_weight="1"/>
+
+    </TableLayout>
+
+    <Button
+        android:id="@+id/btn_release"
+        android:layout_margin="@dimen/dimen_20"
+        android:background="@color/color_74afdb"
+        android:layout_gravity="center"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_20"
+        android:text="確認放行"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>

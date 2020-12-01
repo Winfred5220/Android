@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?><!--複製 版本更新界面-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <!--標題-->
+    <include layout="@layout/common_title" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/dimen_60">
+        <!--舊版本號顯示\最新版本-->
+        <TextView
+            android:id="@+id/tv_old_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dimen_5"
+            android:textSize="@dimen/text_size_18" />
+
+        <!--新版本號顯示-->
+        <TextView
+            android:id="@+id/tv_new_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_old_code"
+            android:layout_margin="@dimen/dimen_5"
+            android:textSize="@dimen/text_size_18" />
+
+        <!--功能介紹-->
+        <TextView
+            android:id="@+id/tv_function"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_new_code"
+            android:layout_margin="@dimen/dimen_5"
+            android:textSize="@dimen/text_size_18" />
+
+        <!--檢查更新按鈕-->
+        <Button
+            android:id="@+id/btn_check_version"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_below="@+id/tv_function"
+            android:layout_centerInParent="true"
+            android:layout_margin="@dimen/dimen_5"
+            android:background="@color/color_009adb"
+            android:padding="@dimen/dimen_5"
+            android:text="檢測新版本"
+            android:textColor="@color/color_ffdedede"
+            android:textSize="@dimen/text_size_18" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

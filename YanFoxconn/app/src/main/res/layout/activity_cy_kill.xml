@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?><!--消殺點檢界面 同 消殺維護界面-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/common_title" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/dimen_4"
+            android:orientation="vertical">
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <!--                單號-->
+                <TableRow style="@style/tableRow">
+
+                    <TextView
+                        style="@style/carTextName"
+                        android:text="單號" />
+
+                    <TextView
+
+                        android:id="@+id/tv_sq"
+                        style="@style/carTextBKG"
+                        android:layout_weight="1" />
+
+                </TableRow>
+                <!--                司機-->
+                <TableRow style="@style/tableRow">
+
+                    <TextView
+                        style="@style/carTextName"
+                        android:text="司機" />
+
+                    <TextView
+
+                        android:id="@+id/tv_driver"
+                        style="@style/carTextBKG"
+                        android:layout_weight="1" />
+
+                </TableRow>
+                <!--車牌號-->
+                <TableRow style="@style/tableRow">
+
+                    <TextView
+                        style="@style/carTextName"
+                        android:text="車牌號" />
+
+                    <TextView
+
+                        android:id="@+id/tv_car_num"
+                        style="@style/carTextBKG"
+                        android:layout_weight="1" />
+
+                </TableRow>
+                <!--                身份證-->
+                <TableRow style="@style/tableRow">
+
+                    <TextView
+                        style="@style/carTextName"
+                        android:text="身份證" />
+
+                    <TextView
+
+                        android:id="@+id/tv_card_id"
+                        style="@style/carTextBKG"
+                        android:layout_weight="1" />
+
+                </TableRow>
+                <!--                区域-->
+                <TableRow style="@style/tableRow">
+
+                    <TextView
+                        style="@style/carTextName"
+                        android:text="区域" />
+
+                    <TextView
+
+                        android:id="@+id/tv_area"
+                        style="@style/carTextBKG"
+                        android:layout_weight="1" />
+
+                </TableRow>
+                <!--                體溫-->
+                <TableRow style="@style/tableRow">
+
+                    <TextView
+                        style="@style/carTextName"
+                        android:text="體溫" />
+
+                    <EditText
+
+                        android:id="@+id/et_temperature"
+                        style="@style/carEditTextBKG"
+                        android:layout_weight="1"
+                        android:inputType="number|numberDecimal"/>
+
+                </TableRow>
+
+                <!--異常描述-->
+                <TableRow style="@style/tableRow">
+
+                    <TextView
+                        style="@style/carTextName"
+                        android:text="異常描述：" />
+
+                    <EditText
+                        android:id="@+id/et_description"
+
+                        style="@style/carEditTextBKG"
+                        android:layout_height="@dimen/dimen_60"
+                        android:layout_weight="1"
+                        android:hint="可為空" />
+
+                </TableRow>
+<!--消殺照片-->
+                <TableRow style="@style/tableRow">
+
+                    <TextView
+                        style="@style/carTextName"
+                        android:text="消殺照片" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+
+                        <com.example.administrator.yanfoxconn.widget.MyGridView
+                            android:id="@+id/gv_photo"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:numColumns="3"
+                            android:scrollbars="none" />
+
+                        <!--空白圖片佔位-->
+                        <ImageView
+                            android:id="@+id/iv_empty"
+                            android:layout_width="75dp"
+                            android:layout_height="75dp"
+                            android:layout_marginLeft="14dp"
+                            android:layout_marginTop="@dimen/dimen_10"
+                            android:scaleType="centerCrop"
+                            android:src="@mipmap/icon_addpic_unfocused" />
+                    </RelativeLayout>
+                </TableRow>
+            </TableLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

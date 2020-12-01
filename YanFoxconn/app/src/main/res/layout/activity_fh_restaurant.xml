@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.FHRestaurantActivity"
+    android:orientation="vertical">
+
+<!--    標題-->
+    <include layout="@layout/common_title"/>
+<!--    類別-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <!--        煙道安全-->
+        <Button
+            android:id="@+id/btn_flue"
+            android:background="@drawable/button_selector"
+            style="@style/btn_input"
+            android:text="煙道安全(周)" />
+        <!--        用电安全-->
+        <Button
+            android:id="@+id/btn_electrical"
+            android:background="@drawable/button_selector"
+            style="@style/btn_input"
+            android:text="用电安全(周)" />
+        <!--        消防安全-->
+        <Button
+            android:id="@+id/btn_fire"
+            android:background="@drawable/button_selector"
+            style="@style/btn_input"
+            android:text="消防安全(周)" />
+        <!--        食品安全-->
+        <Button
+            android:id="@+id/btn_food"
+            android:background="@drawable/button_selector"
+            style="@style/btn_input"
+            android:text="食品安全(日)" />
+        <!--        卫生安全-->
+        <Button
+            android:id="@+id/btn_health"
+            android:background="@drawable/button_selector"
+            style="@style/btn_input"
+            android:text="卫生安全(日)" />
+        <!--        食材抽查-->
+        <Button
+            android:id="@+id/btn_food_check"
+            android:background="@drawable/button_selector"
+            style="@style/btn_input"
+            android:text="食材抽查(日)" />
+        <!--        供餐安全-->
+        <Button
+            android:id="@+id/btn_give"
+            android:background="@drawable/button_selector"
+            style="@style/btn_input"
+            android:text="供餐安全(日)" />
+
+    </LinearLayout>
+</LinearLayout>

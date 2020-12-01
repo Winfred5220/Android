@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <!--標題-->
+    <include layout="@layout/common_title"/>
+    <!--跳轉掃描按钮-->
+    <Button
+        android:id="@+id/btn_check"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="150dp"
+        android:background="@color/color_009adb"
+        android:text="點擊進入掃描界面"
+        android:textSize="18sp"
+        android:textColor="@color/color_ffdedede"
+        android:layout_marginRight="@dimen/dimen_20"
+        android:layout_marginLeft="@dimen/dimen_20"
+        />
+</LinearLayout>

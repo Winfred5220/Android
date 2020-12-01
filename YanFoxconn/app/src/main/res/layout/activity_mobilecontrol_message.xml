@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <!--標題-->
+    <include layout="@layout/common_title" />
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <!--单号-->
+        <TableRow style="@style/tableRow">
+
+            <TextView
+                style="@style/carTextName"
+                android:text="单号："/>
+
+            <TextView
+                android:id="@+id/tv_document_no"
+                style="@style/mobile_message"
+                android:layout_weight="1"/>
+        </TableRow>
+        <!--使用區域-->
+        <TableRow style="@style/tableRow">
+
+            <TextView
+                style="@style/carTextName"
+                android:text="使用區域："/>
+
+            <TextView
+                android:id="@+id/tv_area"
+                style="@style/mobile_message"
+                android:layout_weight="1"/>
+        </TableRow>
+        <!--工號-->
+        <TableRow style="@style/tableRow">
+
+            <TextView
+                style="@style/carTextName"
+                android:text="工號："/>
+
+            <TextView
+                android:id="@+id/tv_userno"
+                style="@style/mobile_message"
+                android:layout_weight="1"/>
+        </TableRow>
+        <!--姓名-->
+        <TableRow style="@style/tableRow">
+
+            <TextView
+                style="@style/carTextName"
+                android:text="姓名："/>
+
+            <TextView
+                android:id="@+id/tv_username"
+                style="@style/mobile_message"
+                android:layout_weight="1"/>
+        </TableRow>
+        <!--部門-->
+        <TableRow style="@style/tableRow">
+
+            <TextView
+                style="@style/carTextName"
+                android:text="部門："/>
+
+            <TextView
+                android:id="@+id/tv_userdepm"
+                style="@style/mobile_message"
+                android:layout_weight="1"/>
+        </TableRow>
+        <!--資位-->
+        <TableRow style="@style/tableRow">
+
+            <TextView
+                style="@style/carTextName"
+                android:text="資位："/>
+
+            <TextView
+                android:id="@+id/tv_userps"
+                style="@style/mobile_message"
+                android:layout_weight="1"/>
+        </TableRow>
+        <!--職位-->
+        <TableRow style="@style/tableRow">
+
+            <TextView
+                style="@style/carTextName"
+                android:text="職位："/>
+
+            <TextView
+                android:id="@+id/tv_userlc"
+                style="@style/mobile_message"
+                android:layout_weight="1"/>
+        </TableRow>
+        <!--設備名稱-->
+        <TableRow style="@style/tableRow">
+
+            <TextView
+                style="@style/carTextName"
+                android:text="設備名稱："/>
+
+            <TextView
+                android:id="@+id/tv_equipment"
+                style="@style/mobile_message"
+                android:layout_weight="1"/>
+        </TableRow>
+        <!--生效日期-->
+        <TableRow style="@style/tableRow">
+
+            <TextView
+                style="@style/carTextName"
+                android:text="生效日期："/>
+
+            <TextView
+                android:id="@+id/tv_ardit_date"
+                style="@style/mobile_message"
+                android:layout_weight="1"/>
+        </TableRow>
+    </TableLayout>
+
+</LinearLayout>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_cccccc">
+
+        <!--活動名稱-->
+        <TextView
+            android:id="@+id/tv_event_name"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_50"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/tv_count"
+            android:layout_toRightOf="@+id/iv_round"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:paddingLeft="@dimen/dimen_20"
+            android:text="dffgf"
+            android:textSize="@dimen/text_size_20" />
+        <!--取消-->
+        <TextView
+            android:id="@+id/tv_cancle"
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            android:background="#FFFF0000"
+            android:gravity="center"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="取消"
+            android:textColor="@android:color/white" />
+        <!--分割線-->
+        <View
+            android:layout_width="@dimen/dimen_1"
+            android:layout_height="match_parent"
+            android:background="@color/result_view" />
+        <!--查看-->
+        <TextView
+            android:id="@+id/tv_show"
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            android:background="#FFFF0000"
+            android:gravity="center"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="查看"
+            android:textColor="@android:color/white" />
+        <!--分割線-->
+        <View
+            android:layout_width="@dimen/dimen_1"
+            android:layout_height="match_parent"
+            android:background="@color/result_view" />
+        <!--查看-->
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            android:background="#FFFF0000"
+            android:gravity="center"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="計時"
+            android:textColor="@android:color/white" />
+</LinearLayout>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@mipmap/bg_hub"
+              android:orientation="vertical">
+    <include layout="@layout/common_title"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/dimen_15"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <Spinner
+            android:id="@+id/sp_area"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@drawable/login"/>
+
+        <Button
+            android:id="@+id/btn_receive"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:background="@color/color_009adb"
+            android:text="領 取"
+            android:textColor="@color/color_f8f7f7"
+            android:textSize="18dp"/>
+        <Button
+            android:id="@+id/btn_sign"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@color/color_009adb"
+            android:text="簽 收"
+            android:textColor="@color/color_f8f7f7"
+            android:textSize="18dp"/>
+        <Button
+            android:id="@+id/btn_selt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@color/color_009adb"
+            android:text="簽收查詢"
+            android:textColor="@color/color_f8f7f7"
+            android:textSize="18dp"/>
+    </LinearLayout>
+</LinearLayout>

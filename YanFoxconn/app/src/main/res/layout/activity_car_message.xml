@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+    <!--標題-->
+    <include layout="@layout/common_title" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TableRow android:id="@+id/tr_1" android:visibility="gone" style="@style/tableRow">
+                <TextView
+                    style="@style/forkliftTextName"
+                    android:text="區域："/>
+                <TextView
+                    android:id="@+id/tv_1"
+                    style="@style/mobile_message"
+                    android:layout_weight="1"/>
+            </TableRow>
+            <TableRow android:id="@+id/tr_2" android:visibility="gone" style="@style/tableRow">
+                <TextView
+                    style="@style/forkliftTextName"
+                    android:text="部門："/>
+                <TextView
+                    android:id="@+id/tv_2"
+                    style="@style/mobile_message"
+                    android:layout_weight="1"/>
+            </TableRow>
+            <TableRow android:id="@+id/tr_3" android:visibility="gone" style="@style/tableRow">
+                <TextView
+                    style="@style/forkliftTextName"
+                    android:text="車輛歸屬："/>
+                <TextView
+                    android:id="@+id/tv_3"
+                    style="@style/mobile_message"
+                    android:layout_weight="1"/>
+            </TableRow>
+            <TableRow android:id="@+id/tr_4" android:visibility="gone" style="@style/tableRow">
+                <TextView
+                    style="@style/forkliftTextName"
+                    android:text="品牌："/>
+                <TextView
+                    android:id="@+id/tv_4"
+                    style="@style/mobile_message"
+                    android:layout_weight="1"/>
+            </TableRow>
+            <TableRow android:id="@+id/tr_5" android:visibility="gone" style="@style/tableRow">
+                <TextView
+                    style="@style/forkliftTextName"
+                    android:text="車輛類型："/>
+                <TextView
+                    android:id="@+id/tv_5"
+                    style="@style/mobile_message"
+                    android:layout_weight="1"/>
+            </TableRow>
+            <TableRow android:id="@+id/tr_6" android:visibility="gone" style="@style/tableRow">
+                <TextView
+                    style="@style/forkliftTextName"
+                    android:text="車牌號："/>
+                <TextView
+                    android:id="@+id/tv_6"
+                    style="@style/mobile_message"
+                    android:layout_weight="1"/>
+            </TableRow>
+            <TableRow android:id="@+id/tr_7" android:visibility="gone" style="@style/tableRow">
+                <TextView
+                    style="@style/forkliftTextName"
+                    android:text="車架號："/>
+                <TextView
+                    android:id="@+id/tv_7"
+                    style="@style/mobile_message"
+                    android:layout_weight="1"/>
+            </TableRow>
+            <TableRow android:id="@+id/tr_8" android:visibility="gone" style="@style/tableRow">
+                <TextView
+                    style="@style/forkliftTextName"
+                    android:text="型號："/>
+                <TextView
+                    android:id="@+id/tv_8"
+                    style="@style/mobile_message"
+                    android:layout_weight="1"/>
+            </TableRow>
+            <TableRow android:id="@+id/tr_9" android:visibility="gone" style="@style/tableRow">
+                <TextView
+                    style="@style/forkliftTextName"
+                    android:text="噸位："/>
+                <TextView
+                    android:id="@+id/tv_9"
+                    style="@style/mobile_message"
+                    android:layout_weight="1"/>
+            </TableRow>
+            <TableRow android:id="@+id/tr_10" android:visibility="gone" style="@style/tableRow">
+                <TextView
+                    style="@style/forkliftTextName"
+                    android:text="車輛生產日期："/>
+                <TextView
+                    android:id="@+id/tv_10"
+                    style="@style/mobile_message"
+                    android:layout_weight="1"/>
+            </TableRow>
+            <TableRow android:id="@+id/tr_11" android:visibility="gone" style="@style/tableRow">
+                <TextView
+                    style="@style/forkliftTextName"
+                    android:text="合約起止日期："/>
+                <TextView
+                    android:id="@+id/tv_11"
+                    style="@style/mobile_message"
+                    android:layout_weight="1"/>
+            </TableRow>
+            <TableRow android:id="@+id/tr_12" android:visibility="gone" style="@style/tableRow">
+                <TextView
+                    style="@style/forkliftTextName"
+                    android:text="下次年檢日期："/>
+                <TextView
+                    android:id="@+id/tv_12"
+                    style="@style/mobile_message"
+                    android:layout_weight="1"/>
+            </TableRow>
+            <TableRow android:id="@+id/tr_13" android:visibility="gone" style="@style/tableRow">
+                <TextView
+                    style="@style/forkliftTextName"
+                    android:text="電瓶容量："/>
+                <TextView
+                    android:id="@+id/tv_13"
+                    style="@style/mobile_message"
+                    android:layout_weight="1"/>
+            </TableRow>
+            <TableRow android:id="@+id/tr_14" android:visibility="gone" style="@style/tableRow">
+                <TextView
+                    style="@style/forkliftTextName"
+                    android:text="電壓："/>
+                <TextView
+                    android:id="@+id/tv_14"
+                    style="@style/mobile_message"
+                    android:layout_weight="1"/>
+            </TableRow>
+            <TableRow android:id="@+id/tr_15" android:visibility="gone" style="@style/tableRow">
+                <TextView
+                    style="@style/forkliftTextName"
+                    android:text="："/>
+                <TextView
+                    android:id="@+id/tv_15"
+                    style="@style/mobile_message"
+                    android:layout_weight="1"/>
+            </TableRow>
+            <TableRow android:id="@+id/tr_16" android:visibility="gone" style="@style/tableRow">
+                <TextView
+                    style="@style/forkliftTextName"
+                    android:text="型號："/>
+                <TextView
+                    android:id="@+id/tv_16"
+                    style="@style/mobile_message"
+                    android:layout_weight="1"/>
+            </TableRow>
+            <TableRow android:id="@+id/tr_17" android:visibility="gone" style="@style/tableRow">
+                <TextView
+                    style="@style/forkliftTextName"
+                    android:text="荷載人數："/>
+                <TextView
+                    android:id="@+id/tv_17"
+                    style="@style/mobile_message"
+                    android:layout_weight="1"/>
+            </TableRow>
+            <TableRow android:id="@+id/tr_18" android:visibility="gone" style="@style/tableRow">
+                <TextView
+                    style="@style/forkliftTextName"
+                    android:text="駕駛員："/>
+                <TextView
+                    android:id="@+id/tv_18"
+                    style="@style/mobile_message"
+                    android:layout_weight="1"/>
+            </TableRow>
+            <TableRow android:id="@+id/tr_19" android:visibility="gone" style="@style/tableRow">
+                <TextView
+                    style="@style/forkliftTextName"
+                    android:text="駕齡："/>
+                <TextView
+                    android:id="@+id/tv_19"
+                    style="@style/mobile_message"
+                    android:layout_weight="1"/>
+            </TableRow>
+            <TableRow android:id="@+id/tr_20" android:visibility="gone" style="@style/tableRow">
+                <TextView
+                    style="@style/forkliftTextName"
+                    android:text="燃油類型："/>
+                <TextView
+                    android:id="@+id/tv_20"
+                    style="@style/mobile_message"
+                    android:layout_weight="1"/>
+            </TableRow>
+            <TableRow android:id="@+id/tr_21" android:visibility="gone" style="@style/tableRow">
+                <TextView
+                    style="@style/forkliftTextName"
+                    android:text="油耗："/>
+                <TextView
+                    android:id="@+id/tv_21"
+                    style="@style/mobile_message"
+                    android:layout_weight="1"/>
+            </TableRow>
+            <TableRow android:id="@+id/tr_22" android:visibility="gone" style="@style/tableRow">
+                <TextView
+                    style="@style/forkliftTextName"
+                    android:text="登記日期："/>
+                <TextView
+                    android:id="@+id/tv_22"
+                    style="@style/mobile_message"
+                    android:layout_weight="1"/>
+            </TableRow>
+            <TableRow android:id="@+id/tr_23" android:visibility="gone" style="@style/tableRow">
+                <TextView
+                    style="@style/forkliftTextName"
+                    android:text="使用年限："/>
+                <TextView
+                    android:id="@+id/tv_23"
+                    style="@style/mobile_message"
+                    android:layout_weight="1"/>
+            </TableRow>
+            <TableRow android:id="@+id/tr_24" android:visibility="gone" style="@style/tableRow">
+                <TextView
+                    style="@style/forkliftTextName"
+                    android:text="報廢日期："/>
+                <TextView
+                    android:id="@+id/tv_24"
+                    style="@style/mobile_message"
+                    android:layout_weight="1"/>
+            </TableRow>
+            <TableRow android:id="@+id/tr_25" android:visibility="gone" style="@style/tableRow">
+                <TextView
+                    style="@style/forkliftTextName"
+                    android:text="保養週期："/>
+                <TextView
+                    android:id="@+id/tv_25"
+                    style="@style/mobile_message"
+                    android:layout_weight="1"/>
+            </TableRow>
+            <TableRow android:id="@+id/tr_26" android:visibility="gone" style="@style/tableRow">
+                <TextView
+                    style="@style/forkliftTextName"
+                    android:text="保險公司："/>
+                <TextView
+                    android:id="@+id/tv_26"
+                    style="@style/mobile_message"
+                    android:layout_weight="1"/>
+            </TableRow>
+            <TableRow android:id="@+id/tr_27" android:visibility="gone" style="@style/tableRow">
+                <TextView
+                    style="@style/forkliftTextName"
+                    android:text="保險起止日期："/>
+                <TextView
+                    android:id="@+id/tv_27"
+                    style="@style/mobile_message"
+                    android:layout_weight="1"/>
+            </TableRow>
+            <TableRow android:id="@+id/tr_28" android:visibility="gone" style="@style/tableRow">
+                <TextView
+                    style="@style/forkliftTextName"
+                    android:text="車輛年檢日期："/>
+                <TextView
+                    android:id="@+id/tv_28"
+                    style="@style/mobile_message"
+                    android:layout_weight="1"/>
+            </TableRow>
+            <TableRow android:id="@+id/tr_29" android:visibility="gone" style="@style/tableRow">
+                <TextView
+                    style="@style/forkliftTextName"
+                    android:text="氣瓶檢驗日期："/>
+                <TextView
+                    android:id="@+id/tv_29"
+                    style="@style/mobile_message"
+                    android:layout_weight="1"/>
+            </TableRow>
+            <TableRow style="@style/tableRow">
+                <TextView
+                    style="@style/forkliftTextName"
+                    android:text="提示："
+                    android:textColor="@color/color_e84e4e"/>
+                <TextView
+                    android:text="紅色日期為30天內到期預警"
+                    android:textColor="@color/color_e84e4e"
+                    android:layout_weight="1"/>
+            </TableRow>
+        </TableLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="@dimen/dimen_50"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_xunjian"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:background="#21bb1a"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="點 檢"
+                android:textColor="@color/color_f8f7f7"
+                android:textSize="18dp"/>
+
+        </LinearLayout>
+    </LinearLayout>
+    </ScrollView>
+</LinearLayout>

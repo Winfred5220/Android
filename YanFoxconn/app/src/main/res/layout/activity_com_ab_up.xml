@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--帶點檢項的巡檢維護界面-->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+<!--    標題-->
+    <include layout="@layout/common_title"/>
+<!--    點位名稱-->
+    <TextView
+        android:id="@+id/tv_d_name"
+        android:background="@color/color_00CCFF"
+        android:gravity="center"
+        android:textColor="@color/color_303030"
+        android:textSize="@dimen/text_size_18"
+        android:layout_margin="@dimen/dimen_8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+<!--    點檢項列表-->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_option"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</LinearLayout>

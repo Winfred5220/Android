@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--查看異常 item-->
+<!--宿舍查驗列表 item-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dimen_65"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <!--地點-->
+        <TextView
+            android:id="@+id/tv_address"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dimen_35"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:gravity="center_vertical"
+            android:textSize="@dimen/text_size_18"
+            android:layout_marginLeft="@dimen/dimen_10"
+            android:layout_toLeftOf="@+id/tv_time"
+            android:text="sdfsdfdfsdfsdsdfasdfdfsdfsdfsdfsdffsdfasdfsdfs"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"/>
+        <!--時間-->
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size_16"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="@dimen/dimen_5"
+            android:layout_marginRight="@dimen/dimen_10"
+            android:text="sdfsdfasdfsdfs"
+            android:maxLines="1"/>
+    </RelativeLayout>
+
+    <!--描述-->
+    <TextView
+        android:id="@+id/tv_description"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:textSize="@dimen/text_size_16"
+        android:layout_marginLeft="@dimen/dimen_10"
+        android:layout_marginBottom="@dimen/dimen_5"/>
+</LinearLayout>

@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="utf-8"?><!--行車日誌 提交-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <!--標題-->
+    <include layout="@layout/common_title" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/dimen_5"
+        android:paddingRight="@dimen/dimen_5">
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TableRow style="@style/tableRow">
+
+                <TextView
+                    style="@style/carTextName"
+                    android:text="司機" />
+
+                <TextView
+
+                    android:id="@+id/tv_driver"
+                    style="@style/carTextBKG"
+                    android:layout_weight="1" />
+
+            </TableRow>
+
+            <TableRow style="@style/tableRow">
+
+                <TextView
+                    style="@style/carTextName"
+                    android:text="車牌號" />
+
+                <TextView
+
+                    android:id="@+id/tv_code"
+                    style="@style/carTextBKG"
+                    android:layout_weight="1" />
+
+            </TableRow>
+
+            <TableRow style="@style/tableRow">
+
+                <TextView
+                    style="@style/carTextName"
+                    android:text="起點" />
+
+                <EditText
+
+                    android:id="@+id/et_start_add"
+                    style="@style/carEditTextBKG"
+                    android:layout_weight="1" />
+
+            </TableRow>
+
+            <TableRow style="@style/tableRow">
+
+                <TextView
+                    style="@style/carTextName"
+                    android:text="途經" />
+
+                <EditText
+
+                    android:id="@+id/et_mid_add"
+                    style="@style/carEditTextBKG"
+                    android:layout_weight="1" />
+
+            </TableRow>
+
+            <TableRow style="@style/tableRow">
+
+                <TextView
+                    style="@style/carTextName"
+                    android:text="終點" />
+
+                <EditText
+
+                    android:id="@+id/et_end_add"
+                    style="@style/carEditTextBKG"
+                    android:layout_weight="1" />
+
+            </TableRow>
+
+            <TableRow style="@style/tableRow">
+
+                <TextView
+                    style="@style/carTextName"
+                    android:text="起始時間" />
+
+                <LinearLayout
+                    style="@style/carLayoutTextBKG"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextView
+
+                        android:id="@+id/tv_start_date"
+                        style="@style/carEditTextBKG"
+                        android:layout_weight="1" />
+
+                    <View
+                        android:layout_width="@dimen/dimen_1"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0"
+                        android:background="@color/color_333333" />
+
+                    <TextView
+
+                        android:id="@+id/tv_start_time"
+                        style="@style/carEditTextBKG"
+                        android:layout_weight="1"
+                        android:hint="選擇時間"/>
+
+                </LinearLayout>
+
+            </TableRow>
+
+            <TableRow style="@style/tableRow">
+
+                <TextView
+                    style="@style/carTextName"
+                    android:text="起始里程" />
+
+                <EditText
+
+                    android:id="@+id/et_start_xc"
+                    style="@style/carEditTextBKG"
+                    android:layout_weight="1"
+                    android:inputType="number" />
+
+            </TableRow>
+
+            <TableRow style="@style/tableRow">
+
+                <TextView
+                    style="@style/carTextName"
+                    android:text="結束時間" />
+
+                <LinearLayout
+                    style="@style/carLayoutTextBKG"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+
+                    <CheckBox
+
+                        android:id="@+id/cb_end_date_yesterday"
+                        style="@style/carEditTextBKG"
+                        android:layout_weight="1" />
+                    <TextView
+
+                        android:id="@+id/tv_end_date"
+                        style="@style/carEditTextBKG"
+                        android:layout_weight="1"
+                        android:visibility="gone"/>
+                    <View
+                        android:layout_width="@dimen/dimen_1"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0"
+                        android:background="@color/color_333333" />
+
+                    <TextView
+
+                        android:id="@+id/tv_end_time"
+                        style="@style/carEditTextBKG"
+                        android:layout_weight="1"
+                        android:hint="選擇時間"/>
+                </LinearLayout>
+
+            </TableRow>
+
+            <TableRow style="@style/tableRow"
+                android:id="@+id/tr_layout">
+
+                <TextView
+                    style="@style/carTextName"
+                    android:text="" />
+
+                <LinearLayout
+                    style="@style/carLayoutTextBKG"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <CheckBox
+                        android:id="@+id/cb_end_date_today"
+                        style="@style/carEditTextBKG"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        style="@style/carTextBKG"
+                        android:layout_weight="1" />
+                </LinearLayout>
+
+            </TableRow>
+
+            <TableRow style="@style/tableRow">
+
+                <TextView
+                    style="@style/carTextName"
+                    android:text="結束里程" />
+
+                <EditText
+
+                    android:id="@+id/et_end_xc"
+                    style="@style/carEditTextBKG"
+                    android:layout_weight="1"
+                    android:inputType="number" />
+
+            </TableRow>
+
+            <TableRow
+                style="@style/tableRow"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    style="@style/carTextName"
+                    android:text="路橋費" />
+
+                <EditText
+
+                    android:id="@+id/et_road_fee"
+                    style="@style/carEditTextBKG"
+                    android:layout_weight="1"
+                    android:inputType="number" />
+
+            </TableRow>
+
+            <TableRow style="@style/tableRow">
+
+                <TextView
+                    style="@style/carTextName"
+                    android:text="停車費" />
+
+                <EditText
+
+                    android:id="@+id/et_part_fee"
+                    style="@style/carEditTextBKG"
+                    android:layout_weight="1"
+                    android:inputType="number" />
+
+            </TableRow>
+
+            <TableRow style="@style/tableRow">
+
+                <TextView
+                    style="@style/carTextName"
+                    android:text="誤餐費" />
+
+                <EditText
+
+                    android:id="@+id/et_delay_eat"
+                    style="@style/carEditTextBKG"
+                    android:layout_weight="1"
+                    android:inputType="number|numberDecimal" />
+
+            </TableRow>
+
+            <TableRow style="@style/tableRow">
+
+                <TextView
+                    style="@style/carTextName"
+                    android:text="備註" />
+
+                <EditText
+
+                    android:id="@+id/et_remark_xc"
+                    style="@style/carEditTextBKG"
+                    android:layout_weight="1" />
+
+            </TableRow>
+
+            <TableRow style="@style/tableRow">
+
+                <TextView
+                    style="@style/carTextName"
+                    android:text="發票照片" />
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <GridView
+                        android:id="@+id/gv_photo"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:numColumns="3"
+                        android:scrollbars="none" />
+
+                    <!--空白圖片佔位-->
+                    <ImageView
+                        android:id="@+id/iv_empty"
+                        android:layout_width="75dp"
+                        android:layout_height="75dp"
+                        android:layout_marginLeft="14dp"
+                        android:layout_marginTop="@dimen/dimen_10"
+                        android:scaleType="centerCrop"
+                        android:src="@mipmap/icon_addpic_unfocused" />
+                </RelativeLayout>
+            </TableRow>
+        </TableLayout>
+    </ScrollView>
+</LinearLayout>

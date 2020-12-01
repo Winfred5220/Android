@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.ZhiyinshuiCheckProcessActivity">
+
+    <!--標題-->
+    <include layout="@layout/common_title"/>
+
+    <LinearLayout
+        android:layout_margin="@dimen/dimen_8"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TableRow
+                android:layout_height="@dimen/dimen_50"
+                android:layout_width="match_parent">
+                <TextView
+                    android:text="區域"
+                    android:textColor="@color/color_303030"
+                    android:textSize="@dimen/text_size_16"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"/>
+
+                <Spinner
+                    android:id="@+id/sp_area"
+                    android:layout_weight="5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content">
+                </Spinner>
+            </TableRow>
+            <TableRow
+                android:layout_height="@dimen/dimen_50"
+                android:layout_width="match_parent">
+                <TextView
+                    android:text="樓棟"
+                    android:textColor="@color/color_303030"
+                    android:textSize="@dimen/text_size_16"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"/>
+
+                <Spinner
+                    android:id="@+id/sp_building"
+                    android:layout_weight="5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content">
+                </Spinner>
+
+                <TextView
+                    android:text="樓層"
+                    android:textColor="@color/color_303030"
+                    android:textSize="@dimen/text_size_16"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"/>
+
+                <Spinner
+                    android:id="@+id/sp_floor"
+                    android:layout_weight="3.5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content">
+                </Spinner>
+            </TableRow>
+
+        </TableLayout>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginLeft="@dimen/dimen_8"
+        android:layout_marginRight="@dimen/dimen_8"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/btn_finished"
+            android:text="已 點 檢"
+            android:textSize="@dimen/text_size_18"
+            android:textColor="#5F5F5F"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"></Button>
+        <Button
+            android:text="未 點 檢"
+            android:textSize="@dimen/text_size_18"
+            android:textColor="#5F5F5F"
+            android:id="@+id/btn_unfinished"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"></Button>
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/lv_process"
+        android:layout_marginTop="@dimen/dimen_8"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</LinearLayout>

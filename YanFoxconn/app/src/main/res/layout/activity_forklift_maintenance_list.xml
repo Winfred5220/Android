@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!--標題-->
+    <include layout="@layout/common_title"/>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/color_fee123"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_weight="3.8"
+                android:gravity="center"
+                android:text="編號"
+                android:textColor="@color/color_303030"
+                android:textSize="@dimen/dimen_16"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_weight="3"
+                android:gravity="center"
+                android:text="車架號"
+                android:textColor="@color/color_303030"
+                android:textSize="@dimen/dimen_16"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_weight="3"
+                android:gravity="center"
+                android:text="車牌號"
+                android:textColor="@color/color_303030"
+                android:textSize="@dimen/dimen_16"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_weight="3"
+                android:gravity="center"
+                android:text="報修時間"
+                android:textColor="@color/color_303030"
+                android:textSize="@dimen/dimen_16"/>
+
+        </LinearLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:orientation="vertical">
+        <com.example.administrator.yanfoxconn.widget.MyListView
+            android:id="@+id/lv_maintenance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="#f6f6f6"
+            android:dividerHeight="@dimen/dimen_4"
+            />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_10"/>
+       </LinearLayout>
+    </ScrollView>
+</LinearLayout>

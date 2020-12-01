@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--工業安全巡檢單位列表-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--標題-->
+    <include layout="@layout/common_title"/>
+    <TextView
+        android:id="@+id/tv_show"
+        android:paddingLeft="@dimen/dimen_8"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:visibility="gone"
+        android:text="@string/industrial_list_null"
+        android:textColor="@color/color_e84e4e"
+        android:textSize="@dimen/text_size_16"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <com.example.administrator.yanfoxconn.widget.MyScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <!--巡檢單位列表-->
+            <com.example.administrator.yanfoxconn.widget.SwipeListView
+                android:id="@+id/lv_case_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+    </com.example.administrator.yanfoxconn.widget.MyScrollView>
+</LinearLayout>

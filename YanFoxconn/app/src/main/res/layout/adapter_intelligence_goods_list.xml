@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?><!--智慧物品列表適配器-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_goods"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="@dimen/dimen_2">
+
+    <TextView
+        android:id="@+id/tv_list_no"
+        android:gravity="center"
+        android:layout_height="@dimen/dimen_40"
+        android:layout_width="@dimen/dimen_40"
+        android:layout_marginLeft="@dimen/dimen_4"
+        android:layout_alignParentLeft="true"
+        style="@style/crossTextName"
+        android:text="編號"/>
+    <TextView
+        style="@style/crossTextName"
+        android:id="@+id/tv_list_name"
+        android:layout_height="@dimen/dimen_18"
+        android:layout_width="wrap_content"
+        android:layout_marginLeft="@dimen/dimen_4"
+        android:layout_marginRight="@dimen/dimen_6"
+        android:layout_toRightOf="@id/tv_list_no"
+        android:text="品名"/>
+    <TextView
+        style="@style/crossTextName"
+        android:id="@+id/tv_list_mac"
+        android:layout_height="@dimen/dimen_18"
+        android:layout_width="wrap_content"
+        android:layout_marginLeft="@dimen/dimen_4"
+        android:layout_marginRight="@dimen/dimen_6"
+        android:layout_marginTop="@dimen/dimen_4"
+        android:layout_toRightOf="@id/tv_list_no"
+        android:layout_below="@id/tv_list_name"
+        android:text="型號"/>
+    <TextView
+        style="@style/crossTextName"
+        android:id="@+id/tv_list_xian"
+        android:layout_height="@dimen/dimen_18"
+        android:layout_width="wrap_content"
+        android:layout_marginLeft="@dimen/dimen_4"
+        android:layout_marginTop="@dimen/dimen_4"
+        android:layout_marginRight="@dimen/dimen_6"
+
+        android:layout_toLeftOf="@+id/tv_list_sn"
+        android:layout_below="@id/tv_list_name"
+        android:text="無線網卡"/>
+    <TextView
+        style="@style/crossTextName"
+        android:id="@+id/tv_list_sn"
+        android:layout_height="@dimen/dimen_18"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="@dimen/dimen_4"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/dimen_8"
+        android:layout_below="@id/tv_list_name"
+        android:text="SN"/>
+    <TextView
+        android:id="@+id/tv_list_pin"
+        android:layout_height="@dimen/dimen_18"
+        android:layout_width="wrap_content"
+        android:layout_marginRight="@dimen/dimen_6"
+        android:layout_toLeftOf="@+id/tv_list_col"
+        style="@style/crossTextName"
+        android:text="品牌" />
+    <TextView
+        android:id="@+id/tv_list_col"
+        android:layout_height="@dimen/dimen_18"
+        android:layout_width="wrap_content"
+        android:layout_marginRight="@dimen/dimen_6"
+        android:layout_toLeftOf="@+id/tv_list_num"
+        style="@style/crossTextName"
+        android:text="顏色" />
+    <TextView
+        android:id="@+id/tv_list_num"
+        android:layout_height="@dimen/dimen_18"
+        android:layout_width="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/dimen_8"
+        style="@style/crossTextName"
+        android:text="数量/單位" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/color_ffdedede"
+        android:layout_below="@id/tv_list_mac"
+        android:layout_marginTop="@dimen/dimen_5"/>
+
+</RelativeLayout>

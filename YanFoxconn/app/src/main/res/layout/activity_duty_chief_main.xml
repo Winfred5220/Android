@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+    <!--標題-->
+    <include layout="@layout/common_title"/>
+
+    <LinearLayout
+        android:focusableInTouchMode="true"
+        android:focusable="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="隊長值班情況"
+            android:textSize="18dp"/>
+        <TextView
+            android:id="@+id/tv_show1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:textColor="@color/color_e84e4e"
+            android:textSize="18dp"/>
+
+        <EditText
+            android:id="@+id/et_captain"
+            android:maxLength="25"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_100"
+            android:layout_marginTop="@dimen/dimen_10"
+            android:background="@drawable/indus_form"
+            android:paddingLeft="@dimen/dimen_4"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_20"
+            android:text="重大異常記錄"
+            android:textSize="18dp"/>
+        <TextView
+            android:id="@+id/tv_show2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:textColor="@color/color_e84e4e"
+            android:textSize="18dp"/>
+
+        <EditText
+            android:id="@+id/et_weighty"
+            android:maxLength="25"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_100"
+            android:layout_marginTop="@dimen/dimen_10"
+            android:background="@drawable/indus_form"
+            android:paddingLeft="@dimen/dimen_4"/>
+
+        <Button
+            android:id="@+id/btn_up"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_20"
+            android:background="@color/color_e84e4e"
+            android:text="稽核問題點錄入"
+            android:textColor="@color/color_f8f7f7"
+            android:textSize="18dp"/>
+
+        <Button
+            android:id="@+id/btn_see"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_20"
+            android:background="@color/color_f5a306"
+            android:text="已稽核問題查看"
+            android:textColor="@color/color_f8f7f7"
+            android:textSize="18dp"/>
+    </LinearLayout>
+</LinearLayout>

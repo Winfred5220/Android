@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="utf-8"?><!--碼頭條形碼掃描界面-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!--標題-->
+    <include layout="@layout/common_title" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_margin="@dimen/dimen_4">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/dimen_2">
+
+                <TextView
+                    style="@style/carTextName"
+                    android:text="銷單號："/>
+
+                <TextView
+                    android:id="@+id/tv_packing_no"
+                    style="@style/carTextBKG" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/dimen_2">
+
+                <TextView
+                    style="@style/carTextName"
+                    android:text="車牌號："/>
+
+                <TextView
+                    android:id="@+id/tv_cn_board"
+                    style="@style/carTextBKG"
+                    android:layout_weight="1" />
+
+                <TextView
+                    style="@style/carTextName"
+                    android:text="司機："/>
+
+                <TextView
+                    android:id="@+id/tv_dri_name"
+                    style="@style/carTextBKG"
+                    android:layout_weight="1" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/dimen_2">
+
+                <TextView
+                    style="@style/carTextName"
+                    android:text="Forward：" />
+
+                <TextView
+                    android:id="@+id/tv_forward_name"
+                    style="@style/carTextBKG"
+                    android:layout_weight="1" />
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/dimen_2">
+
+                <TextView
+                    style="@style/carTextName"
+                    android:text="S/O號碼：" />
+
+                <TextView
+                    android:id="@+id/tv_booking_no"
+                    style="@style/carTextBKG"
+                    android:layout_weight="1" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/dimen_2">
+
+                <TextView
+                    android:id="@+id/textView2"
+                    style="@style/carTextName"
+                    android:text="棧板數：" />
+
+                <TextView
+                    android:id="@+id/tv_pack_11"
+                    style="@style/carTextBKG"
+                    android:layout_weight="1"  />
+
+                <TextView
+                    style="@style/carTextName"
+                    android:text="箱數：" />
+
+                <TextView
+                    android:id="@+id/tv_pack_12"
+                    style="@style/carTextBKG"
+                    android:layout_weight="1"  />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/dimen_2">
+
+                <TextView
+                    android:id="@+id/tv_cab_scan"
+                    android:textColor="@color/color_74afdb"
+                    android:textStyle="bold"
+                    style="@style/carTextName"
+                    android:text="櫃號：" />
+
+                <EditText
+                    android:id="@+id/et_container"
+                    style="@style/carEditTextBKG"/>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_container"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_25"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/dimen_80"
+                android:text="數據為空" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/dimen_2">
+
+                <TextView
+                    android:id="@+id/tv_seal_scan"
+                    style="@style/carTextName"
+                    android:textColor="@color/color_74afdb"
+                    android:textStyle="bold"
+                    android:text="封條號："/>
+
+                <EditText
+                    android:id="@+id/et_sealer"
+                    style="@style/carEditTextBKG" />
+            </LinearLayout>
+            <TextView
+                android:id="@+id/tv_container_sealer"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_25"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/dimen_80"
+                android:text="數據為空" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/dimen_2">
+
+                <TextView
+                    style="@style/carTextName"
+                    android:text="箱皮重：" />
+
+                <EditText
+                    android:id="@+id/et_boxgw"
+                    style="@style/carEditTextBKG"
+                    android:inputType="number"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/dimen_2">
+
+                <TextView
+                    style="@style/carTextName"
+                    android:text="起運港：" />
+
+                <TextView
+                    android:id="@+id/tv_loadport"
+                    style="@style/carTextBKG" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/dimen_2">
+
+                <TextView
+                    style="@style/carTextName"
+                    android:text="目的：" />
+
+                <TextView
+                    android:id="@+id/tv_destination"
+                    style="@style/carTextBKG" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/dimen_2">
+
+                <TextView
+                    style="@style/carTextName"
+                    android:text="運輸方式：" />
+
+                <TextView
+                    android:id="@+id/tv_term"
+                    style="@style/carTextBKG"
+                    android:layout_weight="1"  />
+
+                <TextView
+                    style="@style/carTextName"
+                    android:text="產品處：" />
+
+                <TextView
+                    android:id="@+id/tv_department"
+                    style="@style/carTextBKG"
+                    android:layout_weight="1" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/dimen_2">
+
+                <TextView
+                    style="@style/carTextName"
+                    android:text="裝貨廠區："/>
+
+                <TextView
+                    android:id="@+id/tv_factory"
+                    style="@style/carTextBKG"
+                    android:layout_weight="1" />
+
+                <TextView
+                    style="@style/carTextName"
+                    android:text="棟號：" />
+
+                <TextView
+                    android:id="@+id/tv_building"
+                    style="@style/carTextBKG"
+                    android:layout_weight="1"  />
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <GridView
+                    android:id="@+id/gv_photo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:horizontalSpacing="@dimen/dimen_2"
+                    android:numColumns="4"
+                    android:scrollbars="none"
+                    android:verticalSpacing="@dimen/dimen_2"
+                    android:layout_alignTop="@+id/iv_empty"
+                    android:layout_centerHorizontal="true"/>
+
+                <!--空白圖片佔位-->
+                <ImageView
+                    android:id="@+id/iv_empty"
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    android:layout_marginLeft="14dp"
+                    android:layout_marginTop="@dimen/dimen_10"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/icon_addpic_unfocused" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

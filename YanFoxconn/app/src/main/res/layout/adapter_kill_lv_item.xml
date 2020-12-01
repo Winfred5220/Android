@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--消殺詳情item-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:padding="@dimen/dimen_10">
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="horizontal">-->
+<!--            <View-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="@dimen/dimen_3"-->
+<!--                android:background="@color/color_7edbf4"-->
+<!--                android:layout_weight="1"/>-->
+<!--        </LinearLayout>-->
+        <!--                時間-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                style="@style/carTextNameXS"
+                android:text="時間：" />
+
+            <TextView
+
+                android:id="@+id/tv_create_date"
+                style="@style/carTextBKGXS"
+                android:layout_weight="1" />
+
+        </LinearLayout>
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/dimen_2"
+            android:layout_marginBottom="@dimen/dimen_1">
+
+                <TextView
+                    android:id="@+id/tv_temp_name"
+                    style="@style/carTextNameXS"
+                    android:text="體溫："
+                    android:layout_weight="0"
+                    />
+
+                <TextView
+
+                    android:id="@+id/tv_temperature"
+                    style="@style/carTextBKGXS"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    style="@style/carTextNameXS"
+                    android:text="維護人："
+
+                    android:layout_weight="0"/>
+
+                <TextView
+                    android:id="@+id/tv_people"
+                    style="@style/carTextBKGXS"
+                    android:layout_weight="1"
+                    />
+
+        </LinearLayout>
+
+        <!--異常描述-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:id="@+id/tv_remark_name"
+                style="@style/carTextNameXS"
+                android:text="描述：" />
+
+            <TextView
+                android:id="@+id/tv_remark"
+
+                style="@style/carTextBKGXS"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingTop="@dimen/dimen_3"
+                android:paddingBottom="@dimen/dimen_3"
+                />
+        </LinearLayout>
+
+</LinearLayout>

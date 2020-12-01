@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?><!--廢料出廠界面-->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+    <!--標題-->
+    <include layout="@layout/common_title" />
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TableRow style="@style/tableRow">
+
+            <TextView
+                style="@style/forkliftTextName"
+                android:text="放行單號："/>
+
+            <TextView
+                android:id="@+id/tv_no"
+                style="@style/mobile_message"
+                android:layout_weight="1"/>
+
+        </TableRow>
+
+        <TableRow style="@style/tableRow">
+
+            <TextView
+                style="@style/forkliftTextName"
+                android:text="物品名稱："/>
+
+            <TextView
+                android:id="@+id/tv_name"
+                style="@style/mobile_message"
+                android:layout_weight="1"/>
+
+        </TableRow>
+
+        <TableRow style="@style/tableRow">
+
+            <TextView
+                style="@style/forkliftTextName"
+                android:text="區域："/>
+
+            <TextView
+                android:id="@+id/tv_area"
+                style="@style/mobile_message"
+                android:layout_weight="1"/>
+
+        </TableRow>
+
+        <TableRow style="@style/tableRow">
+
+            <TextView
+                style="@style/forkliftTextName"
+                android:text="收購廠商："/>
+
+            <!--收購廠商-->
+            <TextView
+                android:id="@+id/tv_receive"
+                style="@style/mobile_message"
+                android:layout_weight="1"/>
+
+        </TableRow>
+
+        <TableRow style="@style/tableRow">
+
+            <TextView
+                style="@style/forkliftTextName"
+                android:text="檻車時間："/>
+
+            <!--檻車時間-->
+            <TextView
+                android:id="@+id/tv_in_date"
+                style="@style/mobile_message"
+                android:layout_weight="1"
+                android:background="@drawable/login_input"
+                android:hint="選擇時間"/>
+
+        </TableRow>
+
+        <TableRow style="@style/tableRow">
+
+            <TextView
+                style="@style/forkliftTextName"
+                android:text="出廠時間："/>
+
+            <!--出廠時間-->
+            <TextView
+                android:id="@+id/tv_out_date"
+                style="@style/mobile_message"
+                android:layout_weight="1"
+                android:background="@drawable/login_input"
+                android:hint="選擇時間"/>
+
+        </TableRow>
+
+        <TableRow style="@style/tableRow">
+
+            <TextView
+                style="@style/forkliftTextName"
+                android:text="放行門崗："/>
+
+            <Spinner
+                android:id="@+id/sp_gate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+
+        </TableRow>
+
+        <TableRow style="@style/tableRow">
+
+            <TextView
+                style="@style/forkliftTextName"
+                android:text="車牌號："/>
+
+            <!--車牌號-->
+            <EditText
+                android:id="@+id/et_license"
+                style="@style/mobile_message"
+                android:layout_weight="1"
+                android:background="@drawable/login_input"/>
+
+        </TableRow>
+
+        <TableRow style="@style/tableRow">
+
+            <TextView
+                style="@style/forkliftTextName"
+                android:text="空車重量："/>
+
+            <!--空車重量-->
+            <EditText
+                android:id="@+id/et_null_weight"
+                style="@style/mobile_message"
+                android:layout_weight="1"
+                android:background="@drawable/login_input"
+                android:hint="單位：KG"
+                android:inputType="numberDecimal"/>
+
+        </TableRow>
+
+        <TableRow style="@style/tableRow">
+
+            <TextView
+                style="@style/forkliftTextName"
+                android:text="毛重："/>
+
+            <!--毛重-->
+            <EditText
+                android:id="@+id/et_weight"
+                style="@style/mobile_message"
+                android:layout_weight="1"
+                android:background="@drawable/login_input"
+                android:hint="單位：KG"
+                android:inputType="numberDecimal"/>
+
+        </TableRow>
+
+        <TableRow style="@style/tableRow">
+
+            <TextView
+                style="@style/forkliftTextName"
+                android:layout_height="wrap_content"
+                android:text="小組負責人："/>
+
+            <!--廢料小組負責人-->
+            <EditText
+                android:id="@+id/et_person"
+                style="@style/mobile_message"
+                android:layout_weight="1"
+                android:background="@drawable/login_input"/>
+
+        </TableRow>
+    </TableLayout>
+</LinearLayout>

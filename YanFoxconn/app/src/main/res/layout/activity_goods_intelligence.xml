@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?> <!--智慧型物品放行頁面-->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <!--標題-->
+    <include layout="@layout/common_title" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical">
+
+            <!--300掃描提示顯示-->
+            <TextView
+                android:id="@+id/tv_show"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_2"
+                android:background="@color/possible_result_points"
+                android:gravity="center_vertical"
+                android:textSize="@dimen/text_size_16"
+                android:visibility="gone"/>
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <!--放行单号-->
+                <TableRow style="@style/tableRow">
+
+                <TextView
+                    style="@style/carTextName"
+                    android:text="放行单号：" />
+
+                <TextView
+                    android:id="@+id/tv_eff_num"
+                    style="@style/mobile_message"
+                    android:layout_weight="1" />
+                </TableRow>
+                <!--攜出流向-->
+                <TableRow style="@style/tableRow">
+
+                    <TextView
+                        android:id="@+id/tv_text1"
+                        style="@style/carTextName"
+                        android:text="攜出流向：" />
+
+                    <TextView
+                        android:id="@+id/tv_out_to"
+                        android:layout_height="wrap_content"
+                        style="@style/mobile_message"
+                        android:layout_weight="1" />
+                </TableRow>
+                <!--攜出時段-->
+                <TableRow style="@style/tableRow">
+
+                    <TextView
+                        style="@style/carTextName"
+                        android:id="@+id/tv_text2"
+                        android:text="攜出時段：" />
+
+                    <TextView
+                        android:id="@+id/tv_eff_data"
+                        android:layout_height="wrap_content"
+                        style="@style/mobile_message"
+                        android:layout_weight="1" />
+                </TableRow>
+                <!--流通方式-->
+                <TableRow style="@style/tableRow">
+
+                    <TextView
+                        style="@style/carTextName"
+                        android:text="流通方式：" />
+
+                    <TextView
+                        android:id="@+id/tv_cir_mode"
+                        style="@style/mobile_message"
+                        android:layout_weight="1" />
+                </TableRow>
+
+            </TableLayout>
+            <!--编号物品名称及规格数量-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/dimen_5">
+
+                <TextView
+                    android:layout_height="@dimen/dimen_18"
+                    android:layout_marginLeft="@dimen/dimen_10"
+                    android:layout_width="wrap_content"
+                    style="@style/crossTextName"
+                    android:textColor="@color/color_ff552e"
+                    android:text="編號"/>
+                <TextView
+                    style="@style/crossTextName"
+                    android:layout_marginLeft="@dimen/dimen_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dimen_18"
+                    android:textColor="@color/color_ff552e"
+                    android:text="品名/型號"/>
+                <TextView
+                    android:layout_height="@dimen/dimen_18"
+                    android:layout_marginRight="@dimen/dimen_8"
+                    android:gravity="right"
+                    android:layout_width="match_parent"
+                    style="@style/crossTextName"
+                    android:textColor="@color/color_ff552e"
+                    android:text="品牌/顏色/数量/单位/無線網卡/SN" />
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#D3D3D3"
+                android:layout_marginTop="@dimen/dimen_5"/>
+
+            <com.example.administrator.yanfoxconn.widget.MyListView
+                android:id="@+id/lv_goods"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <!--当值警卫-->
+                <TableRow
+                    android:id="@+id/tr_duty_guard"
+                    android:layout_marginTop="@dimen/dimen_20"
+                    style="@style/tableRow">
+                    <TextView style="@style/carTextName"
+                              android:text="当值警卫："/>
+                    <TextView
+                        android:id="@+id/et_duty_guard"
+                        style="@style/mobile_message"
+                        android:layout_weight="1" />
+                </TableRow>
+                <!--放行時間-->
+                <TableRow style="@style/tableRow">
+
+                    <TextView
+                        style="@style/forkliftTextName"
+                        android:text="放行時間："/>
+
+                    <!--放行時間-->
+                    <TextView
+                        android:id="@+id/tv_release_date"
+                        style="@style/mobile_message"
+                        android:layout_weight="1"
+                        android:background="@drawable/login_input"
+                        android:hint="選擇時間"/>
+                </TableRow>
+                <!--放行门岗-->
+                <TableRow style="@style/tableRow" >
+                    <TextView
+                        style="@style/carTextName"
+                        android:text="放行门岗：" />
+
+                    <EditText
+                        android:id="@+id/et_release_gate"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dimen_30"
+                        style="@style/carEditTextBKG"
+                        android:layout_weight="1" />
+                </TableRow>
+                <!--放行门岗列表-->
+                <TableRow
+                    android:id="@+id/tr_list_gate"
+                    style="@style/tableRow"
+                    android:visibility="gone">
+                    <TextView style="@style/carTextName" />
+                    <com.example.administrator.yanfoxconn.widget.MyListView
+                        android:id="@+id/lv_gate"
+                        style="@style/carTextBKG"
+                        android:layout_weight="1" />
+                </TableRow>
+            </TableLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

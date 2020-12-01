@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?><!--宿舍查验 界面-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!--標題-->
+    <include layout="@layout/common_title" />
+<com.example.administrator.yanfoxconn.widget.MyScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+   >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="@dimen/dimen_10"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="@dimen/dimen_5">
+            <TextView
+                style="@style/carTextName"
+                android:text="查驗類型："
+                android:textSize="@dimen/text_size_16"/>
+            <!--多選框位置-->
+            <LinearLayout
+                android:id="@+id/ll_cbList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:focusable="true">
+
+            </LinearLayout>
+            <!--            <Spinner-->
+            <!--                android:id="@+id/sp_why"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_weight="1" />-->
+
+        </LinearLayout>
+        <!--文字描述-->
+        <EditText
+            android:id="@+id/et_description"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:textSize="@dimen/text_size_18"
+            android:hint="請輸入文字描述"/>
+
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.example.administrator.yanfoxconn.widget.MyGridView
+            android:id="@+id/gv_photo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dimen_10"
+            android:horizontalSpacing="@dimen/dimen_2"
+            android:numColumns="4"
+            android:scrollbars="none"
+            android:verticalSpacing="@dimen/dimen_2" />
+
+        <!--空白圖片佔位-->
+        <ImageView
+            android:id="@+id/iv_empty"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_marginLeft="14dp"
+            android:layout_marginTop="@dimen/dimen_10"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/icon_addpic_unfocused" />
+
+    </RelativeLayout>
+
+    </LinearLayout>
+</com.example.administrator.yanfoxconn.widget.MyScrollView>
+</LinearLayout>

@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--工業安全巡檢新增-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <!--標題-->
+    <include layout="@layout/common_title"/>
+    <LinearLayout
+        android:layout_marginTop="@dimen/dimen_8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/tv_address"
+        android:paddingLeft="@dimen/dimen_8"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:text="巡查地點"
+        android:textSize="@dimen/text_size_16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:id="@+id/tv_date"
+        android:gravity="right"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:layout_marginRight="@dimen/dimen_8"
+        android:text="巡查時間"
+        android:textColor="@color/color_74afdb"
+        android:textSize="@dimen/text_size_16"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="@dimen/dimen_8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Spinner
+            android:id="@+id/sp_area"
+            android:layout_marginLeft="@dimen/dimen_8"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="30dp">
+        </Spinner>
+
+        <Spinner
+            android:id="@+id/sp_tung"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_weight="1">
+        </Spinner>
+
+        <Spinner
+            android:id="@+id/sp_floor"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginRight="@dimen/dimen_8"
+            android:layout_weight="1">
+        </Spinner>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="@dimen/dimen_16"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <TextView
+        android:paddingLeft="@dimen/dimen_8"
+        android:text="產品處"
+        android:textSize="@dimen/text_size_16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+        <Spinner
+            android:id="@+id/sp_product"
+            android:background="@drawable/login"
+            android:layout_marginLeft="@dimen/dimen_8"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="30dp">
+        </Spinner>
+        <TextView
+            android:paddingLeft="@dimen/dimen_8"
+            android:text="工藝"
+            android:textSize="@dimen/text_size_16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <Spinner
+            android:id="@+id/sp_technology"
+            android:layout_marginLeft="@dimen/dimen_8"
+            android:background="@drawable/login"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_weight="1">
+        </Spinner>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="@dimen/dimen_16"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:paddingLeft="@dimen/dimen_8"
+            android:text="專案名稱"
+            android:textSize="@dimen/text_size_16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimen_8"
+            android:layout_marginRight="@dimen/dimen_8"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/et_case_name"
+                android:paddingLeft="@dimen/dimen_4"
+                style="@style/carEditTextBKG"
+                android:background="@color/color_7edbf4"
+                android:textSize="@dimen/text_size_16"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                />
+
+            <com.example.administrator.yanfoxconn.widget.MyListView
+                android:id="@+id/lv_case"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="@dimen/dimen_8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:paddingLeft="@dimen/dimen_8"
+            android:text="責任主管"
+            android:textSize="@dimen/text_size_16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <EditText
+            android:id="@+id/et_supervisor"
+            android:layout_marginLeft="@dimen/dimen_8"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="@dimen/dimen_8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:paddingLeft="@dimen/dimen_8"
+            android:text="巡查人"
+            android:textSize="@dimen/text_size_16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <EditText
+            android:id="@+id/et_check_person"
+            android:layout_marginLeft="@dimen/dimen_8"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/btn_up"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dimen_8"
+        android:layout_marginRight="@dimen/dimen_8"
+        android:layout_marginTop="@dimen/dimen_48"
+        android:background="@color/color_009adb"
+        android:text="提 交"
+        android:textColor="@color/color_eeeeee"
+        android:textSize="@dimen/text_size_18"/>
+</LinearLayout>
