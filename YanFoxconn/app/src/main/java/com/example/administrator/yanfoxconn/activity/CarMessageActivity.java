@@ -203,7 +203,7 @@ public class CarMessageActivity extends BaseActivity {
 
         result = getIntent().getStringExtra("result");
         Log.e("------------","-----result------"+result);
-        if (result!=null&&!result.equals("")){
+        if (result!=null&&!result.equals("")&&result.length()>=2){
             type = result.substring(0,2);
             Log.e("------------","-----type------"+type);
             if(!type.equals("EV")&&!type.equals("EZ")&&!type.equals("EO")&&!type.equals("EI")&&!type.equals("FO")&&
