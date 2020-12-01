@@ -283,7 +283,7 @@
                     android:text="提示："
                     android:textColor="@color/color_e84e4e"/>
                 <TextView
-                    android:text="紅色日期為30天內到期預警"
+                    android:text="紅色日期為一個月內到期或超期預警"
                     android:textColor="@color/color_e84e4e"
                     android:layout_weight="1"/>
             </TableRow>

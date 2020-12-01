@@ -203,11 +203,12 @@ public class CarMessageActivity extends BaseActivity {
 
         result = getIntent().getStringExtra("result");
         Log.e("------------","-----result------"+result);
-        if (result!=null&&!result.equals("")){
+        if (result!=null&&!result.equals("")&&result.length()>=2){
             type = result.substring(0,2);
             Log.e("------------","-----type------"+type);
             if(!type.equals("EV")&&!type.equals("EZ")&&!type.equals("EO")&&!type.equals("EI")&&!type.equals("FO")&&
-                    !type.equals("FP")){
+                    !type.equals("FP")&&!type.equals("GF")&&!type.equals("GG")&&!type.equals("GH")&&!type.equals("GI")&&
+                    !type.equals("GJ")&&!type.equals("GK")&&!type.equals("GL")&&!type.equals("GM")&&!type.equals("GN")){
                 ToastUtils.showShort(this, "二維碼掃描有誤！");
                 finish();
             }
@@ -484,6 +485,10 @@ public class CarMessageActivity extends BaseActivity {
 
         String nianjian_date=mCarCheckMessage.get(0).getNianjian_date().replaceAll("00:00:00.0","");
         if(nianjian_date.equals("1900-01-01 ")||nianjian_date.equals(""))nianjian_date="";
+        int nianjian_date_dev = TimeDateUtils.daysDeviation(curDateTime,nianjian_date+"00:00");
+        if (nianjian_date_dev<=30){//提前30天預警
+            tv29.setTextColor(getResources().getColor(R.color.color_d73d19));
+        }
         tv28.setText(nianjian_date);
 
         String gas_date=mCarCheckMessage.get(0).getGas_date().replaceAll("00:00:00.0","");
@@ -518,6 +523,36 @@ public class CarMessageActivity extends BaseActivity {
             tr24.setVisibility(View.VISIBLE);tr25.setVisibility(View.VISIBLE);
             tr26.setVisibility(View.VISIBLE);tr27.setVisibility(View.VISIBLE);
             tr28.setVisibility(View.VISIBLE);tr29.setVisibility(View.VISIBLE);
+        }else if(type.equals("GF")||type.equals("GG")||type.equals("GH")||type.equals("GI")||type.equals("GJ")){//總務
+            tr2.setVisibility(View.VISIBLE);tr3.setVisibility(View.VISIBLE);
+            tr4.setVisibility(View.VISIBLE);tr5.setVisibility(View.VISIBLE);
+            tr6.setVisibility(View.VISIBLE);tr20.setVisibility(View.VISIBLE);
+            tr22.setVisibility(View.VISIBLE);tr23.setVisibility(View.VISIBLE);
+            tr24.setVisibility(View.VISIBLE);tr25.setVisibility(View.VISIBLE);
+            tr26.setVisibility(View.VISIBLE);tr27.setVisibility(View.VISIBLE);
+            tr28.setVisibility(View.VISIBLE);
+        }else if(type.equals("GK")||type.equals("GL")){//安保部摩托車 吉普車
+            tr1.setVisibility(View.VISIBLE);
+            tr4.setVisibility(View.VISIBLE);tr5.setVisibility(View.VISIBLE);
+            tr6.setVisibility(View.VISIBLE);tr17.setVisibility(View.VISIBLE);
+            tr18.setVisibility(View.VISIBLE);tr19.setVisibility(View.VISIBLE);
+            tr20.setVisibility(View.VISIBLE);tr23.setVisibility(View.VISIBLE);
+            tr24.setVisibility(View.VISIBLE);tr25.setVisibility(View.VISIBLE);
+            tr26.setVisibility(View.VISIBLE);tr27.setVisibility(View.VISIBLE);
+            tr28.setVisibility(View.VISIBLE);
+        }else if(type.equals("GM")){//安保部電動車
+            tr1.setVisibility(View.VISIBLE);tr4.setVisibility(View.VISIBLE);
+            tr5.setVisibility(View.VISIBLE);tr6.setVisibility(View.VISIBLE);
+            tr16.setVisibility(View.VISIBLE);tr17.setVisibility(View.VISIBLE);
+            tr18.setVisibility(View.VISIBLE);tr23.setVisibility(View.VISIBLE);
+            tr24.setVisibility(View.VISIBLE);
+        }
+        else if(type.equals("GN")){//安保部消防車
+            tr1.setVisibility(View.VISIBLE);tr17.setVisibility(View.VISIBLE);
+            tr4.setVisibility(View.VISIBLE);tr5.setVisibility(View.VISIBLE);
+            tr6.setVisibility(View.VISIBLE);tr16.setVisibility(View.VISIBLE);
+            tr18.setVisibility(View.VISIBLE);tr23.setVisibility(View.VISIBLE);
+            tr24.setVisibility(View.VISIBLE);
         }
 
     }
