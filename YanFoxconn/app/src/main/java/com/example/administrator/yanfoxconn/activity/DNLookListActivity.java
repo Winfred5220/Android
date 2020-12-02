@@ -18,11 +18,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
-
 import com.example.administrator.yanfoxconn.R;
-import com.example.administrator.yanfoxconn.adapter.AbnormalListAdapter;
-import com.example.administrator.yanfoxconn.adapter.DNCheckListAdapter;
 import com.example.administrator.yanfoxconn.adapter.DNLookListAdapter;
 import com.example.administrator.yanfoxconn.bean.DNCheckMessage;
 import com.example.administrator.yanfoxconn.bean.FileName;
@@ -47,6 +43,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 
+import androidx.annotation.Nullable;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 

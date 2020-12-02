@@ -21,16 +21,12 @@ import android.widget.TextView;
 import com.example.administrator.yanfoxconn.R;
 import com.example.administrator.yanfoxconn.adapter.DNReformAdapter;
 import com.example.administrator.yanfoxconn.adapter.RouteListAdapter;
-import com.example.administrator.yanfoxconn.adapter.ZhiyinshuiProcessAdapter;
 import com.example.administrator.yanfoxconn.bean.DNReform;
 import com.example.administrator.yanfoxconn.bean.DNSpinner;
-import com.example.administrator.yanfoxconn.bean.ZhiyinshuiExceMsg;
 import com.example.administrator.yanfoxconn.constant.Constants;
 import com.example.administrator.yanfoxconn.utils.BaseActivity;
 import com.example.administrator.yanfoxconn.utils.HttpUtils;
 import com.example.administrator.yanfoxconn.utils.ToastUtils;
-import com.example.administrator.yanfoxconn.widget.MyListView;
-import com.example.administrator.yanfoxconn.widget.SwipeListView;
 import com.example.administrator.yanfoxconn.widget.SwipeListViewOne;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -45,9 +41,7 @@ import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -83,8 +77,6 @@ public class DNReformListActivity extends BaseActivity implements View.OnClickLi
     Button btnBack;//返回
     @BindView(R.id.tv_title)
     TextView tvTitle;//標題
-    @BindView(R.id.btn_title_right)
-    Button btnUp;//提交
 
     @BindView(R.id.ll_tr)
     LinearLayout llTR;//查詢條件部分

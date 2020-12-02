@@ -21,7 +21,7 @@ public class DZFoodAbLvAdapter extends BaseAdapter {
     private DZFoodAbListActivty dzFoodAbListActivty;
     private List<DZFoodAbList> abList;
     private String from;
-    public DZFoodAbLvAdapter (DZFoodAbListActivty activity, List<DZFoodAbList> messageList,String from){
+    public DZFoodAbLvAdapter (DZFoodAbListActivty activity, List<DZFoodAbList> messageList, String from){
         this.dzFoodAbListActivty = activity;
         this.abList = messageList;
         this.from = from;

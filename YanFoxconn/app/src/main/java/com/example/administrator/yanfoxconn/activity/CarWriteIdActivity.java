@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
 import com.example.administrator.yanfoxconn.R;
 import com.example.administrator.yanfoxconn.bean.OCRMessage;
 import com.example.administrator.yanfoxconn.utils.BaseActivity;
@@ -32,10 +33,11 @@ import butterknife.ButterKnife;
  * 碼頭 手動輸入銷單號
  * 常用表單
  * 跨區 無紙化作業 手動輸入工號
+ * 健康追蹤 手動輸入工號
  * Created by song on 2018/5/17.
  */
 
-public class CarWriteIdActivity extends BaseActivity implements View.OnClickListener{
+public class CarWriteIdActivity extends BaseActivity implements View.OnClickListener {
 
     @BindView(R.id.tv_title)
     TextView tvTitle;//標題
@@ -50,9 +52,10 @@ public class CarWriteIdActivity extends BaseActivity implements View.OnClickList
 
     private AlertDialog.Builder alertDialog;
     private List<OCRMessage> messageList;
+    private String check = "";//健康追蹤 廠商 或 員工
 
     @Override
-    protected void onCreate( Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_write_carid);
 
@@ -60,15 +63,20 @@ public class CarWriteIdActivity extends BaseActivity implements View.OnClickList
 
         alertDialog = new AlertDialog.Builder(this);
         from = getIntent().getStringExtra("from");
-        if (from.equals("crossScan")||from.equals("inoutScan")||from.equals("vehicleScan")||from.equals("wrongScan")){
+        if (from.equals("healthScan") || from.equals("healthOCR")) {
+            check = getIntent().getStringExtra("check");
+        }
+        if (from.equals("crossScan") || from.equals("inoutScan") || from.equals("vehicleScan") || from.equals("wrongScan") || from.equals("healthScan")) {
 
-            tvTitle.setText("手動輸入工號");
+            if (check.equals("")) {
+                tvTitle.setText("手動輸入工號");
+            } else if (check.equals("out")) {
+                tvTitle.setText("手動輸入身份證號");
+            } else {
 
-        }else if (from.equals("carScan")){
-
-            tvTitle.setText("手動輸入車牌號");
-
-        }else if (from.equals("crossOCR")||from.equals("wrongOCR")||from.equals("inoutOCR")||from.equals("vehicleOCR")){
+                tvTitle.setText("手動輸入工號");
+            }
+        } else if (from.equals("crossOCR") || from.equals("wrongOCR") || from.equals("inoutOCR") || from.equals("vehicleOCR") || from.equals("healthOCR")) {
             // 识别成功回调，通用文字识别（高精度版）
             RecognizeService.recAccurateBasic(this, FileUtil.getSaveFile(getApplicationContext()).getAbsolutePath(),
                     new RecognizeService.ServiceListener() {
@@ -78,36 +86,37 @@ public class CarWriteIdActivity extends BaseActivity implements View.OnClickList
                             JsonObject jsonObject = new JsonParser().parse(result).getAsJsonObject();
                             JsonArray array = jsonObject.get("words_result").getAsJsonArray();
                             messageList = new ArrayList<OCRMessage>();
-                            if (array.size()==0){
-                                ToastUtils.showLong(CarWriteIdActivity.this,"拍照無效,請手動輸入!");
-                            }else{
+                            if (array.size() == 0) {
+                                ToastUtils.showLong(CarWriteIdActivity.this, "拍照無效,請手動輸入!");
+                            } else {
                                 for (JsonElement type : array) {
                                     OCRMessage humi = gson.fromJson(type, OCRMessage.class);
                                     messageList.add(humi);
                                 }
 
-                                infoPopText(messageList.get(messageList.size()-1).getWords());
+                                infoPopText(messageList.get(messageList.size() - 1).getWords());
 
                             }
 
                         }
                     });
-        }else if (from.equals("carOCR")){
+        } else if (from.equals("carOCR")) {
             // 识别成功回调，车牌识别
             RecognizeService.recLicensePlate(this, FileUtil.getSaveFile(getApplicationContext()).getAbsolutePath(),
                     new RecognizeService.ServiceListener() {
                         @Override
                         public void onResult(String result) {
-                            if (result.equals("0")){
-                                ToastUtils.showLong(CarWriteIdActivity.this,"識別失敗,請重試!");
-                            }else{
+                            if (result.equals("0")) {
+                                ToastUtils.showLong(CarWriteIdActivity.this, "識別失敗,請重試!");
+                            } else {
                                 JsonObject jsonObject = new JsonParser().parse(result).getAsJsonObject();
                                 JsonObject wordsResult = jsonObject.get("words_result").getAsJsonObject();
                                 String cardId = wordsResult.get("number").getAsString();
-                                infoPopText( cardId);}
+                                infoPopText(cardId);
+                            }
                         }
                     });
-        }else{
+        } else {
             tvTitle.setText("手動輸入銷單號");
         }
 
@@ -119,50 +128,61 @@ public class CarWriteIdActivity extends BaseActivity implements View.OnClickList
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.btn_title_left:
                 finish();
                 break;
             case R.id.btn_up:
-                if (etWriteId.getText().toString().equals("")){
-                    ToastUtils.showShort(this,"輸入結果不能為空!");
-                }else if(from.equals("carList")){
+                if (etWriteId.getText().toString().equals("")) {
+                    ToastUtils.showShort(this, "輸入結果不能為空!");
+                } else if (from.equals("carList")) {
                     Intent resultIntent = new Intent(CarWriteIdActivity.this, CarScanActivity.class);
                     resultIntent.putExtra("result", etWriteId.getText().toString());
                     startActivity(resultIntent);
                     finish();
-                }else if (from.equals("crossScan")||from.equals("crossOCR")){
+                } else if (from.equals("crossScan") || from.equals("crossOCR")) {
                     Intent resultIntent = new Intent(CarWriteIdActivity.this, CrossScanActivity.class);
                     Bundle bundle = new Bundle();
                     bundle.putString("result", etWriteId.getText().toString());
                     resultIntent.putExtras(bundle);
                     startActivity(resultIntent);
                     finish();
-                }else if (from.equals("carScan")||from.equals("carOCR")){
+                } else if (from.equals("carScan") || from.equals("carOCR")) {
                     Intent resultIntent = new Intent(CarWriteIdActivity.this, CrossCarActivity.class);
                     Bundle bundle = new Bundle();
                     bundle.putString("result", etWriteId.getText().toString());
                     resultIntent.putExtras(bundle);
                     startActivity(resultIntent);
                     finish();
-                }else if (from.equals("wrongScan")||from.equals("wrongOCR")){
+                } else if (from.equals("wrongScan") || from.equals("wrongOCR")) {
 
-                    Intent resultIntent = new Intent(CarWriteIdActivity.this,EmpWrongActivity.class);
-                    resultIntent.putExtra("result",etWriteId.getText().toString());
+                    Intent resultIntent = new Intent(CarWriteIdActivity.this, EmpWrongActivity.class);
+                    resultIntent.putExtra("result", etWriteId.getText().toString());
                     startActivity(resultIntent);
                     finish();
-                }else if (from.equals("inoutScan")||from.equals("inoutOCR")){
+                } else if (from.equals("inoutScan") || from.equals("inoutOCR")) {
 
-                    Intent resultIntent = new Intent(CarWriteIdActivity.this,EmpTurnoverActivity.class);
-                    resultIntent.putExtra("result",etWriteId.getText().toString());
+                    Intent resultIntent = new Intent(CarWriteIdActivity.this, EmpTurnoverActivity.class);
+                    resultIntent.putExtra("result", etWriteId.getText().toString());
                     startActivity(resultIntent);
                     finish();
-                }else if (from.equals("vehicleScan")||from.equals("vehicleOCR")){
+                } else if (from.equals("vehicleScan") || from.equals("vehicleOCR")) {
 
-                    Intent resultIntent = new Intent(CarWriteIdActivity.this,TwoWheelVehicleActivity.class);
-                    resultIntent.putExtra("result",etWriteId.getText().toString());
+                    Intent resultIntent = new Intent(CarWriteIdActivity.this, TwoWheelVehicleActivity.class);
+                    resultIntent.putExtra("result", etWriteId.getText().toString());
                     startActivity(resultIntent);
                     finish();
+                } else if (from.equals("healthScan") || from.equals("healthOCR")) {
+                    if (check.equals("")) {
+
+                        ToastUtils.showShort(this, "請返回選擇廠商或員工");
+                    } else {
+                        Intent resultIntent = new Intent(CarWriteIdActivity.this, GECheckIDActivity.class);
+                        resultIntent.putExtra("result", etWriteId.getText().toString());
+                        resultIntent.putExtra("check", check);
+                        startActivity(resultIntent);
+                        finish();
+                    }
                 }
                 break;
         }
@@ -184,6 +204,6 @@ public class CarWriteIdActivity extends BaseActivity implements View.OnClickList
     private void infoPopText(final String result) {
 //        alertText("", result);
         etWriteId.setText(result);
-        Log.e("-------------","ocr==="+result);
+        Log.e("-------------", "ocr===" + result);
     }
 }

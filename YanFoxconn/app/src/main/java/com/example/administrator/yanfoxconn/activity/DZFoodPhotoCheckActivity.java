@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+
 import com.example.administrator.yanfoxconn.R;
 import com.example.administrator.yanfoxconn.adapter.DZFoodPhotoAdapter;
 import com.example.administrator.yanfoxconn.bean.ExcePhoto;
@@ -26,8 +27,10 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 

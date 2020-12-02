@@ -13,7 +13,6 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
-
 import com.example.administrator.yanfoxconn.R;
 import com.example.administrator.yanfoxconn.adapter.DNCheckListAdapter;
 import com.example.administrator.yanfoxconn.bean.DNCheckMessage;
@@ -22,7 +21,6 @@ import com.example.administrator.yanfoxconn.constant.FoxContext;
 import com.example.administrator.yanfoxconn.utils.BaseActivity;
 import com.example.administrator.yanfoxconn.utils.HttpUtils;
 import com.example.administrator.yanfoxconn.utils.ToastUtils;
-import com.example.administrator.yanfoxconn.widget.IconPopupWindow;
 import com.example.administrator.yanfoxconn.widget.SwipeListView;
 import com.example.administrator.yanfoxconn.widget.ThreePopupWindow;
 import com.google.gson.Gson;
@@ -211,7 +209,7 @@ public class DNCheckListActivity extends BaseActivity implements View.OnClickLis
                     startActivity(intent1);
                     break;
                 case R.id.ll_three:
-                    Intent intentR = new Intent(DNCheckListActivity.this,DNReformListActivity.class);
+                    Intent intentR = new Intent(DNCheckListActivity.this, DNReformListActivity.class);
                     intentR.putExtra("qrResult",getQrMessage);
                     intentR.putExtra("from","self");
                     startActivity(intentR);

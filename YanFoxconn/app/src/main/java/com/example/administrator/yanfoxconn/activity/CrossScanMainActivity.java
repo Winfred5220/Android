@@ -3,8 +3,11 @@ package com.example.administrator.yanfoxconn.activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,10 +29,11 @@ import butterknife.ButterKnife;
 /**
  * 跨區無紙化 主界面
  * 常用表單 輸入賬號界面
+ * 健康追蹤  輸入身份證或工號
  * Created by song on 2018/8/22.
  */
 
-public class CrossScanMainActivity extends BaseActivity implements View.OnClickListener{
+public class CrossScanMainActivity extends BaseActivity implements View.OnClickListener, RadioGroup.OnCheckedChangeListener {
 
     private static final int REQUEST_CODE_ACCURATE_BASIC = 107;
     private static final int REQUEST_CODE_LICENSE_PLATE = 122;
@@ -44,11 +48,18 @@ public class CrossScanMainActivity extends BaseActivity implements View.OnClickL
     Button btnWrite;//手動輸入
     @BindView(R.id.btn_ocr)
     Button btnOCR;//文字識別
+    @BindView(R.id.rg_check)
+    RadioGroup rgCheck;//安保部-健康追蹤 顯示
+    @BindView(R.id.rtb_out)
+    RadioButton rtbOut;//廠商
+    @BindView(R.id.rtb_worker)
+    RadioButton rtbWorker;//員工
 
     private boolean hasGotToken = false;
 
-    private AlertDialog.Builder alertDialog;
-    private String flag="";//判斷是協管跨區無紙化,還是安全部三個常用表單
+    private AlertDialog.Builder alertDialog;private String flag="";//判斷是協管跨區無紙化,還是安全部三個常用表單,health是健康追蹤
+    private String check="2";//健康追蹤下是 廠商 還是 員工
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -61,8 +72,16 @@ public class CrossScanMainActivity extends BaseActivity implements View.OnClickL
         btnWrite.setOnClickListener(this);
         btnOCR.setOnClickListener(this);
 
+        rgCheck.setOnCheckedChangeListener(this::onCheckedChanged);
+        rtbWorker.setOnClickListener(this::onClick);
+        rtbOut.setOnClickListener(this::onClick);
+        rtbWorker.setChecked(true);
 //        Bundle bundle = this.getIntent().getExtras();
         flag = getIntent().getStringExtra("flag");
+        if (flag.equals("health")) {
+            btnScan.setVisibility(View.GONE);
+            rgCheck.setVisibility(View.VISIBLE);
+        }
         tvTitle.setText("輸入方式");
         // 请选择您的初始化方式
         // initAccessToken();
@@ -83,7 +102,9 @@ public class CrossScanMainActivity extends BaseActivity implements View.OnClickL
             break;
             case R.id.btn_write://手動錄入
                 Intent intent1 = new Intent(CrossScanMainActivity.this, CarWriteIdActivity.class);
-                intent1.putExtra("from", flag+"Scan");
+                intent1.putExtra("from", flag + "Scan");
+                intent1.putExtra("check", check);
+                Log.e("----------", "check===" + check);
                 startActivity(intent1);
                 break;
             case R.id.btn_ocr://OCR識別
@@ -186,6 +207,10 @@ public class CrossScanMainActivity extends BaseActivity implements View.OnClickL
                 intent.putExtra("from", "crossOCR");
             }else if(flag.equals("car")){
                 intent.putExtra("from", "carOCR");
+            }  else if (flag.equals("health")) {
+
+                intent.putExtra("from", "healthOCR");
+                intent.putExtra("check", check);
             } else {
                 intent.putExtra("from", flag + "OCR");
             }
@@ -201,4 +226,15 @@ public class CrossScanMainActivity extends BaseActivity implements View.OnClickL
         OCR.getInstance(this).release();
     }
 
+    @Override
+    public void onCheckedChanged(RadioGroup radioGroup, int i) {
+        switch (radioGroup.getCheckedRadioButtonId()) {
+            case R.id.rtb_out:
+                check = "1";
+                break;
+            case R.id.rtb_worker:
+                check = "2";
+                break;
+        }
+    }
 }

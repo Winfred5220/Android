@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--安保部 常用表單-->
 <!--掃描廠牌輸入工號-->
+<!--健康追蹤-->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
@@ -13,6 +14,26 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <!--        安保部-健康追蹤 時顯示-->
+        <RadioGroup
+            android:id="@+id/rg_check"
+            style="@style/btn_input"
+            android:layout_marginBottom="@dimen/dimen_50"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            >
+            <RadioButton
+                android:id="@+id/rtb_worker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="員工"/>
+            <RadioButton
+                android:id="@+id/rtb_out"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="廠商"/>
+
+        </RadioGroup>
         <!--掃描進入-->
         <!--員工違規登記表-->
         <Button

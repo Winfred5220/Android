@@ -1,17 +1,13 @@
 package com.example.administrator.yanfoxconn.activity;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
-import android.os.PersistableBundle;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,8 +23,6 @@ import com.baidu.location.BDLocation;
 import com.bumptech.glide.Glide;
 import com.example.administrator.yanfoxconn.R;
 import com.example.administrator.yanfoxconn.bean.DNReform;
-import com.example.administrator.yanfoxconn.bean.DZFoodAbList;
-import com.example.administrator.yanfoxconn.bean.ExcePhoto;
 import com.example.administrator.yanfoxconn.bean.GAWork;
 import com.example.administrator.yanfoxconn.bean.SelectModel;
 import com.example.administrator.yanfoxconn.constant.Constants;
@@ -52,13 +46,10 @@ import org.json.JSONArray;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
-import static androidx.core.app.ActivityCompat.startActivityForResult;
 
 /**
  * Created by Song
@@ -75,6 +66,7 @@ public class DZSignInOutActivity extends BaseActivity implements View.OnClickLis
     private final int MESSAGE_NETMISTAKE = 5;//網絡錯誤
     private final int MESSAGE_SET_CHECK = 6;
     private final int MESSAGE_GET_DIM_LOCAL = 0;//獲取dimLocal
+    private final int GAMESSAGE_TOAST = 1;//總務臨時工，簽到成功
 
     @BindView(R.id.btn_title_left)
     Button btnBack;//返回
@@ -590,7 +582,7 @@ public class DZSignInOutActivity extends BaseActivity implements View.OnClickLis
                             String errCode = jsonObject.get("errCode").getAsString();
                             if (errCode.equals("200")) {
                                 Message message = new Message();
-                                message.what = MESSAGE_TOAST;
+                                message.what = GAMESSAGE_TOAST;
                                 message.obj = jsonObject.get("errMessage").getAsString();
                                 mHandler.sendMessage(message);
 
@@ -749,15 +741,17 @@ public class DZSignInOutActivity extends BaseActivity implements View.OnClickLis
                     finish();
                     break;
                 case MESSAGE_TOAST:
-                    if (msg.obj.toString().equals("success")) {
+                    if (getIntent().getStringExtra("flag").equals("GA")&&inOut.equals("in")){
+                        ToastUtils.showLong(DZSignInOutActivity.this, "此員工無職能信息，請聯繫相關主管！");
+                        finish();
+                    }else if (msg.obj.toString().equals("success")) {
                         ToastUtils.showLong(DZSignInOutActivity.this, "成功");
                     } else {
                         ToastUtils.showLong(DZSignInOutActivity.this, msg.obj.toString());
+                        finish();
                     }
-                    if (getIntent().getStringExtra("flag").equals("GA")&&inOut.equals("in")){
-                        getWorkMessage(FoxContext.getInstance().getLoginId());
-                    }else{
-                    finish();}
+
+
                     break;
                 case MESSAGE_UP://提交響應
                     break;
@@ -766,6 +760,8 @@ public class DZSignInOutActivity extends BaseActivity implements View.OnClickLis
                     String message = "课组："+works.get(0).getG_name()+"\n"+"岗位："+works.get(0).getG_post()+"\n"+"职责： "+"\n"+works.get(0).getG_duty();
                     worningAlert(message,1);
                     break;
+                case GAMESSAGE_TOAST:
+                    getWorkMessage(FoxContext.getInstance().getLoginId());
             }
             super.handleMessage(msg);
         }

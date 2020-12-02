@@ -80,9 +80,12 @@ public class GBYueNanCheckAdapter extends RecyclerView.Adapter<GBYueNanCheckAdap
     private SimpleDateFormat formatterd = new SimpleDateFormat("dd");
     private static int mYear, mMonth, mDay;
 
+    private int num = 0;//輸入框初始值
+    private int mMaxNum =100;//輸入框最大值
+
     static class ViewHolder extends RecyclerView.ViewHolder{
-        TextView tvItem,tvContent,tvDate;//序號 部位 檢查項目
-        RadioButton rbTure,rbFalse;//單選
+        TextView tvItem,tvContent,tvDate,tvWordNum;//序號 部位 檢查項目 字數
+         RadioButton rbTure,rbFalse;//單選
         EditText etAbnormal,etInput,etWorker,etPer;// 填寫信息 , ,施工人数，施工进度
         LinearLayout llAbnormal,llSigle;//異常信息
         ImageView ivEmpty;//空白图片占位
@@ -97,6 +100,7 @@ public class GBYueNanCheckAdapter extends RecyclerView.Adapter<GBYueNanCheckAdap
             tvDate=itemView.findViewById(R.id.tv_date);
             tvItem = (TextView) itemView.findViewById(R.id.tv_item);
             tvContent = itemView.findViewById(R.id.tv_content);
+            tvWordNum = itemView.findViewById(R.id.et_worker);
             llAbnormal = itemView.findViewById(R.id.ll_abnormal);
             rbTure = itemView.findViewById(R.id.rb_true);
             rbFalse = itemView.findViewById(R.id.rb_false);
@@ -183,6 +187,10 @@ public class GBYueNanCheckAdapter extends RecyclerView.Adapter<GBYueNanCheckAdap
         });
         //異常輸入框
         holder.etAbnormal.addTextChangedListener(new TextWatcher() {
+            //紀錄存入的字數
+            private CharSequence wordNum;
+            private int selectionStart;
+            private int selectionEnd;
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -190,13 +198,29 @@ public class GBYueNanCheckAdapter extends RecyclerView.Adapter<GBYueNanCheckAdap
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                //實時紀錄輸入的字數
+                wordNum = charSequence;
+
                 int position = holder.getAdapterPosition();
                 etMap.put(position,holder.etAbnormal.getText().toString());
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
-
+                int number = num + editable.length();
+                //TextView 顯示剩餘字數
+                holder.tvWordNum.setText(""+number+"/100");
+                selectionStart = holder.etAbnormal.getSelectionStart();
+                selectionEnd = holder.etAbnormal.getSelectionEnd();
+                //判斷大於最大值
+                if (wordNum.length()>mMaxNum){
+                    //刪除多餘輸入的字（不會顯示出來）
+                    editable.delete(selectionStart-1,selectionEnd);
+                    int tempSelection = selectionEnd;
+                    holder.etAbnormal.setText(editable);
+                    holder.etAbnormal.setSelection(tempSelection);//設置光標在最後
+                    ToastUtils.showLong(mContext,"最多輸入100字！ ");
+                }
             }
         });
         //人数輸入框
@@ -573,7 +597,7 @@ public class GBYueNanCheckAdapter extends RecyclerView.Adapter<GBYueNanCheckAdap
 
 //        if (gridMap.get(position)==null){
 //            gridAdapter = new GridAdapter(imagePathsMap.get(position));
-        gridMap.put(position,new GBYueNanCheckAdapter.GridAdapter(imagePathsMap.get(position)));
+        gridMap.put(position,new GridAdapter(imagePathsMap.get(position)));
         hgvPhoto.setAdapter(gridMap.get(position));
 //        }else {
 //            gridMap.get(position).notifyDataSetChanged();

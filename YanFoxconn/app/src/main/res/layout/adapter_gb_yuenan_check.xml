@@ -120,7 +120,7 @@
                     android:layout_marginRight="@dimen/dimen_8"
                     android:textSize="@dimen/text_size_18"
                     android:inputType="number"
-                    android:hint="請輸入施工人数"/>
+                    android:hint="請輸入施工人数,默認為0！"/>
             </TableRow>
             <TableRow
                 android:layout_width="match_parent"
@@ -143,18 +143,33 @@
                     android:layout_marginRight="@dimen/dimen_8"
                     android:textSize="@dimen/text_size_18"
                     android:inputType="number"
-                    android:hint="請輸入施工进度"/>
+                    android:hint="請輸入施工进度,默認為0！"/>
             </TableRow>
         </TableLayout>
         <!--文字描述-->
-        <EditText
-            android:id="@+id/et_abnormal"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dimen_8"
             android:layout_marginRight="@dimen/dimen_8"
-            android:textSize="@dimen/text_size_18"
-            android:hint="請輸入描述"/>
+            android:layout_gravity="center">
+            <EditText
+                android:id="@+id/et_abnormal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_size_18"
+                android:hint="請輸入描述，100字內"/>
+            <TextView
+                android:id="@+id/tv_abnormal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:text="0/100"
+                android:layout_marginBottom="@dimen/dimen_8"
+                android:layout_marginRight="@dimen/dimen_8"/>
+        </RelativeLayout>
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
