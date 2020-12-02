@@ -270,6 +270,13 @@ public class MyExpandableListViewAdapter extends BaseExpandableListAdapter {
                 mContext.startActivity(intent);
             }
 
+            @Override//安保部 健康追蹤
+            public void OnClickGC(int position) {
+                Intent intent2 = new Intent(mContext,CrossScanMainActivity.class);
+                intent2.putExtra("flag","health");
+                mContext.startActivity(intent2);
+            }
+
             @Override//物品放行
             public void OnClickGoods() {
                 Intent intent = new Intent(mContext, GoodsReleaseInputActivity.class);
@@ -610,6 +617,15 @@ public class MyExpandableListViewAdapter extends BaseExpandableListAdapter {
             @Override
             public void OnClickFZ() {//工業安全-有限空間
                 FoxContext.getInstance().setType("FZ");
+                Intent intent = new Intent(mContext, QrCodeActivity.class);
+                intent.putExtra("title", "掃描二維碼");
+                intent.putExtra("num", "cz");
+                mContext.startActivity(intent);
+            }
+
+            @Override
+            public void OnClickGE() {//工業安全-室外堆場
+                FoxContext.getInstance().setType("GE");
                 Intent intent = new Intent(mContext, QrCodeActivity.class);
                 intent.putExtra("title", "掃描二維碼");
                 intent.putExtra("num", "cz");

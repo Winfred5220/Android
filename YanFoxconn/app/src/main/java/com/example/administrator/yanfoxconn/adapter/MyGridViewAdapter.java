@@ -97,6 +97,8 @@ public class MyGridViewAdapter extends BaseAdapter {
                     tvGridView.setTag("y");
                 } else if (rolesList.get(i).equals("CD")) {//安全部 常用表單
                     tvGridView.setTag("cd");
+                } else if (rolesList.get(i).equals("GC")) {//安全部 健康追蹤
+                    tvGridView.setTag("gc");
                 } else if (rolesList.get(i).equals("CE")) {//安全部 物品放行
                     tvGridView.setTag("ce");
                 } else if (rolesList.get(i).equals("CI")) {//HUB倉
@@ -193,6 +195,8 @@ public class MyGridViewAdapter extends BaseAdapter {
                     tvGridView.setTag("fx");
                 } else if (rolesList.get(i).equals("FZ")) {//工業安全-有限空間
                     tvGridView.setTag("fz");
+                }else if (rolesList.get(i).equals("GE")) {//工業安全-室外堆場
+                    tvGridView.setTag("ge");
                 } else if (rolesList.get(i).equals("GB")) {//越南巡更
                     tvGridView.setTag("gb");
                 } else if (rolesList.get(i).equals("GA")) {//總務臨時工
@@ -243,6 +247,8 @@ public class MyGridViewAdapter extends BaseAdapter {
                     onClickListener.OnClickComForms(position);
                 } else if (view.getTag().equals("ce")) {//安全部 物品放行
                     onClickListener.OnClickGoods();
+                } else if (view.getTag().equals("gc")) {//安全部 健康追蹤
+                    onClickListener.OnClickGC(position);
                 } else if (view.getTag().equals("ci")) {//HUB倉
                     onClickListener.OnClickHub();
                 } else if (view.getTag().equals("ck")) {//叉車巡檢
@@ -337,6 +343,8 @@ public class MyGridViewAdapter extends BaseAdapter {
                     onClickListener.OnClickFX();
                 } else if (view.getTag().equals("fz")) {//工業安全-有限空間
                     onClickListener.OnClickFZ();
+                }else if (view.getTag().equals("ge")) {//工業安全-室外堆場
+                    onClickListener.OnClickGE();
                 } else if (view.getTag().equals("gb")) {//越南巡更
                     onClickListener.OnClickGB();
                 } else if (view.getTag().equals("ga")) {//總務臨時工
@@ -368,6 +376,7 @@ public class MyGridViewAdapter extends BaseAdapter {
         void OnClickEventList(int position);//活動列表
         void OnClickEventCheckIn(int position);//活動簽到
         void OnClickComForms(int position);//常用表單
+        void OnClickGC(int position);//安保部 健康追蹤
         void OnClickGoods();//物品放行
         void OnClickHub();//HUB倉
         void OnClickForkLift();//叉車巡檢
@@ -418,6 +427,7 @@ public class MyGridViewAdapter extends BaseAdapter {
         void OnClickBV();//叉車球車點檢
         void OnClickFX();//工業安全-鋰電池防火
         void OnClickFZ();//工業安全-有限空間
+        void OnClickGE();//工業安全-室外堆場
         void OnClickGA();//總務臨時工
         void OnClickGB();//越南巡更
     }

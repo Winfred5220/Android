@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+
 import com.example.administrator.yanfoxconn.R;
 import com.example.administrator.yanfoxconn.adapter.DZFoodAbLvAdapter;
 import com.example.administrator.yanfoxconn.bean.DZFoodAbList;
@@ -74,7 +75,7 @@ public class DZFoodAbListActivty extends BaseActivity implements View.OnClickLis
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Intent intent = new Intent(DZFoodAbListActivty.this,GAExceDetailActivity.class);
+                    Intent intent = new Intent(DZFoodAbListActivty.this, GAExceDetailActivity.class);
                     intent.putExtra("exceId",lists.get(position).getExce_id());
                     startActivity(intent);
                 }
@@ -84,7 +85,7 @@ public class DZFoodAbListActivty extends BaseActivity implements View.OnClickLis
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(DZFoodAbListActivty.this,DZFoodAbCheckActivity.class);
+                Intent intent = new Intent(DZFoodAbListActivty.this, DZFoodAbCheckActivity.class);
                 intent.putExtra("exceId",lists.get(position).getExce_id());
                 intent.putExtra("canbie",getIntent().getStringExtra("canbie"));
                 intent.putExtra("dimId",getIntent().getStringExtra("dimId"));

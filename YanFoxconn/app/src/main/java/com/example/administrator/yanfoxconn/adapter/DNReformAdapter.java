@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import com.example.administrator.yanfoxconn.R;
 import com.example.administrator.yanfoxconn.bean.DNReform;
-import com.example.administrator.yanfoxconn.bean.ZhiyinshuiExceMsg;
 
 import java.util.List;
 

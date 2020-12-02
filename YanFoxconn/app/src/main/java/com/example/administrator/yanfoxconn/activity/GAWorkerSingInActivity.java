@@ -223,6 +223,6 @@ public class GAWorkerSingInActivity extends BaseActivity implements View.OnClick
     protected void onStart() {
         super.onStart();
 
-        getScanStatue( FoxContext.getInstance().getType(),FoxContext.getInstance().getLoginId());
+        getScanStatue( FoxContext.getInstance().getType(), FoxContext.getInstance().getLoginId());
     }
 }

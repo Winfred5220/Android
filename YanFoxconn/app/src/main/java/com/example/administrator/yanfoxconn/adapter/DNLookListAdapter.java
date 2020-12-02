@@ -1,6 +1,5 @@
 package com.example.administrator.yanfoxconn.adapter;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,10 +7,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.example.administrator.yanfoxconn.R;
-import com.example.administrator.yanfoxconn.activity.AbnormalListActivity;
-import com.example.administrator.yanfoxconn.activity.AbnormalSelfListActivity;
 import com.example.administrator.yanfoxconn.activity.DNLookListActivity;
-import com.example.administrator.yanfoxconn.bean.AbnormalMessage;
 import com.example.administrator.yanfoxconn.bean.DNCheckMessage;
 
 import java.util.List;

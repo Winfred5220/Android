@@ -224,6 +224,6 @@ public class DZFoodMainActivity extends BaseActivity implements View.OnClickList
     protected void onStart() {
         super.onStart();
 
-        getStatu(flag, FoxContext.getInstance().getType(),FoxContext.getInstance().getLoginId());
+        getStatu(flag, FoxContext.getInstance().getType(), FoxContext.getInstance().getLoginId());
     }
 }

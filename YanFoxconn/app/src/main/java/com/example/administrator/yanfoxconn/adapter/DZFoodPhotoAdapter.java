@@ -1,6 +1,5 @@
 package com.example.administrator.yanfoxconn.adapter;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
@@ -10,10 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.example.administrator.yanfoxconn.R;
-import com.example.administrator.yanfoxconn.activity.ComAbDetailActivity;
 import com.example.administrator.yanfoxconn.activity.DZFoodPhotoCheckActivity;
 import com.example.administrator.yanfoxconn.bean.ExcePhoto;
 

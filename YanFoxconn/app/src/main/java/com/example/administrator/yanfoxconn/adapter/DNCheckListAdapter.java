@@ -5,14 +5,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.administrator.yanfoxconn.R;
 import com.example.administrator.yanfoxconn.activity.DNCheckListActivity;
-import com.example.administrator.yanfoxconn.activity.RouteListActivity;
 import com.example.administrator.yanfoxconn.bean.DNCheckMessage;
-import com.example.administrator.yanfoxconn.bean.RouteMessage;
 
 import java.util.List;
 

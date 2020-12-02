@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--安保部 健康追蹤 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <!--標題-->
+    <include layout="@layout/common_title"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <!--工號-->
+            <TableRow style="@style/tableRow">
+
+                <TextView
+                    style="@style/carTextName"
+                    android:text="工號：" />
+
+                <TextView
+                    android:id="@+id/tv_id"
+                    style="@style/carTextBKG"
+                    android:layout_weight="1" />
+            </TableRow>
+            <!--姓名-->
+            <TableRow style="@style/tableRow">
+
+                <TextView
+                    style="@style/carTextName"
+                    android:text="姓名：" />
+
+                <TextView
+                    android:id="@+id/tv_name"
+                    style="@style/carTextBKG"
+                    android:layout_weight="1" />
+            </TableRow>
+            <!--身份證-->
+            <TableRow style="@style/tableRow">
+
+                <TextView
+                    style="@style/carTextName"
+                    android:text="身份證：" />
+
+                <TextView
+                    android:id="@+id/tv_identity"
+                    style="@style/carTextBKG"
+                    android:layout_weight="1" />
+            </TableRow>
+            <!--產品處-->
+            <TableRow style="@style/tableRow">
+
+                <TextView
+                    style="@style/carTextName"
+                    android:text="產品處：" />
+
+                <TextView
+                    android:id="@+id/tv_pro"
+                    style="@style/carTextBKG"
+                    android:layout_weight="1" />
+            </TableRow>
+            <!--部門-->
+            <TableRow style="@style/tableRow">
+
+                <TextView
+                    style="@style/carTextName"
+                    android:text="部門：" />
+
+                <TextView
+                    android:id="@+id/tv_dep"
+                    style="@style/carTextBKG"
+                    android:layout_weight="1" />
+            </TableRow>
+
+            <!--稽核門崗-->
+            <TableRow style="@style/tableRow">
+
+                <TextView
+                    style="@style/carTextName"
+                    android:text="稽核門崗："
+                    android:focusable="true"
+                    android:focusableInTouchMode="true" />
+
+                <Spinner
+                    android:id="@+id/sp_team"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+            </TableRow>
+
+            <!--留觀地點-->
+            <TableRow style="@style/tableRow">
+
+                <TextView
+                    style="@style/carTextName"
+                    android:text="留觀地點：" />
+
+                <Spinner
+                    android:id="@+id/sp_area"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+            </TableRow>
+
+            <!--體溫-->
+            <TableRow style="@style/tableRow">
+
+                <TextView
+                    style="@style/carTextName"
+                    android:text="體溫："
+                    android:focusable="true"
+                    android:focusableInTouchMode="true" />
+
+                <EditText
+                    android:id="@+id/et_temp"
+                    style="@style/carEditTextBKG"
+                    android:layout_weight="1"
+                    android:inputType="number"/>
+            </TableRow>
+            <!--異常描述-->
+            <TableRow style="@style/tableRow">
+
+                <TextView
+                    style="@style/carTextName"
+                    android:text="詳細描述：" />
+
+                <EditText
+                    android:id="@+id/et_desp"
+                    style="@style/carEditTextBKG"
+                    android:layout_height="@dimen/dimen_60"
+                    android:layout_weight="1"
+                    android:hint="請輸入內容"
+                    android:inputType="number"/>
+
+            </TableRow>
+        </TableLayout>
+    </ScrollView>
+</LinearLayout>

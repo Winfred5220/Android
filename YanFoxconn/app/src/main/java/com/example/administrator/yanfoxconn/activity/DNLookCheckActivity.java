@@ -15,32 +15,19 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import androidx.annotation.Nullable;
-
 import com.example.administrator.yanfoxconn.R;
-import com.example.administrator.yanfoxconn.adapter.MyGridViewAdapter;
-import com.example.administrator.yanfoxconn.bean.AbnormalMessage;
 import com.example.administrator.yanfoxconn.bean.DNCheckMessage;
 import com.example.administrator.yanfoxconn.bean.FileName;
 import com.example.administrator.yanfoxconn.constant.Constants;
 import com.example.administrator.yanfoxconn.utils.BaseActivity;
-import com.example.administrator.yanfoxconn.utils.CustomLruCacheUtils;
 import com.example.administrator.yanfoxconn.utils.HttpUtils;
 import com.example.administrator.yanfoxconn.utils.ToastUtils;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.Nullable;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 

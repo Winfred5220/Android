@@ -1,7 +1,5 @@
 package com.example.administrator.yanfoxconn.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -16,7 +14,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.administrator.yanfoxconn.R;
-import com.example.administrator.yanfoxconn.adapter.DZFoodPhotoAdapter;
 import com.example.administrator.yanfoxconn.bean.DZFoodAbList;
 import com.example.administrator.yanfoxconn.bean.ExcePhoto;
 import com.example.administrator.yanfoxconn.constant.Constants;

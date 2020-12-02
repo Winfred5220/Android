@@ -190,7 +190,7 @@ public class DZFoodPhotoUpActivity extends BaseActivity implements View.OnClickL
                 finish();
                 break;
             case R.id.btn_title_right://查看已上传菜品照片
-                Intent intent1 = new Intent(DZFoodPhotoUpActivity.this,DZFoodPhotoCheckActivity.class);
+                Intent intent1 = new Intent(DZFoodPhotoUpActivity.this, DZFoodPhotoCheckActivity.class);
                 intent1.putExtra("scId",scId);
                 startActivity(intent1);
                 break;

@@ -331,7 +331,7 @@ public class GAExceDetailActivity extends BaseActivity implements View.OnClickLi
 
         JsonObject object = new JsonObject();
 
-        object.addProperty("type",FoxContext.getInstance().getType());
+        object.addProperty("type", FoxContext.getInstance().getType());
         object.addProperty("exce_id", exce_id);
         object.addProperty("info",etDescribe.getText().toString() );
         object.addProperty("sc_creator", FoxContext.getInstance().getName());
@@ -419,7 +419,7 @@ public class GAExceDetailActivity extends BaseActivity implements View.OnClickLi
 //                    finish();
                     break;
                 case MESSAGE_NETMISTAKE://Toast彈出
-                    ToastUtils.showLong(GAExceDetailActivity.this,R.string.net_mistake);
+                    ToastUtils.showLong(GAExceDetailActivity.this, R.string.net_mistake);
                     break;
                 case MESSAGE_SET_TEXT://text賦值
                     tvDesp.setText(msg.obj.toString());

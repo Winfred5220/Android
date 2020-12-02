@@ -1,7 +1,5 @@
 package com.example.administrator.yanfoxconn.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -26,7 +24,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.administrator.yanfoxconn.R;
-import com.example.administrator.yanfoxconn.bean.ComScanViewMessage;
 import com.example.administrator.yanfoxconn.bean.DZFoodType;
 import com.example.administrator.yanfoxconn.bean.SelectModel;
 import com.example.administrator.yanfoxconn.constant.Constants;
