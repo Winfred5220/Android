@@ -326,6 +326,8 @@
         <activity android:name=".activity.CarCheckActivity"/><!-- 車輛巡檢 -->
         <activity android:name=".activity.CarExceListActivity"/><!-- 車輛異常列表 -->
         <activity android:name=".activity.CarExceDetailActivity"/><!-- 車輛異常詳情 -->
+        <activity android:name=".activity.GCCheckIDActivity"/><!-- 安保部 健康追蹤 -->
+        <activity android:name=".activity.GCSerchActivity"/><!-- 安保部 健康追蹤 -->
     </application>
 
 </manifest>

@@ -34,6 +34,15 @@
                 android:text="廠商"/>
 
         </RadioGroup>
+
+        <!--健康追蹤已有紀錄查詢-->
+        <Button
+            android:id="@+id/btn_search"
+            android:background="@drawable/button_selector"
+            style="@style/btn_input"
+            android:text="已有紀錄查詢"
+            android:visibility="gone"/>
+
         <!--掃描進入-->
         <!--員工違規登記表-->
         <Button
@@ -58,5 +67,8 @@
             android:layout_marginBottom="@dimen/dimen_150"
             style="@style/btn_input"
             android:text="文字識別" />
+
+
+
     </LinearLayout>
 </LinearLayout>

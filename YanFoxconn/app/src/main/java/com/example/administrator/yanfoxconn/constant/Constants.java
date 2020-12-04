@@ -161,8 +161,15 @@ public class Constants {
     public static String HTTP_ZW_SCAN_SIGNOUT = BASE_URL+"ZW/ZWScanSignOutServlet";//总务临时工，签退
     public static String HTTP_ZW_SCAN_DUTY = BASE_URL+"ZW/ZWScanDutyServlet";//总务临时工，职能信息
 
-    public static String HUang="http://192.168.1.145:8080/SafeServer/";//我的接口測試
+    public static String HUang="http://192.168.1.134:8080/SafeServer_Web_exploded/";//我的接口測試
     public static String HTTP_HEALTH_SCAN =HUang+"Health/HealthScanServlet";//安全健康追蹤，人員信息查看
     public static String HTTP_HEALTH_COMMIT=HUang+"Health/HealthCommitServlet";//安全健康追蹤，提交生成單頭
+    public static String HTTP_BODY_SELECT=HUang+"Health/HealthBodySelectServlet";//安全健康追蹤，查詢已有紀錄
+    public static String HTTP_HEAD_DELETE = HUang+"Health/HeadDeleteServlet";//安全部健康追蹤，刪除單頭
+    public static String HTTP_HEALTH_TRACE_COMMIT=HUang+"Health/HealthTraceCommitServlet";//安全部健康追蹤 單身錄入
+    public static String HTTP_BODY_DELETE = HUang+"Health/HealthBodyDeleteServlet";//安全部健康追蹤 單身刪除
+    public static String HTTP_BODY_DELETE_SELECT = HUang+"Health/HealthBodyDeleteSelectServlet";//安全部健康追蹤 單身查看
+    public static String HTTP_CASE_FISH = HUang+"Health/HealthCaseFishServlet";//安全部健康追蹤 結案
+
 
 }
