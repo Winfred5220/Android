@@ -58,6 +58,7 @@ public class GCPeopleAdapter extends BaseAdapter {
             holder.tvSee = (TextView)convertView.findViewById(R.id.tv_see);
             holder.tvAdd = (TextView)convertView.findViewById(R.id.tv_add);
             holder.tvId = (TextView)convertView.findViewById(R.id.tv_id);
+            holder.tvDel = (TextView)convertView.findViewById(R.id.tv_delete);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -67,7 +68,7 @@ public class GCPeopleAdapter extends BaseAdapter {
         holder.tvName.setText(lists.get(position).getIn_Name());
         holder.tvId.setText(lists.get(position).getIn_Number());
 //        Log.e("-----------","lists.get(position).getJc_result().get(0).getName()==="+lists.get(position).getJc_result().get(0).getName());
-       holder.tvSee.setText("結案");
+
         holder.tvSee.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,7 +77,6 @@ public class GCPeopleAdapter extends BaseAdapter {
                 }
             }
         });
-        holder.tvAdd.setText("追蹤");
         holder.tvAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -85,17 +85,25 @@ public class GCPeopleAdapter extends BaseAdapter {
                 }
             }
         });
+        holder.tvDel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (onClickListenerSeeOrAdd != null) {
+                    onClickListenerSeeOrAdd.OnClickListenerDel(position);
+                }
+            }
+        });
         return convertView;
         }
 
     private class ViewHolder{
         public TextView tvNum,tvId,tvName,tvSex;
-        public TextView tvSee,tvAdd;
+        public TextView tvSee,tvAdd,tvDel;
     }
     public interface OnClickListenerSeeOrAdd {
         void OnClickListenerSee(int position);
 
-
+void OnClickListenerDel(int position);
 
         void OnClickListenerAdd(int position);
     }

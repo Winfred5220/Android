@@ -92,7 +92,7 @@ public class GCCheckIDActivity extends BaseActivity implements View.OnClickListe
         btnBack.setText("返回");
         btnUp.setText("提交");
         btnUp.setVisibility(View.VISIBLE);
-        btnUp.setOnClickListener(this);
+        btnBack.setOnClickListener(this);
         btnUp.setOnClickListener(this);
 
     }

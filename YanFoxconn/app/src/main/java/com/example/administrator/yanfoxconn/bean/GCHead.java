@@ -1,6 +1,8 @@
 package com.example.administrator.yanfoxconn.bean;
 
-public class GCHead {
+import java.io.Serializable;
+
+public class GCHead implements Serializable {
 
     private String In_Random_Id;//單號
     private String In_Category;//人員類別

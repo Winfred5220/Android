@@ -45,7 +45,7 @@
                 android:gravity="center"/>
 
         </RelativeLayout>
-            <com.example.administrator.yanfoxconn.widget.SwipeListView
+            <com.example.administrator.yanfoxconn.widget.SwipeListViewThree
                 android:id="@+id/lv_people"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

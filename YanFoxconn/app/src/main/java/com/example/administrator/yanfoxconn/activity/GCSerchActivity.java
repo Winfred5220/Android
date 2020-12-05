@@ -25,12 +25,14 @@ import com.example.administrator.yanfoxconn.utils.HttpUtils;
 import com.example.administrator.yanfoxconn.utils.ToastUtils;
 import com.example.administrator.yanfoxconn.widget.MyListView;
 import com.example.administrator.yanfoxconn.widget.SwipeListView;
+import com.example.administrator.yanfoxconn.widget.SwipeListViewThree;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,7 +60,7 @@ public class GCSerchActivity extends BaseActivity implements View.OnClickListene
     @BindView(R.id.et_search)
     EditText etSearch;//搜索文字s
     @BindView(R.id.lv_people)
-    SwipeListView lvPeople;
+    SwipeListViewThree lvPeople;
 
     private List<GCHead> gcHeads;
     private GCPeopleAdapter gcPeopleAdapter;
@@ -72,6 +74,7 @@ public class GCSerchActivity extends BaseActivity implements View.OnClickListene
 
         btnBack.setOnClickListener(this);
         btnSearch.setOnClickListener(this::onClick);
+
         tvTitle.setText("健康追蹤");
 
 
@@ -80,28 +83,28 @@ public class GCSerchActivity extends BaseActivity implements View.OnClickListene
         gcPeopleAdapter.setOnClickListenerSeeOrAdd(new GCPeopleAdapter.OnClickListenerSeeOrAdd() {
             @Override
             public void OnClickListenerSee(int position) {
-//                flag = "SINGLE";
-//                id = routeMessageList.get(position).getDim_id();
-//                toSeeAbnormalActivity("SINGLE", routeMessageList.get(position).getDim_id(), null);
+                Intent intent = new Intent(GCSerchActivity.this,GCUpOrDoneActivity.class);
+                intent.putExtra("people",(Serializable)gcHeads.get(position));
+                intent.putExtra("from","end");
+                startActivity(intent);
                 ToastUtils.showShort(GCSerchActivity.this,"結案");
+            }
+
+            @Override
+            public void OnClickListenerDel(int position) {
+                delPeople(gcHeads.get(position).getIn_Random_Id());
+                ToastUtils.showShort(GCSerchActivity.this,"刪除");
             }
 
             @Override
             public void OnClickListenerAdd(int position) {
                 ToastUtils.showShort(GCSerchActivity.this,"追蹤");
-//                if (routeMessageList.get(position).getCount().equals("0")) {
-//                    ToastUtils.showShort(RouteListActivity.this, "未巡檢不能添加異常");
-//
-//                } else {
-////                        ToastUtils.showShort(RouteListActivity.this, "添加");
-//                    Intent intent = new Intent(RouteListActivity.this, UpAbnormalActivity.class);
-//                    intent.putExtra("flag", "SINGLE");
-//                    intent.putExtra("scid", routeMessageList.get(position).getSc_id());
-////                        Log.e("-----", "scid" + routeMessageList.get(position).getSc_id());
-//                    intent.putExtra("address", routeMessageList.get(position).getDim_locale());
-//                    startActivity(intent);
-//
-//                }
+
+                Intent intent = new Intent(GCSerchActivity.this,GCUpOrDoneActivity.class);
+                intent.putExtra("people",(Serializable)gcHeads.get(position));
+                intent.putExtra("from","add");
+                startActivity(intent);
+
             }
         });
     }
@@ -220,4 +223,47 @@ search(etSearch.getText().toString());
             super.handleMessage(msg);
         }
     };
+
+    /**
+     * 刪除單頭
+     * @param roundId 單頭號
+     */
+    private void delPeople(String roundId){
+        showDialog();
+        final String url = Constants.HTTP_HEAD_DELETE+"?In_Random_Id="+roundId;
+
+        new Thread() {
+            @Override
+            public void run() {
+                //把网络访问的代码放在这里
+                String result = HttpUtils.queryStringForPost(url);
+
+                dismissDialog();
+                Log.e("---------", "==fff===" + url);
+                Gson gson = new Gson();
+                if (result != null) {
+                    Log.e("---------", "result==fff===" + result);
+
+                    JsonObject jsonObject = new JsonParser().parse(result).getAsJsonObject();
+                    String errCode = jsonObject.get("errCode").getAsString();
+                    if (errCode.equals("200")) {
+                        Log.e("--fff---------", "result==" + result);
+//                        JsonArray array = jsonObject.get("result").getAsJsonArray();
+
+
+                        Message message = new Message();
+                        message.what = MESSAGE_TOAST;
+                        message.obj = jsonObject.get("errMessage").getAsString();
+                        mHandler.sendMessage(message);
+
+                    } else{
+                        Log.e("-----------", "result==" + result);
+                        Message message = new Message();
+                        message.what = MESSAGE_TOAST;
+                        message.obj = jsonObject.get("errMessage").getAsString();
+                        mHandler.sendMessage(message);
+                    }
+                }
+            } }.start();
+    }
 }
