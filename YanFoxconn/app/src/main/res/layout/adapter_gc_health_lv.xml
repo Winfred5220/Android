@@ -12,17 +12,16 @@
         <RelativeLayout
             android:id="@+id/ll_people"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dimen_60"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical">
             <!--編号-->
             <TextView
                 android:id="@+id/tv_num"
                 android:layout_width="@dimen/dimen_40"
-                android:layout_height="@dimen/dimen_20"
+                android:layout_height="@dimen/dimen_35"
                 android:layout_marginLeft="@dimen/dimen_10"
-                android:paddingLeft="@dimen/dimen_4"
-                android:layout_centerVertical="true"
+                android:gravity="center_vertical"
                 android:text="10"
                 />
             <!--日期-->
@@ -33,36 +32,35 @@
                 android:ellipsize="end"
                 android:gravity="center_vertical"
                 android:maxLines="1"
-                android:paddingLeft="@dimen/dimen_15"
                 android:text="2020-23-23"
-                android:layout_centerVertical="true"
-                android:textSize="@dimen/text_size_18"
+                android:textSize="@dimen/text_size_16"
                 android:layout_toRightOf="@+id/tv_num"
-                android:layout_weight="1"
 
                 />
             <!--體溫-->
             <TextView
                 android:id="@+id/tv_temp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/dimen_35"
                 android:layout_marginRight="@dimen/dimen_5"
+                android:layout_marginLeft="@dimen/dimen_5"
                 android:gravity="center_vertical"
                 android:text="歐央大事"
                 android:textSize="@dimen/text_size_18"
                 android:layout_toRightOf="@+id/tv_date"
-                android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"/>
             <!--追蹤描述-->
             <TextView
                 android:id="@+id/tv_dep"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_num"
+                android:layout_below="@+id/tv_date"
                 android:layout_marginLeft="@dimen/dimen_10"
                 android:paddingLeft="@dimen/dimen_4"
+                android:textSize="@dimen/text_size_18"
                 android:layout_centerVertical="true"
-
+android:text="dsdsdsdsdsds"
+android:layout_marginRight="@dimen/dimen_10"
                 />
         </RelativeLayout>
 

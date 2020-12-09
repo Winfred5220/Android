@@ -16,7 +16,7 @@ public class Constants {
 //  public static String J5 = "http://192.168.1.112:8080/Server/";//杰哥5F接口測試
 
     public static String W4 = "http://192.168.1.137:8080/Server/";//我的接口測試
-    public static String L4 = "http://192.168.1.137:8080/SafeServer/";//玲姐4F接口測試
+    public static String L4 = "http://192.168.1.143:8080/SafeServer/";//玲姐4F接口測試
 
     public static final String HTTP_LOGIN = BASE_URL + "LoginServlet";//登錄
     public static String HTTP_DIMEMSION_SERVLET = BASE_URL + "safeCheck/DimemsionServlet";//巡檢進度列表
@@ -100,7 +100,7 @@ public class Constants {
     public static String HTTP_XS_GET_IMG = EMP_BASE + "SafePhotos/";//異常圖片查看
     public static String HTTP_SUSHE_BEDSERVLET =BASE_URL+ "SuShe/BedServlet";//宿舍查驗 area,building,room
     public static String HTTP_SUSHE_TYPESERVLET=BASE_URL+"SuShe/TypeServlet";//宿舍查驗 類型下拉菜單
-    public static String HTTP_SUSHE_JCOKSERVLET =BASE_URL+ "SuShe/JCOkServlet";//宿舍查驗 提交
+    public static String HTTP_SUSHE_JCOKSERVLET =L4+ "SuShe/JCOkServlet";//宿舍查驗 提交
     public static String HTTP_SUSHE_VIEW_SERVLET = BASE_URL+"SuShe/SuSheViewServlet";//宿舍查驗 查看查驗信息
     public static String HTTP_SUSHE_DELETE_SERVLET = BASE_URL+"SuShe/SuSheDeleteServlet";//宿舍查驗 刪除查驗信息
     public static String HTTP_SUSHE_REFORMLIST_SERVLET = BASE_URL+"SuShe/ReformListServlet"; //宿舍異常維護 獲取列表area, building, room
@@ -161,7 +161,7 @@ public class Constants {
     public static String HTTP_ZW_SCAN_SIGNOUT = BASE_URL+"ZW/ZWScanSignOutServlet";//总务临时工，签退
     public static String HTTP_ZW_SCAN_DUTY = BASE_URL+"ZW/ZWScanDutyServlet";//总务临时工，职能信息
 
-    public static String HUang="http://192.168.1.145:8080/SafeServer/";//我的接口測試
+    public static String HUang="http://192.168.1.138:8080/SafeServer/";//我的接口測試
     public static String HTTP_HEALTH_SCAN =HUang+"Health/HealthScanServlet";//安全健康追蹤，人員信息查看
     public static String HTTP_HEALTH_COMMIT=HUang+"Health/HealthCommitServlet";//安全健康追蹤，提交生成單頭
     public static String HTTP_BODY_SELECT=HUang+"Health/HealthBodySelectServlet";//安全健康追蹤，查詢已有紀錄

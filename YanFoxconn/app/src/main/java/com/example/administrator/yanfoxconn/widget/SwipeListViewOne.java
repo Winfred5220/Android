@@ -15,7 +15,7 @@ import android.widget.ListView;
  * Created by song on 2017/9/6.
  */
 
-public class SwipeListViewOne extends ListView {
+public class SwipeListViewOne extends MyListView {
 
     private final static String TAG = "SwipeListView";
     private int mScreenWidth;    // 屏幕宽度

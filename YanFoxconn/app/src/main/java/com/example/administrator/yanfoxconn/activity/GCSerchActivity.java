@@ -48,7 +48,7 @@ public class GCSerchActivity extends BaseActivity implements View.OnClickListene
 {
     private final int MESSAGE_TOAST = 2;//掃描失敗彈出框
     private final int MESSAGE_SET_TEXT = 1;//掃描成功賦值
-    private final int MESSAGE_UP = 3;//提交信息回復
+    private final int MESSAGE_DELETE_SUCCESS = 3;//刪除成功，刷新列表
     private final int MESSAGE_NOT_NET = 4;//顯示提醒
 
     @BindView(R.id.btn_title_left)
@@ -211,10 +211,9 @@ search(etSearch.getText().toString());
 //                    setText();
 //                    aboutAlert(msg.obj.toString(),MESSAGE_SET_TEXT);
                     break;
-                case MESSAGE_UP://提交響應
-//                    worningAlert(msg.obj.toString(),MESSAGE_TOAST);
-//                    ToastUtils.showLong(CrossScanActivity.this, msg.obj.toString());
+                case MESSAGE_DELETE_SUCCESS://提交響應
 
+                    search(etSearch.getText().toString());
                     break;
                 case MESSAGE_NOT_NET:
                     ToastUtils.showLong(GCSerchActivity.this, "網絡錯誤，請稍後重試！");

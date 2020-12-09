@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -49,6 +51,7 @@ public class GCCheckIDActivity extends BaseActivity implements View.OnClickListe
     private final int MESSAGE_SET_TEXT = 1;//掃描成功賦值
     private final int MESSAGE_UP = 3;//提交信息回復
     private final int MESSAGE_NOT_NET = 4;//顯示提醒
+    private final int MESSAGE_SUCCESS = 5;//掃描失敗彈出框
 
     @BindView(R.id.btn_title_left)
     Button btnBack;//返回
@@ -72,13 +75,17 @@ public class GCCheckIDActivity extends BaseActivity implements View.OnClickListe
     Spinner spArea;//留觀地點
     @BindView(R.id.et_temp)
     EditText etTemp;//體溫
-    @BindView(R.id.et_desp)
-    EditText etDesp;//詳細描述
+    @BindView(R.id.et_description)
+    EditText etDescription;//描述
+    @BindView(R.id.tv_description)
+    TextView tvDescription;//描述
 
     private String id,flag;
     List<GEPeopleMsg>  gePeopleMsgs;
     List<GEMenLiu> geMens,geLius;
     private String Smen,Sliu;
+    private int num = 0;//輸入框初始值
+    private int mMaxNum =250;//輸入框最大值
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,6 +101,64 @@ public class GCCheckIDActivity extends BaseActivity implements View.OnClickListe
         btnUp.setVisibility(View.VISIBLE);
         btnBack.setOnClickListener(this);
         btnUp.setOnClickListener(this);
+
+        etTemp.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (!etTemp.getText().toString().equals("")){
+                    if (Float.valueOf(etTemp.getText().toString())>42){
+                        ToastUtils.showShort(GCCheckIDActivity.this,"請注意溫度填寫！");
+                    }}
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        etDescription.addTextChangedListener(new TextWatcher() {
+            //紀錄存入的字數
+            private CharSequence wordNum;
+            private int selectionStart;
+            private int selectionEnd;
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                //實時紀錄輸入的字數
+                wordNum = charSequence;
+
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                int number = num + editable.length();
+                //TextView 顯示剩餘字數
+                tvDescription.setText(""+number+"/250");
+                selectionStart = etDescription.getSelectionStart();
+                selectionEnd = etDescription.getSelectionEnd();
+                //判斷大於最大值
+                if (wordNum.length()>mMaxNum){
+                    //刪除多餘輸入的字（不會顯示出來）
+                    editable.delete(selectionStart-1,selectionEnd);
+                    int tempSelection = selectionEnd;
+                    etDescription.setText(editable);
+                    etDescription.setSelection(tempSelection);//設置光標在最後
+                    ToastUtils.showLong(GCCheckIDActivity.this,"最多輸入250字！ ");
+                }
+            }
+        });
 
     }
 
@@ -175,10 +240,11 @@ public class GCCheckIDActivity extends BaseActivity implements View.OnClickListe
                     setText();
 //                    aboutAlert(msg.obj.toString(),MESSAGE_SET_TEXT);
                     break;
-                case MESSAGE_UP://提交響應
+                case MESSAGE_SUCCESS://提交成功
 //                    worningAlert(msg.obj.toString(),MESSAGE_TOAST);
 //                    ToastUtils.showLong(CrossScanActivity.this, msg.obj.toString());
-
+                    ToastUtils.showLong(GCCheckIDActivity.this, msg.obj.toString());
+                    finish();
                     break;
                 case MESSAGE_NOT_NET:
                     ToastUtils.showLong(GCCheckIDActivity.this, "網絡錯誤，請稍後重試！");
@@ -237,8 +303,10 @@ public class GCCheckIDActivity extends BaseActivity implements View.OnClickListe
                 finish();
                 break;
             case R.id.btn_title_right:
-
-                check();
+if (etDescription.getText().toString().equals("")||etTemp.getText().toString().equals("")){
+    ToastUtils.showShort(GCCheckIDActivity.this,"有值為空，請注意！");
+}else{
+                check();}
                 break;
         }
     }
@@ -248,11 +316,10 @@ public class GCCheckIDActivity extends BaseActivity implements View.OnClickListe
         final String url = Constants.HTTP_HEALTH_COMMIT; //此處寫上自己的URL
 
         JsonObject object = new JsonObject();
-        JsonArray array = new JsonArray();
 
         object.addProperty("type", "GC");
         object.addProperty("In_Tempature", etTemp.getText().toString());
-        object.addProperty("In_Others", etDesp.getText().toString());
+        object.addProperty("In_Others", etDescription.getText().toString());
         object.addProperty("In_Door", Smen);
         object.addProperty("In_Observation", Sliu);
         object.addProperty("flag", flag);
@@ -279,7 +346,7 @@ public class GCCheckIDActivity extends BaseActivity implements View.OnClickListe
                         String errCode = jsonObject.get("errCode").getAsString();
                         if (errCode.equals("200")) {
                             Message message = new Message();
-                            message.what = MESSAGE_TOAST;
+                            message.what = MESSAGE_SUCCESS;
                             message.obj = jsonObject.get("errMessage").getAsString();
                             mHandler.sendMessage(message);
 

@@ -9,6 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.example.administrator.yanfoxconn.R;
+import com.example.administrator.yanfoxconn.bean.GCBody;
 import com.example.administrator.yanfoxconn.bean.GCHead;
 
 import java.util.List;
@@ -20,11 +21,11 @@ import java.util.List;
  */
 public class GCHealthAdapter extends BaseAdapter {
     public Context mContext;
-    private List<GCHead> lists;
+    private List<GCBody> lists;
 
     private OnClickListenerSeeOrAdd onClickListenerSeeOrAdd;
 
-    public GCHealthAdapter(Context context, List<GCHead> lists) {
+    public GCHealthAdapter(Context context, List<GCBody> lists) {
         this.mContext = context;
         this.lists = lists;
     }
@@ -52,20 +53,25 @@ public class GCHealthAdapter extends BaseAdapter {
             Log.e("===", "ss");
             convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_gc_health_lv, null);
             holder.tvNum = (TextView)convertView.findViewById(R.id.tv_num);
-            holder.tvDate = (TextView)convertView.findViewById(R.id.tv_sex);
-            holder.tvTemp = (TextView)convertView.findViewById(R.id.tv_name);
-            holder.tvDep = (TextView)convertView.findViewById(R.id.tv_see);
+            holder.tvDate = (TextView)convertView.findViewById(R.id.tv_date);
+            holder.tvTemp = (TextView)convertView.findViewById(R.id.tv_temp);
+            holder.tvDep = (TextView)convertView.findViewById(R.id.tv_dep);
             holder.tvDel = (TextView)convertView.findViewById(R.id.tv_delete);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        holder.tvNum.setText(""+(position+1));
-        holder.tvDate.setText(lists.get(position).getIn_Sex());
-        holder.tvTemp.setText(lists.get(position).getIn_Name());
-        holder.tvDep.setText(lists.get(position).getIn_Number());
-//        Log.e("-----------","lists.get(position).getJc_result().get(0).getName()==="+lists.get(position).getJc_result().get(0).getName());
 
+        holder.tvNum.setText(""+(position+1));
+        holder.tvDate.setText(lists.get(position).getT_Createor_time().substring(0,20));
+        holder.tvTemp.setText("體溫："+lists.get(position).getT_Tempature());
+        holder.tvDep.setText(lists.get(position).getT_Description());
+//        Log.e("-----------","lists.get(position).getJc_result().get(0).getName()==="+lists.get(position).getJc_result().get(0).getName());
+if (lists.get(position).getIn_Status()!=null&&lists.get(position).getIn_Status().equals("D")){
+    holder.tvDel.setVisibility(View.VISIBLE);
+}else{
+    holder.tvDel.setVisibility(View.GONE);
+}
 
         holder.tvDel.setOnClickListener(new View.OnClickListener() {
             @Override

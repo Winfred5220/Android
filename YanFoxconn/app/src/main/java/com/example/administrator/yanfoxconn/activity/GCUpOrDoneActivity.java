@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,12 +20,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.administrator.yanfoxconn.R;
 import com.example.administrator.yanfoxconn.adapter.GCHealthAdapter;
 import com.example.administrator.yanfoxconn.bean.ComScanViewMessage;
+import com.example.administrator.yanfoxconn.bean.GCBody;
 import com.example.administrator.yanfoxconn.bean.GCHead;
 import com.example.administrator.yanfoxconn.bean.SelectModel;
 import com.example.administrator.yanfoxconn.constant.Constants;
@@ -60,10 +65,10 @@ import butterknife.ButterKnife;
  * Created by song on 2017/9/7.
  */
 
-public class GCUpOrDoneActivity extends BaseActivity implements View.OnClickListener{
+public class GCUpOrDoneActivity extends BaseActivity implements View.OnClickListener, RadioGroup.OnCheckedChangeListener {
     private final int MESSAGE_TOAST = 2;//showToast
-    private final int MESSAGE_SET_TYPE2 = 0;//獲取狀態后,設置控件內容
-    private final int MESSAGE_SET_TYPE3 = 1;//獲取狀態后,設置控件內容
+    private final int MESSAGE_SET_LIST = 0;//獲取狀態后,設置控件內容
+    private final int MESSAGE_DELETE_SUCCESS = 1;//刪除成功，刷新列表
     private final int MESSAGE_NOT_NET = 3;//網絡問題
 
     @BindView(R.id.tv_title)
@@ -84,12 +89,20 @@ public class GCUpOrDoneActivity extends BaseActivity implements View.OnClickList
     EditText etTemp;//體溫
     @BindView(R.id.et_description)
     EditText etDescription;//描述
+    @BindView(R.id.tv_description)
+    TextView tvDescription;//描述
     @BindView(R.id.iv_empty)
     ImageView ivEmpty;//空白图片占位
     @BindView(R.id.gv_photo)
     MyGridView gvPhoto;//图片显示区域
     @BindView(R.id.lv_people)
     SwipeListViewOne lvPeople;
+    @BindView(R.id.rg_done)
+    RadioGroup rgDone;//結案顯示
+    @BindView(R.id.rtb_yes)
+    RadioButton rtbYes;//正常結案
+    @BindView(R.id.rtb_no)
+    RadioButton rtbNo;//異常結案
 
     private static final int REQUEST_CAMERA_CODE = 11;
     private static final int REQUEST_PREVIEW_CODE = 22;
@@ -100,24 +113,31 @@ public class GCUpOrDoneActivity extends BaseActivity implements View.OnClickList
     private ImageCaptureManager captureManager; // 相机拍照处理类
     private GridAdapter gridAdapter;
     private GCHealthAdapter healthAdapter;
-    private List<GCHead> heads;
+    private List<GCBody> bodys;
 
     private String url;
     private String result;
     private String from;//add追蹤，，end結案
+    private String done="Y";//結案
+    private int num = 0;//輸入框初始值
+    private int mMaxNum =250;//輸入框最大值
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ga_worker_ab_up);
+        setContentView(R.layout.activity_gc_up_or_done);
         ButterKnife.bind(this);
 
-        tvTitle.setText("異常上傳");
+
         btnBack.setText("返回");
         btnUp.setText("提交");
         btnBack.setOnClickListener(this);
         btnUp.setVisibility(View.VISIBLE);
         btnUp.setOnClickListener(this);
+        rgDone.setOnCheckedChangeListener(this);
+        rtbYes.setOnClickListener(this::onClick);
+        rtbNo.setOnClickListener(this::onClick);
+        rtbYes.setChecked(true);
 
         from = getIntent().getStringExtra("from");
         gcHeads = (GCHead) getIntent().getSerializableExtra("people");
@@ -128,9 +148,12 @@ public class GCUpOrDoneActivity extends BaseActivity implements View.OnClickList
         ivEmpty.setOnClickListener(this);
 
         if (from.equals("end")){
+            tvTitle.setText("結案上傳");
             ivEmpty.setVisibility(View.VISIBLE);
             lvPeople.setVisibility(View.GONE);
+            rgDone.setVisibility(View.VISIBLE);
         }else{
+            tvTitle.setText("追蹤上傳");
             ivEmpty.setVisibility(View.GONE);
             lvPeople.setVisibility(View.VISIBLE);
             getBodys(gcHeads.getIn_Random_Id());
@@ -157,6 +180,63 @@ public class GCUpOrDoneActivity extends BaseActivity implements View.OnClickList
                     intent.setCurrentItem(position);
                     intent.setPhotoPaths(imagePaths);
                     startActivityForResult(intent, REQUEST_PREVIEW_CODE);
+                }
+            }
+        });
+        etTemp.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (!etTemp.getText().toString().equals("")){
+                if (Float.valueOf(etTemp.getText().toString())>42){
+                    ToastUtils.showShort(GCUpOrDoneActivity.this,"請注意溫度填寫！");
+                }}
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        etDescription.addTextChangedListener(new TextWatcher() {
+            //紀錄存入的字數
+            private CharSequence wordNum;
+            private int selectionStart;
+            private int selectionEnd;
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                //實時紀錄輸入的字數
+                wordNum = charSequence;
+
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                int number = num + editable.length();
+                //TextView 顯示剩餘字數
+                tvDescription.setText(""+number+"/250");
+                selectionStart = etDescription.getSelectionStart();
+                selectionEnd = etDescription.getSelectionEnd();
+                //判斷大於最大值
+                if (wordNum.length()>mMaxNum){
+                    //刪除多餘輸入的字（不會顯示出來）
+                    editable.delete(selectionStart-1,selectionEnd);
+                    int tempSelection = selectionEnd;
+                    etDescription.setText(editable);
+                    etDescription.setSelection(tempSelection);//設置光標在最後
+                    ToastUtils.showLong(GCUpOrDoneActivity.this,"最多輸入250字！ ");
                 }
             }
         });
@@ -228,8 +308,14 @@ public class GCUpOrDoneActivity extends BaseActivity implements View.OnClickList
                 finish();
                 break;
             case R.id.btn_title_right://提交
-                upAlert("确认提交嗎？", MESSAGE_TOAST);
+                if (etTemp.getText().toString().equals("")||etDescription.getText().toString().equals("")){
 
+                    ToastUtils.showShort(GCUpOrDoneActivity.this,"請注意體溫與追蹤紀錄的填寫！");
+                }else if(etTemp.getText().toString().equals("")||etDescription.getText().toString().equals("")){
+
+                    upAlert("請注意體溫與追蹤紀錄的填寫,确认提交嗎？", MESSAGE_TOAST);
+                }else{
+                    upAlert("确认提交嗎？", MESSAGE_TOAST);}
                 break;
             case R.id.iv_empty:
                 PhotoPickerIntent intent = new PhotoPickerIntent(GCUpOrDoneActivity.this);
@@ -251,16 +337,30 @@ public class GCUpOrDoneActivity extends BaseActivity implements View.OnClickList
                     ToastUtils.showLong(GCUpOrDoneActivity.this, msg.obj.toString());
                     finish();
                     break;
+                case MESSAGE_SET_LIST://List賦值
+                    healthAdapter = new GCHealthAdapter(GCUpOrDoneActivity.this,bodys);
+                    lvPeople.setAdapter(healthAdapter);
+                    healthAdapter.setOnClickListenerSeeOrAdd(new GCHealthAdapter.OnClickListenerSeeOrAdd() {
+                        @Override
+                        public void OnClickListenerDel(int position) {
+                            delAlert("確認是否刪除！",position);
 
+                        }
+                    });
+                    break;
 
                 case MESSAGE_NOT_NET:
                     ToastUtils.showLong(GCUpOrDoneActivity.this, "網絡問題請退出重試!");
                     finish();
                     break;
+                case MESSAGE_DELETE_SUCCESS:
+                    getBodys(gcHeads.getIn_Random_Id());
+                    break;
             }
             super.handleMessage(msg);
         }
     };
+
 
     //查看單身
     private void getBodys(String randomId){
@@ -272,30 +372,28 @@ public class GCUpOrDoneActivity extends BaseActivity implements View.OnClickList
             @Override
             public void run() {
                 //把网络访问的代码放在这里
-                String result = HttpUtils.queryStringForPost(url);
-
+                String result = HttpUtils.queryStringForGet(url);
+                Log.e("---------", "result==fff===" + result);
                 dismissDialog();
                 Log.e("---------", "==fff===" + url);
                 Gson gson = new Gson();
                 if (result != null) {
-                    Log.e("---------", "result==fff===" + result);
-
                     JsonObject jsonObject = new JsonParser().parse(result).getAsJsonObject();
                     String errCode = jsonObject.get("errCode").getAsString();
                     if (errCode.equals("200")) {
                         Log.e("--fff---------", "result==" + result);
-                        JsonArray array = jsonObject.get("result").getAsJsonArray();
-//                        gcHeads = new ArrayList<GCHead>();
-//
-//                        for (JsonElement type : array) {
-//                            GCHead humi = gson.fromJson(type, GCHead.class);
-//                            gcHeads.add(humi);
-//                        }
-//
-//                        Message message = new Message();
-//                        message.what = MESSAGE_SET_TEXT;
-//                        message.obj = jsonObject.get("errMessage").getAsString();
-//                        mHandler.sendMessage(message);
+                        JsonArray array = jsonObject.get("result1").getAsJsonArray();
+                        bodys = new ArrayList<GCBody>();
+
+                        for (JsonElement type : array) {
+                            GCBody humi = gson.fromJson(type, GCBody.class);
+                            bodys.add(humi);
+                        }
+
+                        Message message = new Message();
+                        message.what = MESSAGE_SET_LIST;
+                        message.obj = jsonObject.get("errMessage").getAsString();
+                        mHandler.sendMessage(message);
 
                     } else{
                         Log.e("-----------", "result==" + result);
@@ -314,14 +412,15 @@ public class GCUpOrDoneActivity extends BaseActivity implements View.OnClickList
 
         JsonObject object = new JsonObject();
 
-        object.addProperty("In_Random_id", gcHeads.getIn_Random_Id());
+        object.addProperty("In_Random_Id", gcHeads.getIn_Random_Id());
         object.addProperty("In_Category", gcHeads.getIn_Category());
         object.addProperty("In_Name", gcHeads.getIn_Name());
         object.addProperty("In_Department", gcHeads.getIn_Department());
-        object.addProperty("In_C_description", etDescription.getText().toString());
+        object.addProperty("T_Description", etDescription.getText().toString());
         object.addProperty("T_Tempature", etTemp.getText().toString());
-        object.addProperty("In_C_Name", FoxContext.getInstance().getName());
-        object.addProperty("In_C_Number", FoxContext.getInstance().getLoginId());
+        object.addProperty("T_Createor", FoxContext.getInstance().getName());
+        object.addProperty("T_Createor_id" +
+                "", FoxContext.getInstance().getLoginId());
 
         //開啟一個新執行緒，向伺服器上傳資料
         new Thread() {
@@ -369,25 +468,24 @@ public class GCUpOrDoneActivity extends BaseActivity implements View.OnClickList
         final String url = Constants.HTTP_CASE_FISH; //此處寫上自己的URL
 
         JsonObject object = new JsonObject();
-        JsonArray array = new JsonArray();
 
-        object.addProperty("In_Random_id", gcHeads.getIn_Random_Id());
+        object.addProperty("In_Random_Id", gcHeads.getIn_Random_Id());
         object.addProperty("In_Category", gcHeads.getIn_Category());
         object.addProperty("In_Name", gcHeads.getIn_Name());
         object.addProperty("In_Department", gcHeads.getIn_Department());
         object.addProperty("In_C_description", etDescription.getText().toString());
+        object.addProperty("In_C_result", done);
+
         object.addProperty("In_C_Name", FoxContext.getInstance().getName());
         object.addProperty("In_C_Number", FoxContext.getInstance().getLoginId());
-        object.addProperty("In_Department", gcHeads.getIn_Department());
 
-        JsonObject jsonObject = new JsonObject();
         JsonArray photoArray = new JsonArray();
-
-        if (imagePaths != null && imagePaths.size() != 0) {
+        if (imagePaths != null) {
             for (int k = 0; k < imagePaths.size(); k++) {
                 final String pic_path = imagePaths.get(k);
+                Log.e("------pic_path-------", pic_path);
                 String sign_dir = Environment.getExternalStorageDirectory() + File.separator + "YanFoxconn" + File.separator + "Photos";
-                String _path = sign_dir + File.separator + System.currentTimeMillis() + 0 + k + ".jpg";
+                String _path = sign_dir + File.separator + System.currentTimeMillis() + k + ".jpg";
                 Log.e("------_path-------", _path);
                 final String compressImage = ImageZipUtils.compressImage(pic_path, _path, 50);
                 Log.e("-------compressImage------", compressImage);
@@ -397,12 +495,8 @@ public class GCUpOrDoneActivity extends BaseActivity implements View.OnClickList
                 jsonObject1.addProperty("file", picBase64Code);
                 photoArray.add(jsonObject1);
             }
-        } else {
         }
-        jsonObject.add("photo", photoArray);
-        array.add(jsonObject);
-        Log.e("-----object------", object.toString());
-        object.add("info", array);
+        object.add("In_C_photo", photoArray);
         //開啟一個新執行緒，向伺服器上傳資料
         new Thread() {
             public void run() {
@@ -442,6 +536,18 @@ public class GCUpOrDoneActivity extends BaseActivity implements View.OnClickList
                 }
             }
         }.start();
+    }
+
+    @Override
+    public void onCheckedChanged(RadioGroup radioGroup, int i) {
+        switch (radioGroup.getCheckedRadioButtonId()) {
+            case R.id.rtb_yes:
+                done = "Y";
+                break;
+            case R.id.rtb_no:
+                done = "N";
+                break;
+        }
     }
 
     private class GridAdapter extends BaseAdapter {
@@ -511,21 +617,86 @@ public class GCUpOrDoneActivity extends BaseActivity implements View.OnClickList
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         // TODO Auto-generated method stub
-                        if (imagePaths==null||imagePaths.size()==0){
-                            ToastUtils.showLong(GCUpOrDoneActivity.this,"请上传异常照片！");
-                        }else if (FoxContext.getInstance().getType().equals("")){
-                            ToastUtils.showLong(GCUpOrDoneActivity.this,"请确认登录状态！重新登录！");
-                        }else{
+
                             if (from.equals("end")){
-                                end();
+                                 if (imagePaths==null||imagePaths.size()==0){
+                                    ToastUtils.showLong(GCUpOrDoneActivity.this,"请上传异常照片！");
+                                }else {
+                                end();}
                             }else{
-add();
+
+                                add();
                             }
                             }
+
+                })
+        .setNeutralButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+    private void del(String tId){
+        showDialog();
+        final String url = Constants.HTTP_BODY_DELETE+"?T_Id="+tId;
+
+        new Thread() {
+            @Override
+            public void run() {
+                //把网络访问的代码放在这里
+                String result = HttpUtils.queryStringForGet(url);
+
+                dismissDialog();
+                Log.e("---------", "==fff===" + url);
+                Gson gson = new Gson();
+                if (result != null) {
+                    Log.e("---------", "result==fff===" + result);
+
+                    JsonObject jsonObject = new JsonParser().parse(result).getAsJsonObject();
+                    String errCode = jsonObject.get("errCode").getAsString();
+                    if (errCode.equals("200")) {
+                        Log.e("--fff---------", "result==" + result);
+//                        JsonArray array = jsonObject.get("result").getAsJsonArray();
+
+
+                        Message message = new Message();
+                        message.what = MESSAGE_DELETE_SUCCESS;
+                        message.obj = jsonObject.get("errMessage").getAsString();
+                        mHandler.sendMessage(message);
+
+                    } else{
+                        Log.e("-----------", "result==" + result);
+                        Message message = new Message();
+                        message.what = MESSAGE_TOAST;
+                        message.obj = jsonObject.get("errMessage").getAsString();
+                        mHandler.sendMessage(message);
+                    }
+                }
+            } }.start();
+    }
+    private void delAlert(String msg, final int type) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("提示信息")
+                .setMessage(msg)
+                .setCancelable(false)
+                .setPositiveButton("確認", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        // TODO Auto-generated method stub
+                        del(bodys.get(type).getT_Id());
+                    }
+
+                })
+                .setNeutralButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
                     }
                 });
         AlertDialog alert = builder.create();
         alert.show();
     }
-
 }
