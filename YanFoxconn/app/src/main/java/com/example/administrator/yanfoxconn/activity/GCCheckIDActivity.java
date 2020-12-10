@@ -65,8 +65,6 @@ public class GCCheckIDActivity extends BaseActivity implements View.OnClickListe
     TextView tvName;//姓名
     @BindView(R.id.tv_identity)
     TextView tvIdentity;//身份證
-    @BindView(R.id.tv_pro)
-    TextView tvPro;//產品處
     @BindView(R.id.tv_dep)
     TextView tvDep;//部門
     @BindView(R.id.sp_team)
@@ -234,7 +232,7 @@ public class GCCheckIDActivity extends BaseActivity implements View.OnClickListe
 //                    aboutAlert(msg.obj.toString(),MESSAGE_TOAST);
 
                     ToastUtils.showLong(GCCheckIDActivity.this, msg.obj.toString());
-//                    finish();
+                    finish();
                     break;
                 case MESSAGE_SET_TEXT://text賦值
                     setText();
@@ -254,10 +252,17 @@ public class GCCheckIDActivity extends BaseActivity implements View.OnClickListe
         }
     };
     private void setText(){
+        if (flag.equals("2")){
         tvId.setText(gePeopleMsgs.get(0).getWORKNO());
         tvName.setText(gePeopleMsgs.get(0).getCHINESENAME());
         tvIdentity.setText(gePeopleMsgs.get(0).getSEX());
         tvDep.setText(gePeopleMsgs.get(0).getORGNAME());
+        }else{
+            tvId.setText(gePeopleMsgs.get(0).getSF_CODE());
+            tvName.setText(gePeopleMsgs.get(0).getNAME());
+            tvIdentity.setText(gePeopleMsgs.get(0).getSEX());
+            tvDep.setText(gePeopleMsgs.get(0).getDANWEI());
+        }
         List<String> men=new ArrayList<>();
         List<String> liu=new ArrayList<>();
         for (int i=0;i<geMens.size();i++){
@@ -318,18 +323,29 @@ if (etDescription.getText().toString().equals("")||etTemp.getText().toString().e
         JsonObject object = new JsonObject();
 
         object.addProperty("type", "GC");
+        object.addProperty("In_Statues", "未結案");
         object.addProperty("In_Tempature", etTemp.getText().toString());
         object.addProperty("In_Others", etDescription.getText().toString());
         object.addProperty("In_Door", Smen);
         object.addProperty("In_Observation", Sliu);
         object.addProperty("flag", flag);
-        object.addProperty("In_id",id);
-        object.addProperty("In_Department",gePeopleMsgs.get(0).getORGNAME());
-        object.addProperty("In_Tel",gePeopleMsgs.get(0).getPRIVATETEL());
-        object.addProperty("In_Name",gePeopleMsgs.get(0).getCHINESENAME());
-        object.addProperty("In_Sex",gePeopleMsgs.get(0).getSEX());
         object.addProperty("In_Createor",FoxContext.getInstance().getName());
         object.addProperty("In_Createor_id",FoxContext.getInstance().getLoginId());
+        if (flag.equals("2")){
+
+            object.addProperty("In_id",id);
+            object.addProperty("In_Department",gePeopleMsgs.get(0).getORGNAME());
+            object.addProperty("In_Tel",gePeopleMsgs.get(0).getPRIVATETEL());
+            object.addProperty("In_Name",gePeopleMsgs.get(0).getCHINESENAME());
+            object.addProperty("In_Sex",gePeopleMsgs.get(0).getSEX());
+        }else{
+
+            object.addProperty("In_id",id);
+            object.addProperty("In_Department",gePeopleMsgs.get(0).getDANWEI());
+            object.addProperty("In_Tel",gePeopleMsgs.get(0).getTEL());
+            object.addProperty("In_Name",gePeopleMsgs.get(0).getNAME());
+            object.addProperty("In_Sex",gePeopleMsgs.get(0).getSEX());
+        }
 
         //開啟一個新執行緒，向伺服器上傳資料
         new Thread() {

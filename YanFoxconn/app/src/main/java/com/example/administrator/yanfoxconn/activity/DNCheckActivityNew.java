@@ -106,6 +106,7 @@ public class DNCheckActivityNew extends BaseActivity implements View.OnClickList
     private DNCheckMessage dnCheckMessageList;//人員信息
     private String flag;//提交類型
     private String hChanPin;//環境異常提交的產品處
+    private String isEmpty;//是否為空房間
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -157,6 +158,7 @@ public class DNCheckActivityNew extends BaseActivity implements View.OnClickList
             dnCheckMessageList = (DNCheckMessage) getIntent().getSerializableExtra("dnCheckMessageList");
             tvTitle.setText("人員信息維護");
         } else {
+            isEmpty= getIntent().getStringExtra("isEmpty");
             tvTitle.setText("環境信息維護");
             hChanPin=getIntent().getStringExtra("hChanPin");
         }
@@ -251,7 +253,9 @@ public class DNCheckActivityNew extends BaseActivity implements View.OnClickList
     private List<Integer> tag;
 
     public void check() {
+
         tag = new ArrayList<>();
+
         for (CheckBox checkBox : checkBoxList) {
             if (checkBox.isChecked()) {
                 str += checkBox.getText().toString() + ".";
@@ -364,6 +368,7 @@ public class DNCheckActivityNew extends BaseActivity implements View.OnClickList
             object.addProperty("jc_chanpin", hChanPin);
             object.addProperty("jc_department", "");
             object.addProperty("jc_banbie", "");
+
 
         }
 
@@ -642,6 +647,9 @@ public class DNCheckActivityNew extends BaseActivity implements View.OnClickList
             CheckBox checkBox = (CheckBox) View.inflate(this, R.layout.check_box, null);
             checkBox.setText(mWhy.get(i));
             checkBox.setTag(i);
+            if (flag.equals("H")&&isEmpty.equals("Y")&&i==17){
+                checkBox.setChecked(true);
+            }
             llcbList.addView(checkBox);
             checkBoxList.add(checkBox);
         }

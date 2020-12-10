@@ -50,4 +50,43 @@ public class GEPeopleMsg {
     public void setWORKNO(String WORKNO) {
         this.WORKNO = WORKNO;
     }
+
+    private String SF_CODE;//身份證
+    private String NAME;//廠商姓名
+//    private String SEX;//
+    private String DANWEI;//廠商單位
+    private String TEL;//廠商電話
+
+    public String getDANWEI() {
+        return DANWEI;
+    }
+
+    public String getNAME() {
+        return NAME;
+    }
+
+    public String getSF_CODE() {
+        return SF_CODE;
+    }
+
+    public String getTEL() {
+        return TEL;
+    }
+
+    public void setDANWEI(String DANWEI) {
+        this.DANWEI = DANWEI;
+    }
+
+    public void setNAME(String NAME) {
+        this.NAME = NAME;
+    }
+
+    public void setSF_CODE(String SF_CODE) {
+        this.SF_CODE = SF_CODE;
+    }
+
+    public void setTEL(String TEL) {
+        this.TEL = TEL;
+    }
+
 }

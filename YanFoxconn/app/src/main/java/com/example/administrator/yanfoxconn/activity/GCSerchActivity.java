@@ -158,7 +158,7 @@ search(etSearch.getText().toString());
             @Override
             public void run() {
                 //把网络访问的代码放在这里
-                String result = HttpUtils.queryStringForPost(url);
+                String result = HttpUtils.queryStringForGet(url);
 
                 dismissDialog();
                 Log.e("---------", "==fff===" + url);
@@ -235,7 +235,7 @@ search(etSearch.getText().toString());
             @Override
             public void run() {
                 //把网络访问的代码放在这里
-                String result = HttpUtils.queryStringForPost(url);
+                String result = HttpUtils.queryStringForGet(url);
 
                 dismissDialog();
                 Log.e("---------", "==fff===" + url);
@@ -251,7 +251,7 @@ search(etSearch.getText().toString());
 
 
                         Message message = new Message();
-                        message.what = MESSAGE_TOAST;
+                        message.what = MESSAGE_DELETE_SUCCESS;
                         message.obj = jsonObject.get("errMessage").getAsString();
                         mHandler.sendMessage(message);
 
