@@ -667,7 +667,13 @@ public class GCUpOrDoneActivity extends BaseActivity implements View.OnClickList
                         message.obj = jsonObject.get("errMessage").getAsString();
                         mHandler.sendMessage(message);
 
-                    } else{
+                    } else if(errCode.equals("500")){
+                        Log.e("-----------", "result==" + result);
+                        Message message = new Message();
+                        message.what = MESSAGE_TOAST;
+                        message.obj = "體溫數據異常，無法結案，請聯繫相關負責人！";
+                        mHandler.sendMessage(message);
+                    }else{
                         Log.e("-----------", "result==" + result);
                         Message message = new Message();
                         message.what = MESSAGE_TOAST;
