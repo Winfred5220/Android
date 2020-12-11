@@ -3,8 +3,7 @@ package com.example.administrator.yanfoxconn.constant;
 
 /**
  * url
- * Created by song on 2017/8/30.
- */
+ * Created by song on 2017/8/30. */
 
 public class Constants {
 
