@@ -23,6 +23,8 @@ import android.widget.Spinner;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import androidx.annotation.RequiresApi;
+
 import com.bumptech.glide.Glide;
 import com.example.administrator.yanfoxconn.R;
 import com.example.administrator.yanfoxconn.adapter.EmpListAdapter;
@@ -60,16 +62,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import androidx.annotation.RequiresApi;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * 二輪車違規登記表
- * Created by song on 2018/12/6.
+ * 私家車違規登記表
+ * Created by wang on 2020/12/11.
  */
 
-public class TwoWheelVehicleActivity extends BaseActivity implements View.OnClickListener{
+public class CommonFormsPrivateCarActivity extends BaseActivity implements View.OnClickListener{
     private final int MESSAGE_TOAST = 2;//掃描失敗彈出框
     private final int MESSAGE_SET_TEXT = 1;//掃描成功賦值
     private final int MESSAGE_UP = 3;//提交信息回復
@@ -143,14 +144,14 @@ public class TwoWheelVehicleActivity extends BaseActivity implements View.OnClic
     @Override
     protected void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_two_vehicle);
+        setContentView(R.layout.activity_private_car);
 
         ButterKnife.bind(this);
 
         result = getIntent().getStringExtra("result");
 
-        getMessage();//根據工號獲得信息
-        tvTittle.setText("二輪車違規登記表");
+        //getMessage();//根據工號獲得信息
+        tvTittle.setText("私家車違規登記表");
         btnUp.setText("提交");
         btnUp.setVisibility(View.VISIBLE);
         btnUp.setOnClickListener(this);
@@ -174,7 +175,7 @@ public class TwoWheelVehicleActivity extends BaseActivity implements View.OnClic
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (position == imagePaths.size()) {
-                    PhotoPickerIntent intent = new PhotoPickerIntent(TwoWheelVehicleActivity.this);
+                    PhotoPickerIntent intent = new PhotoPickerIntent(CommonFormsPrivateCarActivity.this);
                     intent.setSelectModel(SelectModel.MULTI);
                     intent.setShowCarema(true); // 是否显示拍照
                     intent.setMaxTotal(3); // 最多选择照片数量，默认为3
@@ -182,7 +183,7 @@ public class TwoWheelVehicleActivity extends BaseActivity implements View.OnClic
 
                     startActivityForResult(intent, REQUEST_CAMERA_CODE);
                 } else {
-                    PhotoPreviewIntent intent = new PhotoPreviewIntent(TwoWheelVehicleActivity.this);
+                    PhotoPreviewIntent intent = new PhotoPreviewIntent(CommonFormsPrivateCarActivity.this);
                     intent.setCurrentItem(position);
                     intent.setPhotoPaths(imagePaths);
                     startActivityForResult(intent, REQUEST_PREVIEW_CODE);
@@ -235,7 +236,7 @@ public class TwoWheelVehicleActivity extends BaseActivity implements View.OnClic
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String str = teamData[position];
                 Log.e("---------", "最喜欢的水果是：" + str);
-team = str;
+                team = str;
                 paramMap.put("kedui",str);
             }
             @Override
@@ -313,11 +314,11 @@ team = str;
                 check();
                 break;
             case R.id.tv_gate_date:
-                DateTimePickDialogUtil dateTimePicKDialog2 = new DateTimePickDialogUtil(TwoWheelVehicleActivity.this, initStartDateTime);
+                DateTimePickDialogUtil dateTimePicKDialog2 = new DateTimePickDialogUtil(CommonFormsPrivateCarActivity.this, initStartDateTime);
                 dateTimePicKDialog2.dateTimePicKDialog(tvGateDate, "", "");
                 break;
             case R.id.iv_empty:
-                PhotoPickerIntent intent = new PhotoPickerIntent(TwoWheelVehicleActivity.this);
+                PhotoPickerIntent intent = new PhotoPickerIntent(CommonFormsPrivateCarActivity.this);
                 intent.setSelectModel(SelectModel.MULTI);
                 intent.setShowCarema(true); // 是否显示拍照
                 intent.setMaxTotal(3); // 最多选择照片数量，默认为3
@@ -329,7 +330,7 @@ team = str;
 
     private void check(){
         if(FoxContext.getInstance().getLoginId().equals("")){
-            ToastUtils.showLong(TwoWheelVehicleActivity.this,"登錄超時,請退出重新登登錄!");
+            ToastUtils.showLong(CommonFormsPrivateCarActivity.this,"登錄超時,請退出重新登登錄!");
             return;
         }
         try {
@@ -338,25 +339,25 @@ team = str;
             e.printStackTrace();
         }
         if (selectTime.getTime()-curDate.getTime()>0){
-            ToastUtils.showShort(TwoWheelVehicleActivity.this,"請检查稽核時間是否在當前時間之前");
+            ToastUtils.showShort(CommonFormsPrivateCarActivity.this,"請检查稽核時間是否在當前時間之前");
             return;
         }
         if (wrongPositionSp.equals("請選擇")){
-            ToastUtils.showShort(TwoWheelVehicleActivity.this,"請選擇違規地點!");
+            ToastUtils.showShort(CommonFormsPrivateCarActivity.this,"請選擇違規地點!");
             return;
         }
         if (wrongSp.equals("請選擇")){
-            ToastUtils.showShort(TwoWheelVehicleActivity.this,"請選擇違規描述!");
+            ToastUtils.showShort(CommonFormsPrivateCarActivity.this,"請選擇違規描述!");
             return;
         }
         if (team.equals("請選擇")){
-            ToastUtils.showShort(TwoWheelVehicleActivity.this,"請選擇稽核課隊!");
+            ToastUtils.showShort(CommonFormsPrivateCarActivity.this,"請選擇稽核課隊!");
             return;
         }
 
         if (wrongSp.equals("其他")){
             if(etOther.getText().toString().equals("")){
-                ToastUtils.showShort(TwoWheelVehicleActivity.this,"請填寫違規描述!");
+                ToastUtils.showShort(CommonFormsPrivateCarActivity.this,"請填寫違規描述!");
                 return;
             }else{
                 paramMap.put("wj", etOther.getText().toString());
@@ -366,7 +367,7 @@ team = str;
         }
         if (wrongPositionSp.equals("其他")){
             if(etOtherPosition.getText().toString().equals("")){
-                ToastUtils.showShort(TwoWheelVehicleActivity.this,"請填寫違規地點!");
+                ToastUtils.showShort(CommonFormsPrivateCarActivity.this,"請填寫違規地點!");
                 return;
             }else{
                 paramMap.put("wj_address", etOtherPosition.getText().toString());
@@ -379,7 +380,7 @@ team = str;
             return;
         }
 
-        upMsessage();
+        //upMsessage();
     }
     private void getMessage(){
         showDialog();
@@ -509,7 +510,7 @@ team = str;
                 } catch (Exception e) {
                     e.printStackTrace();
                 } finally {
-                    FileUtil.deletePhotos(TwoWheelVehicleActivity.this);
+                    FileUtil.deletePhotos(CommonFormsPrivateCarActivity.this);
                 }
             }
         }.start();
@@ -523,7 +524,7 @@ team = str;
                 case MESSAGE_TOAST://Toast彈出
 //                    aboutAlert(msg.obj.toString(),MESSAGE_TOAST);
 
-                    ToastUtils.showLong(TwoWheelVehicleActivity.this, msg.obj.toString());
+                    ToastUtils.showLong(CommonFormsPrivateCarActivity.this, msg.obj.toString());
 //                    finish();
                     break;
                 case MESSAGE_SET_TEXT://text賦值
@@ -616,7 +617,7 @@ team = str;
                     imageView.setVisibility(View.GONE);
                 }
             } else {
-                Glide.with(TwoWheelVehicleActivity.this)
+                Glide.with(CommonFormsPrivateCarActivity.this)
                         .load(new File(getItem(position)))
                         .placeholder(R.mipmap.default_error)
                         .error(R.mipmap.default_error)

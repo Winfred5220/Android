@@ -326,6 +326,10 @@
         <activity android:name=".activity.CarCheckActivity"/><!-- 車輛巡檢 -->
         <activity android:name=".activity.CarExceListActivity"/><!-- 車輛異常列表 -->
         <activity android:name=".activity.CarExceDetailActivity"/><!-- 車輛異常詳情 -->
+
+        <activity android:name=".activity.CommonFormsDayListActivity"/><!-- 二輪車違規查詢當日記錄 -->
+        <activity android:name=".activity.CommonFormsPrivateCarActivity"/><!-- 私家車違規登記表 -->
+
     </application>
 
 </manifest>

@@ -1,21 +1,21 @@
-<?xml version="1.0" encoding="utf-8"?><!--二輪車違規登記表-->
+<?xml version="1.0" encoding="utf-8"?><!--私家車違規登記表-->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
     <!--標題-->
     <include layout="@layout/common_title" />
-    <!--年度違規次數顯示-->
-    <TextView
-        android:id="@+id/tv_show"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dimen_30"
-        android:layout_marginTop="@dimen/dimen_2"
-        android:background="@color/possible_result_points"
-        android:gravity="center_vertical"
-        android:paddingLeft="@dimen/dimen_8"
-        android:textSize="@dimen/text_size_16"
-        android:visibility="gone" />
+<!--    &lt;!&ndash;年度違規次數顯示&ndash;&gt;-->
+<!--    <TextView-->
+<!--        android:id="@+id/tv_show"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="@dimen/dimen_30"-->
+<!--        android:layout_marginTop="@dimen/dimen_2"-->
+<!--        android:background="@color/possible_result_points"-->
+<!--        android:gravity="center_vertical"-->
+<!--        android:paddingLeft="@dimen/dimen_8"-->
+<!--        android:textSize="@dimen/text_size_16"-->
+<!--        android:visibility="gone" />-->
 
     <ScrollView
         android:layout_width="match_parent"
@@ -26,57 +26,50 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+        <LinearLayout
+            style="@style/tableRow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <!--車牌號-->
+            <TextView
+                style="@style/carTextName"
+                android:textSize="@dimen/text_size_16"
+                android:text="車牌號" />
+
+            <!--輸入工號/車牌-->
+            <RelativeLayout
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:id="@+id/et_input_num"
+                    style="@style/input_private_car"
+                    android:paddingLeft="@dimen/dimen_5"
+                    android:hint="輸入車牌號"
+                    android:inputType="text"
+                    android:maxLength="11"
+                    />
+
+                <!--扫描按钮-->
+                <ImageButton
+                    android:id="@+id/btn_scan_brand"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentRight="true"
+                    android:background="@color/color_74afdb"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="@dimen/dimen_12"
+                    android:src="@mipmap/asy"
+                    android:scaleType="fitCenter"
+                    />
+            </RelativeLayout>
+        </LinearLayout>
+
+
             <TableLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-                <!--工號-->
-                <TableRow style="@style/tableRow">
-
-                    <TextView
-                        style="@style/carTextName"
-                        android:text="工號：" />
-
-                    <TextView
-                        android:id="@+id/tv_id"
-                        style="@style/carTextBKG"
-                        android:layout_weight="1" />
-                </TableRow>
-                <!--姓名-->
-                <TableRow style="@style/tableRow">
-
-                    <TextView
-                        style="@style/carTextName"
-                        android:text="姓名：" />
-
-                    <TextView
-                        android:id="@+id/tv_name"
-                        style="@style/carTextBKG"
-                        android:layout_weight="1" />
-                </TableRow>
-                <!--產品處-->
-                <TableRow style="@style/tableRow">
-
-                    <TextView
-                        style="@style/carTextName"
-                        android:text="產品處：" />
-
-                    <TextView
-                        android:id="@+id/tv_pro"
-                        style="@style/carTextBKG"
-                        android:layout_weight="1" />
-                </TableRow>
-                <!--部門-->
-                <TableRow style="@style/tableRow">
-
-                    <TextView
-                        style="@style/carTextName"
-                        android:text="部門：" />
-
-                    <TextView
-                        android:id="@+id/tv_dep"
-                        style="@style/carTextBKG"
-                        android:layout_weight="1" />
-                </TableRow>
                 <!--稽核時間-->
                 <TableRow style="@style/tableRow">
 
@@ -124,27 +117,12 @@
                         android:layout_weight="1" />
 
                 </TableRow>
-                <!--違規描述-->
+                <!--違規原因-->
                 <TableRow style="@style/tableRow">
 
                     <TextView
                         style="@style/carTextName"
-                        android:text="違規描述：" />
-
-                    <Spinner
-                        android:id="@+id/sp_wrong"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1" />
-
-                </TableRow>
-                <!--違規其他描述-->
-                <TableRow
-                    android:id="@+id/tr_other"
-                    style="@style/tableRow"
-                    android:visibility="gone">
-
-                    <TextView style="@style/carTextName" />
+                        android:text="違規原因：" />
 
                     <EditText
                         android:id="@+id/et_other"
@@ -154,22 +132,6 @@
                         android:maxLength="25" />
 
                 </TableRow>
-                <!--稽核課隊-->
-                <TableRow style="@style/tableRow">
-
-                    <TextView
-                        style="@style/carTextName"
-                        android:text="稽核課隊：" />
-
-                    <Spinner
-                        android:id="@+id/sp_team"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1" />
-
-                </TableRow>
-
-
             </TableLayout>
 
             <RelativeLayout

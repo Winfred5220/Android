@@ -14,7 +14,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.administrator.yanfoxconn.R;
+import com.example.administrator.yanfoxconn.adapter.CommonFormsTwoWheelDayListAdapter;
 import com.example.administrator.yanfoxconn.adapter.ZhiyinshuiMaintainAdapter;
+import com.example.administrator.yanfoxconn.bean.EmpMessage;
 import com.example.administrator.yanfoxconn.bean.ZhiyinshuiMsg;
 import com.example.administrator.yanfoxconn.constant.Constants;
 import com.example.administrator.yanfoxconn.utils.BaseActivity;
@@ -31,8 +33,11 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
-public class ZhiyinshuiMaintainListActivity extends BaseActivity implements View.OnClickListener{
+/**
+ * 二輪車違規當日記錄查詢界面
+ * Created by wang on 2020/12/10.
+ */
+public class CommonFormsDayListActivity extends BaseActivity implements View.OnClickListener{
     private final int MESSAGE_SET_TEXT = 1;//掃描成功賦值
     private final int MESSAGE_TOAST = 2;//掃描失敗彈出框
     private final int MESSAGE_UP = 3;//提交信息
@@ -40,10 +45,9 @@ public class ZhiyinshuiMaintainListActivity extends BaseActivity implements View
     private final int MESSAGE_NETMISTAKE = 5;//網絡錯誤
     private final int MESSAGE_SET_CHECK = 6;
 
-    private List<ZhiyinshuiMsg> mZhiyinshuiMsg;//點檢異常項
-    private ZhiyinshuiMaintainAdapter mZhiyinshuiMaintainAdapter;//點檢列表適配器
+    private List<EmpMessage> mEmpMessage;//稽核信息
+    private CommonFormsTwoWheelDayListAdapter mCommonFormsTwoWheelDayListAdapter;//列表適配器
 
-    String dim_id,exce_id,type;
     @BindView(R.id.btn_title_left)
     Button btnBack;//返回
     @BindView(R.id.tv_title)
@@ -57,26 +61,10 @@ public class ZhiyinshuiMaintainListActivity extends BaseActivity implements View
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_zhiyinshui_maintain_list);
+        setContentView(R.layout.activity_commonforms_day_list);
         ButterKnife.bind(this);
-
-        tvTitle.setText("維保列表");
+        tvTitle.setText("二輪車違規列表");
         btnBack.setOnClickListener(this);
-
-        exce_id=getIntent().getStringExtra("exce_id");
-        dim_id = getIntent().getStringExtra("dim_id");
-        type = getIntent().getStringExtra("type");
-
-        lvOption.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(ZhiyinshuiMaintainListActivity.this, ZhiyinshuiMaintainActivity.class);
-                intent.putExtra("dim_id",mZhiyinshuiMsg.get(i).getDim_id());
-                intent.putExtra("type",type);
-                startActivity(intent);
-            }
-        });
-
     }
 
     @Override
@@ -95,7 +83,7 @@ public class ZhiyinshuiMaintainListActivity extends BaseActivity implements View
 
     private void getMessage(){
         showDialog();
-        final String url = Constants.HTTP_MAINTAIN_INFO_DELETE +"?flag=S"+"&type="+type;
+        final String url = Constants.HTTP_COMMON_FORMS_DAY_RECORD_SERVLET;
 
         new Thread() {
             @Override
@@ -109,13 +97,12 @@ public class ZhiyinshuiMaintainListActivity extends BaseActivity implements View
                     JsonObject jsonObject = new JsonParser().parse(result).getAsJsonObject();
                     String errCode = jsonObject.get("errCode").getAsString();
                     if (errCode.equals("200")) {
-                        JsonArray array = jsonObject.get("result").getAsJsonArray();
-                        mZhiyinshuiMsg = new ArrayList<ZhiyinshuiMsg>();
+                        JsonArray array = jsonObject.get("data").getAsJsonArray();
+                        mEmpMessage = new ArrayList<EmpMessage>();
 
                         for (JsonElement type : array) {
-                            ZhiyinshuiMsg humi = gson.fromJson(type, ZhiyinshuiMsg.class);
-                            mZhiyinshuiMsg.add(humi);
-
+                            EmpMessage humi = gson.fromJson(type, EmpMessage.class);
+                            mEmpMessage.add(humi);
                         }
 
                         Message message = new Message();
@@ -151,14 +138,14 @@ public class ZhiyinshuiMaintainListActivity extends BaseActivity implements View
 //                    finish();
                     break;
                 case MESSAGE_NETMISTAKE://Toast彈出
-                    ToastUtils.showLong(ZhiyinshuiMaintainListActivity.this,R.string.net_mistake);
+                    ToastUtils.showLong(CommonFormsDayListActivity.this,R.string.net_mistake);
                     break;
                 case MESSAGE_SET_TEXT://text賦值
-                    if (mZhiyinshuiMsg != null) {
-                        mZhiyinshuiMaintainAdapter = new ZhiyinshuiMaintainAdapter(ZhiyinshuiMaintainListActivity.this,mZhiyinshuiMsg);
-                        lvOption.setAdapter(mZhiyinshuiMaintainAdapter);
+                    if (mEmpMessage != null) {
+                        mCommonFormsTwoWheelDayListAdapter = new CommonFormsTwoWheelDayListAdapter(CommonFormsDayListActivity.this,mEmpMessage);
+                        lvOption.setAdapter(mCommonFormsTwoWheelDayListAdapter);
                     } else {
-                        ToastUtils.showShort(ZhiyinshuiMaintainListActivity.this, "沒有數據!");
+                        ToastUtils.showShort(CommonFormsDayListActivity.this, "沒有數據!");
                     }
                     break;
                 case MESSAGE_UP://提交響應

@@ -45,9 +45,13 @@ public class DimemsionMenuActivity extends BaseActivity implements View.OnClickL
     private final int MESSAGE_TOAST = 2;//showToast
 
     private int[][] icon={
-            {R.mipmap.icon_11,R.mipmap.icon_12,R.mipmap.icon_13,R.mipmap.icon_14,R.mipmap.icon_15,R.mipmap.icon_16,R.mipmap.icon_17,R.mipmap.icon_18,R.mipmap.icon_19,R.mipmap.icon_20,R.mipmap.icon_21,R.mipmap.icon_22,R.mipmap.icon_23,R.mipmap.icon_24},
-            {R.mipmap.icon_c1,R.mipmap.icon_c2,R.mipmap.icon_c3,R.mipmap.icon_c4,R.mipmap.icon_c5,R.mipmap.icon_c6,R.mipmap.icon_c7,R.mipmap.icon_c8},
-            {R.mipmap.icon_01,R.mipmap.icon_02,R.mipmap.icon_03,R.mipmap.icon_04,R.mipmap.icon_08,R.mipmap.icon_09,R.mipmap.icon_10,R.mipmap.icon_11,R.mipmap.icon_12,R.mipmap.icon_16},
+            {R.mipmap.icon_11,R.mipmap.icon_12,R.mipmap.icon_13,R.mipmap.icon_14,R.mipmap.icon_15,R.mipmap.icon_16,
+                    R.mipmap.icon_17,R.mipmap.icon_18,R.mipmap.icon_19,R.mipmap.icon_20,R.mipmap.icon_21,
+                    R.mipmap.icon_22,R.mipmap.icon_23,R.mipmap.icon_24},
+            {R.mipmap.icon_c1,R.mipmap.icon_c2,R.mipmap.icon_c3,R.mipmap.icon_c4,R.mipmap.icon_c5,R.mipmap.icon_c6,
+                    R.mipmap.icon_c7,R.mipmap.icon_c8},
+            {R.mipmap.icon_01,R.mipmap.icon_02,R.mipmap.icon_03,R.mipmap.icon_04,R.mipmap.icon_08,R.mipmap.icon_09,
+                    R.mipmap.icon_10,R.mipmap.icon_11,R.mipmap.icon_12,R.mipmap.icon_16},
             {R.mipmap.icon_06,R.mipmap.icon_10,R.mipmap.icon_a,R.mipmap.icon_b,R.mipmap.icon_c},
             {R.mipmap.icon_01,R.mipmap.icon_02,R.mipmap.icon_03,R.mipmap.icon_04,R.mipmap.icon_05}
     };

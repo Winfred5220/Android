@@ -34,6 +34,22 @@
                 android:text="廠商"/>
 
         </RadioGroup>
+
+        <!--二輪車違規登記表當日記錄查詢-->
+        <Button
+            android:id="@+id/btn_view"
+            android:visibility="gone"
+            android:background="@color/color_f5a306"
+            android:layout_marginBottom="@dimen/dimen_50"
+            android:layout_width="@dimen/dimen_150"
+            android:layout_height="@dimen/dimen_50"
+            android:text="當日記錄查詢" />
+        <!--私家車車違規登記表-->
+        <Button
+            android:id="@+id/btn_self"
+            android:background="@drawable/button_selector"
+            style="@style/btn_input"
+            android:text="私家車" />
         <!--掃描進入-->
         <!--員工違規登記表-->
         <Button
@@ -58,5 +74,6 @@
             android:layout_marginBottom="@dimen/dimen_150"
             style="@style/btn_input"
             android:text="文字識別" />
+
     </LinearLayout>
 </LinearLayout>

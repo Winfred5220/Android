@@ -54,6 +54,8 @@ public class CrossScanMainActivity extends BaseActivity implements View.OnClickL
     RadioButton rtbOut;//廠商
     @BindView(R.id.rtb_worker)
     RadioButton rtbWorker;//員工
+    @BindView(R.id.btn_view)
+    Button btnView;//二輪車違規當日記錄查看
 
     private boolean hasGotToken = false;
 
@@ -71,7 +73,7 @@ public class CrossScanMainActivity extends BaseActivity implements View.OnClickL
         btnScan.setOnClickListener(this);
         btnWrite.setOnClickListener(this);
         btnOCR.setOnClickListener(this);
-
+        btnView.setOnClickListener(this);
         rgCheck.setOnCheckedChangeListener(this::onCheckedChanged);
         rtbWorker.setOnClickListener(this::onClick);
         rtbOut.setOnClickListener(this::onClick);
@@ -81,7 +83,11 @@ public class CrossScanMainActivity extends BaseActivity implements View.OnClickL
         if (flag.equals("health")) {
             btnScan.setVisibility(View.GONE);
             rgCheck.setVisibility(View.VISIBLE);
+        }else if (flag.equals("vehicle")){
+            btnView.setVisibility(View.VISIBLE);
         }
+
+
         tvTitle.setText("輸入方式");
         // 请选择您的初始化方式
         // initAccessToken();
@@ -124,6 +130,10 @@ public class CrossScanMainActivity extends BaseActivity implements View.OnClickL
                     //文字識別
                     startActivityForResult(intent2, REQUEST_CODE_ACCURATE_BASIC);
                 }
+                break;
+            case R.id.btn_view:
+                Intent intent4 = new Intent(CrossScanMainActivity.this,CommonFormsDayListActivity.class);
+                startActivity(intent4);
                 break;
         }
     }

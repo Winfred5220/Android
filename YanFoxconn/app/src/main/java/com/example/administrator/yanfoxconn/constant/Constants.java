@@ -9,13 +9,16 @@ package com.example.administrator.yanfoxconn.constant;
 public class Constants {
 
     public static final String BASE_URL = "http://ytlogisticgps.foxconn.com/SafeServer/";//玲姐
-//    public static final String BASE_URL = "http://192.168.1.143:8080/SafeServer/";     //玲姐
     public static final String EMP_BASE = "http://ytlogisticgps.foxconn.com/Server/";    //杰哥
+
+    //public static final String BASE_URL = "http://ytsafeserver.foxconn.com/SafeServer/";//玲姐
+    //public static final String EMP_BASE = "http://ytsafeserver.foxconn.com/Server/";    //杰哥
+
 
     public static String J4 = "http://192.168.0.108:8080/Server/";//杰哥4F接口測試
 //  public static String J5 = "http://192.168.1.112:8080/Server/";//杰哥5F接口測試
 
-    public static String W4 = "http://192.168.1.137:8080/Server/";//我的接口測試
+    public static String W4 = "http://192.168.1.131:8080/Server/";//我的接口測試
     public static String L4 = "http://192.168.1.137:8080/SafeServer/";//玲姐4F接口測試
 
     public static final String HTTP_LOGIN = BASE_URL + "LoginServlet";//登錄
@@ -54,6 +57,8 @@ public class Constants {
     public static String HTTP_COMMON_FORMS_UPDATE_SERVLET = EMP_BASE + "CommonFormsupdateServlet";//員工違規表單,員工進出異常表單 提交用
     public static String HTTP_COMMON_FORMS_PHOTOS_SERVLET = EMP_BASE + "CommonFormsupload_photoservlet";//二輪車違規帶圖片上傳
     public static String HTTP_COMMON_FORMS_SERVLET = EMP_BASE + "CommonFormsServlet";//工號查詢,並獲取門崗列表
+    public static String HTTP_COMMON_FORMS_TWO_WHEEL_SERVLET = EMP_BASE + "CommonFormsTwoWheelServlet";//二輪車違規工號查詢,並獲取門崗列表
+    public static String HTTP_COMMON_FORMS_DAY_RECORD_SERVLET = EMP_BASE + "CommonFormsDayRecordServlet";//二輪車違規查詢當日記錄
     public static String HTTP_COMMON_GOODS_SERVLET = EMP_BASE + "CommongoodsServlet";//普通物品 工號查詢,並獲取門崗列表，提交信息
     public static String HTTP_INTELLIGENCE_GOODS_SERVLET = EMP_BASE + "IntelligenceGoodsServlet";//智慧物品放行 工號查詢,並獲取門崗列表，提交信息接口
     public static String HTTP_SANFANG_SERVLET = EMP_BASE + "SanFangServlet";//三防隱患獲取責任單位接口

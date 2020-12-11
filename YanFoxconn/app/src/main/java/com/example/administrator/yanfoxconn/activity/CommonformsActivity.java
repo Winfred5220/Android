@@ -30,6 +30,8 @@ public class CommonformsActivity extends BaseActivity implements View.OnClickLis
     Button btnTurnover;//員工進出
     @BindView(R.id.btn_ocr)
     Button btnVehicle;//二輪車
+    @BindView(R.id.btn_self)
+    Button btnSelf;//私家車
 
 
     @Override
@@ -41,18 +43,22 @@ public class CommonformsActivity extends BaseActivity implements View.OnClickLis
         btnViolation.setText(getString(R.string.emp_wrong));
         btnTurnover.setText(getString(R.string.emp_turnover));
         btnVehicle.setText(getString(R.string.two_wheel_vehicle));
+        btnSelf.setText("私家車違規登記表");
         btnViolation.setBackgroundColor(getResources().getColor(R.color.color_009adb));
         btnViolation.setTextColor(getResources().getColor(R.color.color_eeeeee));
         btnTurnover.setBackgroundColor(getResources().getColor(R.color.color_009adb));
         btnTurnover.setTextColor(getResources().getColor(R.color.color_eeeeee));
         btnVehicle.setBackgroundColor(getResources().getColor(R.color.color_009adb));
         btnVehicle.setTextColor(getResources().getColor(R.color.color_eeeeee));
+        btnSelf.setBackgroundColor(getResources().getColor(R.color.color_009adb));
+        btnSelf.setTextColor(getResources().getColor(R.color.color_eeeeee));
         tvTitle.setText("常用表單");
 
         btnBack.setOnClickListener(this);
         btnViolation.setOnClickListener(this);
         btnTurnover.setOnClickListener(this);
         btnVehicle.setOnClickListener(this);
+        btnSelf.setOnClickListener(this);
 
     }
 
@@ -77,9 +83,14 @@ public class CommonformsActivity extends BaseActivity implements View.OnClickLis
                 intent3.putExtra("flag","vehicle");
                 startActivity(intent3);
                 break;
+            case R.id.btn_self://私家車違規
+                Intent intent4 = new Intent(CommonformsActivity.this,CommonFormsPrivateCarActivity.class);
+                startActivity(intent4);
+                break;
             case R.id.btn_title_left:
                 finish();
                 break;
+
         }
     }
 

@@ -115,6 +115,14 @@
         <item name="android:textSize">@dimen/text_size_16</item>
         <item name="android:layout_margin">@dimen/dimen_15</item>
     </style>
+    <!--  私家車輸入框-->
+    <style name="input_private_car">
+        <item name="android:background">@color/color_74afdb</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/dimen_50</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textSize">@dimen/text_size_16</item>
+    </style>
     <style name="mobile_message">
         <item name="android:background">@color/color_e8e8e8</item>
         <item name="android:layout_width">match_parent</item>

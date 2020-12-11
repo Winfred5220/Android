@@ -8,19 +8,38 @@ import java.util.List;
  */
 
 public class EmpMessage {
-    private String WORKNO;
-    private String CHINESENAME;
-    private String BU_CODE;
-    private String ORGNAME;
+    private String WORKNO;//工號
+    private String CHINESENAME;//姓名
+    private String BU_CODE;//部門代碼
+    private String ORGNAME;//部門名稱
     private String CZC03;
-    private String INCUMBENCYSTATE;
-    private String IDENTITYNO;
+    private String INCUMBENCYSTATE;//在職狀態
+    private String IDENTITYNO;//身份證號
     private String EMPLOYEELEVEL;//資位
     private String MANAGER;//職能
     private String JOINGROUPDATE;//入廠時間
+    private String YEAR_COUNT;//年度違規次數
 
-    private String NAME;
+    private String CODE;//工號
+    private String NAME;//姓名
+    private String WJ_ADDRESS;//稽核地點
     private List<EmpFile>  file;
+
+    public String getCODE() {
+        return CODE;
+    }
+
+    public void setCODE(String CODE) {
+        this.CODE = CODE;
+    }
+
+    public String getWJ_ADDRESS() {
+        return WJ_ADDRESS;
+    }
+
+    public void setWJ_ADDRESS(String WJ_ADDRESS) {
+        this.WJ_ADDRESS = WJ_ADDRESS;
+    }
 
     public String getEMPLOYEELEVEL() {
         return EMPLOYEELEVEL;
@@ -103,6 +122,13 @@ public class EmpMessage {
         this.INCUMBENCYSTATE = INCUMBENCYSTATE;
     }
 
+    public String getYEAR_COUNT() {
+        return YEAR_COUNT;
+    }
+
+    public void setYEAR_COUNT(String YEAR_COUNT) {
+        this.YEAR_COUNT = YEAR_COUNT;
+    }
     public List<EmpFile> getFile() {
         return file;
     }
