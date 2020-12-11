@@ -77,6 +77,7 @@ public class CarWriteIdActivity extends BaseActivity implements View.OnClickList
                 tvTitle.setText("手動輸入工號");
             }
         } else if (from.equals("crossOCR") || from.equals("wrongOCR") || from.equals("inoutOCR") || from.equals("vehicleOCR") || from.equals("healthOCR")) {
+            tvTitle.setText("請輸入");
             // 识别成功回调，通用文字识别（高精度版）
             RecognizeService.recAccurateBasic(this, FileUtil.getSaveFile(getApplicationContext()).getAbsolutePath(),
                     new RecognizeService.ServiceListener() {
@@ -177,7 +178,7 @@ public class CarWriteIdActivity extends BaseActivity implements View.OnClickList
 
                         ToastUtils.showShort(this, "請返回選擇廠商或員工");
                     } else {
-                        Intent resultIntent = new Intent(CarWriteIdActivity.this, GECheckIDActivity.class);
+                        Intent resultIntent = new Intent(CarWriteIdActivity.this, GCCheckIDActivity.class);
                         resultIntent.putExtra("result", etWriteId.getText().toString());
                         resultIntent.putExtra("check", check);
                         startActivity(resultIntent);

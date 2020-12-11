@@ -55,6 +55,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_round_main"
         android:supportsRtl="true"
+        android:usesCleartextTraffic="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         tools:replace="android:icon, android:theme">
         <activity
@@ -330,6 +331,9 @@
         <activity android:name=".activity.CommonFormsDayListActivity"/><!-- 二輪車違規查詢當日記錄 -->
         <activity android:name=".activity.CommonFormsPrivateCarActivity"/><!-- 私家車違規登記表 -->
 
+        <activity android:name=".activity.GCCheckIDActivity"/><!-- 安保部 健康追蹤 -->
+        <activity android:name=".activity.GCSerchActivity"/><!-- 安保部 健康追蹤 -->
+        <activity android:name=".activity.GCUpOrDoneActivity"/><!-- 安保部 追蹤he結案 -->
     </application>
 
 </manifest>

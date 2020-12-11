@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 总务临时工 異常提交-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.DZFoodAbUpActivity"
+    android:orientation="vertical">
+<!--標題-->
+    <include layout="@layout/common_title"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_margin="@dimen/dimen_10">
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            <!--工號-->
+            <TableRow style="@style/tableRow">
+
+                <TextView
+                    style="@style/carTextName"
+                    android:text="工號：" />
+                <TextView
+                    android:id="@+id/tv_id"
+                    style="@style/carTextBKG"
+                    android:layout_weight="1" />
+            </TableRow>
+            <!--姓名-->
+            <TableRow style="@style/tableRow">
+
+                <TextView
+                    style="@style/carTextName"
+                    android:text="姓名：" />
+
+                <TextView
+                    android:id="@+id/tv_name"
+                    style="@style/carTextBKG"
+                    android:layout_weight="1" />
+            </TableRow>
+            <!--性別-->
+            <TableRow style="@style/tableRow">
+
+                <TextView
+                    style="@style/carTextName"
+                    android:text="性別：" />
+
+                <TextView
+                    android:id="@+id/tv_identity"
+                    style="@style/carTextBKG"
+                    android:layout_weight="1" />
+            </TableRow>
+            <!--產品處-->
+            <TableRow style="@style/tableRow">
+
+                <TextView
+                    style="@style/carTextName"
+                    android:text="產品處：" />
+
+                <TextView
+                    android:id="@+id/tv_pro"
+                    style="@style/carTextBKG"
+                    android:layout_weight="1" />
+            </TableRow>
+                <!--體溫-->
+                <TableRow style="@style/tableRow">
+
+                    <TextView
+                        style="@style/carTextName"
+                        android:text="體溫："
+                        android:focusable="true"
+                        android:focusableInTouchMode="true" />
+
+                    <EditText
+                        android:id="@+id/et_temp"
+                        style="@style/carEditTextBKG"
+                        android:layout_weight="1"
+                        android:inputType="numberDecimal"/>
+                </TableRow>
+            </TableLayout>
+            <!--    結案時顯示-->
+            <RadioGroup
+                android:id="@+id/rg_done"
+                style="@style/btn_input"
+                android:layout_marginBottom="@dimen/dimen_50"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                >
+                <RadioButton
+                    android:id="@+id/rtb_yes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="正常結案"/>
+                <RadioButton
+                    android:id="@+id/rtb_no"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="異常結案"/>
+
+            </RadioGroup>
+            <!--文字描述-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dimen_8"
+                android:layout_marginRight="@dimen/dimen_8"
+                android:layout_gravity="center">
+                <EditText
+                    android:id="@+id/et_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/text_size_18"
+                    android:hint="請輸入追蹤紀錄或結案信息，250字內" />
+                <TextView
+                    android:id="@+id/tv_description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:text="0/250"
+                    android:layout_marginBottom="@dimen/dimen_8"
+                    android:layout_marginRight="@dimen/dimen_8"/>
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.example.administrator.yanfoxconn.widget.MyGridView
+                    android:id="@+id/gv_photo"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/dimen_10"
+                    android:horizontalSpacing="@dimen/dimen_2"
+                    android:numColumns="4"
+                    android:scrollbars="none"
+                    android:verticalSpacing="@dimen/dimen_2" />
+
+                <!--空白圖片佔位-->
+                <ImageView
+                    android:id="@+id/iv_empty"
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    android:layout_marginLeft="14dp"
+                    android:layout_marginTop="@dimen/dimen_10"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/icon_addpic_unfocused" />
+
+            </RelativeLayout>
+        </LinearLayout>
+            <com.example.administrator.yanfoxconn.widget.SwipeListViewOne
+                android:id="@+id/lv_people"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/et_search"/>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

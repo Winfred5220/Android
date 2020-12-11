@@ -42,6 +42,8 @@ public class CrossScanMainActivity extends BaseActivity implements View.OnClickL
     TextView tvTitle;//標題
     @BindView(R.id.btn_title_left)
     Button btnBack;//返回
+    @BindView(R.id.btn_search)
+    Button btnSearch;//已有紀錄查詢
     @BindView(R.id.btn_scan)
     Button btnScan;//掃描進入
     @BindView(R.id.btn_write)
@@ -73,6 +75,8 @@ public class CrossScanMainActivity extends BaseActivity implements View.OnClickL
         btnScan.setOnClickListener(this);
         btnWrite.setOnClickListener(this);
         btnOCR.setOnClickListener(this);
+        btnSearch.setOnClickListener(this);
+
         btnView.setOnClickListener(this);
         rgCheck.setOnCheckedChangeListener(this::onCheckedChanged);
         rtbWorker.setOnClickListener(this::onClick);
@@ -83,11 +87,10 @@ public class CrossScanMainActivity extends BaseActivity implements View.OnClickL
         if (flag.equals("health")) {
             btnScan.setVisibility(View.GONE);
             rgCheck.setVisibility(View.VISIBLE);
+            btnSearch.setVisibility(View.VISIBLE);
         }else if (flag.equals("vehicle")){
             btnView.setVisibility(View.VISIBLE);
         }
-
-
         tvTitle.setText("輸入方式");
         // 请选择您的初始化方式
         // initAccessToken();
@@ -99,6 +102,10 @@ public class CrossScanMainActivity extends BaseActivity implements View.OnClickL
         switch (view.getId()){
             case  R.id.btn_title_left:
                 finish();
+                break;
+            case  R.id.btn_search:
+                Intent intent3 = new Intent(CrossScanMainActivity.this, GCSerchActivity.class);
+                startActivity(intent3);
                 break;
             case R.id.btn_scan://掃描進入
                 Intent intent = new Intent(CrossScanMainActivity.this, QrCodeActivity.class);

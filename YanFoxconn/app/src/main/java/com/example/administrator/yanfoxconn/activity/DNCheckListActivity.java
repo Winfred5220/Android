@@ -86,6 +86,7 @@ public class DNCheckListActivity extends BaseActivity implements View.OnClickLis
     private int width;
     private  int height;
     private String dFlag;//判斷是否為宿舍巡檢,用不同方法更新列表
+    private String isEmpty="Y";//判斷是否為空宿舍
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -196,6 +197,7 @@ public class DNCheckListActivity extends BaseActivity implements View.OnClickLis
                     intent.putExtra("flag", "H");
                     intent.putExtra("qrResult",getQrMessage);
                     intent.putExtra("dnCheckMessageList",(Serializable)null);
+                    intent.putExtra("isEmpty",isEmpty);
                     intent.putExtra("hChanPin",hChanPin);
                     startActivity(intent);
 
@@ -239,6 +241,8 @@ public class DNCheckListActivity extends BaseActivity implements View.OnClickLis
                     clickSeeOrAdd();
                     break;
                 case MESSAGE_TOAST://Toast彈出
+                    dnCheckMessageList=new ArrayList<>();
+                    dnCheckMessageList=null;
                         ToastUtils.showShort(DNCheckListActivity.this, msg.obj.toString());
                     break;
             }
@@ -311,6 +315,9 @@ public class DNCheckListActivity extends BaseActivity implements View.OnClickLis
                         for (JsonElement type : array) {
                             DNCheckMessage humi = gson.fromJson(type, DNCheckMessage.class);
                             dnCheckMessageList.add(humi);
+                        }
+                        if (dnCheckMessageList.size()>0){
+                            isEmpty="N";
                         }
                         Message message = new Message();
                         message.what = MESSAGE_UPLOAD;

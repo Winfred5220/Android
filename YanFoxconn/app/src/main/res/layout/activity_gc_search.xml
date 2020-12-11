@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--安保部 健康追蹤 模糊查詢-->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+<include layout="@layout/common_title"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="@dimen/dimen_20"
+            android:layout_marginRight="@dimen/dimen_20"
+            android:layout_marginTop="25dp"
+            android:background="@drawable/login_input">
+            <EditText
+                android:id="@+id/et_search"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:background="@null"
+                android:focusable="true"
+                android:hint="用户名"
+                android:inputType="text"
+                android:paddingLeft="10dp"
+                android:textColor="@color/color_ffdedede"
+                android:textColorHint="@color/action_sheet_curr_point"
+                android:textSize="16sp"
+                />
+
+            <!--清空用户名按钮-->
+            <Button
+                android:id="@+id/btn_search"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@mipmap/icon_search"
+                android:gravity="center"/>
+
+        </RelativeLayout>
+            <com.example.administrator.yanfoxconn.widget.SwipeListViewThree
+                android:id="@+id/lv_people"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/et_search"/>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

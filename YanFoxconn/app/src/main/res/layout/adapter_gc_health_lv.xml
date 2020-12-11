@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?><!--健康追蹤列表 item-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/ll_people"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+            <!--編号-->
+            <TextView
+                android:id="@+id/tv_num"
+                android:layout_width="@dimen/dimen_40"
+                android:layout_height="@dimen/dimen_35"
+                android:layout_marginLeft="@dimen/dimen_10"
+                android:gravity="center_vertical"
+                android:text="10"
+                />
+            <!--日期-->
+            <TextView
+                android:id="@+id/tv_date"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dimen_35"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:text="2020-23-23"
+                android:textSize="@dimen/text_size_16"
+                android:layout_toRightOf="@+id/tv_num"
+
+                />
+            <!--體溫-->
+            <TextView
+                android:id="@+id/tv_temp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_35"
+                android:layout_marginRight="@dimen/dimen_5"
+                android:layout_marginLeft="@dimen/dimen_5"
+                android:gravity="center_vertical"
+                android:text="歐央大事"
+                android:textSize="@dimen/text_size_18"
+                android:layout_toRightOf="@+id/tv_date"
+                android:layout_alignParentRight="true"/>
+            <!--追蹤描述-->
+            <TextView
+                android:id="@+id/tv_dep"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_date"
+                android:layout_marginLeft="@dimen/dimen_10"
+                android:paddingLeft="@dimen/dimen_4"
+                android:textSize="@dimen/text_size_18"
+                android:layout_centerVertical="true"
+android:text="dsdsdsdsdsds"
+android:layout_marginRight="@dimen/dimen_10"
+                />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_1"
+            android:background="@color/color_858585" />
+    </LinearLayout>
+
+    <!--刪除-->
+    <TextView
+        android:id="@+id/tv_delete"
+        android:layout_width="80dp"
+        android:layout_height="match_parent"
+        android:background="#FFFF0000"
+        android:gravity="center"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:text="刪除"
+        android:textColor="@android:color/white" />
+
+</LinearLayout>
