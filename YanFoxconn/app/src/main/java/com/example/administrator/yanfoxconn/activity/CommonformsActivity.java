@@ -44,6 +44,7 @@ public class CommonformsActivity extends BaseActivity implements View.OnClickLis
         btnTurnover.setText(getString(R.string.emp_turnover));
         btnVehicle.setText(getString(R.string.two_wheel_vehicle));
         btnSelf.setText("私家車違規登記表");
+        btnSelf.setVisibility(View.VISIBLE);
         btnViolation.setBackgroundColor(getResources().getColor(R.color.color_009adb));
         btnViolation.setTextColor(getResources().getColor(R.color.color_eeeeee));
         btnTurnover.setBackgroundColor(getResources().getColor(R.color.color_009adb));

@@ -55,6 +55,7 @@
             android:text="當日記錄查詢" />
         <!--私家車車違規登記表-->
         <Button
+            android:visibility="gone"
             android:id="@+id/btn_self"
             android:background="@drawable/button_selector"
             style="@style/btn_input"

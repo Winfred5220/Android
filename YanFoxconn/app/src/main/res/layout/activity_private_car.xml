@@ -101,22 +101,6 @@
                         android:layout_weight="1" />
 
                 </TableRow>
-                <!--違規地點其他描述-->
-                <TableRow
-                    android:id="@+id/tr_other_position"
-                    style="@style/tableRow"
-                    android:visibility="gone">
-
-                    <TextView style="@style/carTextName" />
-
-                    <EditText
-                        android:id="@+id/et_other_position"
-                        style="@style/carEditTextBKG"
-
-                        android:layout_height="@dimen/dimen_60"
-                        android:layout_weight="1" />
-
-                </TableRow>
                 <!--違規原因-->
                 <TableRow style="@style/tableRow">
 

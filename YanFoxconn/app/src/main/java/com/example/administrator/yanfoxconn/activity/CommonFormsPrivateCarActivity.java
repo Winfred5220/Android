@@ -94,32 +94,13 @@ public class CommonFormsPrivateCarActivity extends BaseActivity implements View.
     TextView tvTittle;//標題
     @BindView(R.id.btn_title_right)
     Button btnUp;//提交
-    @BindView(R.id.tv_show)
-    TextView tvShow;//提示信息違規次數
-    @BindView(R.id.tv_id)
-    TextView tvID;
-    @BindView(R.id.tv_name)
-    TextView tvName;
-    @BindView(R.id.tv_pro)
-    TextView tvPro;
-    @BindView(R.id.tv_dep)
-    TextView tvDep;
+
     @BindView(R.id.tv_gate_date)
     TextView tvGateDate;//稽核時間
     @BindView(R.id.sp_position)
     Spinner spPosition;//違規地點
-    @BindView(R.id.tr_other_position)
-    TableRow trOtherPosition;//違規地點其他
-    @BindView(R.id.et_other_position)
-    EditText etOtherPosition;
-    @BindView(R.id.sp_wrong)
-    Spinner spWrong;//違規描述
-    @BindView(R.id.tr_other)
-    TableRow trOther;//違規描述其他
-    @BindView(R.id.et_other)
+    @BindView(R.id.et_other)//違規原因
     EditText etOther;
-    @BindView(R.id.sp_team)
-    Spinner spTeam;//稽核課隊
     @BindView(R.id.iv_empty)
     ImageView ivEmpty;//空白图片占位
     @BindView(R.id.gv_photo)
@@ -201,9 +182,9 @@ public class CommonFormsPrivateCarActivity extends BaseActivity implements View.
                 wrongPositionSp = wrongPosition[position];
                 Log.e("---------", "最喜欢的水果是：" + str);
                 if (str.equals("其他")){
-                    trOtherPosition.setVisibility(View.VISIBLE);
+                    //trOtherPosition.setVisibility(View.VISIBLE);
                 }else{
-                    trOtherPosition.setVisibility(View.GONE);
+                    //trOtherPosition.setVisibility(View.GONE);
                 }
             }
             @Override
@@ -211,38 +192,8 @@ public class CommonFormsPrivateCarActivity extends BaseActivity implements View.
             }
         });
 
-        //違規描述下拉列表選擇
-        spWrong.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, wrong));
-        spWrong.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String str = wrong[position];
-                wrongSp = wrong[position];
-                Log.e("---------", "最喜欢的水果是：" + str);
-                if (str.equals("其他")){
-                    trOther.setVisibility(View.VISIBLE);
-                }else{
-                    trOther.setVisibility(View.GONE);
-                }
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
-        //稽核課隊下拉列表選擇
-        spTeam.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, teamData));
-        spTeam.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String str = teamData[position];
-                Log.e("---------", "最喜欢的水果是：" + str);
-                team = str;
-                paramMap.put("kedui",str);
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
+
+
     }
 
     private void loadAdpater(ArrayList<String> paths) {
@@ -366,12 +317,12 @@ public class CommonFormsPrivateCarActivity extends BaseActivity implements View.
             paramMap.put("wj",wrongSp);
         }
         if (wrongPositionSp.equals("其他")){
-            if(etOtherPosition.getText().toString().equals("")){
-                ToastUtils.showShort(CommonFormsPrivateCarActivity.this,"請填寫違規地點!");
-                return;
-            }else{
-                paramMap.put("wj_address", etOtherPosition.getText().toString());
-            }
+//            if(etOtherPosition.getText().toString().equals("")){
+//                ToastUtils.showShort(CommonFormsPrivateCarActivity.this,"請填寫違規地點!");
+//                return;
+//            }else{
+//                paramMap.put("wj_address", etOtherPosition.getText().toString());
+//            }
         }else{
             paramMap.put("wj_address",wrongPositionSp);
         }
@@ -443,7 +394,7 @@ public class CommonFormsPrivateCarActivity extends BaseActivity implements View.
        // flag 標誌位C  code 工號  wj_address違規地點  wj違紀描述  kedui 稽核課隊   (有圖片)       final Map<String, String> paramMap = new HashMap<String, String>(); //文本資料全部添加到Map裡
 
         paramMap.put("flag", "C");
-        paramMap.put("code", tvID.getText().toString());
+      //  paramMap.put("code", tvID.getText().toString());
         paramMap.put("login_code", FoxContext.getInstance().getLoginId());
         paramMap.put("login_name",FoxContext.getInstance().getName());
         paramMap.put("WORKNO",empMessagesList.get(0).getWORKNO());
@@ -546,12 +497,12 @@ public class CommonFormsPrivateCarActivity extends BaseActivity implements View.
     };
 
     private void setText() {
-        tvID.setText(empMessagesList.get(0).getWORKNO());
-        tvName.setText(empMessagesList.get(0).getCHINESENAME());
-        tvPro.setText(empMessagesList.get(0).getBU_CODE());
-        tvDep.setText(empMessagesList.get(0).getCZC03());
-        tvShow.setVisibility(View.VISIBLE);
-        tvShow.setText("年度已違規 "+empMessagesList.get(0).getYEAR_COUNT()+" 次");
+//        tvID.setText(empMessagesList.get(0).getWORKNO());
+//        tvName.setText(empMessagesList.get(0).getCHINESENAME());
+//        tvPro.setText(empMessagesList.get(0).getBU_CODE());
+//        tvDep.setText(empMessagesList.get(0).getCZC03());
+//        tvShow.setVisibility(View.VISIBLE);
+//        tvShow.setText("年度已違規 "+empMessagesList.get(0).getYEAR_COUNT()+" 次");
     }
     private void worningAlert(String msg, final int type) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
