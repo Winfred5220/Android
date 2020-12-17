@@ -3,6 +3,7 @@ package com.example.administrator.yanfoxconn.activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
@@ -18,18 +19,26 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 
+import com.baidu.ocr.sdk.OCR;
+import com.baidu.ocr.sdk.OnResultListener;
+import com.baidu.ocr.sdk.exception.OCRError;
+import com.baidu.ocr.sdk.model.AccessToken;
+import com.baidu.ocr.ui.camera.CameraActivity;
 import com.bumptech.glide.Glide;
 import com.example.administrator.yanfoxconn.R;
 import com.example.administrator.yanfoxconn.adapter.EmpListAdapter;
 import com.example.administrator.yanfoxconn.bean.EmpFile;
 import com.example.administrator.yanfoxconn.bean.EmpMessage;
+import com.example.administrator.yanfoxconn.bean.OCRMessage;
 import com.example.administrator.yanfoxconn.bean.SelectModel;
 import com.example.administrator.yanfoxconn.constant.Constants;
 import com.example.administrator.yanfoxconn.constant.FoxContext;
@@ -42,6 +51,7 @@ import com.example.administrator.yanfoxconn.utils.FileUtil;
 import com.example.administrator.yanfoxconn.utils.HttpConnectionUtil;
 import com.example.administrator.yanfoxconn.utils.HttpUtils;
 import com.example.administrator.yanfoxconn.utils.ImageZipUtils;
+import com.example.administrator.yanfoxconn.utils.RecognizeService;
 import com.example.administrator.yanfoxconn.utils.ToastUtils;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -50,6 +60,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.net.HttpURLConnection;
@@ -64,6 +75,9 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 /**
  * 私家車違規登記表
@@ -75,18 +89,18 @@ public class CommonFormsPrivateCarActivity extends BaseActivity implements View.
     private final int MESSAGE_SET_TEXT = 1;//掃描成功賦值
     private final int MESSAGE_UP = 3;//提交信息回復
     private final int MESSAGE_SHOW = 4;//顯示提醒
+    private final int MESSAGE_NETMISTAKE = 5;//網絡錯誤
 
+    private boolean hasGotToken = false;
     private static final int REQUEST_CAMERA_CODE = 11;
     private static final int REQUEST_PREVIEW_CODE = 22;
+    private static final int REQUEST_CODE_ACCURATE_BASIC = 107;
+
+    private androidx.appcompat.app.AlertDialog.Builder alertDialog;
     private ArrayList<String> imagePaths = null;//圖片未壓縮地址
-    private ArrayList<String> imgZipPaths = new ArrayList<String>();//圖片壓縮后地址
     private ImageCaptureManager captureManager; // 相机拍照处理类
-
-    private String[] wrongPosition = {"請選擇","A區東大門停車場","E區宿舍崗","PWB北大門","E12停車場",
-            "E07南大門","C區西大門停車場","C區北大門停車場","A區西大門","E05停車場","E03停車場","D區北小門","其他"};
-
-    private String[] wrong = {"請選擇","駕駛摩托車未戴頭盔","駕駛電動車未戴頭盔","乘坐摩托車未戴頭盔","乘坐電動車未戴頭盔","其他"};
-    private String[] teamData = {"請選擇","一大隊一中隊","一大隊二中隊","二大隊一中隊","二大隊二中隊","三大隊","機動巡邏隊"};
+    private List<OCRMessage> messageList;
+    private ArrayList<String> wrongPosition = new ArrayList<String>();//違規地點
 
     @BindView(R.id.btn_title_left)
     Button btnBack;//返回
@@ -95,6 +109,10 @@ public class CommonFormsPrivateCarActivity extends BaseActivity implements View.
     @BindView(R.id.btn_title_right)
     Button btnUp;//提交
 
+    @BindView(R.id.et_input_num)//車牌
+    EditText etInputNum;
+    @BindView(R.id.btn_scan_brand)
+    ImageButton ibScan;//扫描
     @BindView(R.id.tv_gate_date)
     TextView tvGateDate;//稽核時間
     @BindView(R.id.sp_position)
@@ -106,32 +124,21 @@ public class CommonFormsPrivateCarActivity extends BaseActivity implements View.
     @BindView(R.id.gv_photo)
     GridView gridView;//图片显示区域
     private GridAdapter gridAdapter;
-
     private String wrongPositionSp = "";//違規地點
-    private String wrongSp = "";//違規描述
-    private String team = "";//稽核課隊
 
     private String initStartDateTime; // 初始化开始时间
     private SimpleDateFormat formatter;
     private Date selectTime = null;//所選時間
     private Date curDate = null;//當前時間
 
-    private String result;//錄入的工號
-    final Map<String, String> paramMap = new HashMap<String, String>(); //文本資料全部添加到Map裡
-    private EmpListAdapter mAdapter;
-    private List<EmpMessage> empMessagesList;
-    private List<EmpFile> empFileList;
-
     @Override
     protected void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_private_car);
-
         ButterKnife.bind(this);
 
-        result = getIntent().getStringExtra("result");
-
-        //getMessage();//根據工號獲得信息
+        initAccessTokenWithAkSk();
+        getArea();//獲得違規地點信息
         tvTittle.setText("私家車違規登記表");
         btnUp.setText("提交");
         btnUp.setVisibility(View.VISIBLE);
@@ -139,7 +146,7 @@ public class CommonFormsPrivateCarActivity extends BaseActivity implements View.
         btnBack.setOnClickListener(this);
         ivEmpty.setOnClickListener(this);
         tvGateDate.setOnClickListener(this);
-
+        ibScan.setOnClickListener(this);
         formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         SimpleDateFormat formatterUse = new SimpleDateFormat("yyyy年MM月dd日 HH:mm");
         curDate = new Date(System.currentTimeMillis());
@@ -172,29 +179,51 @@ public class CommonFormsPrivateCarActivity extends BaseActivity implements View.
             }
         });
 
-        Arrays.sort(wrongPosition);
-        //違規地點下拉列表選擇
-        spPosition.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, wrongPosition));
-        spPosition.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+    }
+    public void getArea(){
+
+        new Thread(new Runnable() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String str = wrongPosition[position];
-                wrongPositionSp = wrongPosition[position];
-                Log.e("---------", "最喜欢的水果是：" + str);
-                if (str.equals("其他")){
-                    //trOtherPosition.setVisibility(View.VISIBLE);
-                }else{
-                    //trOtherPosition.setVisibility(View.GONE);
+            public void run() {
+                try {
+                    OkHttpClient client = new OkHttpClient();//创建OkHttpClient对象
+                    String url= Constants.HTTP_COMMON_FORMS_PRIVATE_CAR_PARKING;
+                    Log.e("------url------",url);
+                    Request request = new Request.Builder()
+                            .url(url)//请求接口。如果需要传参拼接到接口后面。
+                            .build();//创建Request 对象
+                    Response response = null;
+                    response = client.newCall(request).execute();//得到Response 对象
+                    if (response.isSuccessful()) {
+                        String result = response.body().string();
+                        Log.e("------result------",result);
+                        JsonObject jsonObject = new JsonParser().parse(result).getAsJsonObject();
+                        String ss = jsonObject.get("data").getAsJsonArray().toString();
+                        JSONArray data = new JSONArray(ss);
+                        wrongPosition.clear();
+                        for (int i=0;i<data.length();i++){
+                            JSONObject object = data.getJSONObject(i);
+                            wrongPosition.add(object.getString("NAME"));
+                            Log.e("NAME",object.getString("NAME"));
+                        }
+
+                        Message message = new Message();
+                        message.what = MESSAGE_SET_TEXT;
+                        mHandler.sendMessage(message);
+                        //此时的代码执行在子线程，修改UI的操作请使用handler跳转到UI线程。
+                    } else{
+                        Message message = new Message();
+                        message.what = MESSAGE_NETMISTAKE;
+                        mHandler.sendMessage(message);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
-
-
+        }).start();
 
     }
+
 
     private void loadAdpater(ArrayList<String> paths) {
         if (imagePaths == null) {
@@ -249,6 +278,31 @@ public class CommonFormsPrivateCarActivity extends BaseActivity implements View.
                         Log.e("==========", paths.get(1));
                     }
                     break;
+                case REQUEST_CODE_ACCURATE_BASIC:
+                    RecognizeService.recAccurateBasic(this, FileUtil.getSaveFile(getApplicationContext()).getAbsolutePath(),
+                            new RecognizeService.ServiceListener() {
+                                @Override
+                                public void onResult(String result) {
+
+                                    Gson gson = new Gson();
+                                    JsonObject jsonObject = new JsonParser().parse(result).getAsJsonObject();
+                                    JsonArray array = jsonObject.get("words_result").getAsJsonArray();
+                                    messageList = new ArrayList<OCRMessage>();
+                                    if (array.size() == 0) {
+                                        ToastUtils.showLong(CommonFormsPrivateCarActivity.this, "拍照無效,請手動輸入!");
+                                    } else {
+                                        for (JsonElement type : array) {
+                                            OCRMessage humi = gson.fromJson(type, OCRMessage.class);
+                                            messageList.add(humi);
+                                        }
+
+                                        infoPopText(messageList.get(messageList.size() - 1).getWords());
+                                    }
+
+                                }
+                            });
+                    break;
+
 
             }
         }
@@ -262,7 +316,7 @@ public class CommonFormsPrivateCarActivity extends BaseActivity implements View.
                 finish();
                 break;
             case R.id.btn_title_right://提交
-                check();
+                aboutAlert(getResources().getString(R.string.update_confirm),MESSAGE_UP);
                 break;
             case R.id.tv_gate_date:
                 DateTimePickDialogUtil dateTimePicKDialog2 = new DateTimePickDialogUtil(CommonFormsPrivateCarActivity.this, initStartDateTime);
@@ -276,7 +330,97 @@ public class CommonFormsPrivateCarActivity extends BaseActivity implements View.
                 intent.setSelectedPaths(imagePaths); // 已选中的照片地址， 用于回显选中状态
                 startActivityForResult(intent, REQUEST_CAMERA_CODE);
                 break;
+            case R.id.btn_scan_brand://OCR識別
+                if (!checkTokenStatus()) {
+                    return;
+                }
+                Intent intent2 = new Intent(CommonFormsPrivateCarActivity.this, CameraActivity.class);
+                intent2.putExtra(CameraActivity.KEY_OUTPUT_FILE_PATH,
+                        FileUtil.getSaveFile(getApplication()).getAbsolutePath());
+                intent2.putExtra(CameraActivity.KEY_CONTENT_TYPE,
+                        CameraActivity.CONTENT_TYPE_GENERAL);
+                startActivityForResult(intent2, REQUEST_CODE_ACCURATE_BASIC);
+
+                break;
         }
+    }
+    private boolean checkTokenStatus() {
+        if (!hasGotToken) {
+            Toast.makeText(getApplicationContext(), "token还未成功获取", Toast.LENGTH_LONG).show();
+        }
+        return hasGotToken;
+    }
+    /**
+     * 以license文件方式初始化
+     */
+    private void initAccessToken() {
+        OCR.getInstance(this).initAccessToken(new OnResultListener<AccessToken>() {
+            @Override
+            public void onResult(AccessToken accessToken) {
+                String token = accessToken.getAccessToken();
+                hasGotToken = true;
+            }
+
+            @Override
+            public void onError(OCRError error) {
+                error.printStackTrace();
+                alertText("licence方式获取token失败", error.getMessage());
+            }
+        }, getApplicationContext());
+    }
+    /**
+     * 用明文ak，sk初始化
+     */
+    private void initAccessTokenWithAkSk() {
+        OCR.getInstance(this).initAccessTokenWithAkSk(new OnResultListener<AccessToken>() {
+            @Override
+            public void onResult(AccessToken result) {
+                String token = result.getAccessToken();
+                hasGotToken = true;
+            }
+
+            @Override
+            public void onError(OCRError error) {
+                error.printStackTrace();
+                alertText("AK，SK方式获取token失败", error.getMessage());
+            }
+        }, getApplicationContext(),  "d6PEEyy6O8WHXGHnmA4vApQo", "3h2BO8M1Kv4IGhXuRg4ylshPt6mNBeWw");
+    }
+    private void alertText(final String title, final String message) {
+        this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                alertDialog.setTitle(title)
+                        .setMessage(message)
+                        .setPositiveButton("确定", null)
+                        .show();
+            }
+        });
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            initAccessToken();
+        } else {
+            Toast.makeText(getApplicationContext(), "需要android.permission.READ_PHONE_STATE", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void infoPopText(final String result) {
+//        alertText("", result);
+        etInputNum.setText(result);
+        Log.e("-------------","ocr==="+result);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // 释放内存资源
+        OCR.getInstance(this).release();
     }
 
     private void check(){
@@ -297,116 +441,33 @@ public class CommonFormsPrivateCarActivity extends BaseActivity implements View.
             ToastUtils.showShort(CommonFormsPrivateCarActivity.this,"請選擇違規地點!");
             return;
         }
-        if (wrongSp.equals("請選擇")){
-            ToastUtils.showShort(CommonFormsPrivateCarActivity.this,"請選擇違規描述!");
+        if(etOther.getText().toString().equals("")){
+            ToastUtils.showLong(CommonFormsPrivateCarActivity.this,"請輸入違規原因!");
             return;
-        }
-        if (team.equals("請選擇")){
-            ToastUtils.showShort(CommonFormsPrivateCarActivity.this,"請選擇稽核課隊!");
-            return;
-        }
-
-        if (wrongSp.equals("其他")){
-            if(etOther.getText().toString().equals("")){
-                ToastUtils.showShort(CommonFormsPrivateCarActivity.this,"請填寫違規描述!");
-                return;
-            }else{
-                paramMap.put("wj", etOther.getText().toString());
-            }
-        }else{
-            paramMap.put("wj",wrongSp);
-        }
-        if (wrongPositionSp.equals("其他")){
-//            if(etOtherPosition.getText().toString().equals("")){
-//                ToastUtils.showShort(CommonFormsPrivateCarActivity.this,"請填寫違規地點!");
-//                return;
-//            }else{
-//                paramMap.put("wj_address", etOtherPosition.getText().toString());
-//            }
-        }else{
-            paramMap.put("wj_address",wrongPositionSp);
         }
         if (imagePaths==null) {
             ToastUtils.showShort(this, "請選擇圖片");
             return;
         }
 
-        //upMsessage();
-    }
-    private void getMessage(){
-        showDialog();
-        final String url = Constants.HTTP_COMMON_FORMS_TWO_WHEEL_SERVLET+"?code="+result;
-
-        new Thread() {
-            @Override
-            public void run() {
-                //把网络访问的代码放在这里
-                String result = HttpUtils.queryStringForPost(url);
-
-                dismissDialog();
-                Log.e("---------", "==fff===" + url);
-                Gson gson = new Gson();
-                if (result != null) {
-                    Log.e("---------", "result==fff===" + result);
-
-                    JsonObject jsonObject = new JsonParser().parse(result).getAsJsonObject();
-                    String errCode = jsonObject.get("errCode").getAsString();
-                    if (errCode.equals("200")) {
-                        Log.e("--fff---------", "result==" + result);
-                        JsonArray array = jsonObject.get("data").getAsJsonArray();
-                        empMessagesList = new ArrayList<EmpMessage>();
-
-                        for (JsonElement type : array) {
-                            EmpMessage humi = gson.fromJson(type, EmpMessage.class);
-                            empMessagesList.add(humi);
-
-                        }
-
-                        JsonObject jsonObject1 = new JsonParser().parse(String.valueOf(array.get(0))).getAsJsonObject();
-                        JsonArray array1 = jsonObject1.get("file").getAsJsonArray();
-                        empFileList = new ArrayList<EmpFile>();
-                        for (JsonElement type1 : array1) {
-                            EmpFile humi1 = gson.fromJson(type1, EmpFile.class);
-                            empFileList.add(humi1);
-                        }
-
-
-                        Message message = new Message();
-                        message.what = MESSAGE_SET_TEXT;
-                        message.obj = jsonObject.get("errMessage").getAsString();
-                        mHandler.sendMessage(message);
-
-                    }else{
-                        Log.e("-----------", "result==" + result);
-                        Message message = new Message();
-                        message.what = MESSAGE_TOAST;
-                        message.obj = jsonObject.get("errMessage").getAsString();
-                        mHandler.sendMessage(message);
-                    }
-                }
-            } }.start();
+        upMsessage();
     }
 
     private void upMsessage(){
 
-        final String url = Constants.HTTP_COMMON_FORMS_PHOTOS_SERVLET;
-//        final String url = "http://192.168.1.112:8080/Server/CommonFormsupload_photoservlet";//            二輪車
-       // flag 標誌位C  code 工號  wj_address違規地點  wj違紀描述  kedui 稽核課隊   (有圖片)       final Map<String, String> paramMap = new HashMap<String, String>(); //文本資料全部添加到Map裡
+        final String url = Constants.HTTP_COMMON_FORMS_PRIVATE_CAR_SERVLET;
+        JsonObject object = new JsonObject();
+        JsonArray photoArray = new JsonArray();
+       // flag 標誌位C  code 工號  wj_address違規地點  wj違紀描述  kedui 稽核課隊   (有圖片)
+        //final Map<String, String> paramMap = new HashMap<String, String>(); //文本資料全部添加到Map裡
 
-        paramMap.put("flag", "C");
-      //  paramMap.put("code", tvID.getText().toString());
-        paramMap.put("login_code", FoxContext.getInstance().getLoginId());
-        paramMap.put("login_name",FoxContext.getInstance().getName());
-        paramMap.put("WORKNO",empMessagesList.get(0).getWORKNO());
-        paramMap.put("CHINESENAME",empMessagesList.get(0).getCHINESENAME());
-        paramMap.put("BU_CODE",empMessagesList.get(0).getBU_CODE());
-        paramMap.put("ORGNAME",empMessagesList.get(0).getORGNAME());
-        paramMap.put("CZC03",empMessagesList.get(0).getCZC03());
-        paramMap.put("INCUMBENCYSTATE",empMessagesList.get(0).getINCUMBENCYSTATE());
-        paramMap.put("date0",tvGateDate.getText().toString());
-
-        final Map<String, File> fileMap = new HashMap<String, File>(); //檔全部添加到Map裡
-
+        object.addProperty("flag","D");//私家車flag
+        object.addProperty("date0",tvGateDate.getText().toString());//違規時間
+        object.addProperty("chepai",etInputNum.getText().toString());//車牌號
+        object.addProperty("wj_address",wrongPositionSp);//違規地點
+        object.addProperty("wj_remark",etOther.getText().toString());//違規原因
+        object.addProperty("login_code",FoxContext.getInstance().getLoginId());//稽核人工號
+        object.addProperty("login_name",FoxContext.getInstance().getName());//稽核人姓名
 
         for (int i = 0; i < imagePaths.size(); i++) {
             File pictureFile = new File(imagePaths.get(i)); //通過路徑獲取檔
@@ -417,21 +478,12 @@ public class CommonFormsPrivateCarActivity extends BaseActivity implements View.
             //getFilesDir().getAbsolutePath()+"compressPic.jpg";
             //调用压缩图片的方法，返回压缩后的图片path
             final String compressImage = ImageZipUtils.compressImage(pic_path, _path, 80);
-            final File compressedPic = new File(compressImage);
-            imgZipPaths.add(i,compressImage);
-            Log.e("----com---",compressImage);
-            if (compressedPic.exists()) {
-                Log.e("-------------","图片压缩上传");
-                //  uploadFileByOkHTTP(context, actionUrl, compressedPic);
-//                showDialog("111"+compressImage);
-                fileMap.put("file"+i,compressedPic);//添加第一個文件
-
-            }else{//直接上传
-                // uploadFileByOkHTTP(context, actionUrl, pictureFile);
-//                showDialog("222"+entryFile.getValue());
-                fileMap.put("file"+i,pictureFile);
-            }
+            String picBase64Code = ImageZipUtils.imageToBase64(compressImage);
+            JsonObject jsonObject = new JsonObject();
+            jsonObject.addProperty("file", picBase64Code);
+            photoArray.add(jsonObject);
         }
+        object.add("photo", photoArray);
 
         new Thread() {
             @Override
@@ -439,23 +491,32 @@ public class CommonFormsPrivateCarActivity extends BaseActivity implements View.
                 //把网络访问的代码放在这里
                 try {
                     showDialog();
-                    HttpURLConnection b = HttpConnectionUtil.doPostPicture(url, paramMap, fileMap);
-                    Log.e("---------", "==fff===" + url);
-                    if (b!=null){
+                    Log.e("---------", "==url===" + url);
+                    String result = HttpConnectionUtil.doPostJsonObject(url, object);
+                    Log.e("---------", "==result===" + result);
+                    if (result != null) {
                         dismissDialog();
-                        Log.e("---------", "==fff===" + b);
-                        if (b.getResponseCode()==200){
+                        Log.e("---------", "result==fff===" + result);
+                        JsonObject jsonObject = new JsonParser().parse(result).getAsJsonObject();
+                        String errCode = jsonObject.get("errCode").getAsString();
+                        if (errCode.equals("200")) {
                             Message message = new Message();
                             message.what = MESSAGE_TOAST;
-                            message.obj = b.getResponseMessage();
+                            message.obj = jsonObject.get("errMessage").getAsString();
                             mHandler.sendMessage(message);
 
-                        }else{
+                        } else{
+                            Log.e("-----------", "result==" + result);
                             Message message = new Message();
                             message.what = MESSAGE_TOAST;
-                            message.obj = b.getResponseMessage();
+                            message.obj = jsonObject.get("errMessage").getAsString();
                             mHandler.sendMessage(message);
                         }
+                    }else{
+                        Message message = new Message();
+                        message.what = MESSAGE_NETMISTAKE;
+                        mHandler.sendMessage(message);
+                        finish();
                     }
 
                 } catch (Exception e) {
@@ -474,9 +535,8 @@ public class CommonFormsPrivateCarActivity extends BaseActivity implements View.
 
                 case MESSAGE_TOAST://Toast彈出
 //                    aboutAlert(msg.obj.toString(),MESSAGE_TOAST);
-
                     ToastUtils.showLong(CommonFormsPrivateCarActivity.this, msg.obj.toString());
-//                    finish();
+                    finish();
                     break;
                 case MESSAGE_SET_TEXT://text賦值
                     setText();
@@ -497,12 +557,49 @@ public class CommonFormsPrivateCarActivity extends BaseActivity implements View.
     };
 
     private void setText() {
-//        tvID.setText(empMessagesList.get(0).getWORKNO());
-//        tvName.setText(empMessagesList.get(0).getCHINESENAME());
-//        tvPro.setText(empMessagesList.get(0).getBU_CODE());
-//        tvDep.setText(empMessagesList.get(0).getCZC03());
-//        tvShow.setVisibility(View.VISIBLE);
-//        tvShow.setText("年度已違規 "+empMessagesList.get(0).getYEAR_COUNT()+" 次");
+
+        spPosition.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, wrongPosition));
+        spPosition.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String str = wrongPosition.get(position);
+                wrongPositionSp = wrongPosition.get(position);
+                Log.e("---------", "選擇的門崗：" + str);
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+    }
+    private void aboutAlert(String msg, final int type) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("提示信息")
+                .setMessage(msg)
+                .setCancelable(false)
+                .setPositiveButton("確認", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        // TODO Auto-generated method stub
+                        if (type==MESSAGE_TOAST){
+                            finish();
+                        }else if(type==MESSAGE_UP){
+                            check();
+                        }
+                    }
+                })
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        // TODO Auto-generated method stub
+//                        if (type==MESSAGE_TOAST){
+//                            finish();
+//                        }else if(type==MESSAGE_UP){
+//                            check();
+//                        }
+                    }
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
     }
     private void worningAlert(String msg, final int type) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);

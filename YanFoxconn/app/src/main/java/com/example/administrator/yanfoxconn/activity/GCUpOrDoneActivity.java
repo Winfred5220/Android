@@ -416,7 +416,7 @@ public class GCUpOrDoneActivity extends BaseActivity implements View.OnClickList
         object.addProperty("In_Category", gcHeads.getIn_Category());
         object.addProperty("In_Name", gcHeads.getIn_Name());
         object.addProperty("In_Department", gcHeads.getIn_Department());
-        object.addProperty("T_Description", etDescription.getText().toString());
+        object.addProperty("T_Description",etDescription.getText().toString());
         object.addProperty("T_Tempature", etTemp.getText().toString());
         object.addProperty("T_Createor", FoxContext.getInstance().getName());
         object.addProperty("T_Createor_id" +

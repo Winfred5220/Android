@@ -65,7 +65,7 @@ public class GCHealthAdapter extends BaseAdapter {
         holder.tvNum.setText(""+(position+1));
         holder.tvDate.setText(lists.get(position).getT_Createor_time().substring(0,20));
         holder.tvTemp.setText("體溫："+lists.get(position).getT_Tempature());
-        holder.tvDep.setText(lists.get(position).getT_Description());
+        holder.tvDep.setText("描述："+lists.get(position).getT_Description());
 //        Log.e("-----------","lists.get(position).getJc_result().get(0).getName()==="+lists.get(position).getJc_result().get(0).getName());
 if (lists.get(position).getIn_Status()!=null&&lists.get(position).getIn_Status().equals("D")){
     holder.tvDel.setVisibility(View.VISIBLE);

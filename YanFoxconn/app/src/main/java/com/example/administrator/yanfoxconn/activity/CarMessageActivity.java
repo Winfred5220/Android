@@ -190,6 +190,8 @@ public class CarMessageActivity extends BaseActivity {
         setContentView(R.layout.activity_car_message);
         ButterKnife.bind(this);
 
+        result = getIntent().getStringExtra("result");
+        //Log.e("------------","-----result------"+result);
         if(FoxContext.getInstance().getDep().equals("")){
             ToastUtils.showLong(CarMessageActivity.this,"部門為空，請重新登錄！");
         }else if(FoxContext.getInstance().getDep().equals("車輛廠商")){
@@ -201,19 +203,21 @@ public class CarMessageActivity extends BaseActivity {
             finish();
         }
 
-        result = getIntent().getStringExtra("result");
-        Log.e("------------","-----result------"+result);
         if (result!=null&&!result.equals("")&&result.length()>=2){
             type = result.substring(0,2);
             Log.e("------------","-----type------"+type);
-            if(!type.equals("EV")&&!type.equals("EZ")&&!type.equals("EO")&&!type.equals("EI")&&!type.equals("FO")&&
-                    !type.equals("FP")&&!type.equals("GF")&&!type.equals("GG")&&!type.equals("GH")&&!type.equals("GI")&&
-                    !type.equals("GJ")&&!type.equals("GK")&&!type.equals("GL")&&!type.equals("GM")&&!type.equals("GN")){
+             if(!type.equals("EV")&&!type.equals("EZ")&&!type.equals("EO")&&!type.equals("EI")&&!type.equals("FO")&&
+                !type.equals("FP")&&!type.equals("GF")&&!type.equals("GG")&&!type.equals("GH")&&!type.equals("GI")&&
+                !type.equals("GJ")&&!type.equals("GK")&&!type.equals("GL")&&!type.equals("GM")&&!type.equals("GN")){
                 ToastUtils.showShort(this, "二維碼掃描有誤！");
-                finish();
-            }
+             finish();
+             }else if (!FoxContext.getInstance().getRoles().contains(type)){
+                 ToastUtils.showLong(CarMessageActivity.this,"您沒有點檢"+type+"權限！");
+                 finish();
+             }
         }else{
-            ToastUtils.showShort(CarMessageActivity.this,"請重新掃描");
+            ToastUtils.showShort(this, "二維碼掃描有誤！");
+            finish();
         }
 
 
