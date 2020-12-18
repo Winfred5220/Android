@@ -8,18 +8,18 @@ package com.example.administrator.yanfoxconn.constant;
 
 public class Constants {
 
-//    public static final String BASE_URL = "http://ytlogisticgps.foxconn.com/SafeServer/";//玲姐
-//    public static final String EMP_BASE = "http://ytlogisticgps.foxconn.com/Server/";    //杰哥
+    public static final String BASE_URL = "http://ytlogisticgps.foxconn.com/SafeServer/";//玲姐
+    public static final String EMP_BASE = "http://ytlogisticgps.foxconn.com/Server/";    //杰哥
 
-    public static final String BASE_URL = "http://ytsafeserver.foxconn.com/SafeServer/";//玲姐
-    public static final String EMP_BASE = "http://ytsafeserver.foxconn.com/Server/";    //杰哥
+//    public static final String BASE_URL = "http://ytsafeserver.foxconn.com/SafeServer/";//玲姐
+//    public static final String EMP_BASE = "http://ytsafeserver.foxconn.com/Server/";    //杰哥
 
 
     public static String J4 = "http://192.168.0.108:8080/Server/";//杰哥4F接口測試
 //  public static String J5 = "http://192.168.1.112:8080/Server/";//杰哥5F接口測試
 
     public static String W4 = "http://192.168.1.121:8080/Server/";//我的接口測試
-    public static String L4 = "http://192.168.1.137:8080/SafeServer/";//玲姐4F接口測試
+    public static String L4 = "http://192.168.1.143:8080/SafeServer/";//玲姐4F接口測試
 
     public static final String HTTP_LOGIN = BASE_URL + "LoginServlet";//登錄
     public static String HTTP_DIMEMSION_SERVLET = BASE_URL + "safeCheck/DimemsionServlet";//巡檢進度列表
@@ -162,13 +162,14 @@ public class Constants {
 
     public static String HTTP_ZW_SCAN_STATUS = BASE_URL +"ZW/ZWScanStatusServlet";// 总务临时工，状态查看
     public static String HTTP_ZW_SCAN_SIGNIN = BASE_URL+"ZW/ZWScanSignInServlet";//总务临时工，签到
-    public static String HTTP_ZW_EXCE_UOLOAD = BASE_URL+"ZW/ZWExceUploadServlet";//总务临时工，异常上传
-    public static String HTTP_ZW_EXCE_VIEW = BASE_URL+"ZW/ZWExceViewServlet";//总务临时工，异常列表
-    public static String HTTP_ZW_EXVE_DETAIL = BASE_URL+"ZW/ZWExceDetailServlet";//总务临时工，异常详情
+    public static String HTTP_ZW_EXCE_UOLOAD = L4+"ZW/ZWExceUploadServlet";//总务临时工，异常上传
+    public static String HTTP_ZW_EXCE_VIEW = L4+"ZW/ZWExceViewServlet";//总务临时工，异常列表
+    public static String HTTP_ZW_EXVE_DETAIL = L4+"ZW/ZWExceDetailServlet";//总务临时工，异常详情
     public static String HTTP_ZW_EXCE_REFORM = BASE_URL+"ZW/ZWExceReformUpdateServlet";//总务临时工，异常整改
     public static String HTTP_ZW_EXCE_DALETE = BASE_URL+"ZW/ZWExceDeleteServlet";//总务临时工，异常删除
     public static String HTTP_ZW_SCAN_SIGNOUT = BASE_URL+"ZW/ZWScanSignOutServlet";//总务临时工，签退
     public static String HTTP_ZW_SCAN_DUTY = BASE_URL+"ZW/ZWScanDutyServlet";//总务临时工，职能信息
+    public static String HTTP_ZW_SCAN_TYPE = BASE_URL+"ZW/ZWScanTypeServlet";//總務臨時工 獲取異常類別
 
     public static String HTTP_HEALTH_SCAN =BASE_URL+"Health/HealthScanServlet";//安全健康追蹤，人員信息查看
     public static String HTTP_HEALTH_COMMIT=BASE_URL+"Health/HealthCommitServlet";//安全健康追蹤，提交生成單頭

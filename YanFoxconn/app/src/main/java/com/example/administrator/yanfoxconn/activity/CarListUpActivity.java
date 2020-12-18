@@ -918,7 +918,8 @@ public class CarListUpActivity extends BaseActivity implements View.OnClickListe
                 } catch (Exception e) {
                     e.printStackTrace();
                 }finally {
-                    FileUtil.deletePhotos(CarListUpActivity.this);
+                    //此刪除圖片方法有用，2020/12/18碼頭王浩，說要保留照片
+//                    FileUtil.deletePhotos(CarListUpActivity.this);
                 }
             }
         }.start();

@@ -10,6 +10,34 @@ public class GCHead implements Serializable {
     private String In_Sex;//性別
     private String In_Department;//部門
     private String In_Number;//工號
+    private String In_Tempature;//初始體溫
+    private String In_Door;//初始門崗
+    private String In_Observation;//留觀地點
+
+    public String getIn_Door() {
+        return In_Door;
+    }
+
+    public String getIn_Observation() {
+        return In_Observation;
+    }
+
+    public String getIn_Tempature() {
+        return In_Tempature;
+    }
+
+    public void setIn_Door(String in_Door) {
+        In_Door = in_Door;
+    }
+
+    public void setIn_Observation(String in_Observation) {
+        In_Observation = in_Observation;
+    }
+
+    public void setIn_Tempature(String in_Tempature) {
+        In_Tempature = in_Tempature;
+    }
+
 
     public String getIn_Number() {
         return In_Number;

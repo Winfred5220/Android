@@ -59,18 +59,55 @@
                     style="@style/carTextBKG"
                     android:layout_weight="1" />
             </TableRow>
-            <!--產品處-->
-            <TableRow style="@style/tableRow">
+                <!--產品處-->
+                <TableRow style="@style/tableRow">
 
-                <TextView
-                    style="@style/carTextName"
-                    android:text="產品處：" />
+                    <TextView
+                        style="@style/carTextName"
+                        android:text="產品處：" />
 
-                <TextView
-                    android:id="@+id/tv_pro"
-                    style="@style/carTextBKG"
-                    android:layout_weight="1" />
-            </TableRow>
+                    <TextView
+                        android:id="@+id/tv_pro"
+                        style="@style/carTextBKG"
+                        android:layout_weight="1" />
+                </TableRow>
+                <!--初錄體溫-->
+                <TableRow style="@style/tableRow">
+
+                    <TextView
+                        style="@style/carTextName"
+                        android:text="初錄體溫：" />
+
+                    <TextView
+                        android:id="@+id/tv_first_temp"
+                        style="@style/carTextBKG"
+                        android:layout_weight="1" />
+                </TableRow>
+                <!--初錄門崗-->
+                <TableRow style="@style/tableRow">
+
+                    <TextView
+                        style="@style/carTextName"
+                        android:text="初錄門崗：" />
+
+                    <TextView
+                        android:id="@+id/tv_men"
+                        style="@style/carTextBKG"
+                        android:layout_weight="1" />
+                </TableRow>
+                <!--留觀地點-->
+                <TableRow style="@style/tableRow">
+
+                    <TextView
+                        style="@style/carTextName"
+                        android:text="留觀地點：" />
+
+                    <TextView
+                        android:id="@+id/tv_area"
+                        style="@style/carTextBKG"
+                        android:layout_weight="1" />
+                </TableRow>
+
                 <!--體溫-->
                 <TableRow style="@style/tableRow">
 

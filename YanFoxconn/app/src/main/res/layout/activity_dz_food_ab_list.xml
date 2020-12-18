@@ -62,7 +62,8 @@
             <com.example.administrator.yanfoxconn.widget.MyListView
                 android:id="@+id/lv_abnormal"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+                android:paddingBottom="@dimen/dimen_10"/>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

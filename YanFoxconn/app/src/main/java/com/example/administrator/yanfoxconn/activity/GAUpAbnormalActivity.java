@@ -13,16 +13,20 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.administrator.yanfoxconn.R;
 import com.example.administrator.yanfoxconn.bean.ComScanViewMessage;
+import com.example.administrator.yanfoxconn.bean.DZFoodType;
+import com.example.administrator.yanfoxconn.bean.GAWork;
 import com.example.administrator.yanfoxconn.bean.SelectModel;
 import com.example.administrator.yanfoxconn.constant.Constants;
 import com.example.administrator.yanfoxconn.constant.FoxContext;
@@ -32,9 +36,12 @@ import com.example.administrator.yanfoxconn.intent.PhotoPreviewIntent;
 import com.example.administrator.yanfoxconn.utils.BaseActivity;
 import com.example.administrator.yanfoxconn.utils.FileUtil;
 import com.example.administrator.yanfoxconn.utils.HttpConnectionUtil;
+import com.example.administrator.yanfoxconn.utils.HttpUtils;
 import com.example.administrator.yanfoxconn.utils.ImageZipUtils;
 import com.example.administrator.yanfoxconn.utils.ToastUtils;
+import com.google.gson.Gson;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -47,6 +54,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.example.administrator.yanfoxconn.constant.Constants.HTTP_ZW_SCAN_TYPE;
+
 /**
  * 總務臨時工 異常上傳
  * Created by song on 2017/9/7.
@@ -54,7 +63,7 @@ import butterknife.ButterKnife;
 
 public class GAUpAbnormalActivity extends BaseActivity implements View.OnClickListener{
     private final int MESSAGE_TOAST = 2;//showToast
-    private final int MESSAGE_SET_TYPE2 = 0;//獲取狀態后,設置控件內容
+    private final int MESSAGE_SET_TYPE = 0;//獲取狀態后,設置控件內容
     private final int MESSAGE_SET_TYPE3 = 1;//獲取狀態后,設置控件內容
     private final int MESSAGE_NOT_NET = 3;//網絡問題
 
@@ -70,6 +79,8 @@ public class GAUpAbnormalActivity extends BaseActivity implements View.OnClickLi
     ImageView ivEmpty;//空白图片占位
     @BindView(R.id.gv_photo)
     GridView gvPhoto;//图片显示区域
+    @BindView(R.id.sp_type)
+    Spinner spType;//異常類別
 
     private static final int REQUEST_CAMERA_CODE = 11;
     private static final int REQUEST_PREVIEW_CODE = 22;
@@ -83,6 +94,8 @@ public class GAUpAbnormalActivity extends BaseActivity implements View.OnClickLi
 
     private String url;
     private String result;
+    private List<DZFoodType> type = new ArrayList<DZFoodType>();
+    private String tName;//異常類別
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,9 +109,9 @@ public class GAUpAbnormalActivity extends BaseActivity implements View.OnClickLi
         btnBack.setOnClickListener(this);
         btnUp.setVisibility(View.VISIBLE);
         btnUp.setOnClickListener(this);
+        getType(FoxContext.getInstance().getLoginId());
 
-
-comScanViewMessages = (List<ComScanViewMessage>) getIntent().getSerializableExtra("message");
+        comScanViewMessages = (List<ComScanViewMessage>) getIntent().getSerializableExtra("message");
         ivEmpty.setOnClickListener(this);
         int cols = getResources().getDisplayMetrics().widthPixels / getResources().getDisplayMetrics().densityDpi;
         cols = cols < 4 ? 4 : cols;
@@ -218,16 +231,75 @@ comScanViewMessages = (List<ComScanViewMessage>) getIntent().getSerializableExtr
                     ToastUtils.showLong(GAUpAbnormalActivity.this, msg.obj.toString());
                     finish();
                     break;
-
-
                 case MESSAGE_NOT_NET:
                     ToastUtils.showLong(GAUpAbnormalActivity.this, "網絡問題請退出重試!");
                     finish();
                     break;
+                case MESSAGE_SET_TYPE:
+                    List<String> ty3 = new ArrayList<String>();
+                    for (int i = 0; i < type.size(); i++) {
+                        ty3.add(type.get(i).getT_name());
+                    }
+                    spType.setAdapter(new ArrayAdapter<String>(GAUpAbnormalActivity.this, android.R.layout.simple_list_item_1, ty3));
+                    spType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                            tvScore.setText(type3.get(position).getScore());
+                            tName = type.get(position).getT_name();
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> parent) {
+                        }
+                    });
             }
             super.handleMessage(msg);
         }
     };
+
+    private void getType(String id){
+        showDialog();
+        url = HTTP_ZW_SCAN_TYPE+"?creator_id="+id;
+        Log.e("-------fff--", "url==" + url);
+        new Thread() {
+            @Override
+            public void run() {
+                String result = HttpUtils.queryStringForPost(url);
+                dismissDialog();
+                Gson gson = new Gson();
+                Log.e("--fff---result----", result.toString());
+                if (result != null) {
+
+                    JsonObject jsonObject = new JsonParser().parse(result).getAsJsonObject();
+                    String errCode = jsonObject.get("errCode").getAsString();
+                    if (errCode.equals("200")) {
+
+                        JsonArray array = jsonObject.get("result").getAsJsonArray();
+                        type = new ArrayList<DZFoodType>();
+                        for (JsonElement type1 : array) {
+                            DZFoodType humi = gson.fromJson(type1, DZFoodType.class);
+                            type.add(humi);
+                        }
+                        Message message = new Message();
+                        message.what = MESSAGE_SET_TYPE;
+
+                        mHandler.sendMessage(message);
+                    } else  {
+                        Message message = new Message();
+                        message.what = MESSAGE_TOAST;
+                        message.obj = jsonObject.get("errMessage").getAsString();
+                        mHandler.sendMessage(message);
+                    }
+                } else {
+                    Message message = new Message();
+                    message.what = MESSAGE_TOAST;
+                    message.obj = "請求不成功";
+                    mHandler.sendMessage(message);
+                }
+            }
+        }.start();
+
+    }
 
     //提交前檢查
     private void check() {
@@ -244,6 +316,7 @@ comScanViewMessages = (List<ComScanViewMessage>) getIntent().getSerializableExtr
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("g_name", FoxContext.getInstance().getgName());
         jsonObject.addProperty("desp", etDescription.getText().toString());
+        jsonObject.addProperty("t_name",tName);
         JsonArray photoArray = new JsonArray();
 
         if (imagePaths != null && imagePaths.size() != 0) {
@@ -376,6 +449,8 @@ comScanViewMessages = (List<ComScanViewMessage>) getIntent().getSerializableExtr
                         // TODO Auto-generated method stub
                         if (imagePaths==null||imagePaths.size()==0){
                             ToastUtils.showLong(GAUpAbnormalActivity.this,"请上传异常照片！");
+                        }else if (etDescription.getText().toString().equals("")){
+                            ToastUtils.showLong(GAUpAbnormalActivity.this,"请描述異常信息！");
                         }else if (FoxContext.getInstance().getType().equals("")){
                             ToastUtils.showLong(GAUpAbnormalActivity.this,"请确认登录状态！重新登录！");
                         }else{
