@@ -75,7 +75,7 @@ public class GCSerchActivity extends BaseActivity implements View.OnClickListene
         btnBack.setOnClickListener(this);
         btnSearch.setOnClickListener(this::onClick);
 
-        tvTitle.setText("健康追蹤");
+        tvTitle.setText("體症異常追蹤");
 
 
     }
@@ -87,18 +87,18 @@ public class GCSerchActivity extends BaseActivity implements View.OnClickListene
                 intent.putExtra("people",(Serializable)gcHeads.get(position));
                 intent.putExtra("from","end");
                 startActivity(intent);
-                ToastUtils.showShort(GCSerchActivity.this,"結案");
+//                ToastUtils.showShort(GCSerchActivity.this,"結案");
             }
 
             @Override
             public void OnClickListenerDel(int position) {
                 delPeople(gcHeads.get(position).getIn_Random_Id());
-                ToastUtils.showShort(GCSerchActivity.this,"刪除");
+//                ToastUtils.showShort(GCSerchActivity.this,"刪除");
             }
 
             @Override
             public void OnClickListenerAdd(int position) {
-                ToastUtils.showShort(GCSerchActivity.this,"追蹤");
+//                ToastUtils.showShort(GCSerchActivity.this,"追蹤");
 
                 Intent intent = new Intent(GCSerchActivity.this,GCUpOrDoneActivity.class);
                 intent.putExtra("people",(Serializable)gcHeads.get(position));

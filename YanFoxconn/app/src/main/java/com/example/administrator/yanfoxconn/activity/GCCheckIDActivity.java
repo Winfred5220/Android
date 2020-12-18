@@ -93,7 +93,7 @@ public class GCCheckIDActivity extends BaseActivity implements View.OnClickListe
         flag = getIntent().getStringExtra("check");
         getPeopleMessage(id,flag);
 
-        tvTitle.setText("健康異常紀錄");
+        tvTitle.setText("體症異常紀錄");
         btnBack.setText("返回");
         btnUp.setText("提交");
         btnUp.setVisibility(View.VISIBLE);

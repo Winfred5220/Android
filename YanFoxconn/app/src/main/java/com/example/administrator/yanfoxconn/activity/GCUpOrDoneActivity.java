@@ -85,6 +85,12 @@ public class GCUpOrDoneActivity extends BaseActivity implements View.OnClickList
     TextView tvIdentity;//身份證
     @BindView(R.id.tv_pro)
     TextView tvPro;//產品處
+    @BindView(R.id.tv_first_temp)
+    TextView tvFirstTemp;//初始體溫
+    @BindView(R.id.tv_men)
+    TextView tvMen;//初始門崗
+    @BindView(R.id.tv_area)
+    TextView tvArea;//留觀地點
     @BindView(R.id.et_temp)
     EditText etTemp;//體溫
     @BindView(R.id.et_description)
@@ -145,6 +151,9 @@ public class GCUpOrDoneActivity extends BaseActivity implements View.OnClickList
         tvName.setText(gcHeads.getIn_Name());
         tvIdentity.setText(gcHeads.getIn_Sex());
         tvPro.setText(gcHeads.getIn_Department());
+        tvFirstTemp.setText(gcHeads.getIn_Tempature());
+        tvMen.setText(gcHeads.getIn_Door());
+        tvArea.setText(gcHeads.getIn_Observation());
         ivEmpty.setOnClickListener(this);
 
         if (from.equals("end")){

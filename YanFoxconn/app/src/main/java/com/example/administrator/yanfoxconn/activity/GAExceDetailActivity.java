@@ -305,7 +305,7 @@ public class GAExceDetailActivity extends BaseActivity implements View.OnClickLi
 
                         Message message = new Message();
                         message.what = MESSAGE_SET_TEXT;
-                        message.obj = dzFoodAbLists.get(0).getExce_desp();
+                        message.obj = dzFoodAbLists.get(0).getExce_result()+":\n"+dzFoodAbLists.get(0).getExce_desp();
                         mHandler.sendMessage(message);
 
                     } else{

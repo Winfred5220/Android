@@ -60,7 +60,11 @@ public class DZFoodAbLvAdapter extends BaseAdapter {
         }
         if (from.equals("GA")){
             viewHolder.tvDesp.setVisibility(View.VISIBLE);
-            viewHolder.tvDesp.setText(abList.get(position).getExce_desp());
+            viewHolder.tvDesp.setText(abList.get(position).getExce_result()+":"+"\n"+abList.get(position).getExce_desp());
+            viewHolder.tvType1.setVisibility(View.GONE);
+            viewHolder.tvType2.setVisibility(View.GONE);
+            viewHolder.tvType3.setVisibility(View.GONE);
+            viewHolder.tvScore.setVisibility(View.GONE);
         }
         viewHolder.tvId.setText((position+1)+"");
         viewHolder.tvType1.setText(abList.get(position).getName1());
