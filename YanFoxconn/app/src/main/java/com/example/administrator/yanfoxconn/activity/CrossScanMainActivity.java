@@ -104,7 +104,7 @@ public class CrossScanMainActivity extends BaseActivity implements View.OnClickL
                 finish();
                 break;
             case  R.id.btn_search:
-                Intent intent3 = new Intent(CrossScanMainActivity.this, GCSerchActivity.class);
+                Intent intent3 = new Intent(CrossScanMainActivity.this, GCSerchActivityTest.class);
                 startActivity(intent3);
                 break;
             case R.id.btn_scan://掃描進入

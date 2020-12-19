@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 <include layout="@layout/common_title"/>
-    <ScrollView
+    <com.example.administrator.yanfoxconn.widget.MyScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <LinearLayout
@@ -45,11 +45,11 @@
                 android:gravity="center"/>
 
         </RelativeLayout>
-            <com.example.administrator.yanfoxconn.widget.SwipeListViewThree
+
+            <com.example.administrator.yanfoxconn.widget.SwipterMenuTest
                 android:id="@+id/lv_people"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/et_search"/>
+                android:layout_height="match_parent"/>
         </LinearLayout>
-    </ScrollView>
+    </com.example.administrator.yanfoxconn.widget.MyScrollView>
 </LinearLayout>
