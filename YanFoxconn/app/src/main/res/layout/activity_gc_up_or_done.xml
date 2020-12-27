@@ -107,6 +107,26 @@
                         style="@style/carTextBKG"
                         android:layout_weight="1" />
                 </TableRow>
+                <!--日期時間-->
+                <TableRow style="@style/tableRow"
+                    android:id="@+id/tr_time"
+                    android:visibility="gone">
+
+                    <TextView
+                        style="@style/carTextName"
+                        android:text="補錄時間："
+                        android:focusable="true"
+                        android:focusableInTouchMode="true" />
+
+                    <TextView
+                        android:id="@+id/tv_time_date"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/text_size_16"
+                        android:hint="選擇時間"
+                        android:layout_marginLeft="@dimen/dimen_3"
+                        android:layout_weight="1"/>
+                </TableRow>
 
                 <!--體溫-->
                 <TableRow style="@style/tableRow">

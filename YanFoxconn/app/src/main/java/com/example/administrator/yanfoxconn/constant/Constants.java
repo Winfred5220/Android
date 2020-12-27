@@ -8,11 +8,11 @@ package com.example.administrator.yanfoxconn.constant;
 
 public class Constants {
 
-    public static final String BASE_URL = "http://ytlogisticgps.foxconn.com/SafeServer/";//玲姐
-    public static final String EMP_BASE = "http://ytlogisticgps.foxconn.com/Server/";    //杰哥
+//    public static final String BASE_URL = "http://ytlogisticgps.foxconn.com/SafeServer/";//玲姐
+//    public static final String EMP_BASE = "http://ytlogisticgps.foxconn.com/Server/";    //杰哥
 
-//    public static final String BASE_URL = "http://ytsafeserver.foxconn.com/SafeServer/";//玲姐
-//    public static final String EMP_BASE = "http://ytsafeserver.foxconn.com/Server/";    //杰哥
+    public static final String BASE_URL = "http://ytsafeserver.foxconn.com/SafeServer/";//玲姐
+    public static final String EMP_BASE = "http://ytsafeserver.foxconn.com/Server/";    //杰哥
 
 
     public static String J4 = "http://192.168.0.108:8080/Server/";//杰哥4F接口測試
@@ -62,7 +62,7 @@ public class Constants {
     public static String HTTP_COMMON_FORMS_PRIVATE_CAR_PARKING = W4 + "CommonFormsPrivateCarParkingServlet";//私家車違規帶出停車場接口
 
 
-    public static String HTTP_COMMON_FORMS_SERVLET = EMP_BASE + "CommonFormsServlet";//工號查詢,並獲取門崗列表
+    public static String HTTP_COMMON_FORMS_SERVLET = EMP_BASE + " ";//工號查詢,並獲取門崗列表
     public static String HTTP_COMMON_GOODS_SERVLET = EMP_BASE + "CommongoodsServlet";//普通物品 工號查詢,並獲取門崗列表，提交信息
     public static String HTTP_INTELLIGENCE_GOODS_SERVLET = EMP_BASE + "IntelligenceGoodsServlet";//智慧物品放行 工號查詢,並獲取門崗列表，提交信息接口
     public static String HTTP_SANFANG_SERVLET = EMP_BASE + "SanFangServlet";//三防隱患獲取責任單位接口
@@ -179,7 +179,7 @@ public class Constants {
     public static String HTTP_BODY_DELETE = BASE_URL+"Health/HealthBodyDeleteServlet";//安全部健康追蹤 單身刪除
     public static String HTTP_BODY_DELETE_SELECT = BASE_URL+"Health/HealthBodyDeleteSelectServlet";//安全部健康追蹤 單身查看
     public static String HTTP_CASE_FISH = BASE_URL+"Health/HealthCaseFishServlet";//安全部健康追蹤 結案
-
+    public static String HTTP_TRACE_ADD = BASE_URL+"Health/HealthTraceAddServlet";//安全部体症异常追踪 体温补录
 
 
 }

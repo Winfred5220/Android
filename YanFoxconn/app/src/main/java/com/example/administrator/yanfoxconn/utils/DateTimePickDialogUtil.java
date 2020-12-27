@@ -110,20 +110,90 @@ public class DateTimePickDialogUtil implements DatePicker.OnDateChangedListener,
 ////                    Log.e("-----------","c1.getTimeInMillis()=="+c1.getTimeInMillis());
 ////                    Log.e("-----------","c2.getTimeInMillis()=="+c2.getTimeInMillis());
 //                }else{
-                    Date dateMax = sdf.parse(maxDate);
-                    Date dateMin = sdf.parse(minDate);
+                Date dateMax = sdf.parse(maxDate);
+                Date dateMin = sdf.parse(minDate);
 
-                    datePicker.setMinDate(dateMin.getTime());
-                    datePicker.setMaxDate(dateMax.getTime());
-                    Log.e("-----------","dateMax.getTime()=="+dateMax.getTime());
-                    Log.e("-----------","dateMin.getTime()=="+dateMin.getTime());
+                datePicker.setMinDate(dateMin.getTime());
+                datePicker.setMaxDate(dateMax.getTime());
+                Log.e("-----------","dateMax.getTime()=="+dateMax.getTime());
+                Log.e("-----------","dateMin.getTime()=="+dateMin.getTime());
 //                }
 
             } catch (ParseException e) {
                 e.printStackTrace();
             }
+        }else{
+            Log.e("-----------","dateMin.getTime()=="+maxDate);
         }
+        init(datePicker, timePicker);
+        timePicker.setIs24HourView(true);
+        timePicker.setOnTimeChangedListener(this);
 
+        ad = new AlertDialog.Builder(activity)
+                .setTitle(initDateTime)
+                .setView(dateTimeLayout)
+                .setPositiveButton("確認", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        inputDate.setText(dateTime);
+                    }
+                })
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+//                        inputDate.setText("");
+                    }
+                }).show();
+
+        onDateChanged(null, 0, 0, 0);
+        return ad;
+    }
+    public AlertDialog dateTimePicKDialog(final TextView inputDate, final String maxDate) {
+        LinearLayout dateTimeLayout = (LinearLayout) activity
+                .getLayoutInflater().inflate(R.layout.dialog_time_date_picker, null);
+        datePicker = (DatePicker) dateTimeLayout.findViewById(R.id.datePicker);
+        timePicker = (TimePicker) dateTimeLayout.findViewById(R.id.timePicker);
+
+
+        if (!maxDate.equals("")) {
+//            Log.e("-----------","maxDate====="+maxDate);
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+            try {
+//                stringToDate(maxDate,"yyyy-MM-dd HH:mm:ss");
+
+//                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+////                    Log.e("-----------","M====="+maxDate);
+//                    Date dateMax = sdf.parse(maxDate);
+//                    Date dateMin = sdf.parse(minDate);
+//                    SimpleDateFormat sdf1= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//                    sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
+//                    String dateStrMax=sdf1.format(dateMax);
+//                    String dateStrMin=sdf1.format(dateMin);
+//                    Log.e("-----------","dateStrMax====="+dateStrMax);
+//                    Log.e("-----------","dateStrMin====="+dateStrMin);
+////                    Calendar c1 = Calendar.getInstance();
+////                    c1.setTime(dateMax);
+////                    c1.add(Calendar.DAY_OF_MONTH, 1);// 今天+1天
+//////                    c1.add(Calendar.HOUR_OF_DAY,-8);
+////                    datePicker.setMaxDate(c1.getTimeInMillis());
+////                    Calendar c2 = Calendar.getInstance();
+////                    c2.setTime(dateMin);
+////                    c2.add(Calendar.DAY_OF_MONTH, 1);// 今天+1天
+////                    c2.add(Calendar.HOUR_OF_DAY,-8);
+////                    datePicker.setMinDate(c2.getTimeInMillis());
+////                    Log.e("-----------","c1.getTimeInMillis()=="+c1.getTimeInMillis());
+////                    Log.e("-----------","c2.getTimeInMillis()=="+c2.getTimeInMillis());
+//                }else{
+                Date dateMax = sdf.parse(maxDate);
+
+                datePicker.setMaxDate(dateMax.getTime());
+                Log.e("-----------","dateMax.getTime()=="+dateMax.getTime());
+//                }
+
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }else{
+            Log.e("-----------","dateMin.getTime()=="+maxDate);
+        }
         init(datePicker, timePicker);
         timePicker.setIs24HourView(true);
         timePicker.setOnTimeChangedListener(this);
