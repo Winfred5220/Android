@@ -6,8 +6,17 @@ public class GCBody {
     private String T_Description;//
     private String T_Tempature;//
     private String T_Createor_time;//
-    private String In_Status;//是否刪除 D刪
+    private String In_Status;//
     private String now_date;//
+    private String isdelete;//是否可刪除
+
+    public String getIsdelete() {
+        return isdelete;
+    }
+
+    public void setIsdelete(String isdelete) {
+        this.isdelete = isdelete;
+    }
 
     public String getIn_Random_Id() {
         return In_Random_Id;

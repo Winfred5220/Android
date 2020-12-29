@@ -247,8 +247,11 @@ public class GCSerchActivityTest extends BaseActivity implements View.OnClickLis
                                     startActivity(intent3);
                                     break;
                                 case 3:
-                                    menu.getMenuItem(2).setTitle("補錄");
-                                    delAlert("確認是否刪除！", position);
+                                    if (gcHeads.get(position).getIsdelete().equals("Y")){
+                                        delAlert("確認是否刪除！",position);}else{
+                                        ToastUtils.showShort(GCSerchActivityTest.this,"非當天數據，不予刪除！");
+                                    }
+
 //                                    Toast.makeText(GCSerchActivityTest.this, "删除:"+position,Toast.LENGTH_SHORT).show();
                                     break;
                             }

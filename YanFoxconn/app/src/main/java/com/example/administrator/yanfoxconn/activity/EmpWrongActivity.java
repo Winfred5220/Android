@@ -165,6 +165,7 @@ public class EmpWrongActivity extends BaseActivity implements View.OnClickListen
         });
     }
 
+    //獲取門崗
     private void getMessage(){
         showDialog();
         final String url = Constants.HTTP_COMMON_FORMS_SERVLET+"?code="+result;

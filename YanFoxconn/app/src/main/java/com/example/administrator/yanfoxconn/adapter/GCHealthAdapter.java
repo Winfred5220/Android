@@ -67,7 +67,7 @@ public class GCHealthAdapter extends BaseAdapter {
         holder.tvTemp.setText("體溫："+lists.get(position).getT_Tempature());
         holder.tvDep.setText("描述："+lists.get(position).getT_Description());
 //        Log.e("-----------","lists.get(position).getJc_result().get(0).getName()==="+lists.get(position).getJc_result().get(0).getName());
-if (lists.get(position).getIn_Status()!=null&&lists.get(position).getIn_Status().equals("D")){
+if (lists.get(position).getIsdelete().equals("Y")){
     holder.tvDel.setVisibility(View.VISIBLE);
 }else{
     holder.tvDel.setVisibility(View.GONE);

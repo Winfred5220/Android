@@ -386,7 +386,11 @@ public class GCUpOrDoneActivity extends BaseActivity implements View.OnClickList
                     healthAdapter.setOnClickListenerSeeOrAdd(new GCHealthAdapter.OnClickListenerSeeOrAdd() {
                         @Override
                         public void OnClickListenerDel(int position) {
+                            if (bodys.get(position).getIsdelete().equals("Y")){
                             delAlert("確認是否刪除！",position);
+                            }else{
+                                ToastUtils.showShort(GCUpOrDoneActivity.this,"非當天數據，不予刪除！");
+                            }
 
                         }
                     });
@@ -512,7 +516,7 @@ public class GCUpOrDoneActivity extends BaseActivity implements View.OnClickList
     //補錄追蹤
     private void addTime() {
 
-        final String url = Constants.HTTP_HEALTH_TRACE_COMMIT; //此處寫上自己的URL
+        final String url = Constants.HTTP_TRACE_ADD; //此處寫上自己的URL
 
         JsonObject object = new JsonObject();
 
@@ -568,7 +572,6 @@ Log.e("-------------","ddddd==="+tvTimeDate.getText().toString());
             }
         }.start();
     }
-
 
     //結案
     private void end() {
@@ -760,6 +763,8 @@ Log.e("-------------","ddddd==="+tvTimeDate.getText().toString());
         AlertDialog alert = builder.create();
         alert.show();
     }
+
+    //刪除
     private void del(String tId){
         showDialog();
         final String url = Constants.HTTP_BODY_DELETE+"?T_Id="+tId;

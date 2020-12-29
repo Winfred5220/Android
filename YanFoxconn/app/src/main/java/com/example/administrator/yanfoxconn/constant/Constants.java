@@ -62,7 +62,7 @@ public class Constants {
     public static String HTTP_COMMON_FORMS_PRIVATE_CAR_PARKING = W4 + "CommonFormsPrivateCarParkingServlet";//私家車違規帶出停車場接口
 
 
-    public static String HTTP_COMMON_FORMS_SERVLET = EMP_BASE + " ";//工號查詢,並獲取門崗列表
+    public static String HTTP_COMMON_FORMS_SERVLET = EMP_BASE + "CommonFormsServlet";//工號查詢,並獲取門崗列表
     public static String HTTP_COMMON_GOODS_SERVLET = EMP_BASE + "CommongoodsServlet";//普通物品 工號查詢,並獲取門崗列表，提交信息
     public static String HTTP_INTELLIGENCE_GOODS_SERVLET = EMP_BASE + "IntelligenceGoodsServlet";//智慧物品放行 工號查詢,並獲取門崗列表，提交信息接口
     public static String HTTP_SANFANG_SERVLET = EMP_BASE + "SanFangServlet";//三防隱患獲取責任單位接口

@@ -13,32 +13,42 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.example.administrator.yanfoxconn.R;
+import com.example.administrator.yanfoxconn.adapter.EmpListAdapter;
+import com.example.administrator.yanfoxconn.bean.EmpFile;
+import com.example.administrator.yanfoxconn.bean.EmpMessage;
 import com.example.administrator.yanfoxconn.bean.GEMenLiu;
 import com.example.administrator.yanfoxconn.bean.GEPeopleMsg;
 import com.example.administrator.yanfoxconn.constant.Constants;
 import com.example.administrator.yanfoxconn.constant.FoxContext;
 import com.example.administrator.yanfoxconn.utils.BaseActivity;
+import com.example.administrator.yanfoxconn.utils.ChangeTextUtils;
 import com.example.administrator.yanfoxconn.utils.FileUtil;
 import com.example.administrator.yanfoxconn.utils.HttpConnectionUtil;
 import com.example.administrator.yanfoxconn.utils.HttpUtils;
 import com.example.administrator.yanfoxconn.utils.ImageZipUtils;
 import com.example.administrator.yanfoxconn.utils.ToastUtils;
+import com.example.administrator.yanfoxconn.widget.MyListView;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import org.apache.http.util.CharsetUtils;
+
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.Nullable;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import taobe.tec.jcc.JChineseConvertor;
 
 /**
  *安保部健康追蹤
@@ -49,7 +59,7 @@ public class GCCheckIDActivity extends BaseActivity implements View.OnClickListe
 {
     private final int MESSAGE_TOAST = 2;//掃描失敗彈出框
     private final int MESSAGE_SET_TEXT = 1;//掃描成功賦值
-    private final int MESSAGE_UP = 3;//提交信息回復
+    private final int MESSAGE_SET_MEN = 3;//提交信息回復
     private final int MESSAGE_NOT_NET = 4;//顯示提醒
     private final int MESSAGE_SUCCESS = 5;//掃描失敗彈出框
 
@@ -67,8 +77,12 @@ public class GCCheckIDActivity extends BaseActivity implements View.OnClickListe
     TextView tvIdentity;//身份證
     @BindView(R.id.tv_dep)
     TextView tvDep;//部門
-    @BindView(R.id.sp_team)
-    Spinner spTeam;//門崗
+    @BindView(R.id.et_gate_post)
+    EditText etGatePost;//稽核門崗
+    @BindView(R.id.lv_gate)
+    MyListView lvGate;//稽核門崗列表
+    @BindView(R.id.tr_list_gate)
+    TableRow trLIstGate;//稽核課隊門崗列表
     @BindView(R.id.sp_area)
     Spinner spArea;//留觀地點
     @BindView(R.id.et_temp)
@@ -81,7 +95,11 @@ public class GCCheckIDActivity extends BaseActivity implements View.OnClickListe
     private String id,flag;
     List<GEPeopleMsg>  gePeopleMsgs;
     List<GEMenLiu> geMens,geLius;
-    private String Smen,Sliu;
+    private List<String> teamList;
+    private EmpListAdapter mAdapter;
+    private List<EmpMessage> empMessagesList;
+    private List<EmpFile> empFileList;
+    private String Sliu;
     private int num = 0;//輸入框初始值
     private int mMaxNum =250;//輸入框最大值
     @Override
@@ -93,12 +111,33 @@ public class GCCheckIDActivity extends BaseActivity implements View.OnClickListe
         flag = getIntent().getStringExtra("check");
         getPeopleMessage(id,flag);
 
+
         tvTitle.setText("體症異常紀錄");
         btnBack.setText("返回");
         btnUp.setText("提交");
         btnUp.setVisibility(View.VISIBLE);
         btnBack.setOnClickListener(this);
         btnUp.setOnClickListener(this);
+
+        etGatePost.setTag("0");
+
+        //搜索关键字
+        etGatePost.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                trLIstGate.setVisibility(View.VISIBLE);
+                String a = etGatePost.getText().toString();
+                //调用适配器里面的搜索方法
+                mAdapter.SearchCity(a);
+            }
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+
+        });
 
         etTemp.addTextChangedListener(new TextWatcher() {
 
@@ -247,6 +286,9 @@ public class GCCheckIDActivity extends BaseActivity implements View.OnClickListe
                 case MESSAGE_NOT_NET:
                     ToastUtils.showLong(GCCheckIDActivity.this, "網絡錯誤，請稍後重試！");
                     break;
+                case MESSAGE_SET_MEN:
+                    setMen();
+                    break;
             }
             super.handleMessage(msg);
         }
@@ -268,23 +310,10 @@ public class GCCheckIDActivity extends BaseActivity implements View.OnClickListe
         for (int i=0;i<geMens.size();i++){
             men.add(geMens.get(i).getIn_Door());
         }
-        //稽核課隊下拉列表選擇
-        spTeam.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, men));
-        spTeam.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-               Smen = men.get(position);
-
-//                Log.e("---------", "最喜欢的水果是：" + str);
-//                paramMap.put("kedui",str);
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
         for (int i=0;i<geLius.size();i++){
             liu.add(geLius.get(i).getIn_Door());
         }
+        getMen();
         //稽核課隊下拉列表選擇
         spArea.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, liu));
         spArea.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -310,6 +339,9 @@ public class GCCheckIDActivity extends BaseActivity implements View.OnClickListe
             case R.id.btn_title_right:
 if (etDescription.getText().toString().equals("")||etTemp.getText().toString().equals("")){
     ToastUtils.showShort(GCCheckIDActivity.this,"有值為空，請注意！");
+}else if (etGatePost.getTag().equals("0")){
+    ToastUtils.showShort(GCCheckIDActivity.this,"請選擇稽核門崗!");
+
 }else{
                 check();}
                 break;
@@ -326,7 +358,7 @@ if (etDescription.getText().toString().equals("")||etTemp.getText().toString().e
         object.addProperty("In_Statues", "未結案");
         object.addProperty("In_Tempature", etTemp.getText().toString());
         object.addProperty("In_Others", etDescription.getText().toString());
-        object.addProperty("In_Door", Smen);
+        object.addProperty("In_Door", men);
         object.addProperty("In_Observation", Sliu);
         object.addProperty("flag", flag);
         object.addProperty("In_Createor",FoxContext.getInstance().getName());
@@ -386,6 +418,98 @@ if (etDescription.getText().toString().equals("")||etTemp.getText().toString().e
                 }
             }
         }.start();
+    }
+    //獲取門崗
+    private void getMen(){
+        showDialog();
+        final String url = Constants.HTTP_COMMON_FORMS_SERVLET+"?code="+id;
+
+        new Thread() {
+            @Override
+            public void run() {
+                //把网络访问的代码放在这里
+                String result = HttpUtils.queryStringForPost(url);
+
+                dismissDialog();
+                Log.e("---------", "==fff===" + url);
+                Gson gson = new Gson();
+                if (result != null) {
+                    Log.e("---------", "result==fff===" + result);
+
+                    JsonObject jsonObject = new JsonParser().parse(result).getAsJsonObject();
+                    String errCode = jsonObject.get("errCode").getAsString();
+                    if (errCode.equals("200")) {
+                        Log.e("--fff---------", "result==" + result);
+                        JsonArray array = jsonObject.get("data").getAsJsonArray();
+                        empMessagesList = new ArrayList<EmpMessage>();
+
+                        for (JsonElement type : array) {
+                            EmpMessage humi = gson.fromJson(type, EmpMessage.class);
+                            empMessagesList.add(humi);
+
+                        }
+
+                        JsonObject jsonObject1 = new JsonParser().parse(String.valueOf(array.get(0))).getAsJsonObject();
+                        JsonArray array1 = jsonObject1.get("file").getAsJsonArray();
+                        empFileList = new ArrayList<EmpFile>();
+                        for (JsonElement type1 : array1) {
+                            EmpFile humi1 = gson.fromJson(type1, EmpFile.class);
+                            empFileList.add(humi1);
+                        }
+
+
+                        Message message = new Message();
+                        message.what = MESSAGE_SET_MEN;
+                        message.obj = jsonObject.get("errMessage").getAsString();
+                        mHandler.sendMessage(message);
+
+                    } else{
+                        Log.e("-----------", "result==" + result);
+                        Message message = new Message();
+                        message.what = MESSAGE_TOAST;
+                        message.obj = jsonObject.get("errMessage").getAsString();
+                        mHandler.sendMessage(message);
+                    }
+                }
+            } }.start();
+    }
+
+    private String men;
+    private ChangeTextUtils changeTextUtils = new ChangeTextUtils();
+    private void setMen(){
+        teamList = new ArrayList<>();
+        for (int i = 0;i<empFileList.size();i++){
+
+            teamList.add(change1(empFileList.get(i).getID()+","+empFileList.get(i).getAQ1()+"-"+empFileList.get(i).getAQ2()+"-"+empFileList.get(i).getAQ3()+"-"+empFileList.get(i).getAQ4()));
+
+        }
+        mAdapter = new EmpListAdapter(GCCheckIDActivity.this,teamList);
+        lvGate.setAdapter(mAdapter);
+
+        //稽核門崗列表,選中后1:tit賦值,2:列表隱藏
+        mAdapter.OnClickSetText(new EmpListAdapter.OnClickSetText() {
+            @Override
+            public void OnClickxt(String tit) {
+                etGatePost.setText(tit.split(",")[1]);
+                etGatePost.setTag(tit.split(",")[0]);
+                men= changeTextUtils.simToTra(tit.split(",")[1]);
+
+                mAdapter.SearchCity("");
+                trLIstGate.setVisibility(View.GONE);
+            }
+        });
+
+    }
+    //繁体转成简体
+    public String change1(String changeText) {
+        try {
+            JChineseConvertor jChineseConvertor = JChineseConvertor.getInstance();
+            changeText = jChineseConvertor.t2s(changeText);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return changeText;
     }
 
 }
