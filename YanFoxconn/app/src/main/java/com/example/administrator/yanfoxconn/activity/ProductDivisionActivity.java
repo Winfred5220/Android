@@ -45,10 +45,11 @@ public class ProductDivisionActivity extends BaseActivity implements View.OnClic
     public String[][] proName = {
             {"車間巡檢", "天台巡檢","安全出口巡檢","成型巡檢","沖壓消殺", "成型消殺","組裝消殺","SMT消殺","塗裝消殺"},//NME
             {"VIP巡檢"},//VIP
-            {"製二安環&值星", "製二層主","製一(E區)巡檢","製一(八角)巡檢","制二兼職安全員","製二棟主(企業負責人)"},//PME
+            {"製二安環&值星", "製二層主","PME製一(E區)E化系統-日","PME製一(E區)E化系統-週","製一(八角)巡檢","制二兼職安全員","製二棟主(企業負責人)"},//PME
             {"EBL巡檢","TV製造巡檢"},//EBL
             {"PWB巡檢"},//PWB
             {"HEC消殺巡檢"},//HEC
+            {"MDI巡檢"},//MDI
             {"A區生活區", "A區廠區", "C區", "E區", "八角", "宿舍区A/E"},//總務消殺巡檢
             { "A區", "C區", "D區", "G區", "E區","A區生活區","E區生活區"},//工安巡檢
             { "電源供應器","靜電試驗機","插拔試驗機","冷熱衝擊柜","恆溫恆濕柜","推拉力試驗機","高空試驗機","高溫台車","電源模擬器","衝擊試驗機","靜電放電模擬器"},//品質保證處QA
@@ -58,10 +59,11 @@ public class ProductDivisionActivity extends BaseActivity implements View.OnClic
     public String[][] proRole = {
             {"U0", "BD","BE","CH","CZ","DU","DV","DW","DX"},//NME
             {"BF"},//VIP
-            {"BR", "CG","CF","CJ","BU","CW"},//PME
+            {"BR", "CG","DY","GP","CJ","BU","CW"},//PME，原CF可以刪除
             {"CP","CS"},//EBL
             {"CV"},//PWB
             {"EB"},//HEC
+            {"GO"},//MDI
             {"DA","DB","DC","DD","DE","DF"},//總務消殺巡檢
             {"DG","DH","DI","DJ","DK","DL","DM"},//工安巡檢
             {"EE","EF","EM","EP","EQ","ER","ES","ET","EY","FC","FD"},//品質保證處QA
@@ -71,10 +73,11 @@ public class ProductDivisionActivity extends BaseActivity implements View.OnClic
     public int[][] proIcon = {
             {R.mipmap.icon_chejian, R.mipmap.icon_tiantai, R.mipmap.icon_anquanchu, R.mipmap.icon_pmezhiyi,R.mipmap.icon_nmexiaosha, R.mipmap.icon_nmexiaosha, R.mipmap.icon_nmexiaosha, R.mipmap.icon_nmexiaosha,R.mipmap.icon_nmexiaosha},//NME
             {R.mipmap.icon_vip_safe},//VIP
-            {R.mipmap.icon_pme_safe, R.mipmap.icon_pmecengzhu, R.mipmap.icon_pmezhiyi, R.mipmap.icon_anquanchu, R.mipmap.icon_jianzhi, R.mipmap.icon_pme_2},//PME
+            {R.mipmap.icon_pme_safe, R.mipmap.icon_pmecengzhu, R.mipmap.icon_pmezhiyi, R.mipmap.icon_pmezhiyi, R.mipmap.icon_anquanchu, R.mipmap.icon_jianzhi, R.mipmap.icon_pme_2},//PME
             {R.mipmap.icon_ebl_safe,R.mipmap.icon_ebl_tv},//EBL
             {R.mipmap.icon_pwb},//PWB
             {R.mipmap.icon_nmexiaosha},//HEC
+            {R.mipmap.icon_nmexiaosha},//MDI
             {R.mipmap.icon_a,R.mipmap.icon_b,R.mipmap.icon_c,R.mipmap.icon_e,R.mipmap.icon_d,R.mipmap.icon_df},//總務消殺巡檢
             {R.mipmap.icon_a,R.mipmap.icon_b,R.mipmap.icon_c,R.mipmap.icon_e,R.mipmap.icon_d,R.mipmap.icon_df,R.mipmap.icon_e},//工安巡檢
             {R.mipmap.icon_a,R.mipmap.icon_b,R.mipmap.icon_c,R.mipmap.icon_e,R.mipmap.icon_d,R.mipmap.icon_df,R.mipmap.icon_e,R.mipmap.icon_e,R.mipmap.icon_e,R.mipmap.icon_e,R.mipmap.icon_e},//品質保證處QA
@@ -127,7 +130,7 @@ public class ProductDivisionActivity extends BaseActivity implements View.OnClic
                     intent.putExtra("type", "BU");
                     startActivity(intent);
                 }else if(FoxContext.getInstance().getRoles().contains(role)&&(role.equals("CZ")||role.equals("DU")||role.equals("DV")
-                        ||role.equals("DW")||role.equals("DX")||role.equals("EB"))){
+                        ||role.equals("DW")||role.equals("DX")||role.equals("EB")||role.equals("DY")||role.equals("GP")||role.equals("GO"))){
                     FoxContext.getInstance().setType(role);
                     Intent intent = new Intent(ProductDivisionActivity.this, QrCodeActivity.class);
                     intent.putExtra("title", "掃描二維碼");
@@ -206,7 +209,7 @@ public class ProductDivisionActivity extends BaseActivity implements View.OnClic
                 ProductDivisionMessage productDivisionMessage = new ProductDivisionMessage(proNameList.get(i),proRoleList.get(i),proIconList.get(i));
                 mProductDivisionMessagelist.add(productDivisionMessage);
             }
-        }else if (type.equals("ZXS")){
+        }else if (type.equals("MDI")){
             for (int i = 0; i < proName[6].length; i++) {
                 proNameList.add(proName[6][i]);
                 proRoleList.add(proRole[6][i]);
@@ -214,7 +217,7 @@ public class ProductDivisionActivity extends BaseActivity implements View.OnClic
                 ProductDivisionMessage productDivisionMessage = new ProductDivisionMessage(proNameList.get(i),proRoleList.get(i),proIconList.get(i));
                 mProductDivisionMessagelist.add(productDivisionMessage);
             }
-        }else if (type.equals("GAN")){
+        }else if (type.equals("ZXS")){
             for (int i = 0; i < proName[7].length; i++) {
                 proNameList.add(proName[7][i]);
                 proRoleList.add(proRole[7][i]);
@@ -222,7 +225,7 @@ public class ProductDivisionActivity extends BaseActivity implements View.OnClic
                 ProductDivisionMessage productDivisionMessage = new ProductDivisionMessage(proNameList.get(i),proRoleList.get(i),proIconList.get(i));
                 mProductDivisionMessagelist.add(productDivisionMessage);
             }
-        }else if (type.equals("QAQ")){
+        }else if (type.equals("GAN")){
             for (int i = 0; i < proName[8].length; i++) {
                 proNameList.add(proName[8][i]);
                 proRoleList.add(proRole[8][i]);
@@ -230,7 +233,7 @@ public class ProductDivisionActivity extends BaseActivity implements View.OnClic
                 ProductDivisionMessage productDivisionMessage = new ProductDivisionMessage(proNameList.get(i),proRoleList.get(i),proIconList.get(i));
                 mProductDivisionMessagelist.add(productDivisionMessage);
             }
-        }else if (type.equals("SMT")){
+        }else if (type.equals("QAQ")){
             for (int i = 0; i < proName[9].length; i++) {
                 proNameList.add(proName[9][i]);
                 proRoleList.add(proRole[9][i]);
@@ -238,11 +241,19 @@ public class ProductDivisionActivity extends BaseActivity implements View.OnClic
                 ProductDivisionMessage productDivisionMessage = new ProductDivisionMessage(proNameList.get(i),proRoleList.get(i),proIconList.get(i));
                 mProductDivisionMessagelist.add(productDivisionMessage);
             }
-        }else if (type.equals("MEM")){
+        }else if (type.equals("SMT")){
             for (int i = 0; i < proName[10].length; i++) {
                 proNameList.add(proName[10][i]);
                 proRoleList.add(proRole[10][i]);
                 proIconList.add(proIcon[10][i]);
+                ProductDivisionMessage productDivisionMessage = new ProductDivisionMessage(proNameList.get(i),proRoleList.get(i),proIconList.get(i));
+                mProductDivisionMessagelist.add(productDivisionMessage);
+            }
+        }else if (type.equals("MEM")){
+            for (int i = 0; i < proName[11].length; i++) {
+                proNameList.add(proName[11][i]);
+                proRoleList.add(proRole[11][i]);
+                proIconList.add(proIcon[11][i]);
                 ProductDivisionMessage productDivisionMessage = new ProductDivisionMessage(proNameList.get(i),proRoleList.get(i),proIconList.get(i));
                 mProductDivisionMessagelist.add(productDivisionMessage);
             }

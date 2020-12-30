@@ -119,6 +119,8 @@ public class MyGridViewAdapter extends BaseAdapter {
                     tvGridView.setTag("pwb");
                 } else if (rolesList.get(i).equals("HEC")) {//HEC
                     tvGridView.setTag("hec");
+                } else if (rolesList.get(i).equals("MBI")) {//MBI
+                    tvGridView.setTag("mbi");
                 } else if (rolesList.get(i).equals("CQ")) {//車輛跨區無紙化
                     tvGridView.setTag("cq");
                 } else if (rolesList.get(i).equals("CR")) {//廢料出廠
@@ -267,6 +269,8 @@ public class MyGridViewAdapter extends BaseAdapter {
                     onClickListener.OnClickPWB();
                 } else if (view.getTag().equals("hec")) {//HEC
                     onClickListener.OnClickHEC();
+                } else if (view.getTag().equals("mbi")) {//MBI
+                    onClickListener.OnClickMBI();
                 } else if (view.getTag().equals("cq")) {//車輛跨區無紙化
                     onClickListener.OnClickCrossCar(position);
                 } else if (view.getTag().equals("cr")) {//廢料出廠
@@ -387,6 +391,7 @@ public class MyGridViewAdapter extends BaseAdapter {
         void OnClickEBL();//EBL
         void OnClickPWB();//PWB
         void OnClickHEC();//HEC
+        void OnClickMBI();//MBI
         void OnClickCrossCar(int position);//車輛跨區無紙化
         void OnClickScarpLeave(int position);//廢料出廠
         void OnClickWorkSafety(int position);//工安巡檢

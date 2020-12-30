@@ -345,6 +345,15 @@ public class MyExpandableListViewAdapter extends BaseExpandableListAdapter {
                 intent.putExtra("type", "HEC");
                 mContext.startActivity(intent);
             }
+
+            @Override
+            public void OnClickMBI() {
+                Intent intent = new Intent(mContext, ProductDivisionActivity.class);
+                intent.putExtra("title", "MBI安全部");
+                intent.putExtra("type", "MBI");
+                mContext.startActivity(intent);
+            }
+
             @Override//總務餐飲
             public void OnClickFood(int position) {
                 mContext.getDormitory("BP");

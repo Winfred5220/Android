@@ -67,14 +67,26 @@
 
                 <TextView
                     style="@style/carTextName"
-                    android:text="稽核門崗："
                     android:focusable="true"
-                    android:focusableInTouchMode="true" />
+                    android:focusableInTouchMode="true"
+                    android:text="稽核門崗：" />
 
-                <Spinner
-                    android:id="@+id/sp_team"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                <EditText
+                    android:id="@+id/et_gate_post"
+                    style="@style/carEditTextBKG"
+                    android:layout_weight="1" />
+            </TableRow>
+            <!--稽核門崗列表-->
+            <TableRow
+                android:id="@+id/tr_list_gate"
+                style="@style/tableRow"
+                android:visibility="gone">
+
+                <TextView style="@style/carTextName" />
+
+                <com.example.administrator.yanfoxconn.widget.MyListView
+                    android:id="@+id/lv_gate"
+                    style="@style/carTextBKG"
                     android:layout_weight="1" />
             </TableRow>
             <!--留觀地點-->

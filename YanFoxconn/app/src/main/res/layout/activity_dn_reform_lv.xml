@@ -5,9 +5,9 @@
     android:orientation="vertical">
 
     <include layout="@layout/common_title" />
-<!--<ScrollView-->
-<!--    android:layout_width="match_parent"-->
-<!--    android:layout_height="match_parent">-->
+<com.example.administrator.yanfoxconn.widget.MyScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -108,6 +108,6 @@
             android:id="@+id/lv_dn_remark"/>
     </LinearLayout>
 
-<!--</ScrollView>-->
+</com.example.administrator.yanfoxconn.widget.MyScrollView>
 
 </LinearLayout>

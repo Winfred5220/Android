@@ -13,6 +13,15 @@ public class GCHead implements Serializable {
     private String In_Tempature;//初始體溫
     private String In_Door;//初始門崗
     private String In_Observation;//留觀地點
+    private String isdelete;//是否刪除
+
+    public String getIsdelete() {
+        return isdelete;
+    }
+
+    public void setIsdelete(String isdelete) {
+        this.isdelete = isdelete;
+    }
 
     public String getIn_Door() {
         return In_Door;

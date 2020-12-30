@@ -8,11 +8,11 @@ package com.example.administrator.yanfoxconn.constant;
 
 public class Constants {
 
-    public static final String BASE_URL = "http://ytlogisticgps.foxconn.com/SafeServer/";//玲姐
-    public static final String EMP_BASE = "http://ytlogisticgps.foxconn.com/Server/";    //杰哥
+//    public static final String BASE_URL = "http://ytlogisticgps.foxconn.com/SafeServer/";//玲姐
+//    public static final String EMP_BASE = "http://ytlogisticgps.foxconn.com/Server/";    //杰哥
 
-//    public static final String BASE_URL = "http://ytsafeserver.foxconn.com/SafeServer/";//玲姐
-//    public static final String EMP_BASE = "http://ytsafeserver.foxconn.com/Server/";    //杰哥
+    public static final String BASE_URL = "http://ytsafeserver.foxconn.com/SafeServer/";//玲姐
+    public static final String EMP_BASE = "http://ytsafeserver.foxconn.com/Server/";    //杰哥
 
 
     public static String J4 = "http://192.168.0.108:8080/Server/";//杰哥4F接口測試
@@ -178,7 +178,7 @@ public class Constants {
     public static String HTTP_BODY_DELETE = BASE_URL+"Health/HealthBodyDeleteServlet";//安全部健康追蹤 單身刪除
     public static String HTTP_BODY_DELETE_SELECT = BASE_URL+"Health/HealthBodyDeleteSelectServlet";//安全部健康追蹤 單身查看
     public static String HTTP_CASE_FISH = BASE_URL+"Health/HealthCaseFishServlet";//安全部健康追蹤 結案
-
+    public static String HTTP_TRACE_ADD = BASE_URL+"Health/HealthTraceAddServlet";//安全部体症异常追踪 体温补录
 
 
 }

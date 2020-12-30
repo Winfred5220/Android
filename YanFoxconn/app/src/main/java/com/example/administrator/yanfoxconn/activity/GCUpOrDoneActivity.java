@@ -22,6 +22,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -37,6 +38,7 @@ import com.example.administrator.yanfoxconn.constant.ImageCaptureManager;
 import com.example.administrator.yanfoxconn.intent.PhotoPickerIntent;
 import com.example.administrator.yanfoxconn.intent.PhotoPreviewIntent;
 import com.example.administrator.yanfoxconn.utils.BaseActivity;
+import com.example.administrator.yanfoxconn.utils.DateTimePickDialogUtil;
 import com.example.administrator.yanfoxconn.utils.FileUtil;
 import com.example.administrator.yanfoxconn.utils.HttpConnectionUtil;
 import com.example.administrator.yanfoxconn.utils.HttpUtils;
@@ -54,7 +56,9 @@ import com.google.gson.JsonParser;
 import org.json.JSONArray;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -70,6 +74,7 @@ public class GCUpOrDoneActivity extends BaseActivity implements View.OnClickList
     private final int MESSAGE_SET_LIST = 0;//獲取狀態后,設置控件內容
     private final int MESSAGE_DELETE_SUCCESS = 1;//刪除成功，刷新列表
     private final int MESSAGE_NOT_NET = 3;//網絡問題
+    private final int MESSAGE_DONE_FAIL = 4;//結案失敗
 
     @BindView(R.id.tv_title)
     TextView tvTitle;
@@ -91,6 +96,10 @@ public class GCUpOrDoneActivity extends BaseActivity implements View.OnClickList
     TextView tvMen;//初始門崗
     @BindView(R.id.tv_area)
     TextView tvArea;//留觀地點
+    @BindView(R.id.tr_time)
+    TableRow trTime;//時間
+    @BindView(R.id.tv_time_date)
+    TextView tvTimeDate;//時間日期
     @BindView(R.id.et_temp)
     EditText etTemp;//體溫
     @BindView(R.id.et_description)
@@ -128,6 +137,8 @@ public class GCUpOrDoneActivity extends BaseActivity implements View.OnClickList
     private int num = 0;//輸入框初始值
     private int mMaxNum =250;//輸入框最大值
 
+    private String initStartDateTime; // 初始化开始时间
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -144,6 +155,7 @@ public class GCUpOrDoneActivity extends BaseActivity implements View.OnClickList
         rtbYes.setOnClickListener(this::onClick);
         rtbNo.setOnClickListener(this::onClick);
         rtbYes.setChecked(true);
+        tvTimeDate.setOnClickListener(this);
 
         from = getIntent().getStringExtra("from");
         gcHeads = (GCHead) getIntent().getSerializableExtra("people");
@@ -161,8 +173,21 @@ public class GCUpOrDoneActivity extends BaseActivity implements View.OnClickList
             ivEmpty.setVisibility(View.VISIBLE);
             lvPeople.setVisibility(View.GONE);
             rgDone.setVisibility(View.VISIBLE);
-        }else{
+        }else if (from.equals("add")){
             tvTitle.setText("追蹤上傳");
+            ivEmpty.setVisibility(View.GONE);
+            lvPeople.setVisibility(View.VISIBLE);
+            getBodys(gcHeads.getIn_Random_Id());
+        }else if (from.equals("reAdd")){
+            trTime.setVisibility(View.VISIBLE);
+            // TODO Auto-generated method stub
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+            SimpleDateFormat formatterUse = new SimpleDateFormat("yyyy年MM月dd日 HH:mm");
+            Date curDate = new Date(System.currentTimeMillis());
+            //获取当前时间
+             initStartDateTime = formatterUse.format(curDate);
+            tvTimeDate.setText(formatter.format(curDate));
+            tvTitle.setText("補錄上傳");
             ivEmpty.setVisibility(View.GONE);
             lvPeople.setVisibility(View.VISIBLE);
             getBodys(gcHeads.getIn_Random_Id());
@@ -335,6 +360,15 @@ public class GCUpOrDoneActivity extends BaseActivity implements View.OnClickList
 
                 startActivityForResult(intent, REQUEST_CAMERA_CODE);
                 break;
+            case R.id.tv_time_date:
+
+                DateTimePickDialogUtil dateTimePicKDialog = new DateTimePickDialogUtil(
+                        GCUpOrDoneActivity.this, initStartDateTime);
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                dateTimePicKDialog.dateTimePicKDialog(tvTimeDate, formatter.format(new Date(System.currentTimeMillis()))
+                );
+
+                break;
         }
     }
 
@@ -352,7 +386,11 @@ public class GCUpOrDoneActivity extends BaseActivity implements View.OnClickList
                     healthAdapter.setOnClickListenerSeeOrAdd(new GCHealthAdapter.OnClickListenerSeeOrAdd() {
                         @Override
                         public void OnClickListenerDel(int position) {
+                            if (bodys.get(position).getIsdelete().equals("Y")){
                             delAlert("確認是否刪除！",position);
+                            }else{
+                                ToastUtils.showShort(GCUpOrDoneActivity.this,"非當天數據，不予刪除！");
+                            }
 
                         }
                     });
@@ -364,6 +402,9 @@ public class GCUpOrDoneActivity extends BaseActivity implements View.OnClickList
                     break;
                 case MESSAGE_DELETE_SUCCESS:
                     getBodys(gcHeads.getIn_Random_Id());
+                    break;
+                case MESSAGE_DONE_FAIL:
+                    doneFailAlert("存在異常，無法結案，請進行體溫補錄！",MESSAGE_DONE_FAIL);
                     break;
             }
             super.handleMessage(msg);
@@ -472,6 +513,66 @@ public class GCUpOrDoneActivity extends BaseActivity implements View.OnClickList
         }.start();
     }
 
+    //補錄追蹤
+    private void addTime() {
+
+        final String url = Constants.HTTP_TRACE_ADD; //此處寫上自己的URL
+
+        JsonObject object = new JsonObject();
+
+        object.addProperty("In_Random_Id", gcHeads.getIn_Random_Id());
+        object.addProperty("In_Category", gcHeads.getIn_Category());
+        object.addProperty("In_Name", gcHeads.getIn_Name());
+        object.addProperty("In_Department", gcHeads.getIn_Department());
+        object.addProperty("T_Description",etDescription.getText().toString());
+        object.addProperty("T_Tempature", etTemp.getText().toString());
+        object.addProperty("T_Createor", FoxContext.getInstance().getName());
+        object.addProperty("T_Createor_id" +
+                "", FoxContext.getInstance().getLoginId());
+        object.addProperty("T_Createor_time" +
+                "", tvTimeDate.getText().toString());
+Log.e("-------------","ddddd==="+tvTimeDate.getText().toString());
+        //開啟一個新執行緒，向伺服器上傳資料
+        new Thread() {
+            public void run() {
+                //把网络访问的代码放在这里
+                try {
+                    showDialog();
+                    Log.e("---------", "==fff===" + url);
+                    String result = HttpConnectionUtil.doPostJsonObject(url, object);
+                    if (result != null) {
+                        dismissDialog();
+                        Log.e("---------", "result==fff===" + result);
+                        JsonObject jsonObject = new JsonParser().parse(result).getAsJsonObject();
+                        String errCode = jsonObject.get("errCode").getAsString();
+                        if (errCode.equals("200")) {
+                            Message message = new Message();
+                            message.what = MESSAGE_TOAST;
+                            message.obj = jsonObject.get("errMessage").getAsString();
+                            mHandler.sendMessage(message);
+
+                        } else {
+                            Log.e("-----------", "result==" + result);
+                            Message message = new Message();
+                            message.what = MESSAGE_TOAST;
+                            message.obj = jsonObject.get("errMessage").getAsString();
+                            mHandler.sendMessage(message);
+                        }
+                    } else {
+                        Message message = new Message();
+                        message.what = MESSAGE_NOT_NET;
+                        mHandler.sendMessage(message);
+                        finish();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
+                    FileUtil.deletePhotos(GCUpOrDoneActivity.this);
+                }
+            }
+        }.start();
+    }
+
     //結案
     private void end() {
         final String url = Constants.HTTP_CASE_FISH; //此處寫上自己的URL
@@ -525,10 +626,16 @@ public class GCUpOrDoneActivity extends BaseActivity implements View.OnClickList
                             message.obj = jsonObject.get("errMessage").getAsString();
                             mHandler.sendMessage(message);
 
-                        } else {
+                        } if(errCode.equals("500")){
                             Log.e("-----------", "result==" + result);
                             Message message = new Message();
-                            message.what = MESSAGE_TOAST;
+                            message.what = MESSAGE_DONE_FAIL;
+                            message.obj = "體溫數據異常，無法結案，請聯繫相關負責人！";
+                            mHandler.sendMessage(message);
+                        }else{
+                            Log.e("-----------", "result==" + result);
+                            Message message = new Message();
+                            message.what = MESSAGE_DONE_FAIL;
                             message.obj = jsonObject.get("errMessage").getAsString();
                             mHandler.sendMessage(message);
                         }
@@ -629,12 +736,20 @@ public class GCUpOrDoneActivity extends BaseActivity implements View.OnClickList
 
                             if (from.equals("end")){
                                  if (imagePaths==null||imagePaths.size()==0){
-                                    ToastUtils.showLong(GCUpOrDoneActivity.this,"请上传异常照片！");
+                                    ToastUtils.showLong(GCUpOrDoneActivity.this,"请上传結案照片！");
                                 }else {
                                 end();}
-                            }else{
+                            }else if (from.equals("add")){
 
                                 add();
+                            }else{
+                                if (etTemp.getText().toString().equals("")||etDescription.getText().toString().equals("")){
+
+                                    ToastUtils.showShort(GCUpOrDoneActivity.this,"請注意體溫與追蹤紀錄的填寫！");
+                                }else  if (tvTimeDate.getText().toString().equals("")) {
+                                    ToastUtils.showShort(GCUpOrDoneActivity.this, "請選擇時間");
+                                }else{
+                                    addTime();}
                             }
                             }
 
@@ -648,6 +763,8 @@ public class GCUpOrDoneActivity extends BaseActivity implements View.OnClickList
         AlertDialog alert = builder.create();
         alert.show();
     }
+
+    //刪除
     private void del(String tId){
         showDialog();
         final String url = Constants.HTTP_BODY_DELETE+"?T_Id="+tId;
@@ -676,13 +793,7 @@ public class GCUpOrDoneActivity extends BaseActivity implements View.OnClickList
                         message.obj = jsonObject.get("errMessage").getAsString();
                         mHandler.sendMessage(message);
 
-                    } else if(errCode.equals("500")){
-                        Log.e("-----------", "result==" + result);
-                        Message message = new Message();
-                        message.what = MESSAGE_TOAST;
-                        message.obj = "體溫數據異常，無法結案，請聯繫相關負責人！";
-                        mHandler.sendMessage(message);
-                    }else{
+                    } else {
                         Log.e("-----------", "result==" + result);
                         Message message = new Message();
                         message.what = MESSAGE_TOAST;
@@ -702,6 +813,28 @@ public class GCUpOrDoneActivity extends BaseActivity implements View.OnClickList
                     public void onClick(DialogInterface dialog, int id) {
                         // TODO Auto-generated method stub
                         del(bodys.get(type).getT_Id());
+                    }
+
+                })
+                .setNeutralButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+    private void doneFailAlert(String msg, final int type) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("提示信息")
+                .setMessage(msg)
+                .setCancelable(false)
+                .setPositiveButton("確認", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        finish();
+
                     }
 
                 })

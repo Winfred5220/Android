@@ -1,8 +1,10 @@
 package com.example.administrator.yanfoxconn.activity;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -10,9 +12,12 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListAdapter;
 import android.widget.TextView;
+
 
 import com.baoyz.swipemenulistview.SwipeMenu;
 import com.baoyz.swipemenulistview.SwipeMenuCreator;
@@ -103,12 +108,22 @@ public class GCSerchActivityTest extends BaseActivity implements View.OnClickLis
                 doneItem.setTitleColor(Color.WHITE);
                 menu.addMenuItem(doneItem);
 
+                SwipeMenuItem addItem = new SwipeMenuItem(GCSerchActivityTest.this);
+                addItem.setWidth(dp2px(90));
+                addItem .setBackground(new ColorDrawable(getResources().getColor(R.color.color_74afdb)));
+                addItem.setTitle("補錄");
+                addItem.setTitleSize(18);
+                addItem.setTitleColor(Color.WHITE);
+                menu.addMenuItem(addItem);
+
                 SwipeMenuItem deleteItem = new SwipeMenuItem(GCSerchActivityTest.this);
                 deleteItem.setWidth(dp2px(90));
                 deleteItem.setTitle("刪除");
                 deleteItem.setTitleSize(16);
                 deleteItem.setTitleColor(Color.RED);
                 menu.addMenuItem(deleteItem);
+
+
             }
         };
 
@@ -189,6 +204,20 @@ public class GCSerchActivityTest extends BaseActivity implements View.OnClickLis
                     break;
                 case MESSAGE_SET_TEXT://text賦值
 
+
+                    // 监测用户在ListView的SwipeMenu侧滑事件。
+                    lvPeople.setOnSwipeListener(new SwipeMenuListView.OnSwipeListener() {
+                        @Override
+                        public void onSwipeStart(int pos) {
+                            Log.d("位置:" + pos, "开始侧滑...");
+
+                        }
+
+                        @Override
+                        public void onSwipeEnd(int pos) {
+                            Log.d("位置:" + pos, "侧滑结束.");
+                        }
+                    });
                     lvPeople.setMenuCreator(creator);
                     lvPeople.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
                         @Override
@@ -212,25 +241,23 @@ public class GCSerchActivityTest extends BaseActivity implements View.OnClickLis
 //                                    Toast.makeText(GCSerchActivityTest.this, "结案:"+position,Toast.LENGTH_SHORT).show();
                                     break;
                                 case 2:
-                                    delAlert("確認是否刪除！", position);
+                                    Intent intent3 = new Intent(GCSerchActivityTest.this, GCUpOrDoneActivity.class);
+                                    intent3.putExtra("people", (Serializable) gcHeads.get(position));
+                                    intent3.putExtra("from", "reAdd");
+                                    startActivity(intent3);
+                                    break;
+                                case 3:
+                                    if (gcHeads.get(position).getIsdelete().equals("Y")){
+                                        delAlert("確認是否刪除！",position);}else{
+                                        ToastUtils.showShort(GCSerchActivityTest.this,"非當天數據，不予刪除！");
+                                    }
+
 //                                    Toast.makeText(GCSerchActivityTest.this, "删除:"+position,Toast.LENGTH_SHORT).show();
                                     break;
                             }
                             // false : 当用户触发其他地方的屏幕时候，自动收起菜单。
                             // true : 不改变已经打开菜单的样式，保持原样不收起。
                             return false;
-                        }
-                    });
-                    // 监测用户在ListView的SwipeMenu侧滑事件。
-                    lvPeople.setOnSwipeListener(new SwipeMenuListView.OnSwipeListener() {
-                        @Override
-                        public void onSwipeStart(int pos) {
-                            Log.d("位置:" + pos, "开始侧滑...");
-                        }
-
-                        @Override
-                        public void onSwipeEnd(int pos) {
-                            Log.d("位置:" + pos, "侧滑结束.");
                         }
                     });
                     gcPeopleAdapter = new GCPeopleAdapter(GCSerchActivityTest.this, gcHeads);
@@ -315,4 +342,13 @@ public class GCSerchActivityTest extends BaseActivity implements View.OnClickLis
         AlertDialog alert = builder.create();
         alert.show();
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        search("");
+    }
+
+
+
 }
