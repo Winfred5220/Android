@@ -18,7 +18,7 @@ public class Constants {
     public static String J4 = "http://192.168.0.108:8080/Server/";//杰哥4F接口測試
 //  public static String J5 = "http://192.168.1.112:8080/Server/";//杰哥5F接口測試
 
-    public static String W4 = "http://192.168.1.121:8080/Server/";//我的接口測試
+    public static String W4 = "http://192.168.1.136:8080/Server/";//我的接口測試
     public static String L4 = "http://192.168.1.137:8080/SafeServer/";//玲姐4F接口測試
 
     public static final String HTTP_LOGIN = BASE_URL + "LoginServlet";//登錄
@@ -58,9 +58,8 @@ public class Constants {
     public static String HTTP_COMMON_FORMS_PHOTOS_SERVLET = EMP_BASE + "CommonFormsupload_photoservlet";//二輪車違規帶圖片上傳
     public static String HTTP_COMMON_FORMS_TWO_WHEEL_SERVLET = EMP_BASE + "CommonFormsTwoWheelServlet";//二輪車違規工號查詢,並獲取門崗列表
     public static String HTTP_COMMON_FORMS_DAY_RECORD_SERVLET = EMP_BASE + "CommonFormsDayRecordServlet";//二輪車違規查詢當日記錄
-    public static String HTTP_COMMON_FORMS_PRIVATE_CAR_SERVLET = W4 + "CommonFormsPrivateCarUpServlet";//私家車違規稽核提交接口
-    public static String HTTP_COMMON_FORMS_PRIVATE_CAR_PARKING = W4 + "CommonFormsPrivateCarParkingServlet";//私家車違規帶出停車場接口
-
+    public static String HTTP_COMMON_FORMS_PRIVATE_CAR_SERVLET = EMP_BASE + "CommonFormsPrivateCarUpServlet";//私家車違規稽核提交接口
+    public static String HTTP_COMMON_FORMS_PRIVATE_CAR_PARKING = EMP_BASE + "CommonFormsPrivateCarParkingServlet";//私家車違規帶出停車場接口
 
     public static String HTTP_COMMON_FORMS_SERVLET = EMP_BASE + "CommonFormsServlet";//工號查詢,並獲取門崗列表
     public static String HTTP_COMMON_GOODS_SERVLET = EMP_BASE + "CommongoodsServlet";//普通物品 工號查詢,並獲取門崗列表，提交信息
@@ -169,6 +168,7 @@ public class Constants {
     public static String HTTP_ZW_EXCE_DALETE = BASE_URL+"ZW/ZWExceDeleteServlet";//总务临时工，异常删除
     public static String HTTP_ZW_SCAN_SIGNOUT = BASE_URL+"ZW/ZWScanSignOutServlet";//总务临时工，签退
     public static String HTTP_ZW_SCAN_DUTY = BASE_URL+"ZW/ZWScanDutyServlet";//总务临时工，职能信息
+    public static String HTTP_ZW_SCAN_TYPE = BASE_URL+"ZW/ZWScanTypeServlet";//總務臨時工 獲取異常類別
 
     public static String HTTP_HEALTH_SCAN =BASE_URL+"Health/HealthScanServlet";//安全健康追蹤，人員信息查看
     public static String HTTP_HEALTH_COMMIT=BASE_URL+"Health/HealthCommitServlet";//安全健康追蹤，提交生成單頭

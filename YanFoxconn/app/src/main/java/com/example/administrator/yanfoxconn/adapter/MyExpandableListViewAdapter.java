@@ -347,10 +347,10 @@ public class MyExpandableListViewAdapter extends BaseExpandableListAdapter {
             }
 
             @Override
-            public void OnClickMBI() {
+            public void OnClickMDI() {
                 Intent intent = new Intent(mContext, ProductDivisionActivity.class);
-                intent.putExtra("title", "MBI安全部");
-                intent.putExtra("type", "MBI");
+                intent.putExtra("title", "MDI安全部");
+                intent.putExtra("type", "MDI");
                 mContext.startActivity(intent);
             }
 
@@ -657,6 +657,31 @@ public class MyExpandableListViewAdapter extends BaseExpandableListAdapter {
                 intent.putExtra("num", "cz");
                 mContext.startActivity(intent);
 
+            }
+
+            @Override//南寧直飲水點檢
+            public void OnClickGQ() {
+                Intent intent = new Intent(mContext, ZhiyinshuiMenuActivity.class);
+                intent.putExtra("title", "南寧廠區");
+                intent.putExtra("type", "GQ");
+                intent.putExtra("name", "總務直飲水");
+                mContext.startActivity(intent);
+            }
+            @Override
+            public void OnClickGR() {//南寧機電點檢
+                FoxContext.getInstance().setType("GR");
+                Intent intent = new Intent(mContext, QrCodeActivity.class);
+                intent.putExtra("title", "掃描二維碼");
+                intent.putExtra("num", "cz");
+                mContext.startActivity(intent);
+            }
+            @Override
+            public void OnClickGS() {//南寧警衛巡邏
+                FoxContext.getInstance().setType("GS");
+                Intent intent = new Intent(mContext, QrCodeActivity.class);
+                intent.putExtra("title", "掃描二維碼");
+                intent.putExtra("num", "cz");
+                mContext.startActivity(intent);
             }
         });
         return convertView;

@@ -495,13 +495,13 @@ team = str;
                         if (b.getResponseCode()==200){
                             Message message = new Message();
                             message.what = MESSAGE_TOAST;
-                            message.obj = b.getResponseMessage();
+                            message.obj = "提交成功";
                             mHandler.sendMessage(message);
 
                         }else{
                             Message message = new Message();
                             message.what = MESSAGE_TOAST;
-                            message.obj = b.getResponseMessage();
+                            message.obj = "提交失敗";
                             mHandler.sendMessage(message);
                         }
                     }
@@ -524,7 +524,7 @@ team = str;
 //                    aboutAlert(msg.obj.toString(),MESSAGE_TOAST);
 
                     ToastUtils.showLong(TwoWheelVehicleActivity.this, msg.obj.toString());
-//                    finish();
+                    finish();
                     break;
                 case MESSAGE_SET_TEXT://text賦值
                     setText();
