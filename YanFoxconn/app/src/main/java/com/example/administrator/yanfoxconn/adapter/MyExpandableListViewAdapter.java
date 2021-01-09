@@ -22,6 +22,7 @@ import com.example.administrator.yanfoxconn.activity.EventCheckInActivity;
 import com.example.administrator.yanfoxconn.activity.ExListViewActivity;
 import com.example.administrator.yanfoxconn.activity.ForkliftEntranceActivity;
 import com.example.administrator.yanfoxconn.activity.GAWorkerSingInActivity;
+import com.example.administrator.yanfoxconn.activity.GTMainActivity;
 import com.example.administrator.yanfoxconn.activity.GoodsReleaseInputActivity;
 import com.example.administrator.yanfoxconn.activity.HubAreaActivity;
 import com.example.administrator.yanfoxconn.activity.MobilecontrolInputActivity;
@@ -347,10 +348,10 @@ public class MyExpandableListViewAdapter extends BaseExpandableListAdapter {
             }
 
             @Override
-            public void OnClickMBI() {
+            public void OnClickMDI() {
                 Intent intent = new Intent(mContext, ProductDivisionActivity.class);
-                intent.putExtra("title", "MBI安全部");
-                intent.putExtra("type", "MBI");
+                intent.putExtra("title", "MDI安全部");
+                intent.putExtra("type", "MDI");
                 mContext.startActivity(intent);
             }
 
@@ -657,6 +658,14 @@ public class MyExpandableListViewAdapter extends BaseExpandableListAdapter {
                 intent.putExtra("num", "cz");
                 mContext.startActivity(intent);
 
+            }
+
+            @Override
+            public void OnClickGT() {
+                FoxContext.getInstance().setType("GT");
+                Intent intent = new Intent(mContext, GTMainActivity.class);
+                intent.putExtra("type","GT");
+                mContext.startActivity(intent);
             }
         });
         return convertView;

@@ -89,7 +89,7 @@ public class ExListViewActivity extends BaseActivity implements View.OnClickList
             {"安保部值星", "春安值星", "一大隊固定崗", "一大隊巡邏崗", "二大隊固定崗", "二大隊巡邏崗", "三大隊固定崗", "三大隊巡邏崗", "機動隊巡邏崗", "機動隊固定崗", "常用表單", "物品放行", "移動設備管控", "廢料出廠", "值班課長", "三防隱患通報","體症異常追蹤"},//安全保障服務部
             {"工安巡檢","洗眼器點檢","危化品暫存柜","危化品暫存倉","吸煙區","鋰電池防火","有限空間","室外堆場"},//工業安全部
             {"宿舍巡檢", "餐飲巡檢", "消殺巡檢", "宿舍查驗","直飲水","生活垃圾清運","餐廳巡檢","臨時工簽到"},//總務
-            {"A區巡檢", "E區巡檢", "C區巡檢", "D/G區巡檢", "維保巡檢","工程項目點檢","空調防疫點檢","配電箱點檢","路燈射燈點檢"},//營建
+            {"A區巡檢", "E區巡檢", "C區巡檢", "D/G區巡檢", "維保巡檢","工程項目點檢","空調防疫點檢","配電箱點檢","路燈射燈點檢","工程管理"},//營建
             {"NME", "VIP", "PME", "EBL", "PWB","HEC","MDI"},//產品處
             {"碼頭網站", "出口碼頭", "HUB倉", "碼頭巡檢"},//碼頭物流
             {"候車亭巡檢", "叉車廠商巡檢","車輛巡檢","車調車輛巡檢","叉車球車巡檢"},//車調服務
@@ -105,7 +105,7 @@ public class ExListViewActivity extends BaseActivity implements View.OnClickList
             {"A0", "T0", "H0", "K0", "I0", "L0", "J0", "M0", "R0", "S0", "CD", "CE", "CL", "CR", "CU", "CX","GC"},//安保部
             {"CT","FE","FF","FG","FV","FX","FZ","GE"},//工業安全部
             {"BG", "BP", "ZXS", "DN","DQ","DT","FH","GA"},//總務
-            {"N0", "O0", "P0", "Q0", "V0","DR","FS","FW","GD"},//營建
+            {"N0", "O0", "P0", "Q0", "V0","DR","FS","FW","GD","GT"},//營建
             {"NME", "VIP", "PME", "EBL", "PWB","HEC","MDI"},//產品處
             {"F0", "E0", "CI", "EC"},//碼頭物流
             {"BS", "CK", "EA","FQ","BV"},//車調服務
@@ -127,7 +127,7 @@ public class ExListViewActivity extends BaseActivity implements View.OnClickList
             {R.mipmap.icon_sushe, R.mipmap.icon_canyin, R.mipmap.icon_xiaosha, R.mipmap.icon_control_room,
                     R.mipmap.icon_zhiyinshui,R.mipmap.icon_laji, R.mipmap.icon_canyin, R.mipmap.icon_control_room},//總務
             {R.mipmap.icon_yingjian, R.mipmap.icon_yingjian, R.mipmap.icon_yingjian, R.mipmap.icon_yingjian,
-                    R.mipmap.icon_yingjian, R.mipmap.icon_yingjian, R.mipmap.icon_kongtiao, R.mipmap.icon_yingjian, R.mipmap.icon_yingjian},//營建
+                    R.mipmap.icon_yingjian, R.mipmap.icon_yingjian, R.mipmap.icon_kongtiao, R.mipmap.icon_yingjian, R.mipmap.icon_yingjian, R.mipmap.icon_yingjian},//營建
             {R.mipmap.icon_nme, R.mipmap.icon_vip, R.mipmap.icon_pme, R.mipmap.icon_ebl, R.mipmap.icon_pwb1,
                     R.mipmap.icon_hec, R.mipmap.icon_hec},//產品處
             {R.mipmap.icon_chuwang, R.mipmap.icon_chukou, R.mipmap.icon_hub,R.mipmap.icon_kuaqusao},//碼頭物流

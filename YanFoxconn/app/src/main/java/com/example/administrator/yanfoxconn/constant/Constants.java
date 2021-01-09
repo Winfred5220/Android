@@ -181,5 +181,6 @@ public class Constants {
     public static String HTTP_CASE_FISH = BASE_URL+"Health/HealthCaseFishServlet";//安全部健康追蹤 結案
     public static String HTTP_TRACE_ADD = BASE_URL+"Health/HealthTraceAddServlet";//安全部体症异常追踪 体温补录
 
-
+    public static String HTTP_YJ_SCAN = L4 +"YJ/YJScanServlet";//工程管理 獲取點檢類目
+    public static String HTTP_YJ_SCAN_OK = L4 + "YJ/YJScanOKServlet";//工程管理 上傳點檢內容
 }

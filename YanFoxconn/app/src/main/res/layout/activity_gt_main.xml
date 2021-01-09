@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+<!--    標題-->
+    <include layout="@layout/common_title"/>
+    <com.example.administrator.yanfoxconn.widget.MyScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+        <!--    基本資料-->
+        <TextView
+            android:text="基本信息"
+            android:background="@color/color_00CCFF"
+            android:gravity="center"
+            android:textColor="@color/color_303030"
+            android:textSize="@dimen/text_size_18"
+            android:layout_margin="@dimen/dimen_8"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <TableLayout
+            android:layout_margin="@dimen/dimen_8"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+<!--            名稱-->
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="名稱"
+                android:textColor="@color/color_303030"
+                android:gravity="center"
+                android:layout_weight="0.5"
+                android:textSize="@dimen/text_size_16"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_weight="1"
+                android:textSize="@dimen/text_size_16"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+
+        </TableRow>
+<!--            位置-->
+        <TableRow
+            android:layout_marginTop="@dimen/dimen_8"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="位置"
+                android:textColor="@color/color_303030"
+                android:gravity="center"
+                android:layout_weight="0.5"
+                android:textSize="@dimen/text_size_16"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:id="@+id/tv_position"
+                android:layout_weight="1"
+                android:textSize="@dimen/text_size_16"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+        </TableRow>
+        </TableLayout>
+            <com.example.administrator.yanfoxconn.widget.MyGridView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/gv_btn"/>
+        </LinearLayout>
+    </com.example.administrator.yanfoxconn.widget.MyScrollView>
+</LinearLayout>
