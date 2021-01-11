@@ -35,12 +35,12 @@
 
         </RadioGroup>
 
-        <!--健康追蹤已有紀錄查詢-->
+        <!--健康追蹤已有記錄查詢-->
         <Button
             android:id="@+id/btn_search"
             android:background="@drawable/button_selector"
             style="@style/btn_input"
-            android:text="已有紀錄查詢"
+            android:text="已有記錄查詢"
             android:visibility="gone"/>
 
 

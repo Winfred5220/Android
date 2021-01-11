@@ -209,6 +209,12 @@ public class MyGridViewAdapter extends BaseAdapter {
                     tvGridView.setTag("fu");
                 } else if (rolesList.get(i).equals("BV")) {//叉車球車巡檢
                     tvGridView.setTag("bv");
+                } else if (rolesList.get(i).equals("GQ")) {//南寧直飲水巡檢
+                    tvGridView.setTag("gq");
+                } else if (rolesList.get(i).equals("GR")) {//南寧機電巡檢
+                    tvGridView.setTag("gr");
+                } else if (rolesList.get(i).equals("GS")) {//南寧警衛巡邏
+                    tvGridView.setTag("gs");
                 } else if (rolesList.get(i).equals("GT")) {//營建 工程管理
                     tvGridView.setTag("gt");
                 } else {
@@ -361,6 +367,12 @@ public class MyGridViewAdapter extends BaseAdapter {
                     onClickListener.OnClickFU();
                 } else if (view.getTag().equals("bv")) {//叉車球車點檢
                     onClickListener.OnClickBV();
+                } else if (view.getTag().equals("gq")) {//南寧直飲水點檢
+                    onClickListener.OnClickGQ();
+                } else if (view.getTag().equals("gr")) {//南寧機電巡檢
+                    onClickListener.OnClickGR();
+                } else if (view.getTag().equals("gs")) {//南寧警衛巡邏
+                    onClickListener.OnClickGS();
                 }  else if (view.getTag().equals("gt")) {//營建 工程管理
                     onClickListener.OnClickGT();
                 } else {
@@ -395,7 +407,7 @@ public class MyGridViewAdapter extends BaseAdapter {
         void OnClickEBL();//EBL
         void OnClickPWB();//PWB
         void OnClickHEC();//HEC
-        void OnClickMDI();//MBI
+        void OnClickMDI();//MDI
         void OnClickCrossCar(int position);//車輛跨區無紙化
         void OnClickScarpLeave(int position);//廢料出廠
         void OnClickWorkSafety(int position);//工安巡檢
@@ -439,6 +451,9 @@ public class MyGridViewAdapter extends BaseAdapter {
         void OnClickGE();//工業安全-室外堆場
         void OnClickGA();//總務臨時工
         void OnClickGB();//越南巡更
+        void OnClickGQ();//南寧直飲水
+        void OnClickGR();//南寧機電
+        void OnClickGS();//南寧警衛巡邏
         void OnClickGT();//營建 工程管理
     }
 

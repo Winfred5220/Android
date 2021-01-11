@@ -83,7 +83,7 @@ public class ExListViewActivity extends BaseActivity implements View.OnClickList
 //    private AMapLocationClient locationClient = null;
 //    private AMapLocationClientOption locationOption = null;
 
-    public String[] group = {"物流防疫", "安全保障服務部", "工業安全部", "總務", "營建", "產品處", "碼頭物流", "車輛服務", "海關協管", "煙台工會", "人力資源部","華北商務","品質保證處","越南廠"}; //"NME安全部", "VIP安全部", "PME安全部",
+    public String[] group = {"物流防疫", "安全保障服務部", "工業安全部", "總務", "營建", "產品處", "碼頭物流", "車輛服務", "海關協管", "人力資源部","華北商務","品質保證處","南寧廠區"}; //"NME安全部", "VIP安全部", "PME安全部",
     public String[][] gridViewChild = {
             {"消殺點檢"},//物流防疫
             {"安保部值星", "春安值星", "一大隊固定崗", "一大隊巡邏崗", "二大隊固定崗", "二大隊巡邏崗", "三大隊固定崗", "三大隊巡邏崗", "機動隊巡邏崗", "機動隊固定崗", "常用表單", "物品放行", "移動設備管控", "廢料出廠", "值班課長", "三防隱患通報","體症異常追蹤"},//安全保障服務部
@@ -94,11 +94,11 @@ public class ExListViewActivity extends BaseActivity implements View.OnClickList
             {"碼頭網站", "出口碼頭", "HUB倉", "碼頭巡檢"},//碼頭物流
             {"候車亭巡檢", "叉車廠商巡檢","車輛巡檢","車調車輛巡檢","叉車球車巡檢"},//車調服務
             {"人工跨區", "跨區申請單", "車輛跨區"},//海關協管
-            {"餐監會"},//煙台工會
+            //{"餐監會"},//煙台工會
             {"活動生成", "活動簽到", "退訓放行", "班導志","人資監餐","教室點檢"},//人力資源部
             {"販賣機巡檢","流動攤位巡檢","門市房巡檢"},//華北商務
             {"QA","SMT","ME"},//品質保證處
-            {"越南巡更"}//越南廠
+            {"總務直飲水","機電巡檢","警衛巡邏"}//南寧
     };
     public String[][] gridViewType = {
             {"CY"},//物流防疫
@@ -110,11 +110,11 @@ public class ExListViewActivity extends BaseActivity implements View.OnClickList
             {"F0", "E0", "CI", "EC"},//碼頭物流
             {"BS", "CK", "EA","FQ","BV"},//車調服務
             {"BK", "BT", "CQ"},//海關協管
-            {"W0"},//煙台工會
+            //{"W0"},//煙台工會
             {"X0", "Y0", "DO", "DP","DZ","ED"},//人力資源部
             {"DS","FT","FU"},//華北商務
             {"QAQ","SMT","MEM"},//品質保證處
-            {"GB"}//越南巡更
+            {"GQ","GR","GS"}//南寧
     };
     public int[][] img = {
             {R.mipmap.icon_xiaosha},//物流防疫
@@ -129,17 +129,17 @@ public class ExListViewActivity extends BaseActivity implements View.OnClickList
             {R.mipmap.icon_yingjian, R.mipmap.icon_yingjian, R.mipmap.icon_yingjian, R.mipmap.icon_yingjian,
                     R.mipmap.icon_yingjian, R.mipmap.icon_yingjian, R.mipmap.icon_kongtiao, R.mipmap.icon_yingjian, R.mipmap.icon_yingjian, R.mipmap.icon_yingjian},//營建
             {R.mipmap.icon_nme, R.mipmap.icon_vip, R.mipmap.icon_pme, R.mipmap.icon_ebl, R.mipmap.icon_pwb1,
-                    R.mipmap.icon_hec, R.mipmap.icon_hec},//產品處
+                    R.mipmap.icon_hec, R.mipmap.icon_mdi},//產品處
             {R.mipmap.icon_chuwang, R.mipmap.icon_chukou, R.mipmap.icon_hub,R.mipmap.icon_kuaqusao},//碼頭物流
             {R.mipmap.icon_ting, R.mipmap.icon_forklift,R.mipmap.icon_cheliang, R.mipmap.icon_cross_car,
                     R.mipmap.icon_forklift},//車調服務
             {R.mipmap.icon_kuaqusao, R.mipmap.icon_kuaqushen, R.mipmap.icon_cross_car},//海關協管
-            {R.mipmap.icon_shijian},//煙台工會
+            //{R.mipmap.icon_shijian},//煙台工會
             {R.mipmap.icon_huodong, R.mipmap.icon_qiandao, R.mipmap.icon_retreat, R.mipmap.icon_bandao,
                     R.mipmap.icon_jiancan, R.mipmap.icon_jiaoshi},//人力資源部
             {R.mipmap.icon_fanmaiji,R.mipmap.icon_tanwei,R.mipmap.icon_menshifang},//華北商務
             {R.mipmap.icon_pzbzc,R.mipmap.icon_pzbzc,R.mipmap.icon_pzbzc},//品質保證處
-            {R.mipmap.icon_pzbzc},//越南
+            {R.mipmap.icon_zhiyinshui,R.mipmap.icon_jidongx,R.mipmap.icon_yidadui_1},//南寧
     };
 
     /**
