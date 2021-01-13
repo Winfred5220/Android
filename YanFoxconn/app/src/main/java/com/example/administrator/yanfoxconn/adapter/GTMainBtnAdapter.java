@@ -1,16 +1,28 @@
 package com.example.administrator.yanfoxconn.adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.administrator.yanfoxconn.R;
 import com.example.administrator.yanfoxconn.activity.GTMainActivity;
 import com.example.administrator.yanfoxconn.bean.GTMainBtn;
+import com.example.administrator.yanfoxconn.widget.ImageBtnWithText;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 
 /**
@@ -19,12 +31,24 @@ import java.util.List;
  * @Date 2021/1/5 15:32
  */
 public class GTMainBtnAdapter extends BaseAdapter {
-    private Context mContext;
+    private GTMainActivity mContext;
     private List<GTMainBtn> gtMainBtns;
+
+    private final ImageLoader imageLoader;
+    private DisplayImageOptions options = new DisplayImageOptions.Builder()
+            .showStubImage(R.drawable.ic_launcher)          // 设置图片下载期间显示的图片
+            .showImageForEmptyUri(R.drawable.ic_launcher)  // 设置图片Uri为空或是错误的时候显示的图片
+            .showImageOnFail(R.drawable.ic_launcher)       // 设置图片加载或解码过程中发生错误显示的图片
+            .cacheInMemory(true)                        // 设置下载的图片是否缓存在内存中
+            .cacheOnDisk(true)                          // 设置下载的图片是否缓存在SD卡中
+            .bitmapConfig(Bitmap.Config.RGB_565)        // 设置图片的解码类型
+            .build();                                   // 创建配置过得DisplayImageOption对象;
 
     public GTMainBtnAdapter(GTMainActivity activity, List<GTMainBtn> gtMainBtnList){
         this.gtMainBtns = gtMainBtnList;
         this.mContext = activity;
+        // 初始化imageloader
+        imageLoader = ImageLoader.getInstance();
     }
     @Override
     public int getCount() {
@@ -43,17 +67,31 @@ public class GTMainBtnAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup viewGroup) {
+        final ViewHolder viewHolder;
         if (null == convertView) {
-            convertView = View.inflate(mContext, R.layout.gridview_item, null);
+            viewHolder = new ViewHolder();
+            convertView = View.inflate(mContext, R.layout.gridview_igtv_item, null);
+            viewHolder.ibtnGridView = convertView.findViewById(R.id.ibtv);
+        }else{
+            viewHolder = (ViewHolder)convertView.getTag();
         }
-        TextView tvGridView = (TextView) convertView.findViewById(R.id.tv_gridview);
-//        tvGridView.setText(gtMainBtns.get(position).getName());
-////        tvGridView.setTag(itemTypeList);
-////        tvGridView.setBackgroundColor(ContextCompat.getColor(mContext,R.color.color_009adb));
-//        Drawable img = convertView.getResources().getDrawable(gtMainBtns.get(position).getFile());
+        viewHolder.ibtnGridView.setVisibility(View.VISIBLE);
+//        viewHolder.ibtnGridView.setText(gtMainBtns.get(position).getCname());
+//        tvGridView.setTag(itemTypeList);
+//        tvGridView.setBackgroundColor(ContextCompat.getColor(mContext,R.color.color_009adb));
+//
+//        Drawable img = new BitmapDrawable(returnBitMap(gtMainBtns.get(position).getIconurl()));
 //        // 调用setCompoundDrawables时，必须调用Drawable.setBounds()方法,否则图片不显示
 //        img.setBounds(0, 0, img.getMinimumWidth(), img.getMinimumHeight());
 //        tvGridView.setCompoundDrawables(null, img, null, null);
+        // 显示图片
+        imageLoader.displayImage(gtMainBtns.get(position).getIconurl(),viewHolder.ibtnGridView,options);
+
+
         return convertView;
+    }
+    private class ViewHolder {
+
+        public ImageView ibtnGridView;
     }
 }

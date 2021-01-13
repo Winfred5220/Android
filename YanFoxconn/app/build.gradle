@@ -54,6 +54,7 @@ dependencies {
     implementation files('libs/zxing.jar')
     implementation files('libs/BaiduLBS_Android.jar')
     implementation files('libs/ocr-sdk.jar')
+    implementation files('libs/universal-image-loader-1.9.5.jar')
     implementation project(path: ':ocr_ui')
     implementation files('libs/json.jar')
     implementation 'com.android.support:appcompat-v7:28.+'

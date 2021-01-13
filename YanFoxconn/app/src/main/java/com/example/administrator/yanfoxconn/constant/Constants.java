@@ -19,7 +19,7 @@ public class Constants {
 //  public static String J5 = "http://192.168.1.112:8080/Server/";//杰哥5F接口測試
 
     public static String W4 = "http://192.168.1.136:8080/Server/";//我的接口測試
-    public static String L4 = "http://192.168.1.137:8080/SafeServer/";//玲姐4F接口測試
+    public static String L4 = "http://192.168.1.143:8080/SafeServer/";//玲姐4F接口測試
 
     public static final String HTTP_LOGIN = BASE_URL + "LoginServlet";//登錄
     public static String HTTP_DIMEMSION_SERVLET = BASE_URL + "safeCheck/DimemsionServlet";//巡檢進度列表
