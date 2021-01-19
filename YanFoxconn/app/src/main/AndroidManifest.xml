@@ -337,6 +337,8 @@
 
         <activity android:name=".activity.GTMainActivity"/><!-- 營建 工程管理主界面 -->
         <activity android:name=".activity.GTAbUpActivity"/><!-- 營建 工程管理點檢提交 -->
+        <activity android:name=".activity.GTCheckActivity"/><!-- 營建 工程管理搜索列表 -->
+        <activity android:name=".activity.GTDetailActivity"/><!-- 營建 工程管理 異常詳情界面 -->
     </application>
 
 </manifest>

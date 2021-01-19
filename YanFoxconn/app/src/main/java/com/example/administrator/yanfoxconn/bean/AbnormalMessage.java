@@ -14,12 +14,31 @@ public class AbnormalMessage implements Serializable {
     private String exce_id="";
     private String exce_add="";
     private String exce_time="";
-    private String exce_desp="";
+    private String exce_desp="";//異常描述
     private String exce_create_date="";
     private String exce_creator="";
     private List<FileName> file;
 
-    private String content="";//異常點檢項
+    private String content="";//異常點檢項目
+
+    private String exce_result="";//異常項
+    private List<ExcePhoto> photo;
+
+    public List<ExcePhoto> getPhoto() {
+        return photo;
+    }
+
+    public void setExce_result(String exce_result) {
+        this.exce_result = exce_result;
+    }
+
+    public String getExce_result() {
+        return exce_result;
+    }
+
+    public void setPhoto(List<ExcePhoto> photo) {
+        this.photo = photo;
+    }
 
     public String getContent() {
         return content;

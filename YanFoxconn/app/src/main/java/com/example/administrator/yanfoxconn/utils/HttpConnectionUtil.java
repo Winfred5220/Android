@@ -146,29 +146,30 @@ public class HttpConnectionUtil {
 
         /* 取得Response內容 */
         InputStream is = conn.getInputStream();
-        int ch;
-        StringBuffer b = new StringBuffer();
-        while ((ch = is.read()) != -1) {
-            b.append((char) ch);
-        }
+//        int ch;
+        StringBuffer result = new StringBuffer();
+//        while ((ch = is.read()) != -1) {
+//            result.append((char) ch);
+//        }
 
-        BufferedReader in = new BufferedReader(new InputStreamReader(conn
-                .getInputStream(), "utf-8"));
+//        BufferedReader in = new BufferedReader(new InputStreamReader(is, "utf-8"));
+        BufferedReader in = new BufferedReader(new InputStreamReader(is));
         String readLine = "";
         while ((readLine = in.readLine()) != null) {
-            b.append(readLine);
+//            result.append(readLine);
+            result.append(new String(readLine.getBytes(),"utf-8"));
         }
         in.close();
-        Log.e("--oo-----------",b.toString());
+        Log.e("--oo-----------",result.toString());
 
 //         得到回應碼
         int res = conn.getResponseCode();
         Log.e("oo----------oo",res+"");
-        Log.e("oo----------oo",conn.getResponseMessage()+"");
-        Log.e("oo----------oo","asdf " + conn.getResponseMessage());
+        Log.e("oo----------oo","conn.getResponseMessage()=="+conn.getResponseMessage()+"");
+        Log.e("oo----------oo","asdf==result.toString()==" + result.toString());
 
         conn.disconnect();
-        return b.toString();
+        return result.toString();
     }
     public static HttpURLConnection doPostPicture(String urlStr, Map<String, String> paramMap, Map<String, File> fileMap)
             throws Exception {

@@ -129,11 +129,49 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"/>
         </TableRow>
+            <!--            更改時間-->
+            <TableRow
+                android:id="@+id/tr_date"
+                android:layout_marginTop="@dimen/dimen_3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone">
+                <TextView
+                    android:text="更改時間"
+                    android:textColor="@color/color_303030"
+                    android:gravity="center_vertical"
+                    android:layout_weight="0.4"
+                    android:textSize="@dimen/text_size_16"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:id="@+id/tv_date"
+                    android:layout_weight="1"
+                    android:textSize="@dimen/text_size_16"
+                    android:layout_width="0dp"
+                    android:background="@color/color_00CCFF"
+                    android:layout_height="wrap_content"/>
+            </TableRow>
         </TableLayout>
+            <!--提交按钮-->
+            <Button
+                android:id="@+id/btn_up"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="@dimen/dimen_20"
+                android:layout_marginRight="@dimen/dimen_20"
+                android:layout_marginTop="15dp"
+                android:background="@color/color_009adb"
+                android:text="提交"
+                android:textColor="@color/color_ffdedede"
+                android:textSize="18sp"
+                android:visibility="gone"/>
             <com.example.administrator.yanfoxconn.widget.MyGridView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/gv_btn"/>
+                android:id="@+id/gv_btn"
+                android:numColumns="3"/>
+
         </LinearLayout>
     </com.example.administrator.yanfoxconn.widget.MyScrollView>
 </LinearLayout>

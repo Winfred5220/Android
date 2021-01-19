@@ -688,8 +688,9 @@ public class MyExpandableListViewAdapter extends BaseExpandableListAdapter {
             @Override
             public void OnClickGT() {
                 FoxContext.getInstance().setType("GT");
-                Intent intent = new Intent(mContext, GTMainActivity.class);
-                intent.putExtra("type","GT");
+                Intent intent = new Intent(mContext, QrCodeActivity.class);
+                intent.putExtra("title", "掃描二維碼");
+                intent.putExtra("num", "cz");
                 mContext.startActivity(intent);
             }
         });

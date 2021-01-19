@@ -96,6 +96,7 @@ public class PhotoPickerActivity extends AppCompatActivity {
     private boolean hasFolderGened = false;
     private boolean mIsShowCamera = false;
 
+    private boolean fromGT=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -125,7 +126,6 @@ public class PhotoPickerActivity extends AppCompatActivity {
                 resultList.addAll(tmp);
             }
         }
-
         // 是否显示照相机
         mIsShowCamera = getIntent().getBooleanExtra(EXTRA_SHOW_CAMERA, false);
         mImageAdapter = new ImageGridAdapter(mCxt, mIsShowCamera, getItemImageWidth());
@@ -284,6 +284,11 @@ public class PhotoPickerActivity extends AppCompatActivity {
         resultList.add(path);
         data.putStringArrayListExtra(EXTRA_RESULT, resultList);
         setResult(RESULT_OK, data);
+        if (fromGT){
+            setResult(1, data);
+        }else{
+            setResult(RESULT_OK, data);
+        }
         finish();
     }
 

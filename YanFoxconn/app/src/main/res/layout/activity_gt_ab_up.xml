@@ -7,56 +7,67 @@
     android:orientation="vertical">
 <!--    標題-->
     <include layout="@layout/common_title"/>
-<!--    點位名稱-->
-    <TextView
-        android:id="@+id/tv_d_name"
-        android:background="@color/color_00CCFF"
-        android:gravity="center"
-        android:textColor="@color/color_303030"
-        android:textSize="@dimen/text_size_18"
-        android:layout_margin="@dimen/dimen_8"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0"/>
-<!--    點檢項列表-->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_option"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0"/>
-<!--    現場照片-->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/dimen_18"
-        android:text="請拍攝現場照片:"
-        android:layout_margin="@dimen/dimen_10"
-        android:layout_weight="0"
-        />
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="0">
-
-        <GridView
-            android:id="@+id/gv_photo"
+        android:layout_height="match_parent">
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="@dimen/dimen_10"
-            android:horizontalSpacing="@dimen/dimen_2"
-            android:numColumns="4"
-            android:scrollbars="none"
-            android:verticalSpacing="@dimen/dimen_2" />
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/dimen_10">
+            <!--    點位名稱-->
+            <TextView
+                android:id="@+id/tv_d_name"
+                android:background="@color/color_00CCFF"
+                android:gravity="center"
+                android:textColor="@color/color_303030"
+                android:textSize="@dimen/text_size_18"
+                android:layout_margin="@dimen/dimen_8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"/>
+            <!--    點檢項列表-->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_option"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"/>
+            <!--    現場照片-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/dimen_18"
+                android:text="請拍攝現場照片:"
+                android:layout_margin="@dimen/dimen_10"
+                android:layout_weight="0"
+                />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0">
 
-        <!--空白圖片佔位-->
-        <ImageView
-            android:id="@+id/iv_empty"
-            android:layout_width="75dp"
-            android:layout_height="75dp"
-            android:layout_marginLeft="14dp"
-            android:layout_marginTop="@dimen/dimen_10"
-            android:scaleType="centerCrop"
-            android:src="@mipmap/icon_addpic_unfocused" />
+                <GridView
+                    android:id="@+id/gv_photo"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/dimen_10"
+                    android:horizontalSpacing="@dimen/dimen_2"
+                    android:numColumns="4"
+                    android:scrollbars="none"
+                    android:verticalSpacing="@dimen/dimen_2" />
 
-    </RelativeLayout>
+                <!--空白圖片佔位-->
+                <ImageView
+                    android:id="@+id/iv_empty"
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    android:layout_marginLeft="14dp"
+                    android:layout_marginTop="@dimen/dimen_10"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/icon_addpic_unfocused" />
+
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+
 </LinearLayout>

@@ -82,6 +82,7 @@ public class ComAbRouteItemListActivity extends BaseActivity implements View.OnC
         setContentView(R.layout.activity_com_see_abnormal);
         ButterKnife.bind(this);
         tvTitle.setText("點檢詳情列表");
+
         tvDName.setText(getIntent().getStringExtra("dName"));
 
         tvDName.setVisibility(View.VISIBLE);
@@ -113,12 +114,19 @@ public class ComAbRouteItemListActivity extends BaseActivity implements View.OnC
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
         switch (adapterView.getId()) {
             case R.id.lv_abnormal://列表點擊事件
+                if (getIntent().getStringExtra("from").equals("GT")){
+                    Intent intent = new Intent(ComAbRouteItemListActivity.this, GTDetailActivity.class);
+                    intent.putExtra("scId",comScanViewMessages.get(position).getSc_id());
+                    intent.putExtra("dimId",comScanViewMessages.get(position).getDim_id());
+
+                    startActivity(intent);
+                }else{
                 Intent intent = new Intent(ComAbRouteItemListActivity.this, ComAbAbnormalListActivity.class);
                 intent.putExtra("dimId",comScanViewMessages.get(position).getDim_id());
                 intent.putExtra("dName",comScanViewMessages.get(position).getDim_locale());
                 intent.putExtra("scId",comScanViewMessages.get(position).getSc_id());
                 intent.putExtra("creater",comScanViewMessages.get(position).getSc_creator_id());
-                startActivity(intent);
+                startActivity(intent);}
                 break;
         }
     }
@@ -145,6 +153,58 @@ public class ComAbRouteItemListActivity extends BaseActivity implements View.OnC
                     if (errCode.equals("200")) {
 
                         JsonArray array = jsonObject.get("result").getAsJsonArray();
+                        if (array!=null) {
+                            comScanViewMessages = new ArrayList<ComScanViewMessage>();
+                            for (JsonElement type : array) {
+                                ComScanViewMessage humi = gson.fromJson(type, ComScanViewMessage.class);
+                                comScanViewMessages.add(humi);
+                            }
+
+                            Message message = new Message();
+                            message.what = MESSAGE_UPLOAD;
+                            mHandler.sendMessage(message);
+                        }else {
+                            Message message = new Message();
+                            message.what = MESSAGE_TOAST;
+                            message.obj = "沒有已巡檢點位.";
+                            mHandler.sendMessage(message);
+                        }
+                    } else {
+                        Message message = new Message();
+                        message.what = MESSAGE_TOAST;
+                        message.obj = jsonObject.get("errMessage").getAsString();
+                        mHandler.sendMessage(message);
+
+                    }
+                } else {
+                    Message message = new Message();
+                    message.what = MESSAGE_TOAST;
+                    message.obj = "請求不成功";
+                    mHandler.sendMessage(message);
+                }
+            }
+        }.start();
+    }
+
+    private void getGTProgressItemList(String type,String dimId) {
+        showDialog();
+        url = Constants.HTTP_YJ_LIST + "?creator_id="+type+"&no="+dimId;
+        new Thread() {
+            @Override
+            public void run() {
+                //把网络访问的代码放在这里
+                result = HttpUtils.queryStringForPost(url);
+                Log.e("---------", "==fff===" + url);
+                Gson gson = new Gson();
+                String response = result;
+                dismissDialog();
+                if (result != null) {
+                    Log.e("---------", "==fff===" + result);
+                    JsonObject jsonObject = new JsonParser().parse(response).getAsJsonObject();
+                    String errCode = jsonObject.get("errCode").getAsString();
+                    if (errCode.equals("200")) {
+
+                        JsonArray array = jsonObject.get("data").getAsJsonArray();
                         if (array!=null) {
                             comScanViewMessages = new ArrayList<ComScanViewMessage>();
                             for (JsonElement type : array) {
@@ -211,6 +271,11 @@ public class ComAbRouteItemListActivity extends BaseActivity implements View.OnC
     @Override
     protected void onStart() {
         super.onStart();
-        getRouteItemList( type, dimId);
+        if (getIntent().getStringExtra("from").equals("GT")){
+            getGTProgressItemList( FoxContext.getInstance().getLoginId(), dimId);
+        }else{
+            getRouteItemList( type, dimId);
+        }
+
     }
 }

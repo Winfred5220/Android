@@ -281,10 +281,18 @@ public class QrCodeActivity extends BaseActivity implements Callback, View.OnCli
                 startActivity(resultIntent);
                 finish();
             }else if (num.equals("cz")){//點位點檢項巡檢
-                Intent intent = new Intent(QrCodeActivity.this, ComAbnormalUpActivity.class);
-                intent.putExtra("flag", "D");
-                intent.putExtra("result", resultString);
-                startActivity(intent);
+                if (FoxContext.getInstance().getType().equals("GT")){
+                    Intent intent = new Intent(QrCodeActivity.this, GTMainActivity.class);
+                    intent.putExtra("flag", "S");
+                    intent.putExtra("result", resultString);
+                    intent.putExtra("from","qr");
+                    startActivity(intent);
+                }else {
+                    Intent intent = new Intent(QrCodeActivity.this, ComAbnormalUpActivity.class);
+                    intent.putExtra("flag", "D");
+                    intent.putExtra("result", resultString);
+                    startActivity(intent);
+                }
                 finish();
             }else if (num.equals("fh")){//總務餐廳巡檢
                 Intent intent = new Intent(QrCodeActivity.this, FHRestaurantActivity.class);
@@ -435,7 +443,11 @@ public class QrCodeActivity extends BaseActivity implements Callback, View.OnCli
                 if (num.equals("dn")){
                     Intent intentR = new Intent(QrCodeActivity.this,DNReformListActivity.class);
                     intentR.putExtra("from","all");
-                    startActivity(intentR);}else{
+                    startActivity(intentR);
+                }else if (FoxContext.getInstance().getType().equals("GT")){
+                    Intent intent = new Intent(QrCodeActivity.this, GTCheckActivity.class);
+                    startActivity(intent);
+                }else{
                 Intent intent = new Intent(QrCodeActivity.this, ComAbRouteListActivity.class);
                 startActivity(intent);}
                 break;

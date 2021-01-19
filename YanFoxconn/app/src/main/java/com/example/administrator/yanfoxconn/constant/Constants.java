@@ -131,7 +131,7 @@ public class Constants {
     public static String HTTP_WATER_EXCE_VIEW_SERVLET = BASE_URL + "Water/WaterExceViewServlet";//異常設備列表查看接口
     public static String HTTP_WATER_PHOTO_INFO_SERVLET = BASE_URL + "Water/WaterPhotoInfoServlet";//異常圖片看接口
     public static String HTTP_WATER_REPAIRED_SERVLET = BASE_URL + "Water/RepairedServlet";//維護正常照片提交接口
-    public static String HTTP_WATER_EXCE_VIEW_INFO_SERVLET = BASE_URL + "/Water/WaterExceViewInfoServlet";//異常列表查看接口
+    public static String HTTP_WATER_EXCE_VIEW_INFO_SERVLET = BASE_URL + "/Water/WaterExceViewInfoServlet";//點檢列表查看接口
     public static String HTTP_WATER_AREA_SERVLET = BASE_URL + "Water/AreaServlet";//區域
     public static String HTTP_WATER_BUILDING_SERVLET = BASE_URL + "Water/BuildingServlet";//樓棟
     public static String HTTP_WATER_FLOOR_SERVLET = BASE_URL + "Water/FloorServlet";//樓層
@@ -180,6 +180,13 @@ public class Constants {
     public static String HTTP_CASE_FISH = BASE_URL+"Health/HealthCaseFishServlet";//安全部健康追蹤 結案
     public static String HTTP_TRACE_ADD = BASE_URL+"Health/HealthTraceAddServlet";//安全部体症异常追踪 体温补录
 
-    public static String HTTP_YJ_SCAN = L4 +"YJ/YJScanServlet";//工程管理 獲取點檢類目
-    public static String HTTP_YJ_SCAN_OK = L4 + "YJ/YJScanOKServlet";//工程管理 上傳點檢內容
+    public static String HTTP_YJ_SCAN = BASE_URL +"YJ/YJScanServlet";//工程管理 獲取點檢類目
+    public static String HTTP_YJ_SCAN_OK = BASE_URL + "YJ/YJScanOKServlet";//工程管理 上傳點檢內容
+    public static String HTTP_YJ_VIEW = BASE_URL +"YJ/YJViewServlet";///   工程查詢
+    public static String HTTP_YJ_INFO_BY_NO = BASE_URL +"YJ/YJInfoByNoServlet";//   更改時間時獲取工程信息
+    public static String HTTP_YJ_UPDATE_BY_NO = BASE_URL +"YJ/YJUpdateByNoServlet";//    更新提交
+    public static String HTTP_YJ_LIST = BASE_URL +"YJ/YJListServlet";//  異常列表
+    public static String HTTP_YJ_EXCE_INFO = BASE_URL +"YJ/YJExceInfoServlet";//    詳情
+    public static String HTTP_YJ_EXCE_DELETE = BASE_URL +"YJ/YJExceDeleteServlet";//   異常刪除
+
 }

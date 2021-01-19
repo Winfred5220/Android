@@ -5,6 +5,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -68,14 +70,16 @@ public class GTMainBtnAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup viewGroup) {
         final ViewHolder viewHolder;
-        if (null == convertView) {
+        if ( convertView ==null) {
             viewHolder = new ViewHolder();
-            convertView = View.inflate(mContext, R.layout.gridview_igtv_item, null);
+            convertView = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.gridview_igtv_item, null);
             viewHolder.ibtnGridView = convertView.findViewById(R.id.ibtv);
+            viewHolder.tvName = convertView.findViewById(R.id.tv_name);
+            convertView.setTag(viewHolder);
         }else{
             viewHolder = (ViewHolder)convertView.getTag();
         }
-        viewHolder.ibtnGridView.setVisibility(View.VISIBLE);
+
 //        viewHolder.ibtnGridView.setText(gtMainBtns.get(position).getCname());
 //        tvGridView.setTag(itemTypeList);
 //        tvGridView.setBackgroundColor(ContextCompat.getColor(mContext,R.color.color_009adb));
@@ -84,14 +88,20 @@ public class GTMainBtnAdapter extends BaseAdapter {
 //        // 调用setCompoundDrawables时，必须调用Drawable.setBounds()方法,否则图片不显示
 //        img.setBounds(0, 0, img.getMinimumWidth(), img.getMinimumHeight());
 //        tvGridView.setCompoundDrawables(null, img, null, null);
+        Log.e("----------------","name=="+gtMainBtns.get(position).getCname());
+        viewHolder.tvName.setText(gtMainBtns.get(position).getCname());
+        if (gtMainBtns.get(position).getFlag().equals("N")){
+            // 显示图片
+            imageLoader.displayImage(gtMainBtns.get(position).getIconurl_dis(),viewHolder.ibtnGridView,options);}else{
         // 显示图片
-        imageLoader.displayImage(gtMainBtns.get(position).getIconurl(),viewHolder.ibtnGridView,options);
-
+        imageLoader.displayImage(gtMainBtns.get(position).getIconurl(),viewHolder.ibtnGridView,options);}
+        viewHolder.tvName.setText(gtMainBtns.get(position).getCname());
 
         return convertView;
     }
     private class ViewHolder {
 
+        public TextView tvName;
         public ImageView ibtnGridView;
     }
 }

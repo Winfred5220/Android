@@ -752,6 +752,7 @@ public class ComAbnormalUpActivity extends BaseActivity implements View.OnClickL
                     showDialog();
                     Log.e("---------", "==fff===" + url);
                     String result = HttpConnectionUtil.doPostJsonObject(url, object);
+                    Log.e("----------","obj==="+object.toString());
                     if (result != null) {
                         dismissDialog();
                         Log.e("---------", "result==fff===" + result);

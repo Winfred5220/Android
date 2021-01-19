@@ -2,6 +2,7 @@ package com.example.administrator.yanfoxconn.activity;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -19,10 +20,16 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.administrator.yanfoxconn.R;
+import com.example.administrator.yanfoxconn.adapter.GTCheckListAdapter;
 import com.example.administrator.yanfoxconn.adapter.ZhiyinshuiProcessAdapter;
+import com.example.administrator.yanfoxconn.bean.GEPeopleMsg;
+import com.example.administrator.yanfoxconn.bean.GTMain;
 import com.example.administrator.yanfoxconn.bean.ZhiyinshuiExceMsg;
 import com.example.administrator.yanfoxconn.constant.Constants;
+import com.example.administrator.yanfoxconn.constant.FoxContext;
 import com.example.administrator.yanfoxconn.utils.BaseActivity;
+import com.example.administrator.yanfoxconn.utils.FileUtil;
+import com.example.administrator.yanfoxconn.utils.HttpConnectionUtil;
 import com.example.administrator.yanfoxconn.utils.HttpUtils;
 import com.example.administrator.yanfoxconn.utils.ToastUtils;
 import com.google.gson.Gson;
@@ -60,11 +67,11 @@ public class GTCheckActivity extends BaseActivity implements View.OnClickListene
     private final int MESSAGE_SET_AREA = 7;//區域賦值
     private final int MESSAGE_SET_FLOOR = 8;//问卷賦值
 
-    private List<ZhiyinshuiExceMsg> mZhiyinshuiExceMsg;//點檢異常項
-    private ZhiyinshuiProcessAdapter mZhiyinshuiProcessAdapter;//點檢列表適配器
+    private List<GTMain> gtMains;//項目信息
+    private GTCheckListAdapter gtCheckListAdapter;//列表適配器
 
     private String type="";    //類別
-    private String url2="";    //獲取點檢進度轉碼
+    private String url="";    //獲取點檢進度
 
     @BindView(R.id.btn_title_left)
     Button btnBack;//返回
@@ -82,6 +89,8 @@ public class GTCheckActivity extends BaseActivity implements View.OnClickListene
     @BindView(R.id.et_danwei)
     EditText etDanWei;//申請單位
 
+    @BindView(R.id.btn_search)
+    Button btnSearch;//查詢
     @BindView(R.id.btn_today)
     Button btnToday;//今日施工
     @BindView(R.id.btn_undo)
@@ -89,19 +98,44 @@ public class GTCheckActivity extends BaseActivity implements View.OnClickListene
     @BindView(R.id.lv_process)
     ListView lvProcess;//進度列表
 
+    private String flag="Y";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_zhiyinshui_check_process);
+        setContentView(R.layout.activity_gt_check);
         ButterKnife.bind(this);
 
         tvTitle.setText("今日施工");
         btnBack.setOnClickListener(this);
+        btnSearch.setOnClickListener(this);
         btnToday.setOnClickListener(this);
         btnUnDo.setOnClickListener(this);
 
-        type = getIntent().getStringExtra("type");
-        itemOnLongClick();
+//        type = getIntent().getStringExtra("type");
+        lvProcess.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                if (flag.equals("Y")){
+                    ToastUtils.showLong(GTCheckActivity.this,"長按查看");
+                }else{
+                    Intent intent0 = new Intent(GTCheckActivity.this,GTMainActivity.class);
+                    intent0.putExtra("result",gtMains.get(i).getProject_no());
+                    intent0.putExtra("flag","S");
+                    intent0.putExtra("from","check");
+                    intent0.putExtra("message",gtMains.get(i));
+                    startActivity(intent0);
+                }
+            }
+        });
+
+        lvProcess.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                position = i;
+                itemOnLongClick();
+                return false;
+            }
+        });
     }
 
     @Override
@@ -110,16 +144,21 @@ public class GTCheckActivity extends BaseActivity implements View.OnClickListene
             case R.id.btn_title_left:
                 finish();
                 break;
+            case R.id.btn_search:
+                getMessage(flag);
+                break;
             case R.id.btn_today:
                 btnToday.setBackgroundColor(getResources().getColor(R.color.color_7edbf4));
                 btnUnDo.setBackgroundColor(getResources().getColor(R.color.color_cccccc));
-                getMessage("Y");
+                flag="Y";
+                getMessage(flag);
                 tvTitle.setText("今日施工");
                 break;
             case R.id.btn_undo:
                 btnToday.setBackgroundColor(getResources().getColor(R.color.color_cccccc));
                 btnUnDo.setBackgroundColor(getResources().getColor(R.color.color_7edbf4));
-                getMessage("N");
+                flag="N";
+                getMessage(flag);
                 tvTitle.setText("今日未施工");
                 break;
         }
@@ -127,56 +166,65 @@ public class GTCheckActivity extends BaseActivity implements View.OnClickListene
     }
 
 
-    private void getMessage(String status){
-        showDialog();
+    private void getMessage(String flag){
 
-//        try {
-//         url2 = Constants.HTTP_WATER_PROCESS_SERVLET +"?flag=S&area="+area1+"&building="+building1+"&floor="+floor1+"&status=" + status+"&type="+type;
-//
-//        } catch (UnsupportedEncodingException e) {
-//            e.printStackTrace();
-//        }
+         url = Constants.HTTP_YJ_VIEW ;
 
+        JsonObject object = new JsonObject();
+        object.addProperty("project_no", etId.getText().toString());//工程案號
+        object.addProperty("flag", flag);//今日施工Y 今日不施工N
+        object.addProperty("area", etArea.getText().toString());//區域
+        object.addProperty("creator_id", FoxContext.getInstance().getLoginId());//工號
+        object.addProperty("win_vendor", etChangShang.getText().toString());//廠商
+        object.addProperty("project_name", etName.getText().toString());//工程名稱
+        object.addProperty("cpc", etDanWei.getText().toString());//產品處
+
+        //開啟一個新執行緒，向伺服器上傳資料
         new Thread() {
-            @Override
             public void run() {
                 //把网络访问的代码放在这里
-                String result = HttpUtils.queryStringForPost(url2);
-                dismissDialog();
-                Gson gson = new Gson();
-                if (result != null) {
-                    Log.e("---------", "result==fff===" + result);
-                    JsonObject jsonObject = new JsonParser().parse(result).getAsJsonObject();
-                    String errCode = jsonObject.get("errCode").getAsString();
-                    if (errCode.equals("200")) {
-                        JsonArray array = jsonObject.get("result").getAsJsonArray();
-                        mZhiyinshuiExceMsg = new ArrayList<ZhiyinshuiExceMsg>();
+                try {
+                    showDialog();
+                    Log.e("---------", "==fff===" + url);
+                    String result = HttpConnectionUtil.doPostJsonObject(url, object);
+                    if (result != null) {
+                        Gson gson = new Gson();
+                        Log.e("---------", "result==fff===" + result);
+                        JsonObject jsonObject = new JsonParser().parse(result).getAsJsonObject();
+                        String errCode = jsonObject.get("errCode").getAsString();
+                        if (errCode.equals("200")) {
+                            JsonArray array = jsonObject.get("data").getAsJsonArray();
 
-                        for (JsonElement type : array) {
-                            ZhiyinshuiExceMsg humi = gson.fromJson(type, ZhiyinshuiExceMsg.class);
-                            mZhiyinshuiExceMsg.add(humi);
+                            gtMains = new ArrayList<GTMain>();
 
+                            for (JsonElement type : array) {
+                                GTMain humi = gson.fromJson(type, GTMain.class);
+                                gtMains.add(humi);
+                            }
+                            Message message = new Message();
+                            message.what = MESSAGE_SET_TEXT;
+//                            message.obj = jsonObject.get("errMessage").getAsString();
+
+                            mHandler.sendMessage(message);
+
+                        } else {
+                            Log.e("-----------", "result==" + result);
+                            Message message = new Message();
+                            message.what = MESSAGE_TOAST;
+                            message.obj = jsonObject.get("errMessage").getAsString();
+                            mHandler.sendMessage(message);
                         }
-
+                    } else {
                         Message message = new Message();
-                        message.what = MESSAGE_SET_TEXT;
-                        message.obj = jsonObject.get("errMessage").getAsString();
+                        message.what = MESSAGE_NETMISTAKE;
                         mHandler.sendMessage(message);
-
-                    } else{
-                        Log.e("-----------", "result==" + result);
-                        Message message = new Message();
-                        message.what = MESSAGE_TOAST;
-                        message.obj = jsonObject.get("errMessage").getAsString();
-                        mHandler.sendMessage(message);
+                        finish();
                     }
-                }else{
-                    Message message = new Message();
-                    message.what = MESSAGE_NETMISTAKE;
-                    mHandler.sendMessage(message);
-                    finish();
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-            } }.start();
+            }
+        }.start();
     }
 
     Handler mHandler = new Handler() {
@@ -186,6 +234,9 @@ public class GTCheckActivity extends BaseActivity implements View.OnClickListene
                     aboutAlert(msg.obj.toString(),MESSAGE_TOAST);
 //                    ToastUtils.showLong(CrossScanActivity.this, msg.obj.toString());
 //                    finish();
+                    Log.e("---------", "result==fff===" + msg.obj.toString());
+                    Log.e("---------", "==fff===" + url);
+
                     break;
                 case MESSAGE_NETMISTAKE://Toast彈出
                     ToastUtils.showLong(GTCheckActivity.this,R.string.net_mistake);
@@ -195,12 +246,18 @@ public class GTCheckActivity extends BaseActivity implements View.OnClickListene
 //                    ToastUtils.showLong(CrossScanActivity.this, msg.obj.toString());
 
                 case MESSAGE_SET_TEXT://進度賦值
-                    mZhiyinshuiProcessAdapter = new ZhiyinshuiProcessAdapter(GTCheckActivity.this,mZhiyinshuiExceMsg);
-                    lvProcess.setAdapter(mZhiyinshuiProcessAdapter);
-                    if (mZhiyinshuiExceMsg != null&&mZhiyinshuiExceMsg.size()!=0) {
+
+                    dismissDialog();
+                    gtCheckListAdapter = new GTCheckListAdapter(GTCheckActivity.this,gtMains,flag);
+                    lvProcess.setAdapter(gtCheckListAdapter);
+                    if (gtMains != null&&gtMains.size()!=0) {
+
+                        ToastUtils.showShort(GTCheckActivity.this, "有數據!");
+
                     } else {
                         ToastUtils.showShort(GTCheckActivity.this, "沒有數據!");
                     }
+
                     break;
             }
             super.handleMessage(msg);
@@ -217,8 +274,9 @@ public class GTCheckActivity extends BaseActivity implements View.OnClickListene
                     public void onClick(DialogInterface dialog, int id) {
                         // TODO Auto-generated method stub
                         if (type==MESSAGE_TOAST){
-
+                            dismissDialog();
                         }
+
                     }
                 });
         AlertDialog alert = builder.create();
@@ -241,25 +299,39 @@ public class GTCheckActivity extends BaseActivity implements View.OnClickListene
         AlertDialog alert = builder.create();
         alert.show();
     }
-
+int position;
     private void itemOnLongClick(){
+
         lvProcess.setOnCreateContextMenuListener(new View.OnCreateContextMenuListener() {
             @Override
             public void onCreateContextMenu(ContextMenu contextMenu, View view, ContextMenu.ContextMenuInfo contextMenuInfo) {
                 contextMenu.add(0,0,0,"修改日期");
-                contextMenu.add(0,1,0,"查看異常");
+                if (flag.equals("Y")){
+                contextMenu.add(0,1,0,"查看異常");}
             }
         });
     }
     public boolean onContextItemSelected(MenuItem item){
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
 
+
         switch (item.getItemId()){
             case 0:
-                ToastUtils.showShort(GTCheckActivity.this,"修改");
+                Intent intent0 = new Intent(GTCheckActivity.this,GTMainActivity.class);
+                intent0.putExtra("result",gtMains.get(position).getProject_no());
+                intent0.putExtra("flag","S");
+                intent0.putExtra("from","check");
+                intent0.putExtra("message",gtMains.get(position));
+                startActivity(intent0);
                 break;
             case 1:
-                ToastUtils.showShort(GTCheckActivity.this,"刪除");
+                Intent intent = new Intent(GTCheckActivity.this,ComAbRouteItemListActivity.class);
+                intent.putExtra("dimId",gtMains.get(position).getProject_no());
+                intent.putExtra("dName",gtMains.get(position).getProject_name());
+                intent.putExtra("creatorId",FoxContext.getInstance().getLoginId());
+                intent.putExtra("from","GT");
+//                intent.putExtra("scId",routeMessageList.get(position).getSc_id());
+                startActivity(intent);
                 break;
         }
         return super.onContextItemSelected(item);

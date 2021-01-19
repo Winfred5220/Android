@@ -128,8 +128,11 @@ public class ComAbRouteListActivity extends BaseActivity implements View.OnClick
                 Intent intent = new Intent(ComAbRouteListActivity.this,ComAbRouteItemListActivity.class);
                 intent.putExtra("dimId",routeMessageList.get(position).getDim_id());
                 intent.putExtra("dName",routeMessageList.get(position).getDim_locale());
+                intent.putExtra("creatorId",FoxContext.getInstance().getLoginId());
+                   intent.putExtra("from","Com");
 //                intent.putExtra("scId",routeMessageList.get(position).getSc_id());
-                startActivity(intent);}else{
+                startActivity(intent);
+               }else{
                    ToastUtils.showLong(ComAbRouteListActivity.this,"無異常可查看!");
                }
 
