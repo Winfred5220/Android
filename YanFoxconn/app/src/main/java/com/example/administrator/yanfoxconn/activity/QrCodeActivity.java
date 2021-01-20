@@ -107,6 +107,10 @@ public class QrCodeActivity extends BaseActivity implements Callback, View.OnCli
             btnList.setText("異常整改");
             btnList.setVisibility(View.VISIBLE);
             btnList.setOnClickListener(this);
+        }else if (num.equals("borrow")){//設備借用
+            btnList.setText("設備借用");
+            btnList.setVisibility(View.VISIBLE);
+            btnList.setOnClickListener(this);
         }
         hasSurface = false;
         inactivityTimer = new InactivityTimer(this);
@@ -324,6 +328,11 @@ public class QrCodeActivity extends BaseActivity implements Callback, View.OnCli
                 intent.putExtra("result", resultString);
                 startActivity(intent);
                 finish();
+            }else if (num.equals("borrow")){//車輛巡檢
+                Intent intent = new Intent(QrCodeActivity.this, DeviceBorrowMainActivity.class);
+                intent.putExtra("result", resultString);
+                startActivity(intent);
+                finish();
             }
         }
     }
@@ -444,12 +453,16 @@ public class QrCodeActivity extends BaseActivity implements Callback, View.OnCli
                     Intent intentR = new Intent(QrCodeActivity.this,DNReformListActivity.class);
                     intentR.putExtra("from","all");
                     startActivity(intentR);
-                }else if (FoxContext.getInstance().getType().equals("GT")){
+                }else if (num.equals("gt")){
                     Intent intent = new Intent(QrCodeActivity.this, GTCheckActivity.class);
                     startActivity(intent);
+                }else if (num.equals("borrow")){
+                    Intent intent = new Intent(QrCodeActivity.this, DeviceBorrowListActivity.class);
+                    startActivity(intent);
                 }else{
-                Intent intent = new Intent(QrCodeActivity.this, ComAbRouteListActivity.class);
-                startActivity(intent);}
+                    Intent intent = new Intent(QrCodeActivity.this, ComAbRouteListActivity.class);
+                    startActivity(intent);
+                }
                 break;
         }
     }

@@ -189,4 +189,8 @@ public class Constants {
     public static String HTTP_YJ_EXCE_INFO = BASE_URL +"YJ/YJExceInfoServlet";//    詳情
     public static String HTTP_YJ_EXCE_DELETE = BASE_URL +"YJ/YJExceDeleteServlet";//   異常刪除
 
+    public static String HTTP_DEVICE_BORROW_PHOTO = BASE_URL +"photos/";//  設備圖片
+    public static String HTTP_DEVICE_BORROW_VIEW = EMP_BASE +"YJ/YJExceDeleteServlet";//   設備狀態查詢
+    public static String HTTP_DEVICE_BORROW_BASE = EMP_BASE +"DeviceBorrowBaseServlet";//   設備基本信息獲取
+    public static String HTTP_DEVICE_BORROW_UP = EMP_BASE +"DeviceBorrowUpServlet";//   設備借用上傳
 }
