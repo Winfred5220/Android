@@ -59,7 +59,7 @@
                 android:layout_weight="0.5"
                 android:text="1"
                 android:textColor="@color/color_303030"
-                android:textSize="16dp" />
+                android:textSize="14dp" />
         </LinearLayout>
 <!--        <LinearLayout-->
 <!--            android:layout_margin="@dimen/dimen_8"-->

@@ -22,6 +22,7 @@ import com.example.administrator.yanfoxconn.activity.EventCheckInActivity;
 import com.example.administrator.yanfoxconn.activity.ExListViewActivity;
 import com.example.administrator.yanfoxconn.activity.ForkliftEntranceActivity;
 import com.example.administrator.yanfoxconn.activity.GAWorkerSingInActivity;
+import com.example.administrator.yanfoxconn.activity.GCMainActivity;
 import com.example.administrator.yanfoxconn.activity.GTMainActivity;
 import com.example.administrator.yanfoxconn.activity.GoodsReleaseInputActivity;
 import com.example.administrator.yanfoxconn.activity.HubAreaActivity;
@@ -273,8 +274,7 @@ public class MyExpandableListViewAdapter extends BaseExpandableListAdapter {
 
             @Override//安保部 健康追蹤
             public void OnClickGC(int position) {
-                Intent intent2 = new Intent(mContext,CrossScanMainActivity.class);
-                intent2.putExtra("flag","health");
+                Intent intent2 = new Intent(mContext, GCMainActivity.class);
                 mContext.startActivity(intent2);
             }
 

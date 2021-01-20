@@ -57,6 +57,11 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+/**
+ * 工業安全部 設備借用
+ * Created by wang on 2021/01/20.
+ */
+
 public class DeviceBorrowMainActivity extends BaseActivity implements View.OnClickListener{
     private final int MESSAGE_SET_TEXT = 1;//掃描成功賦值
     private final int MESSAGE_TOAST = 2;//掃描失敗彈出框
@@ -105,7 +110,7 @@ public class DeviceBorrowMainActivity extends BaseActivity implements View.OnCli
         btnBorrow.setOnClickListener(this);
         ivEmpty.setOnClickListener(this);
         dim_id = getIntent().getStringExtra("result");
-
+        FoxContext.getInstance().setTakePic("W0");//及時拍照
         getMessage();
 
         int cols = getResources().getDisplayMetrics().widthPixels / getResources().getDisplayMetrics().densityDpi;
@@ -371,7 +376,12 @@ public class DeviceBorrowMainActivity extends BaseActivity implements View.OnCli
                             if (errCode.equals("200")) {
                                 Message message = new Message();
                                 message.what = MESSAGE_TOAST;
-                                message.obj = jsonObject.get("errMessage").getAsString();
+                                if (jsonObject.get("errMessage").getAsString().equals("borrow")){
+                                    message.obj = "借用成功";
+                                }else {
+                                    message.obj = "歸還成功";
+                                }
+
                                 mHandler.sendMessage(message);
 
                             } else{
@@ -414,12 +424,16 @@ public class DeviceBorrowMainActivity extends BaseActivity implements View.OnCli
                     ToastUtils.showLong(DeviceBorrowMainActivity.this,R.string.net_mistake);
                     break;
                 case MESSAGE_SET_TEXT://text賦值
-                    ivDevice.setImageURL(Constants.HTTP_DEVICE_BORROW_PHOTO+dim_id);
+                    ivDevice.setImageURL(Constants.HTTP_DEVICE_BORROW_PHOTO+dim_id+".jpg");
                     tvName.setText(deviceMsg.get(0).getDIM_NAME()+"-"+deviceMsg.get(0).getDIM_no());
                     if (deviceMsg.get(0).getDIM_STATE()!=null&&deviceMsg.get(0).getDIM_STATE().equals("0")){
                         tvState.setText("狀態：  可借用");
+                        btnBorrow.setBackgroundColor(getResources().getColor(R.color.color_42D42B));
+                        btnReturn.setEnabled(false);
                     }else{
                         tvState.setText("狀態：  借用中    借用人："+deviceMsg.get(0).getDIM_CREATOR());
+                        btnReturn.setBackgroundColor(getResources().getColor(R.color.color_ff552e));
+                        btnBorrow.setEnabled(false);
                     }
 
                     break;

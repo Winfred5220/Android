@@ -40,7 +40,7 @@
                 android:text="設備名稱型號"
                 android:gravity="center"
                 android:layout_margin="@dimen/dimen_8"
-                android:textColor="@color/color_303030"
+                android:textColor="@color/color_009adb"
                 android:textSize="@dimen/text_size_18"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
@@ -50,7 +50,7 @@
                 android:gravity="center"
                 android:layout_margin="@dimen/dimen_8"
                 android:textColor="@color/color_303030"
-                android:textSize="@dimen/text_size_18"
+                android:textSize="@dimen/text_size_16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
         </LinearLayout>
@@ -94,23 +94,27 @@
                 android:scaleType="centerCrop"
                 android:src="@mipmap/icon_addpic_unfocused"/>
         </RelativeLayout>
+    </LinearLayout>
         <LinearLayout
+            android:layout_marginTop="@dimen/dimen_4"
             android:orientation="horizontal"
             android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-        <Button
-            android:id="@+id/btn_borrow"
-            android:text="借用"
-            android:layout_width="@dimen/dimen_100"
-            android:layout_height="@dimen/dimen_40"/>
-        <Button
-            android:id="@+id/btn_return"
-            android:text="歸還"
-            android:layout_width="@dimen/dimen_100"
-            android:layout_height="@dimen/dimen_40"/>
+            <Button
+                android:id="@+id/btn_borrow"
+                android:text="借用"
+                android:background="@color/color_c3c3c3"
+                android:layout_width="@dimen/dimen_100"
+                android:layout_height="@dimen/dimen_40"/>
+            <Button
+                android:id="@+id/btn_return"
+                android:layout_marginLeft="@dimen/dimen_10"
+                android:text="歸還"
+                android:background="@color/color_c3c3c3"
+                android:layout_width="@dimen/dimen_100"
+                android:layout_height="@dimen/dimen_40"/>
         </LinearLayout>
-    </LinearLayout>
     </LinearLayout>
     </ScrollView>
 </LinearLayout>

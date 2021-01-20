@@ -108,7 +108,7 @@ public class QrCodeActivity extends BaseActivity implements Callback, View.OnCli
             btnList.setVisibility(View.VISIBLE);
             btnList.setOnClickListener(this);
         }else if (num.equals("borrow")){//設備借用
-            btnList.setText("設備借用");
+            btnList.setText("設備查詢");
             btnList.setVisibility(View.VISIBLE);
             btnList.setOnClickListener(this);
         }

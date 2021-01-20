@@ -334,6 +334,7 @@
         <activity android:name=".activity.GCCheckIDActivity"/><!-- 安保部 健康追蹤 -->
         <activity android:name=".activity.GCSerchActivityTest"/><!-- 安保部 健康追蹤 -->
         <activity android:name=".activity.GCUpOrDoneActivity"/><!-- 安保部 追蹤he結案 -->
+        <activity android:name=".activity.GCMainActivity"/><!-- 安保部 異常處置區 -->
 
         <activity android:name=".activity.GTMainActivity"/><!-- 營建 工程管理主界面 -->
         <activity android:name=".activity.GTAbUpActivity"/><!-- 營建 工程管理點檢提交 -->
@@ -342,6 +343,8 @@
 
         <activity android:name=".activity.DeviceBorrowMainActivity"/><!-- 設備借用界面 -->
         <activity android:name=".activity.DeviceBorrowListActivity"/><!-- 設備借用狀態查詢界面 -->
+
+
 
     </application>
 

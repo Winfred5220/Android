@@ -121,13 +121,16 @@ public class ExListViewActivity extends BaseActivity implements View.OnClickList
             {R.mipmap.icon_anquan, R.mipmap.icon_lianluo, R.mipmap.icon_yidadui1, R.mipmap.icon_yidadui_1,
                     R.mipmap.icon_yidadui2, R.mipmap.icon_yidadui_2, R.mipmap.icon_yidadui3, R.mipmap.icon_yidadui_3,
                     R.mipmap.icon_jidongx, R.mipmap.icon_jidongg, R.mipmap.icon_biaodan, R.mipmap.icon_wupin,
-                    R.mipmap.icon_mobile, R.mipmap.icon_scrap_leave, R.mipmap.icon_duty, R.mipmap.icon_sanfang,R.mipmap.icon_sanfang},//安保部
+                    R.mipmap.icon_mobile, R.mipmap.icon_scrap_leave, R.mipmap.icon_duty, R.mipmap.icon_sanfang,
+                    R.mipmap.icon_chuzhiqu},//安保部
             {R.mipmap.icon_gongan, R.mipmap.icon_control_room, R.mipmap.icon_control_room, R.mipmap.icon_control_room,
-                    R.mipmap.icon_xiyanqu, R.mipmap.icon_control_room, R.mipmap.icon_control_room, R.mipmap.icon_control_room, R.mipmap.icon_control_room},//工業安全部
+                    R.mipmap.icon_xiyanqu, R.mipmap.icon_control_room, R.mipmap.icon_control_room, R.mipmap.icon_control_room,
+                    R.mipmap.icon_borrow},//工業安全部
             {R.mipmap.icon_sushe, R.mipmap.icon_canyin, R.mipmap.icon_xiaosha, R.mipmap.icon_control_room,
                     R.mipmap.icon_zhiyinshui,R.mipmap.icon_laji, R.mipmap.icon_canyin, R.mipmap.icon_control_room},//總務
             {R.mipmap.icon_yingjian, R.mipmap.icon_yingjian, R.mipmap.icon_yingjian, R.mipmap.icon_yingjian,
-                    R.mipmap.icon_yingjian, R.mipmap.icon_yingjian, R.mipmap.icon_kongtiao, R.mipmap.icon_yingjian, R.mipmap.icon_yingjian, R.mipmap.icon_yingjian},//營建
+                    R.mipmap.icon_yingjian, R.mipmap.icon_yingjian, R.mipmap.icon_kongtiao, R.mipmap.icon_yingjian,
+                    R.mipmap.icon_yingjian, R.mipmap.icon_yingjian},//營建
             {R.mipmap.icon_nme, R.mipmap.icon_vip, R.mipmap.icon_pme, R.mipmap.icon_ebl, R.mipmap.icon_pwb1,
                     R.mipmap.icon_hec, R.mipmap.icon_mdi},//產品處
             {R.mipmap.icon_chuwang, R.mipmap.icon_chukou, R.mipmap.icon_hub,R.mipmap.icon_kuaqusao},//碼頭物流

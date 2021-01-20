@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -64,6 +65,15 @@ public class DeviceBorrowListActivity extends BaseActivity implements View.OnCli
         ButterKnife.bind(this);
         tvTitle.setText("設備狀態列表");
         btnBack.setOnClickListener(this);
+
+        lvOption.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                if (mEmpMessage.get(i).getDIM_STATE().equals("1")){
+                    aboutAlert("借用人："+mEmpMessage.get(i).getDIM_CREATOR()+"/"+mEmpMessage.get(i).getDim_remark(),MESSAGE_UP);
+                }
+            }
+        });
     }
 
     @Override
@@ -82,7 +92,7 @@ public class DeviceBorrowListActivity extends BaseActivity implements View.OnCli
 
     private void getMessage(){
         showDialog();
-        final String url = Constants.HTTP_DEVICE_BORROW_VIEW;
+        final String url = Constants.HTTP_DEVICE_BORROW_BASE;
 
         new Thread() {
             @Override
