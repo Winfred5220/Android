@@ -191,5 +191,5 @@ public class Constants {
 
     public static String HTTP_DEVICE_BORROW_PHOTO = EMP_BASE +"photos/";    //  設備圖片
     public static String HTTP_DEVICE_BORROW_BASE = EMP_BASE +"DeviceBorrowBaseServlet";//   設備基本信息獲取 設備狀態查詢
-    public static String HTTP_DEVICE_BORROW_UP = EMP_BASE +"DeviceBorrowUpServlet";//   設備借用上傳
+    public static String HTTP_DEVICE_BORROW_UP = EMP_BASE +"DeviceBorrowUpServlet";//   設備借用歸還
 }
