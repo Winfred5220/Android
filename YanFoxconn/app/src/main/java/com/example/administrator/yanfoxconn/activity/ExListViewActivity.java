@@ -85,8 +85,8 @@ public class ExListViewActivity extends BaseActivity implements View.OnClickList
     public String[] group = {"物流防疫", "安全保障服務部", "工業安全部", "總務", "營建", "產品處", "碼頭物流", "車輛服務", "海關協管", "人力資源部","華北商務","品質保證處","南寧廠區"}; //"NME安全部", "VIP安全部", "PME安全部",
     public String[][] gridViewChild = {
             {"消殺點檢"},//物流防疫
-            {"安保部值星", "春安值星", "一大隊固定崗", "一大隊巡邏崗", "二大隊固定崗", "二大隊巡邏崗", "三大隊固定崗", "三大隊巡邏崗", "機動隊巡邏崗", "機動隊固定崗", "常用表單", "物品放行", "移動設備管控", "廢料出廠", "值班課長", "三防隱患通報","體症異常追蹤"},//安全保障服務部
-            {"工安巡檢","洗眼器點檢","危化品暫存柜","危化品暫存倉","吸煙區","鋰電池防火","有限空間","室外堆場"},//工業安全部
+            {"安保部值星", "春安值星", "一大隊固定崗", "一大隊巡邏崗", "二大隊固定崗", "二大隊巡邏崗", "三大隊固定崗", "三大隊巡邏崗", "機動隊巡邏崗", "機動隊固定崗", "常用表單", "物品放行", "移動設備管控", "廢料出廠", "值班課長", "三防隱患通報","異常處置區"},//安全保障服務部
+            {"工安巡檢","洗眼器點檢","危化品暫存柜","危化品暫存倉","吸煙區","鋰電池防火","有限空間","室外堆場","設備借用"},//工業安全部
             {"宿舍巡檢", "餐飲巡檢", "消殺巡檢", "宿舍查驗","直飲水","生活垃圾清運","餐廳巡檢","臨時工簽到"},//總務
             {"A區巡檢", "E區巡檢", "C區巡檢", "D/G區巡檢", "維保巡檢","工程項目點檢","空調防疫點檢","配電箱點檢","路燈射燈點檢","工程管理"},//營建
             {"NME", "VIP", "PME", "EBL", "PWB","HEC","MDI"},//產品處
@@ -102,7 +102,7 @@ public class ExListViewActivity extends BaseActivity implements View.OnClickList
     public String[][] gridViewType = {
             {"CY"},//物流防疫
             {"A0", "T0", "H0", "K0", "I0", "L0", "J0", "M0", "R0", "S0", "CD", "CE", "CL", "CR", "CU", "CX","GC"},//安保部
-            {"CT","FE","FF","FG","FV","FX","FZ","GE"},//工業安全部
+            {"CT","FE","FF","FG","FV","FX","FZ","GE","GX"},//工業安全部
             {"BG", "BP", "ZXS", "DN","DQ","DT","FH","GA"},//總務
             {"N0", "O0", "P0", "Q0", "V0","DR","FS","FW","GD","GT"},//營建
             {"NME", "VIP", "PME", "EBL", "PWB","HEC","MDI"},//產品處
@@ -120,13 +120,16 @@ public class ExListViewActivity extends BaseActivity implements View.OnClickList
             {R.mipmap.icon_anquan, R.mipmap.icon_lianluo, R.mipmap.icon_yidadui1, R.mipmap.icon_yidadui_1,
                     R.mipmap.icon_yidadui2, R.mipmap.icon_yidadui_2, R.mipmap.icon_yidadui3, R.mipmap.icon_yidadui_3,
                     R.mipmap.icon_jidongx, R.mipmap.icon_jidongg, R.mipmap.icon_biaodan, R.mipmap.icon_wupin,
-                    R.mipmap.icon_mobile, R.mipmap.icon_scrap_leave, R.mipmap.icon_duty, R.mipmap.icon_sanfang,R.mipmap.icon_sanfang},//安保部
+                    R.mipmap.icon_mobile, R.mipmap.icon_scrap_leave, R.mipmap.icon_duty, R.mipmap.icon_sanfang,
+                    R.mipmap.icon_chuzhiqu},//安保部
             {R.mipmap.icon_gongan, R.mipmap.icon_control_room, R.mipmap.icon_control_room, R.mipmap.icon_control_room,
-                    R.mipmap.icon_xiyanqu, R.mipmap.icon_control_room, R.mipmap.icon_control_room, R.mipmap.icon_control_room},//工業安全部
+                    R.mipmap.icon_xiyanqu, R.mipmap.icon_control_room, R.mipmap.icon_control_room, R.mipmap.icon_control_room,
+                    R.mipmap.icon_borrow},//工業安全部
             {R.mipmap.icon_sushe, R.mipmap.icon_canyin, R.mipmap.icon_xiaosha, R.mipmap.icon_control_room,
                     R.mipmap.icon_zhiyinshui,R.mipmap.icon_laji, R.mipmap.icon_canyin, R.mipmap.icon_control_room},//總務
             {R.mipmap.icon_yingjian, R.mipmap.icon_yingjian, R.mipmap.icon_yingjian, R.mipmap.icon_yingjian,
-                    R.mipmap.icon_yingjian, R.mipmap.icon_yingjian, R.mipmap.icon_kongtiao, R.mipmap.icon_yingjian, R.mipmap.icon_yingjian, R.mipmap.icon_yingjian},//營建
+                    R.mipmap.icon_yingjian, R.mipmap.icon_yingjian, R.mipmap.icon_kongtiao, R.mipmap.icon_yingjian,
+                    R.mipmap.icon_yingjian, R.mipmap.icon_yingjian},//營建
             {R.mipmap.icon_nme, R.mipmap.icon_vip, R.mipmap.icon_pme, R.mipmap.icon_ebl, R.mipmap.icon_pwb1,
                     R.mipmap.icon_hec, R.mipmap.icon_mdi},//產品處
             {R.mipmap.icon_chuwang, R.mipmap.icon_chukou, R.mipmap.icon_hub,R.mipmap.icon_kuaqusao},//碼頭物流

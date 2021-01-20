@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/YanFoxconn.iml" filepath="$PROJECT_DIR$/YanFoxconn.iml" group="YanFoxconn" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/app.iml" group="YanFoxconn/app" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ocr_ui/ocr_ui.iml" filepath="$PROJECT_DIR$/.idea/modules/ocr_ui/ocr_ui.iml" group="YanFoxconn/ocr_ui" />
+      <module fileurl="file://$PROJECT_DIR$/YanFoxconn.iml" filepath="$PROJECT_DIR$/YanFoxconn.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/YanFoxconn.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/YanFoxconn.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ocr_ui/YanFoxconn.ocr_ui.iml" filepath="$PROJECT_DIR$/.idea/modules/ocr_ui/YanFoxconn.ocr_ui.iml" />
     </modules>
   </component>
 </project>
