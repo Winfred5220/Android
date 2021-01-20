@@ -81,7 +81,6 @@ public class ExListViewActivity extends BaseActivity implements View.OnClickList
 
 //    private LocationManager lm;
 //    private AMapLocationClient locationClient = null;
-//    private AMapLocationClientOption locationOption = null;
 
     public String[] group = {"物流防疫", "安全保障服務部", "工業安全部", "總務", "營建", "產品處", "碼頭物流", "車輛服務", "海關協管", "人力資源部","華北商務","品質保證處","南寧廠區"}; //"NME安全部", "VIP安全部", "PME安全部",
     public String[][] gridViewChild = {
