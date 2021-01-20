@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.ZhiyinshuiExceListActivity">
+
+    <!--標題-->
+    <include layout="@layout/common_title"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <LinearLayout
+        android:id="@+id/ll_get_image"
+        android:orientation="vertical"
+        android:background="@drawable/shape_basic"
+        android:layout_margin="@dimen/dimen_8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.example.administrator.yanfoxconn.widget.MyImageView
+            android:id="@+id/iv_device"
+            android:layout_gravity="center"
+            android:layout_width="@dimen/dimen_300"
+            android:layout_height="@dimen/dimen_300"/>
+        <LinearLayout
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tv_name"
+                android:text="設備名稱型號"
+                android:gravity="center"
+                android:layout_margin="@dimen/dimen_8"
+                android:textColor="@color/color_009adb"
+                android:textSize="@dimen/text_size_18"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:id="@+id/tv_state"
+                android:text="狀態"
+                android:gravity="center"
+                android:layout_margin="@dimen/dimen_8"
+                android:textColor="@color/color_303030"
+                android:textSize="@dimen/text_size_16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_marginLeft="@dimen/dimen_8"
+        android:layout_marginRight="@dimen/dimen_8"
+        android:background="@drawable/shape_basic"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dimen_10"
+            android:layout_marginTop="@dimen/dimen_10">
+
+            <com.example.administrator.yanfoxconn.widget.MyGridView
+                android:id="@+id/gv_photo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignLeft="@+id/iv_empty"
+                android:layout_alignTop="@+id/iv_empty"
+                android:horizontalSpacing="@dimen/dimen_2"
+                android:numColumns="4"
+                android:scrollbars="none"
+                android:verticalSpacing="@dimen/dimen_2"/>
+            <!--空白圖片佔位-->
+            <ImageView
+                android:id="@+id/iv_empty"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_marginLeft="14dp"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/icon_addpic_unfocused"/>
+        </RelativeLayout>
+    </LinearLayout>
+        <LinearLayout
+            android:layout_marginTop="@dimen/dimen_4"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/btn_borrow"
+                android:text="借用"
+                android:background="@color/color_c3c3c3"
+                android:layout_width="@dimen/dimen_100"
+                android:layout_height="@dimen/dimen_40"/>
+            <Button
+                android:id="@+id/btn_return"
+                android:layout_marginLeft="@dimen/dimen_10"
+                android:text="歸還"
+                android:background="@color/color_c3c3c3"
+                android:layout_width="@dimen/dimen_100"
+                android:layout_height="@dimen/dimen_40"/>
+        </LinearLayout>
+    </LinearLayout>
+    </ScrollView>
+</LinearLayout>
