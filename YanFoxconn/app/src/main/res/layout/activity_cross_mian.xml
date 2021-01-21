@@ -62,6 +62,7 @@
             android:text="私家車" />
         <!--掃描進入-->
         <!--員工違規登記表-->
+        <!--異常處置區 日常消殺點檢-->
         <Button
             android:id="@+id/btn_scan"
             android:background="@drawable/button_selector"
@@ -70,6 +71,7 @@
 
         <!--手動錄入-->
         <!--員工進出異常登記表-->
+        <!--體症異常追蹤-->
         <Button
             android:id="@+id/btn_write"
             android:background="@drawable/button_selector"
@@ -78,6 +80,7 @@
 
         <!--文字識別-->
         <!--二輪車違規登記表-->
+        <!--處置後消殺點檢-->
         <Button
             android:id="@+id/btn_ocr"
             android:background="@drawable/button_selector"

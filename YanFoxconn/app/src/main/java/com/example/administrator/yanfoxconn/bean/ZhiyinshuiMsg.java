@@ -27,7 +27,8 @@ public class ZhiyinshuiMsg {
     private String DIM_filter1_date3;//上次更換時間
     private String dim_filter3_num;//更換天數
 
-    private String DIM_STATUS;//狀態
+    private String DIM_STATUS;//狀態 正常 維修
+    private String DIM_STATE;//狀態  啟用 停用
     private String DIM_CREATOR;//創建人
     private String DIM_CREATE_DATE;//創建日期
     private String dim_specification;//規格型號
@@ -249,5 +250,13 @@ public class ZhiyinshuiMsg {
 
     public void setDIM_LAT(String DIM_LAT) {
         this.DIM_LAT = DIM_LAT;
+    }
+
+    public String getDIM_STATE() {
+        return DIM_STATE;
+    }
+
+    public void setDIM_STATE(String DIM_STATE) {
+        this.DIM_STATE = DIM_STATE;
     }
 }
