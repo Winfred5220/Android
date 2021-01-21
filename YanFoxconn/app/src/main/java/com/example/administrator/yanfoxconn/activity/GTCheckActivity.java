@@ -232,6 +232,7 @@ public class GTCheckActivity extends BaseActivity implements View.OnClickListene
             switch (msg.what) {
                 case MESSAGE_TOAST://Toast彈出
                     aboutAlert(msg.obj.toString(),MESSAGE_TOAST);
+
                     if (gtMains.size()>0){
                         gtMains.clear();
                     }
