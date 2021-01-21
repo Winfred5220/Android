@@ -217,8 +217,8 @@ public class MyGridViewAdapter extends BaseAdapter {
                     tvGridView.setTag("gs");
                 } else if (rolesList.get(i).equals("GX")) {//南寧警衛巡邏
                     tvGridView.setTag("gx");
-                } else if (rolesList.get(i).equals("GT")) {//營建 工程管理
-                    tvGridView.setTag("gt");
+                } else if (rolesList.get(i).equals("GCGL")) {//營建 工程管理
+                    tvGridView.setTag("gcgl");
                 } else {
                     tvGridView.setTag("true");
                 }
@@ -375,10 +375,10 @@ public class MyGridViewAdapter extends BaseAdapter {
                     onClickListener.OnClickGR();
                 } else if (view.getTag().equals("gs")) {//南寧警衛巡邏
                     onClickListener.OnClickGS();
-                } else if (view.getTag().equals("gx")) {//南寧警衛巡邏
+                }  else if (view.getTag().equals("gx")) {//南寧警衛巡邏
                     onClickListener.OnClickGX();
-                }  else if (view.getTag().equals("gt")) {//營建 工程管理
-                    onClickListener.OnClickGT();
+                }  else if (view.getTag().equals("gcgl")) {//營建 工程管理
+                    onClickListener.OnClickGCGL();
                 } else {
                     onClickListener.OnClickListenerFalse(position);
                 }
@@ -459,7 +459,7 @@ public class MyGridViewAdapter extends BaseAdapter {
         void OnClickGR();//南寧機電
         void OnClickGS();//南寧警衛巡邏
         void OnClickGX();//南寧警衛巡邏
-        void OnClickGT();//營建 工程管理
+        void OnClickGCGL();//營建 工程管理
     }
 
     public void setOnClickListener(OnClickListener onClickListener) {

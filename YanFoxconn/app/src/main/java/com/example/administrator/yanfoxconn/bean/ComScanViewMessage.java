@@ -19,6 +19,15 @@ public class ComScanViewMessage implements Serializable {
     private String  sc_state;
     private String  sc_creator_id;
     private String  count;
+    private String cname;//營建工程管理
+
+    public String getCname() {
+        return cname;
+    }
+
+    public void setCname(String cname) {
+        this.cname = cname;
+    }
 
     public String getSc_id() {
         return sc_id;

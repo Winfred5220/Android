@@ -75,7 +75,7 @@ public class AbnormalListAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        if (type.equals("Item")){
+        if (type.equals("Item")||type.equals("GCGL")){
            return comScanViewMessages.size();
         }else
         if (routeMessages!=null){
@@ -88,6 +88,8 @@ public class AbnormalListAdapter extends BaseAdapter {
     @Override
     public Object getItem(int i) {
         if (type.equals("Item")){
+            return comScanViewMessages.get(i);
+        }else if(type.equals("GCGL")){
             return comScanViewMessages.get(i);
         }else
         if (routeMessages!=null){
@@ -120,8 +122,12 @@ public class AbnormalListAdapter extends BaseAdapter {
             viewHolder.tvAddress.setText(comScanViewMessages.get(position).getSc_creator());
             viewHolder.tvTime.setText(comScanViewMessages.get(position).getSc_create_date());
             viewHolder.tvDesp.setText("異常項數:"+comScanViewMessages.get(position).getCount());
-        }else
-        if(type!=""){
+        }else if(type.equals("GCGL")){
+
+            viewHolder.tvAddress.setText(comScanViewMessages.get(position).getSc_creator());
+            viewHolder.tvTime.setText(comScanViewMessages.get(position).getSc_create_date());
+            viewHolder.tvDesp.setText(comScanViewMessages.get(position).getCname()+"  異常項數:"+comScanViewMessages.get(position).getCount());
+        }else if(type!=""){
             if (routeMessages!=null){
                 viewHolder.tvAddress.setText(routeMessages.get(position).getDim_locale());
                 viewHolder.tvTime.setVisibility(View.GONE);

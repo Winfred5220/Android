@@ -380,7 +380,7 @@ private int progress=0;//施工進度
             JsonArray photoArray = new JsonArray();
             jsonObject.add("photo", photoArray);
             array.add(jsonObject);
-            if (mCheckMsgList.get(j).getContent().equals("進度-累計進度")){
+            if (mCheckMsgList.get(j).getContent().equals("進度-累計進度")&&!etCheckMap.get(j).equals("")){
                 if (Integer.parseInt(etCheckMap.get(j))<progress){
                     ToastUtils.showLong(GTAbUpActivity.this,"請注意工程進度填寫有誤，小於上次進度！");
                     return;
@@ -469,7 +469,10 @@ private int progress=0;//施工進度
 
         Log.e("-----object------", object.toString());
 
-
+if (imagePaths != null && imagePaths.size() != 0){
+    ToastUtils.showShort(this, "請上傳現場圖片");
+    return;
+}
         if (key1 > 0) {
             ToastUtils.showShort(this, "請填寫異常信息");
             key1 = 0;

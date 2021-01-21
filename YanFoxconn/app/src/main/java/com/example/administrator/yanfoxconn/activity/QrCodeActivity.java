@@ -111,9 +111,6 @@ public class QrCodeActivity extends BaseActivity implements Callback, View.OnCli
             btnList.setText("設備查詢");
             btnList.setVisibility(View.VISIBLE);
             btnList.setOnClickListener(this);
-        }else if (num.equals("gt")){//設備借用
-            btnList.setVisibility(View.VISIBLE);
-            btnList.setOnClickListener(this);
         }
         hasSurface = false;
         inactivityTimer = new InactivityTimer(this);
@@ -288,10 +285,18 @@ public class QrCodeActivity extends BaseActivity implements Callback, View.OnCli
                 startActivity(resultIntent);
                 finish();
             }else if (num.equals("cz")){//點位點檢項巡檢
-                Intent intent = new Intent(QrCodeActivity.this, ComAbnormalUpActivity.class);
-                intent.putExtra("flag", "D");
-                intent.putExtra("result", resultString);
-                startActivity(intent);
+                if (FoxContext.getInstance().getType().equals("GCGL")){
+                    Intent intent = new Intent(QrCodeActivity.this, GTMainActivity.class);
+                    intent.putExtra("flag", "S");
+                    intent.putExtra("result", resultString);
+                    intent.putExtra("from","qr");
+                    startActivity(intent);
+                }else {
+                    Intent intent = new Intent(QrCodeActivity.this, ComAbnormalUpActivity.class);
+                    intent.putExtra("flag", "D");
+                    intent.putExtra("result", resultString);
+                    startActivity(intent);
+                }
                 finish();
             }else if (num.equals("fh")){//總務餐廳巡檢
                 Intent intent = new Intent(QrCodeActivity.this, FHRestaurantActivity.class);
@@ -328,12 +333,6 @@ public class QrCodeActivity extends BaseActivity implements Callback, View.OnCli
                 intent.putExtra("result", resultString);
                 startActivity(intent);
                 finish();
-            }else if (num.equals("gt")){//工程管理巡檢
-                Intent intent = new Intent(QrCodeActivity.this, GTMainActivity.class);
-                intent.putExtra("flag", "S");
-                intent.putExtra("result", resultString);
-                intent.putExtra("from","qr");
-                startActivity(intent);
             }
         }
     }
@@ -454,7 +453,7 @@ public class QrCodeActivity extends BaseActivity implements Callback, View.OnCli
                     Intent intentR = new Intent(QrCodeActivity.this,DNReformListActivity.class);
                     intentR.putExtra("from","all");
                     startActivity(intentR);
-                }else if (num.equals("gt")){
+                }else if (FoxContext.getInstance().getType().equals("GCGL")){
                     Intent intent = new Intent(QrCodeActivity.this, GTCheckActivity.class);
                     startActivity(intent);
                 }else if (num.equals("borrow")){
