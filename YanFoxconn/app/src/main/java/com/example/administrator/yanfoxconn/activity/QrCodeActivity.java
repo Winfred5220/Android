@@ -281,7 +281,7 @@ public class QrCodeActivity extends BaseActivity implements Callback, View.OnCli
                 startActivity(resultIntent);
                 finish();
             }else if (num.equals("cz")){//點位點檢項巡檢
-                if (FoxContext.getInstance().getType().equals("GT")){
+                if (FoxContext.getInstance().getType().equals("GCGL")){
                     Intent intent = new Intent(QrCodeActivity.this, GTMainActivity.class);
                     intent.putExtra("flag", "S");
                     intent.putExtra("result", resultString);
@@ -444,7 +444,7 @@ public class QrCodeActivity extends BaseActivity implements Callback, View.OnCli
                     Intent intentR = new Intent(QrCodeActivity.this,DNReformListActivity.class);
                     intentR.putExtra("from","all");
                     startActivity(intentR);
-                }else if (FoxContext.getInstance().getType().equals("GT")){
+                }else if (FoxContext.getInstance().getType().equals("GCGL")){
                     Intent intent = new Intent(QrCodeActivity.this, GTCheckActivity.class);
                     startActivity(intent);
                 }else{

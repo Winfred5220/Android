@@ -105,7 +105,7 @@ public class ExListViewActivity extends BaseActivity implements View.OnClickList
             {"A0", "T0", "H0", "K0", "I0", "L0", "J0", "M0", "R0", "S0", "CD", "CE", "CL", "CR", "CU", "CX","GC"},//安保部
             {"CT","FE","FF","FG","FV","FX","FZ","GE"},//工業安全部
             {"BG", "BP", "ZXS", "DN","DQ","DT","FH","GA"},//總務
-            {"N0", "O0", "P0", "Q0", "V0","DR","FS","FW","GD","GT"},//營建
+            {"N0", "O0", "P0", "Q0", "V0","DR","FS","FW","GD","GCGL"},//營建 GCGL工程管理，開放權限，掃碼後會根據登錄帳號權限進行判斷
             {"NME", "VIP", "PME", "EBL", "PWB","HEC","MDI"},//產品處
             {"F0", "E0", "CI", "EC"},//碼頭物流
             {"BS", "CK", "EA","FQ","BV"},//車調服務
@@ -237,7 +237,7 @@ public class ExListViewActivity extends BaseActivity implements View.OnClickList
      */
     private void setExListView() {
 
-        roles = FoxContext.getInstance().getRoles() + ",NME,VIP,PME,EBL,PWB,ZXS,GAN,HEC,QAQ,SMT,MEM,MDI";//ZXS:總務消殺巡檢 GAN:工安巡檢
+        roles = FoxContext.getInstance().getRoles() + ",GCGL,NME,VIP,PME,EBL,PWB,ZXS,GAN,HEC,QAQ,SMT,MEM,MDI";//ZXS:總務消殺巡檢 GAN:工安巡檢
         rolesList = new ArrayList<String>();
         String spStr[] = roles.split(",");
         for (int i = 0; i < spStr.length; i++) {

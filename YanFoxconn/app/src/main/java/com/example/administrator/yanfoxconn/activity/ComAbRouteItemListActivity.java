@@ -114,7 +114,7 @@ public class ComAbRouteItemListActivity extends BaseActivity implements View.OnC
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
         switch (adapterView.getId()) {
             case R.id.lv_abnormal://列表點擊事件
-                if (getIntent().getStringExtra("from").equals("GT")){
+                if (getIntent().getStringExtra("from").equals("GCGL")){
                     Intent intent = new Intent(ComAbRouteItemListActivity.this, GTDetailActivity.class);
                     intent.putExtra("scId",comScanViewMessages.get(position).getSc_id());
                     intent.putExtra("dimId",comScanViewMessages.get(position).getDim_id());
@@ -260,8 +260,12 @@ public class ComAbRouteItemListActivity extends BaseActivity implements View.OnC
 //                    tvDate.setText(changeDate);
                     break;
                 case MESSAGE_UPLOAD:
+                    if (getIntent().getStringExtra("from").equals("GCGL")){
+                        abnormalListAdapter = new AbnormalListAdapter(ComAbRouteItemListActivity.this, comScanViewMessages,"GCGL");
+                        lvAbnormal.setAdapter(abnormalListAdapter);
+                    }else{
                     abnormalListAdapter = new AbnormalListAdapter(ComAbRouteItemListActivity.this, comScanViewMessages,"Item");
-                    lvAbnormal.setAdapter(abnormalListAdapter);
+                    lvAbnormal.setAdapter(abnormalListAdapter);}
                     break;
             }
             super.handleMessage(msg);
@@ -271,7 +275,7 @@ public class ComAbRouteItemListActivity extends BaseActivity implements View.OnC
     @Override
     protected void onStart() {
         super.onStart();
-        if (getIntent().getStringExtra("from").equals("GT")){
+        if (getIntent().getStringExtra("from").equals("GCGL")){
             getGTProgressItemList( FoxContext.getInstance().getLoginId(), dimId);
         }else{
             getRouteItemList( type, dimId);

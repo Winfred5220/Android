@@ -192,10 +192,9 @@ public class GTCheckActivity extends BaseActivity implements View.OnClickListene
                         Log.e("---------", "result==fff===" + result);
                         JsonObject jsonObject = new JsonParser().parse(result).getAsJsonObject();
                         String errCode = jsonObject.get("errCode").getAsString();
+                        gtMains = new ArrayList<GTMain>();
                         if (errCode.equals("200")) {
                             JsonArray array = jsonObject.get("data").getAsJsonArray();
-
-                            gtMains = new ArrayList<GTMain>();
 
                             for (JsonElement type : array) {
                                 GTMain humi = gson.fromJson(type, GTMain.class);
@@ -232,7 +231,8 @@ public class GTCheckActivity extends BaseActivity implements View.OnClickListene
             switch (msg.what) {
                 case MESSAGE_TOAST://Toast彈出
                     aboutAlert(msg.obj.toString(),MESSAGE_TOAST);
-                    if (gtMains.size()>0){
+                    if (gtMains!=null&&gtMains.size()>0){
+
                         gtMains.clear();
                     }
                     dismissDialog();
@@ -256,13 +256,13 @@ public class GTCheckActivity extends BaseActivity implements View.OnClickListene
                     dismissDialog();
                     gtCheckListAdapter = new GTCheckListAdapter(GTCheckActivity.this,gtMains,flag);
                     lvProcess.setAdapter(gtCheckListAdapter);
-                    if (gtMains != null&&gtMains.size()!=0) {
-
-                        ToastUtils.showShort(GTCheckActivity.this, "有數據!");
-
-                    } else {
-                        ToastUtils.showShort(GTCheckActivity.this, "沒有數據!");
-                    }
+//                    if (gtMains != null&&gtMains.size()!=0) {
+//
+//                        ToastUtils.showShort(GTCheckActivity.this, "有數據!");
+//
+//                    } else {
+//                        ToastUtils.showShort(GTCheckActivity.this, "沒有數據!");
+//                    }
 
                     break;
             }
@@ -335,7 +335,7 @@ int position;
                 intent.putExtra("dimId",gtMains.get(position).getProject_no());
                 intent.putExtra("dName",gtMains.get(position).getProject_name());
                 intent.putExtra("creatorId",FoxContext.getInstance().getLoginId());
-                intent.putExtra("from","GT");
+                intent.putExtra("from","GCGL");
 //                intent.putExtra("scId",routeMessageList.get(position).getSc_id());
                 startActivity(intent);
                 break;
