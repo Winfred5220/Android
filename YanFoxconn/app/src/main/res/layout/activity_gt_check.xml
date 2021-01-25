@@ -29,10 +29,9 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"/>
-
                 <EditText
                     android:id="@+id/et_area"
-                    android:layout_weight="5"
+                    android:layout_weight="4"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content">
                 </EditText>
@@ -41,13 +40,13 @@
                     android:text="廠商"
                     android:textColor="@color/color_303030"
                     android:textSize="@dimen/text_size_16"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_weight="0.5"
                     android:layout_height="wrap_content"/>
 
                 <EditText
                     android:id="@+id/et_changshang"
-                    android:layout_weight="5"
+                    android:layout_weight="4"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content">
                     </EditText>
@@ -56,17 +55,18 @@
             <TableRow
                 android:layout_height="@dimen/dimen_50"
                 android:layout_width="match_parent">
+
                 <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
                     android:text="案號"
                     android:textColor="@color/color_303030"
-                    android:textSize="@dimen/text_size_16"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"/>
+                    android:textSize="@dimen/text_size_16" />
 
                 <EditText
                     android:id="@+id/et_id"
-                    android:layout_weight="5"
+                    android:layout_weight="6"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content">
                 </EditText>
@@ -75,15 +75,15 @@
                     android:text="名稱"
                     android:textColor="@color/color_303030"
                     android:textSize="@dimen/text_size_16"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_weight="0.5"
                     android:layout_height="wrap_content"/>
 
                 <EditText
                     android:id="@+id/et_name"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="5"
+                    android:layout_weight="6"
                     ></EditText>
             </TableRow>
             <TableRow
@@ -93,8 +93,8 @@
                     android:text="申請單位"
                     android:textColor="@color/color_303030"
                     android:textSize="@dimen/text_size_16"
-                    android:layout_width="0dp"
-                    android:layout_weight="2"
+                    android:layout_width="wrap_content"
+                    android:layout_weight="0.8"
                     android:layout_height="wrap_content"/>
 
                 <EditText
