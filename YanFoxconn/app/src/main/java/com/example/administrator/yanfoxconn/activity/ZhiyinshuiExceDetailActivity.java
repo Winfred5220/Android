@@ -325,7 +325,7 @@ public class ZhiyinshuiExceDetailActivity extends BaseActivity implements View.O
             ToastUtils.showShort(this, "登錄超時,請重新登陸");
         }else if (etDescribe.getText().toString().equals("")) {
             ToastUtils.showShort(this, "請填寫描述信息");
-        }else if (imagePaths == null) {
+        }else if (imagePaths == null || imagePaths.size() == 0) {
             ToastUtils.showShort(this, "請拍照或選擇圖片");
         }else{
             JsonArray photoArray = new JsonArray();
@@ -338,7 +338,7 @@ public class ZhiyinshuiExceDetailActivity extends BaseActivity implements View.O
 //                调用压缩图片的方法，返回压缩后的图片path
                 final String compressImage = ImageZipUtils.compressImage(pic_path, _path, 50);
                 String picBase64Code = ImageZipUtils.imageToBase64(compressImage);
-                Log.e("-------picBase64Code-------", "===="+ picBase64Code);
+                Log.e("---picBase64Code---", "===="+ picBase64Code);
                 JsonObject jsonObject1 = new JsonObject();
                 jsonObject1.addProperty("file", picBase64Code);
                 photoArray.add(jsonObject1);
