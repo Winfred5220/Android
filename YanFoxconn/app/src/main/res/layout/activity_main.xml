@@ -1,19 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    tools:context=".activity.MainActivity">
 
-    <!--標題-->
-    <include layout="@layout/common_title" />
-
-
-    <!--巡檢分類-->
-    <GridView
-        android:id="@+id/gv_type_list"
+    <RadioGroup
+        android:background="@drawable/tab_bg"
+        android:id="@+id/main_rg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:numColumns="3"
-        android:padding="@dimen/dimen_1"/>
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
 
-</LinearLayout>
+        <RadioButton
+            android:id="@+id/main_rb1"
+            style="@style/radiobuttonstyle"
+            android:drawableTop="@drawable/shouye_selector"
+            android:text="巡檢" />
+
+        <RadioButton
+            android:id="@+id/main_rb2"
+            style="@style/radiobuttonstyle"
+            android:drawableTop="@drawable/banpai_selector"
+            android:text="報表" />
+    </RadioGroup>
+
+    <FrameLayout
+        android:id="@+id/main_fl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/main_rg"/>
+
+</RelativeLayout>

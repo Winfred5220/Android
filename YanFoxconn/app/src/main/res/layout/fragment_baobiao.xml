@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?><!--班牌-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.MainActivity">
+
+    <!--標題-->
+    <include layout="@layout/common_title" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_40"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/dimen_8"
+                android:text="工業安全部"
+                android:textColor="@color/color_303030"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+            <LinearLayout
+                android:background="@drawable/border_all"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_120">
+
+                <LinearLayout
+                    android:id="@+id/ib_yuyue"
+                    android:background="@drawable/border_all"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <ImageView
+                        style="@style/mainbuttonstyle"
+                        android:background="@mipmap/ic_yuyue"/>
+                    <TextView
+                        android:gravity="center"
+                        android:layout_marginTop="@dimen/dimen_8"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="鋰電池" />
+
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/ib_chakan"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <ImageView
+                        style="@style/mainbuttonstyle"
+                        android:background="@mipmap/ic_myyuyue"/>
+                    <TextView
+                        android:gravity="center"
+                        android:layout_marginTop="@dimen/dimen_8"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="洗眼器" />
+
+                </LinearLayout>
+                <LinearLayout
+                    android:background="@drawable/border_all"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+
+                </LinearLayout>
+            </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_40"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/dimen_8"
+                android:text="安保部"
+                android:textColor="@color/color_303030"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:background="@drawable/border_all"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_120">
+                <LinearLayout
+                    android:id="@+id/ib_kaoqin"
+                    android:background="@drawable/border_all"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <ImageView
+                        style="@style/mainbuttonstyle"
+                        android:background="@mipmap/ic_kaoqin"/>
+                    <TextView
+                        android:layout_marginTop="@dimen/dimen_8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="巡邏崗" />
+
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/btn_room"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <ImageView
+                        style="@style/mainbuttonstyle"
+                        android:background="@mipmap/ic_room"/>
+                    <TextView
+                        android:layout_marginTop="@dimen/dimen_8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="固定崗" />
+
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/btn_used_ratio"
+                    android:background="@drawable/border_all"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <ImageView
+                        style="@style/mainbuttonstyle"
+                        android:background="@mipmap/ic_ratio"/>
+                    <TextView
+                        android:layout_marginTop="@dimen/dimen_8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="異常處置區" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_40"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/dimen_8"
+                android:text="總務"
+                android:textColor="@color/color_303030"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+            <LinearLayout
+                android:background="@drawable/border_all"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_120">
+
+                <LinearLayout
+                    android:id="@+id/ib_sign"
+                    android:background="@drawable/border_all"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <ImageView
+                        style="@style/mainbuttonstyle"
+                        android:background="@mipmap/ic_sign"/>
+                    <TextView
+                        android:layout_marginTop="@dimen/dimen_8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="餐飲巡檢" />
+
+                </LinearLayout>
+                <LinearLayout
+
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+
+                </LinearLayout>
+                <LinearLayout
+                    android:background="@drawable/border_all"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
+

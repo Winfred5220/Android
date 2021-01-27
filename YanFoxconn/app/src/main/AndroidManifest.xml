@@ -212,8 +212,7 @@
         <activity android:name=".activity.AbnormalListActivity" /> <!-- 查看個人異常列表 -->
         <activity android:name=".activity.AbnormalSelfListActivity" /> <!-- 異常詳情 -->
         <activity android:name=".activity.AbnormalDetailsActivity" /> <!-- &lt;!&ndash;主頁定位&ndash;&gt; -->
-        <!-- <activity android:name=".activity.MainActivityGao"/> -->
-        <!-- 檢測版本 -->
+        <activity android:name=".activity.MainActivity"/><!-- 主頁 -->
         <activity android:name=".activity.CheckVersionActivity" /> <!-- 網頁跳轉 -->
         <activity android:name=".activity.WebViewActivity" /> <!-- 二級菜單主界面 -->
         <activity android:name=".activity.ExListViewActivity" /> <!-- 實際巡檢人維護 -->

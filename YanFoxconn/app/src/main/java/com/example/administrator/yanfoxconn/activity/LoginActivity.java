@@ -366,7 +366,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                             Intent intent = new Intent(LoginActivity.this, ActualPeopleActivity.class);
                             startActivity(intent);
                         } else {
-                            Intent intent = new Intent(LoginActivity.this, ExListViewActivity.class);
+                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                             startActivity(intent);
 
                             Message message = new Message();

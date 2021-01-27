@@ -1,25 +1,37 @@
-package com.example.administrator.yanfoxconn.activity;
-
+package com.example.administrator.yanfoxconn.activity.fragment;
 
 import android.content.Context;
 import android.content.Intent;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.Settings;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
 
 import com.baidu.location.BDAbstractLocationListener;
 import com.baidu.location.BDLocation;
 import com.baidu.location.LocationClient;
 import com.example.administrator.yanfoxconn.R;
-import com.example.administrator.yanfoxconn.activity.fragment.XunjianFragment;
+import com.example.administrator.yanfoxconn.activity.CarListActivity;
+import com.example.administrator.yanfoxconn.activity.CarLogDayActivity;
+import com.example.administrator.yanfoxconn.activity.DimemsionMenuActivity;
+import com.example.administrator.yanfoxconn.activity.EventListActivity;
+import com.example.administrator.yanfoxconn.activity.LoadingDialogFragment;
+import com.example.administrator.yanfoxconn.activity.MainActivity;
+import com.example.administrator.yanfoxconn.activity.RouteListActivity;
 import com.example.administrator.yanfoxconn.adapter.MyExpandableListViewAdapter;
 import com.example.administrator.yanfoxconn.bean.CarListMessage;
 import com.example.administrator.yanfoxconn.bean.CarLogReturnM;
@@ -30,7 +42,6 @@ import com.example.administrator.yanfoxconn.bean.RouteMessage;
 import com.example.administrator.yanfoxconn.constant.Constants;
 import com.example.administrator.yanfoxconn.constant.FoxApplication;
 import com.example.administrator.yanfoxconn.constant.FoxContext;
-import com.example.administrator.yanfoxconn.utils.BaseActivity;
 import com.example.administrator.yanfoxconn.utils.HttpUtils;
 import com.example.administrator.yanfoxconn.utils.LocationService;
 import com.example.administrator.yanfoxconn.utils.MyLocationListener;
@@ -47,14 +58,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import androidx.annotation.Nullable;
-
 /**
- * 主界面 二級菜單
- * Created by song on 2017/11/17.
+ * 首页Fragment
+ * Created by wang on 2019/11/9.
  */
 
-public class ExListViewActivity extends BaseActivity implements View.OnClickListener {
+public class XunjianFragment extends Fragment implements View.OnClickListener{
+
     private final int MESSAGE_GPS = 1;//判斷GPS
     private final int MESSAGE_TOAST = 2;//showToast
 
@@ -176,11 +186,20 @@ public class ExListViewActivity extends BaseActivity implements View.OnClickList
     private MyLocationListener myListener = new MyLocationListener();
     private LocationService locationService;
     private LocationManager locManager;
-    private XunjianFragment mContext;
+    private View view;
+
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
+        // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ex);
+    }
+
+
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        view = inflater.inflate(R.layout.activity_ex, null);
+
 
         //加水印
 //        WatermarkUtil.getInstance().show(this, FoxContext.getInstance().getLoginId()+"\n"+FoxContext.getInstance().getName());
@@ -194,10 +213,11 @@ public class ExListViewActivity extends BaseActivity implements View.OnClickList
 
         //BDAbstractLocationListener为7.2版本新增的Abstract类型的监听接口
         //原有BDLocationListener接口暂时同步保留。具体介绍请参考后文中的说明
-        mLocationClient = new LocationClient(getApplicationContext());
+        mLocationClient = new LocationClient(getActivity().getApplicationContext());
+
         //声明LocationClient类
         mLocationClient.registerLocationListener(myListener);
-        locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        locManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
 
         //注册监听函数
 //        lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -207,7 +227,7 @@ public class ExListViewActivity extends BaseActivity implements View.OnClickList
 
             //判断GPS是否正常启动
             if (!locManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-                Toast.makeText(this, "请开启GPS导航...", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "请开启GPS导航...", Toast.LENGTH_SHORT).show();
                 //返回开启GPS导航设置界面
                 Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                 startActivityForResult(intent, 0);
@@ -220,16 +240,17 @@ public class ExListViewActivity extends BaseActivity implements View.OnClickList
         }
 
 
-        tvTitle = findViewById(R.id.tv_title);
-        btnBack = findViewById(R.id.btn_title_left);
+        tvTitle = view.findViewById(R.id.tv_title);
+        btnBack = view.findViewById(R.id.btn_title_left);
 
         tvTitle.setText("安全巡檢");
         btnBack.setText("退出登錄");
         btnBack.setOnClickListener(this);
 
-        expandableListView = (ExpandableListView) findViewById(R.id.expandableList);
+        expandableListView = (ExpandableListView) view.findViewById(R.id.expandableList);
 
         setExListView();
+        return view;
     }
 
 
@@ -283,7 +304,7 @@ public class ExListViewActivity extends BaseActivity implements View.OnClickList
         }
 
         // 创建适配器
-        MyExpandableListViewAdapter adapter = new MyExpandableListViewAdapter(mContext,
+        MyExpandableListViewAdapter adapter = new MyExpandableListViewAdapter(this,
                 groupList, itemList, itemTypeList, rolesList, itemImgList);
         expandableListView.setAdapter(adapter);
         // 隐藏分组指示器
@@ -351,7 +372,7 @@ public class ExListViewActivity extends BaseActivity implements View.OnClickList
 
 
             if (!timeRight) {
-                ToastUtils.showLong(ExListViewActivity.this, "巡檢時間：8:30-16:00");
+                ToastUtils.showLong(getActivity(), "巡檢時間：8:30-16:00");
                 return;
             }
         }
@@ -387,7 +408,7 @@ public class ExListViewActivity extends BaseActivity implements View.OnClickList
 //
                                 mHandler.sendEmptyMessage(0);
                             } else {
-                                Intent intent = new Intent(getApplication(), RouteListActivity.class);
+                                Intent intent = new Intent(getActivity(), RouteListActivity.class);
                                 intent.putExtra("routeList", (Serializable) routeMessageList);
                                 intent.putExtra("Dflag", "");//用於判定是否為宿舍巡檢,以方便按樓棟傳值,其他地方值為空
                                 startActivity(intent);
@@ -434,7 +455,7 @@ public class ExListViewActivity extends BaseActivity implements View.OnClickList
                 String response = result;
 
                 if (result != null) {
-                    Intent intent = new Intent(ExListViewActivity.this, CarListActivity.class);
+                    Intent intent = new Intent(getActivity(), CarListActivity.class);
                     Log.e("---------", "result==fff===" + response);
                     JsonObject jsonObject = new JsonParser().parse(response).getAsJsonObject();
                     String errCode = jsonObject.get("errCode").getAsString();
@@ -477,7 +498,7 @@ public class ExListViewActivity extends BaseActivity implements View.OnClickList
      */
     public void getReturnLog() {
         if (FoxContext.getInstance().getLoginId().equals("")) {
-            ToastUtils.showShort(this, "登錄超時,請重新登陸");
+            ToastUtils.showShort(getActivity(), "登錄超時,請重新登陸");
         }
         showDialog();
         url = Constants.HTTP_CAR_LOG_RETURN + "?car_driver_id=" + FoxContext.getInstance().getLoginId();
@@ -492,7 +513,7 @@ public class ExListViewActivity extends BaseActivity implements View.OnClickList
 
                 if (result != null) {
 
-                    Intent intent = new Intent(ExListViewActivity.this, CarLogDayActivity.class);
+                    Intent intent = new Intent(getActivity(), CarLogDayActivity.class);
                     Log.e("---------", "result==fff===" + response);
                     JsonObject jsonObject = new JsonParser().parse(response).getAsJsonObject();
                     String errCode = jsonObject.get("errCode").getAsString();
@@ -560,7 +581,7 @@ public class ExListViewActivity extends BaseActivity implements View.OnClickList
                             dimemsionMenuList.add(humi);
                         }
 
-                        Intent intent = new Intent(ExListViewActivity.this, DimemsionMenuActivity.class);
+                        Intent intent = new Intent(getActivity(), DimemsionMenuActivity.class);
                         intent.putExtra("position", "");
                         intent.putExtra("title", "餐飲巡檢");
                         intent.putExtra("type", "BP");
@@ -612,7 +633,7 @@ public class ExListViewActivity extends BaseActivity implements View.OnClickList
                             eventMessageList.add(humi);
                         }
 //                        getVersionCode = Integer.parseInt(eventMessageList.get(0).getId());
-                        Intent intent = new Intent(ExListViewActivity.this, EventListActivity.class);
+                        Intent intent = new Intent(getActivity(), EventListActivity.class);
                         intent.putExtra("type", "X0");
                         intent.putExtra("eventList", (Serializable) eventMessageList);
                         startActivity(intent);
@@ -624,7 +645,7 @@ public class ExListViewActivity extends BaseActivity implements View.OnClickList
                         message.what = MESSAGE_TOAST;
                         message.obj = jsonObject.get("errMessage").getAsString();
                         mHandler.sendMessage(message);
-                        Intent intent = new Intent(ExListViewActivity.this, EventListActivity.class);
+                        Intent intent = new Intent(getActivity(), EventListActivity.class);
                         intent.putExtra("type", "X0");
                         intent.putExtra("eventList", (Serializable) null);
                         startActivity(intent);
@@ -647,14 +668,14 @@ public class ExListViewActivity extends BaseActivity implements View.OnClickList
             switch (msg.what) {
                 case MESSAGE_TOAST://Toast彈出
                     if (msg.obj.equals("失敗")) {
-                        ToastUtils.showShort(ExListViewActivity.this, "沒有巡檢數據!");
+                        ToastUtils.showShort(getActivity(), "沒有巡檢數據!");
                     } else {
-                        ToastUtils.showShort(ExListViewActivity.this, msg.obj.toString());
+                        ToastUtils.showShort(getActivity(), msg.obj.toString());
                     }
                     break;
                 case MESSAGE_GPS:
 
-                    ToastUtils.showShort(ExListViewActivity.this, "请开启GPS导航...");
+                    ToastUtils.showShort(getActivity(), "请开启GPS导航...");
                     break;
             }
             super.handleMessage(msg);
@@ -802,7 +823,7 @@ public class ExListViewActivity extends BaseActivity implements View.OnClickList
      * Stop location service
      */
     @Override
-    protected void onStop() {
+    public void onStop() {
         // TODO Auto-generated method stub
 //        locationService.unregisterListener(mListener); //注销掉监听
 //        locationService.stop(); //停止定位服务
@@ -811,15 +832,15 @@ public class ExListViewActivity extends BaseActivity implements View.OnClickList
     }
 
     @Override
-    protected void onStart() {
+    public void onStart() {
         // TODO Auto-generated method stub
         super.onStart();
         // -----------location config ------------
-        locationService = ((FoxApplication) getApplication()).locationService;
+        locationService = ((FoxApplication) getActivity().getApplication()).locationService;
         //获取locationservice实例，建议应用中只初始化1个location实例，然后使用，可以参考其他示例的activity，都是通过此种方式获取locationservice实例的
         locationService.registerListener(mListener);
         //注册监听
-        int type = getIntent().getIntExtra("from", 0);
+        int type = getActivity().getIntent().getIntExtra("from", 0);
         if (type == 0) {
             locationService.setLocationOption(locationService.getDefaultLocationClientOption());
         } else if (type == 1) {
@@ -871,33 +892,38 @@ public class ExListViewActivity extends BaseActivity implements View.OnClickList
 
 
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
         setExListView();
         Log.e("-----onResume", "MainActivityGaoonResume");
     }
 
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-//        init();
-        locationService.start();// 定位SDK
-        Log.e("-----onRestart", "MainActivityGaoonRestart");
-    }
 
     @Override
-    protected void onDestroy() {
+    public void onDestroy() {
         super.onDestroy();
 //        destroyLocation();
         locationService.stop();// 定位SDK
         Log.e("---------", "onDestroy");
     }
+    public void showDialog() {
+        DialogFragment dialog =(DialogFragment) getActivity().getSupportFragmentManager().findFragmentByTag("loading_dialog");
+        if (dialog == null) {
+            LoadingDialogFragment.newInstance(false,"加載中......").show(getActivity().getSupportFragmentManager(), "loading_dialog");
+        }
+    }
 
+    public void dismissDialog() {
+        DialogFragment dialog = (DialogFragment) getActivity().getSupportFragmentManager().findFragmentByTag("loading_dialog");
+        if (dialog != null) {
+            dialog.dismiss();
+        }
+    }
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_title_left:
-                finish();
+                getActivity().finish();
                 break;
         }
     }

@@ -22,7 +22,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * 跳轉網頁 碼頭 或 協管開單
+ * 跳轉網頁 碼頭 或 協管開單 或巡檢報表
  * Created by song on 2017/10/27.
  */
 
@@ -54,6 +54,8 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
 
         if (role.equals("F0")) {
             tvTitle.setText("碼頭出貨信息表");
+        }else if (role.equals("FX")) {
+            tvTitle.setText("鋰電池報表");
         }else{
             tvTitle.setText("跨區申請單");
         }
@@ -76,12 +78,16 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
         mWebSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
 
         mWebSettings.setSupportZoom(true);//设定支持缩放
-        if (role.equals("F0")) {
+
+        if (FoxContext.getInstance().getLoginId().equals("")) {
+            ToastUtils.showShort(this, "登錄超時,請重新登陸");
+        }
+        if (role.equals("F0")) {//碼頭出貨信息表
             mWebview.loadUrl("http://60.212.41.39/forward/matou/mt.jsp");
-        }else{
-            if (FoxContext.getInstance().getLoginId().equals("")) {
-                ToastUtils.showShort(this, "登錄超時,請重新登陸");
-            }
+        }else if (role.equals("FX")) {//鋰電池報表
+            //Todo
+            mWebview.loadUrl("http://60.212.41.39/forward/matou/mt.jsp");
+        }else{//跨區申請單
             mWebview.loadUrl("http://60.212.41.39/exportio/people/info_view.jsp?login_code="+ FoxContext.getInstance().getLoginId());
         }
 
