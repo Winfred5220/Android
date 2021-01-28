@@ -355,10 +355,10 @@ public class MyExpandableListViewAdapter extends BaseExpandableListAdapter {
                 mContext.startActivity(intent);
             }
 
-            @Override//總務餐飲
-            public void OnClickFood(int position) {
-                mContext.getDormitory("BP");
-            }
+//            @Override//總務餐飲 註釋；；；2021-1-24 BP餐飲巡檢已取消，總務朱富文
+//            public void OnClickFood(int position) {
+//                mContext.getDormitory("BP");
+//            }
 
             @Override//活動列表
             public void OnClickEventList(int position) {
