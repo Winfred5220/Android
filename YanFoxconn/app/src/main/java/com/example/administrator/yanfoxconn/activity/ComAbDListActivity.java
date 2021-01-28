@@ -125,7 +125,8 @@ public class ComAbDListActivity extends BaseActivity implements View.OnClickList
                 Intent intent = new Intent(ComAbDListActivity.this, ComAbAbnormalListActivity.class);
                 intent.putExtra("dimId",routeMessageList.get(position).getDim_id());
                 intent.putExtra("dName",routeMessageList.get(position).getDim_locale());
-                intent.putExtra("scId","");
+                intent.putExtra("scId",routeMessageList.get(position).getSc_id());
+                intent.putExtra("isDate",true);//顯示日期前後天按鈕
                 intent.putExtra("creater","");
                 startActivity(intent);
                 break;

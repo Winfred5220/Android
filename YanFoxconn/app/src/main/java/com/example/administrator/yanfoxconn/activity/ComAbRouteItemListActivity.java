@@ -126,6 +126,7 @@ public class ComAbRouteItemListActivity extends BaseActivity implements View.OnC
                 intent.putExtra("dName",comScanViewMessages.get(position).getDim_locale());
                 intent.putExtra("scId",comScanViewMessages.get(position).getSc_id());
                 intent.putExtra("creater",comScanViewMessages.get(position).getSc_creator_id());
+                    intent.putExtra("isDate",false);//顯示日期前後天按鈕
                 startActivity(intent);}
                 break;
         }
