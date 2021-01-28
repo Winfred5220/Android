@@ -25,7 +25,6 @@
                 android:textSize="14dp" />
             <TextView
                 android:id="@+id/tv_code"
-                android:gravity="center"
                 android:text="工號"
                 android:textSize="14dp"
                 android:textColor="@color/color_303030"
@@ -53,7 +52,7 @@
 
             <TextView
                 android:id="@+id/tv_count"
-                android:gravity="center"
+
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"

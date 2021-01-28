@@ -469,10 +469,10 @@ private int progress=0;//施工進度
 
         Log.e("-----object------", object.toString());
 
-if (imagePaths == null && imagePaths.size() == 0){
-    ToastUtils.showShort(this, "請上傳現場圖片");
-    return;
-}
+        if (imagePaths == null || imagePaths.size() == 0){
+            ToastUtils.showShort(this, "請上傳現場圖片");
+            return;
+        }
         if (key1 > 0) {
             ToastUtils.showShort(this, "請填寫異常信息");
             key1 = 0;
