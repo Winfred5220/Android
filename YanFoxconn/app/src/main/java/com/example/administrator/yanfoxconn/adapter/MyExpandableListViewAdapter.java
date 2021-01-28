@@ -298,7 +298,7 @@ public class MyExpandableListViewAdapter extends BaseExpandableListAdapter {
                 mContext.getActivity().startActivity(intent);
             }
 
-            @Override
+            @Override//產品處======
             public void OnClickVIP() {
                 Intent intent = new Intent(mContext.getActivity(), ProductDivisionActivity.class);
                 intent.putExtra("title", "VIP安全部");
@@ -343,8 +343,14 @@ public class MyExpandableListViewAdapter extends BaseExpandableListAdapter {
                 intent.putExtra("type", "HEC");
                 mContext.getActivity().startActivity(intent);
             }
-
-            @Override
+            @Override//模具
+            public void OnClickMUJ() {
+                Intent intent = new Intent(mContext.getActivity(), ProductDivisionActivity.class);
+                intent.putExtra("title", "模具加工");
+                intent.putExtra("type", "MUJ");
+                mContext.getActivity().startActivity(intent);
+            }
+            @Override//產品處======
             public void OnClickMDI() {
                 Intent intent = new Intent(mContext.getActivity(), ProductDivisionActivity.class);
                 intent.putExtra("title", "MDI安全部");

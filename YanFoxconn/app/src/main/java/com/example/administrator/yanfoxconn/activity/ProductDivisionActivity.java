@@ -43,18 +43,22 @@ public class ProductDivisionActivity extends BaseActivity implements View.OnClic
     private List<RouteMessage> routeMessageList;//巡檢點信息列表
 
     public String[][] proName = {
-            {"車間巡檢", "天台巡檢","安全出口巡檢","成型巡檢","沖壓消殺", "成型消殺","組裝消殺","SMT消殺","塗裝消殺"},//NME
+            {"車間巡檢", "天台巡檢","安全出口巡檢","成型巡檢","沖壓消殺", "成型消殺","組裝消殺","SMT消殺",
+                    "塗裝消殺"},//NME
             {"VIP巡檢"},//VIP
-            {"製二安環&值星", "製二層主","PME製一(E區)E化系統-日","PME製一(E區)E化系統-週","製一(八角)巡檢","制二兼職安全員","製二棟主(企業負責人)"},//PME
+            {"製二安環&值星", "製二層主","PME製一(E區)E化系統-日","PME製一(E區)E化系統-週","製一(八角)巡檢",
+                    "制二兼職安全員","製二棟主(企業負責人)"},//PME
             {"EBL巡檢","TV製造巡檢"},//EBL
             {"PWB巡檢"},//PWB
             {"HEC消殺巡檢"},//HEC
             {"MDI巡檢"},//MDI
             {"A區生活區", "A區廠區", "C區", "E區", "八角", "宿舍区A/E"},//總務消殺巡檢
             { "A區", "C區", "D區", "G區", "E區","A區生活區","E區生活區"},//工安巡檢
-            { "電源供應器","靜電試驗機","插拔試驗機","冷熱衝擊柜","恆溫恆濕柜","推拉力試驗機","高空試驗機","高溫台車","電源模擬器","衝擊試驗機","靜電放電模擬器"},//品質保證處QA
+            { "電源供應器","靜電試驗機","插拔試驗機","冷熱衝擊柜","恆溫恆濕柜","推拉力試驗機","高空試驗機",
+                    "高溫台車","電源模擬器","衝擊試驗機","靜電放電模擬器"},//品質保證處QA
             { "X光檢測機", "研磨機", "電特性檢測設備", "溫度測定儀","電子顯微鏡"},//品質保證處SMT
-            { "光譜儀", "卡尺校正儀", "多功能校準器", "三次元","臺式色差儀器","數字萬用表"}//品質保證處ME
+            { "光譜儀", "卡尺校正儀", "多功能校準器", "三次元","臺式色差儀器","數字萬用表"},//品質保證處ME
+            { "放電加工機", "線割加工機"}//模具
     };
     public String[][] proRole = {
             {"U0", "BD","BE","CH","CZ","DU","DV","DW","DX"},//NME
@@ -68,21 +72,32 @@ public class ProductDivisionActivity extends BaseActivity implements View.OnClic
             {"DG","DH","DI","DJ","DK","DL","DM"},//工安巡檢
             {"EE","EF","EM","EP","EQ","ER","ES","ET","EY","FC","FD"},//品質保證處QA
             {"EG","EJ","EL","EW","EX"},//品質保證處SMT
-            {"EH","EK","EN","EU","FA","FB"}//品質保證處ME
+            {"EH","EK","EN","EU","FA","FB"},//品質保證處ME
+            {"GY","GZ"}//模具
     };
     public int[][] proIcon = {
-            {R.mipmap.icon_chejian, R.mipmap.icon_tiantai, R.mipmap.icon_anquanchu, R.mipmap.icon_pmezhiyi,R.mipmap.icon_nmexiaosha, R.mipmap.icon_nmexiaosha, R.mipmap.icon_nmexiaosha, R.mipmap.icon_nmexiaosha,R.mipmap.icon_nmexiaosha},//NME
+            {R.mipmap.icon_chejian, R.mipmap.icon_tiantai, R.mipmap.icon_anquanchu,
+                    R.mipmap.icon_pmezhiyi,R.mipmap.icon_nmexiaosha, R.mipmap.icon_nmexiaosha,
+                    R.mipmap.icon_nmexiaosha, R.mipmap.icon_nmexiaosha,R.mipmap.icon_nmexiaosha},//NME
             {R.mipmap.icon_vip_safe},//VIP
-            {R.mipmap.icon_pme_safe, R.mipmap.icon_pmecengzhu, R.mipmap.icon_pmezhiyi, R.mipmap.icon_pmezhiyi, R.mipmap.icon_anquanchu, R.mipmap.icon_jianzhi, R.mipmap.icon_pme_2},//PME
+            {R.mipmap.icon_pme_safe, R.mipmap.icon_pmecengzhu, R.mipmap.icon_pmezhiyi,
+                    R.mipmap.icon_pmezhiyi, R.mipmap.icon_anquanchu, R.mipmap.icon_jianzhi,
+                    R.mipmap.icon_pme_2},//PME
             {R.mipmap.icon_ebl_safe,R.mipmap.icon_ebl_tv},//EBL
             {R.mipmap.icon_pwb},//PWB
             {R.mipmap.icon_nmexiaosha},//HEC
             {R.mipmap.icon_nmexiaosha},//MDI
-            {R.mipmap.icon_a,R.mipmap.icon_b,R.mipmap.icon_c,R.mipmap.icon_e,R.mipmap.icon_d,R.mipmap.icon_df},//總務消殺巡檢
-            {R.mipmap.icon_a,R.mipmap.icon_b,R.mipmap.icon_c,R.mipmap.icon_e,R.mipmap.icon_d,R.mipmap.icon_df,R.mipmap.icon_e},//工安巡檢
-            {R.mipmap.icon_a,R.mipmap.icon_b,R.mipmap.icon_c,R.mipmap.icon_e,R.mipmap.icon_d,R.mipmap.icon_df,R.mipmap.icon_e,R.mipmap.icon_e,R.mipmap.icon_e,R.mipmap.icon_e,R.mipmap.icon_e},//品質保證處QA
+            {R.mipmap.icon_a,R.mipmap.icon_b,R.mipmap.icon_c,R.mipmap.icon_e,R.mipmap.icon_d,
+                    R.mipmap.icon_df},//總務消殺巡檢
+            {R.mipmap.icon_a,R.mipmap.icon_b,R.mipmap.icon_c,R.mipmap.icon_e,R.mipmap.icon_d,
+                    R.mipmap.icon_df,R.mipmap.icon_e},//工安巡檢
+            {R.mipmap.icon_a,R.mipmap.icon_b,R.mipmap.icon_c,R.mipmap.icon_e,R.mipmap.icon_d,
+                    R.mipmap.icon_df,R.mipmap.icon_e,R.mipmap.icon_e,R.mipmap.icon_e,R.mipmap.icon_e,
+                    R.mipmap.icon_e},//品質保證處QA
             {R.mipmap.icon_a,R.mipmap.icon_b,R.mipmap.icon_c,R.mipmap.icon_e,R.mipmap.icon_d},//品質保證處SMT
-            {R.mipmap.icon_a,R.mipmap.icon_b,R.mipmap.icon_c,R.mipmap.icon_e,R.mipmap.icon_d,R.mipmap.icon_df}//品質保證處ME
+            {R.mipmap.icon_a,R.mipmap.icon_b,R.mipmap.icon_c,R.mipmap.icon_e,R.mipmap.icon_d,
+                    R.mipmap.icon_df},//品質保證處ME
+            {R.mipmap.icon_a,R.mipmap.icon_b}//模具
     };
 
     private List<ProductDivisionMessage> mProductDivisionMessagelist;
@@ -135,7 +150,7 @@ public class ProductDivisionActivity extends BaseActivity implements View.OnClic
                     Intent intent = new Intent(ProductDivisionActivity.this, QrCodeActivity.class);
                     intent.putExtra("title", "掃描二維碼");
                     intent.putExtra("num", "cz");
-                    startActivity(intent);
+                    startActivity(intent);//點位巡檢
                 }else if(FoxContext.getInstance().getRoles().contains(role)&&(role.equals("EE")||role.equals("EF")
                         ||role.equals("EG")||role.equals("EH")||role.equals("EJ")||role.equals("EK")||role.equals("EL")
                         ||role.equals("EN")||role.equals("EP")||role.equals("EQ")||role.equals("ER")||role.equals("ES")
@@ -145,7 +160,13 @@ public class ProductDivisionActivity extends BaseActivity implements View.OnClic
                     intent.putExtra("title", "品質保證處");
                     intent.putExtra("type", role);
                     intent.putExtra("name", mProductDivisionMessagelist.get(i).getName());
-                    startActivity(intent);
+                    startActivity(intent);//品質保證處設備巡檢
+                }else if(FoxContext.getInstance().getRoles().contains(role)&&(role.equals("GY")||role.equals("GZ"))){
+                    Intent intent = new Intent(ProductDivisionActivity.this, ZhiyinshuiMenuActivity.class);
+                    intent.putExtra("title", "模具加工");
+                    intent.putExtra("type", role);
+                    intent.putExtra("name", mProductDivisionMessagelist.get(i).getName());
+                    startActivity(intent);//模具加工設備巡檢
                 }else if(FoxContext.getInstance().getRoles().contains(mProductDivisionMessagelist.get(i).getRole())){
                     getRouteList(mProductDivisionMessagelist.get(i).getRole());
                 }else{
@@ -254,6 +275,14 @@ public class ProductDivisionActivity extends BaseActivity implements View.OnClic
                 proNameList.add(proName[11][i]);
                 proRoleList.add(proRole[11][i]);
                 proIconList.add(proIcon[11][i]);
+                ProductDivisionMessage productDivisionMessage = new ProductDivisionMessage(proNameList.get(i),proRoleList.get(i),proIconList.get(i));
+                mProductDivisionMessagelist.add(productDivisionMessage);
+            }
+        }else if (type.equals("MUJ")){
+            for (int i = 0; i < proName[12].length; i++) {
+                proNameList.add(proName[12][i]);
+                proRoleList.add(proRole[12][i]);
+                proIconList.add(proIcon[12][i]);
                 ProductDivisionMessage productDivisionMessage = new ProductDivisionMessage(proNameList.get(i),proRoleList.get(i),proIconList.get(i));
                 mProductDivisionMessagelist.add(productDivisionMessage);
             }
