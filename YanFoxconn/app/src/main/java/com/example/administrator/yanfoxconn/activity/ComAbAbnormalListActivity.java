@@ -64,6 +64,7 @@ public class ComAbAbnormalListActivity extends BaseActivity implements View.OnCl
     private String dimId;
     private String type;
     private String scId;
+    private boolean isDate=false;//判斷是否顯示 上一天下一天按鈕
     private String creater="";//點檢人工號,用於查看詳情時,是否顯示刪除
     private List<AbnormalMessage> abnormalList;
     private AbnormalListAdapter abnormalListAdapter;
@@ -103,7 +104,8 @@ public class ComAbAbnormalListActivity extends BaseActivity implements View.OnCl
         type = FoxContext.getInstance().getType();
         creater = getIntent().getStringExtra("creater");
         scId = getIntent().getStringExtra("scId");
-        if (!scId.equals("")){
+        isDate = getIntent().getBooleanExtra("isDate",false);
+        if (!isDate){
             btnBefore.setVisibility(View.GONE);
                     btnAfter.setVisibility(View.GONE);
         }

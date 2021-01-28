@@ -531,6 +531,7 @@ public class ExListViewActivity extends BaseActivity implements View.OnClickList
 
     /**
      * 獲取餐飲列表
+     * 註釋；；；2021-1-24 BP餐飲巡檢已取消，總務朱富文
      */
     public void getDormitory(String type) {
         showDialog();

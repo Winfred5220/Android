@@ -87,8 +87,6 @@ public class MyGridViewAdapter extends BaseAdapter {
                     tvGridView.setTag("v");
                 } else if (rolesList.get(i).equals("BG")) {//宿舍
                     tvGridView.setTag("bg");
-                } else if (rolesList.get(i).equals("BP")) {//餐飲
-                    tvGridView.setTag("bp");
                 } else if (rolesList.get(i).equals("BK")) {//人工跨區無紙化
                     tvGridView.setTag("bk");
                 } else if (rolesList.get(i).equals("X0")) {//活動列表
@@ -249,8 +247,6 @@ public class MyGridViewAdapter extends BaseAdapter {
                     onClickListener.OnClickOutKeep(position);
                 } else if (view.getTag().equals("bg")) {//宿舍巡檢
                     onClickListener.OnClickDormitory(position);
-                } else if (view.getTag().equals("bp")) {//餐飲巡檢
-                    onClickListener.OnClickFood(position);
                 } else if (view.getTag().equals("bk")) {//人工跨區無紙化
                     onClickListener.OnClickCrossScan(position);
                 } else if (view.getTag().equals("x")) {//活動列表
@@ -400,7 +396,6 @@ public class MyGridViewAdapter extends BaseAdapter {
         void OnClickOutKeep(int position);
         void OnClickCrossScan(int position);//人工跨區無紙化
         void OnClickDormitory(int position);//宿舍巡檢
-        void OnClickFood(int position);//總務餐飲
         void OnClickEventList(int position);//活動列表
         void OnClickEventCheckIn(int position);//活動簽到
         void OnClickComForms(int position);//常用表單
