@@ -621,10 +621,9 @@ public class MyExpandableListViewAdapter extends BaseExpandableListAdapter {
             @Override
             public void OnClickFX() {//工業安全-鋰電池防火
                 FoxContext.getInstance().setType("FX");
-                Intent intent = new Intent(mContext.getActivity(), QrCodeActivity.class);
-                intent.putExtra("title", "掃描二維碼");
-                intent.putExtra("num", "cz");
-                mContext.getActivity().startActivity(intent);
+                Intent intent2 = new Intent(mContext.getActivity(), GCMainActivity.class);
+                intent2.putExtra("type", "FX");
+                mContext.getActivity().startActivity(intent2);
             }
 
             @Override

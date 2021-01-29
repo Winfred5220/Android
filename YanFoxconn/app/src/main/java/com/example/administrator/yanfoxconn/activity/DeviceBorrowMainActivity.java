@@ -352,7 +352,7 @@ public class DeviceBorrowMainActivity extends BaseActivity implements View.OnCli
 //                调用压缩图片的方法，返回压缩后的图片path
                 final String compressImage = ImageZipUtils.compressImage(pic_path, _path, 50);
                 String picBase64Code = ImageZipUtils.imageToBase64(compressImage);
-                Log.e("-------picBase64Code-------", "===="+ picBase64Code);
+                Log.e("---picBase64Code---", "===="+ picBase64Code);
                 object.addProperty("photo", picBase64Code);
             }else {
                 object.addProperty("photo", "");

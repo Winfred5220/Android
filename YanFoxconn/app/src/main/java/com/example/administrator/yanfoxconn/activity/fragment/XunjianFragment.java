@@ -91,10 +91,12 @@ public class XunjianFragment extends Fragment implements View.OnClickListener{
 //    private LocationManager lm;
 //    private AMapLocationClient locationClient = null;
 
-    public String[] group = {"物流防疫", "安全保障服務部", "工業安全部", "總務", "營建", "產品處", "碼頭物流", "車輛服務", "海關協管", "人力資源部","華北商務","品質保證處","南寧廠區"}; //"NME安全部", "VIP安全部", "PME安全部",
+    public String[] group = {"物流防疫", "安全保障服務部", "工業安全部", "總務", "營建", "產品處", "碼頭物流",
+            "車輛服務", "海關協管", "人力資源部","華北商務","品質保證處","南寧廠區"}; //"NME安全部", "VIP安全部", "PME安全部",
     public String[][] gridViewType = {
             {"CY"},//物流防疫
-            {"A0", "T0", "H0", "K0", "I0", "L0", "J0", "M0", "R0", "S0", "CD", "CE", "CL", "CR", "CU", "CX","GC"},//安保部
+            {"A0", "T0", "H0", "K0", "I0", "L0", "J0", "M0", "R0", "S0", "CD", "CE", "CL", "CR",
+                    "CU", "CX","GC"},//安保部
             {"CT","FE","FF","FG","FV","FX","FZ","GE","GX"},//工業安全部
             {"BG", "BP", "ZXS", "DN","DQ","DT","FH","GA"},//總務
             {"N0", "O0", "P0", "Q0", "V0","DR","FS","FW","GD","GCGL"},//營建 GCGL工程管理，開放權限，掃碼後會根據登錄帳號權限進行判斷
@@ -110,8 +112,11 @@ public class XunjianFragment extends Fragment implements View.OnClickListener{
     };
     public String[][] gridViewChild = {
             {"消殺點檢"},//物流防疫
-            {"安保部值星", "春安值星", "一大隊固定崗", "一大隊巡邏崗", "二大隊固定崗", "二大隊巡邏崗", "三大隊固定崗", "三大隊巡邏崗", "機動隊巡邏崗", "機動隊固定崗", "常用表單", "物品放行", "移動設備管控", "廢料出廠", "值班課長", "三防隱患通報","異常處置區"},//安全保障服務部
-            {"消防巡檢","洗眼器點檢","危化品暫存柜","危化品暫存倉","吸煙區","鋰電池防火","有限空間","室外堆場","設備借用"},//工業安全部
+            {"安保部值星", "春安值星", "一大隊固定崗", "一大隊巡邏崗", "二大隊固定崗", "二大隊巡邏崗",
+                    "三大隊固定崗", "三大隊巡邏崗", "機動隊巡邏崗", "機動隊固定崗", "常用表單", "物品放行",
+                    "移動設備管控", "廢料出廠", "值班課長", "三防隱患通報","異常處置區"},//安全保障服務部
+            {"消防巡檢","洗眼器點檢","危化品暫存柜","危化品暫存倉","吸煙區","鋰電池防火","有限空間","室外堆場",
+                    "設備借用"},//工業安全部
             {"宿舍巡檢", "餐飲巡檢", "消殺巡檢", "宿舍查驗","直飲水","生活垃圾清運","餐廳巡檢","臨時工簽到"},//總務
             {"A區巡檢", "E區巡檢", "C區巡檢", "D/G區巡檢", "維保巡檢","工程項目點檢","空調防疫點檢","配電箱點檢","路燈射燈點檢","工程管理"},//營建
             {"NME", "VIP", "PME", "EBL", "PWB","HEC","MDI","模具加工"},//產品處
@@ -238,7 +243,6 @@ public class XunjianFragment extends Fragment implements View.OnClickListener{
 //            initLocation();
 //            startLocation();
         }
-
 
         tvTitle = view.findViewById(R.id.tv_title);
         btnBack = view.findViewById(R.id.btn_title_left);
