@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--無法點檢上傳原因界面-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <!--標題-->
+    <include layout="@layout/common_title" />
+
+    <TableLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <!--地點-->
+        <TableRow style="@style/retreattableRow">
+
+            <TextView
+                style="@style/retreatTextName"
+                android:text="地點"/>
+            <Spinner
+                android:id="@+id/sp_position"
+                android:layout_weight="5.2"
+                style="@style/spinner">
+            </Spinner>
+        </TableRow>
+        <!--原因-->
+        <TableRow style="@style/retreattableRow"
+            android:layout_marginTop="@dimen/dimen_8">
+
+            <TextView
+                android:layout_gravity="top"
+                style="@style/retreatTextName"
+                android:text="原因"/>
+            <EditText
+
+                android:id="@+id/et_describe"
+                style="@style/carEditTextBKG"
+                android:layout_weight="5.2"
+                android:maxLength="25" />
+        </TableRow>
+
+    </TableLayout>
+    <RelativeLayout
+        android:layout_marginTop="@dimen/dimen_8"
+        android:layout_width="match_parent"
+        android:layout_height="280dp">
+        <GridView
+            android:id="@+id/gv_photo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/dimen_10"
+            android:layout_marginTop="@dimen/dimen_10"
+            android:layout_marginRight="@dimen/dimen_10"
+            android:horizontalSpacing="@dimen/dimen_2"
+            android:numColumns="4"
+            android:scrollbars="none"
+            android:verticalSpacing="@dimen/dimen_2" />
+
+        <!--空白圖片佔位-->
+        <ImageView
+            android:id="@+id/iv_empty"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_alignLeft="@+id/gv_photo"
+            android:layout_alignTop="@+id/gv_photo"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/icon_addpic_unfocused" />
+
+    </RelativeLayout>
+    <Button
+        android:id="@+id/btn_confirm"
+        android:layout_marginTop="@dimen/dimen_50"
+        android:layout_marginRight="@dimen/dimen_8"
+        android:layout_marginLeft="@dimen/dimen_8"
+        android:background="@color/color_74afdb"
+        android:layout_gravity="center"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_16"
+        android:text="提  交"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>

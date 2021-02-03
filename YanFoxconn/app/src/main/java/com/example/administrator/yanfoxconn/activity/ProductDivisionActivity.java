@@ -58,7 +58,7 @@ public class ProductDivisionActivity extends BaseActivity implements View.OnClic
                     "高溫台車","電源模擬器","衝擊試驗機","靜電放電模擬器"},//品質保證處QA
             { "X光檢測機", "研磨機", "電特性檢測設備", "溫度測定儀","電子顯微鏡"},//品質保證處SMT
             { "光譜儀", "卡尺校正儀", "多功能校準器", "三次元","臺式色差儀器","數字萬用表"},//品質保證處ME
-            { "放電加工機", "線割加工機"}//模具
+            { "放電加工機", "線割加工機", "工安巡檢"}//模具
     };
     public String[][] proRole = {
             {"U0", "BD","BE","CH","CZ","DU","DV","DW","DX"},//NME
@@ -73,7 +73,7 @@ public class ProductDivisionActivity extends BaseActivity implements View.OnClic
             {"EE","EF","EM","EP","EQ","ER","ES","ET","EY","FC","FD"},//品質保證處QA
             {"EG","EJ","EL","EW","EX"},//品質保證處SMT
             {"EH","EK","EN","EU","FA","FB"},//品質保證處ME
-            {"GY","GZ"}//模具
+            {"GY","GZ","HG"}//模具
     };
     public int[][] proIcon = {
             {R.mipmap.icon_chejian, R.mipmap.icon_tiantai, R.mipmap.icon_anquanchu,
@@ -97,7 +97,7 @@ public class ProductDivisionActivity extends BaseActivity implements View.OnClic
             {R.mipmap.icon_a,R.mipmap.icon_b,R.mipmap.icon_c,R.mipmap.icon_e,R.mipmap.icon_d},//品質保證處SMT
             {R.mipmap.icon_a,R.mipmap.icon_b,R.mipmap.icon_c,R.mipmap.icon_e,R.mipmap.icon_d,
                     R.mipmap.icon_df},//品質保證處ME
-            {R.mipmap.icon_a,R.mipmap.icon_b}//模具
+            {R.mipmap.icon_a,R.mipmap.icon_b,R.mipmap.icon_c}//模具
     };
 
     private List<ProductDivisionMessage> mProductDivisionMessagelist;
@@ -145,7 +145,8 @@ public class ProductDivisionActivity extends BaseActivity implements View.OnClic
                     intent.putExtra("type", "BU");
                     startActivity(intent);
                 }else if(FoxContext.getInstance().getRoles().contains(role)&&(role.equals("CZ")||role.equals("DU")||role.equals("DV")
-                        ||role.equals("DW")||role.equals("DX")||role.equals("EB")||role.equals("DY")||role.equals("GP")||role.equals("GO"))){
+                        ||role.equals("DW")||role.equals("DX")||role.equals("EB")||role.equals("DY")||role.equals("GP")||role.equals("GO")
+                        ||role.equals("HG"))){
                     FoxContext.getInstance().setType(role);
                     Intent intent = new Intent(ProductDivisionActivity.this, QrCodeActivity.class);
                     intent.putExtra("title", "掃描二維碼");

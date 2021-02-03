@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.administrator.yanfoxconn.R;
+import com.example.administrator.yanfoxconn.constant.Constants;
 import com.example.administrator.yanfoxconn.constant.FoxContext;
 import com.example.administrator.yanfoxconn.utils.BaseActivity;
 import com.example.administrator.yanfoxconn.utils.ToastUtils;
@@ -86,7 +87,9 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
             mWebview.loadUrl("http://60.212.41.39/forward/matou/mt.jsp");
         }else if (role.equals("FX")) {//鋰電池報表
             //Todo
-            mWebview.loadUrl("http://60.212.41.39/forward/matou/mt.jsp");
+            //mWebview.loadUrl("http://60.212.41.39/forward/matou/mt.jsp");
+            mWebview.loadUrl(Constants.SafeServer+"baobiao/SafeCheck_last_week.jsp");
+
         }else{//跨區申請單
             mWebview.loadUrl("http://60.212.41.39/exportio/people/info_view.jsp?login_code="+ FoxContext.getInstance().getLoginId());
         }

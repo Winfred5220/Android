@@ -24,10 +24,8 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
-
 import com.baidu.ocr.sdk.OCR;
 import com.baidu.ocr.sdk.OnResultListener;
 import com.baidu.ocr.sdk.exception.OCRError;
@@ -35,9 +33,6 @@ import com.baidu.ocr.sdk.model.AccessToken;
 import com.baidu.ocr.ui.camera.CameraActivity;
 import com.bumptech.glide.Glide;
 import com.example.administrator.yanfoxconn.R;
-import com.example.administrator.yanfoxconn.adapter.EmpListAdapter;
-import com.example.administrator.yanfoxconn.bean.EmpFile;
-import com.example.administrator.yanfoxconn.bean.EmpMessage;
 import com.example.administrator.yanfoxconn.bean.OCRMessage;
 import com.example.administrator.yanfoxconn.bean.SelectModel;
 import com.example.administrator.yanfoxconn.constant.Constants;
@@ -49,7 +44,6 @@ import com.example.administrator.yanfoxconn.utils.BaseActivity;
 import com.example.administrator.yanfoxconn.utils.DateTimePickDialogUtil;
 import com.example.administrator.yanfoxconn.utils.FileUtil;
 import com.example.administrator.yanfoxconn.utils.HttpConnectionUtil;
-import com.example.administrator.yanfoxconn.utils.HttpUtils;
 import com.example.administrator.yanfoxconn.utils.ImageZipUtils;
 import com.example.administrator.yanfoxconn.utils.RecognizeService;
 import com.example.administrator.yanfoxconn.utils.ToastUtils;
@@ -58,20 +52,14 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import java.io.File;
-import java.net.HttpURLConnection;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -100,8 +88,8 @@ public class CommonFormsPrivateCarActivity extends BaseActivity implements View.
     private ArrayList<String> imagePaths = null;//圖片未壓縮地址
     private ImageCaptureManager captureManager; // 相机拍照处理类
     private List<OCRMessage> messageList;
-    private ArrayList<String> wrongPosition = new ArrayList<String>();//違規地點
-
+    private ArrayList<String> wrongPositionList = new ArrayList<String>();//違規地點
+    private ArrayList<String> wrongReasonList = new ArrayList<String>();//違規原因
     @BindView(R.id.btn_title_left)
     Button btnBack;//返回
     @BindView(R.id.tv_title)
@@ -117,15 +105,17 @@ public class CommonFormsPrivateCarActivity extends BaseActivity implements View.
     TextView tvGateDate;//稽核時間
     @BindView(R.id.sp_position)
     Spinner spPosition;//違規地點
-    @BindView(R.id.et_other)//違規原因
-    EditText etOther;
+    @BindView(R.id.sp_reason)
+    Spinner spReason;//違規原因
+    @BindView(R.id.et_other)
+    EditText etOther;//違規原因
     @BindView(R.id.iv_empty)
     ImageView ivEmpty;//空白图片占位
     @BindView(R.id.gv_photo)
     GridView gridView;//图片显示区域
     private GridAdapter gridAdapter;
     private String wrongPositionSp = "";//違規地點
-
+    private String wrongReasonSp = "";//違規原因
     private String initStartDateTime; // 初始化开始时间
     private SimpleDateFormat formatter;
     private Date selectTime = null;//所選時間
@@ -153,7 +143,7 @@ public class CommonFormsPrivateCarActivity extends BaseActivity implements View.
         //获取当前时间
         initStartDateTime = formatterUse.format(curDate);
         tvGateDate.setText(formatter.format(curDate));
-
+        //選取圖片
         int cols = getResources().getDisplayMetrics().widthPixels / getResources().getDisplayMetrics().densityDpi;
         cols = cols < 4 ? 4 : cols;
         gridView.setNumColumns(cols);
@@ -200,13 +190,20 @@ public class CommonFormsPrivateCarActivity extends BaseActivity implements View.
                         JsonObject jsonObject = new JsonParser().parse(result).getAsJsonObject();
                         String ss = jsonObject.get("data").getAsJsonArray().toString();
                         JSONArray data = new JSONArray(ss);
-                        wrongPosition.clear();
+                        wrongPositionList.clear();
                         for (int i=0;i<data.length();i++){
                             JSONObject object = data.getJSONObject(i);
-                            wrongPosition.add(object.getString("NAME"));
-                            Log.e("NAME",object.getString("NAME"));
+                            wrongPositionList.add(object.getString("NAME"));
+                           // Log.e("NAME",object.getString("NAME"));
                         }
-
+                        String ss2 = jsonObject.get("data2").getAsJsonArray().toString();
+                        JSONArray data2 = new JSONArray(ss2);
+                        wrongReasonList.clear();
+                        for (int i=0;i<data2.length();i++){
+                            JSONObject object = data2.getJSONObject(i);
+                            wrongReasonList.add(object.getString("NAME"));
+                            //Log.e("NAME",object.getString("NAME"));
+                        }
                         Message message = new Message();
                         message.what = MESSAGE_SET_TEXT;
                         mHandler.sendMessage(message);
@@ -224,88 +221,38 @@ public class CommonFormsPrivateCarActivity extends BaseActivity implements View.
 
     }
 
+    private void setText() {
 
-    private void loadAdpater(ArrayList<String> paths) {
-        if (imagePaths == null) {
-            imagePaths = new ArrayList<>();
-        }
-        imagePaths.clear();
-        imagePaths.addAll(paths);
+        spPosition.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, wrongPositionList));
+        spPosition.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                wrongPositionSp = wrongPositionList.get(position);
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
 
-        if (paths.size() > 0) {
-            ivEmpty.setVisibility(View.GONE);
-        } else {
-            ivEmpty.setVisibility(View.VISIBLE);
-        }
 
-        try {
-            JSONArray obj = new JSONArray(imagePaths);
-            Log.e("--", obj.toString());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        if (gridAdapter == null) {
-            gridAdapter = new GridAdapter(imagePaths);
-            gridView.setAdapter(gridAdapter);
-            Log.e("----------------", "ddd==" + imagePaths.size());
-        } else {
-            gridAdapter.notifyDataSetChanged();
-        }
-    }
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
-
-            switch (requestCode) {
-                // 选择照片
-                case REQUEST_CAMERA_CODE:
-                    loadAdpater(data.getStringArrayListExtra(PhotoPickerActivity.EXTRA_RESULT));
-                    break;
-                // 预览
-                case REQUEST_PREVIEW_CODE:
-                    loadAdpater(data.getStringArrayListExtra(PhotoPreviewActivity.EXTRA_RESULT));
-                    break;
-                // 调用相机拍照
-                case ImageCaptureManager.REQUEST_TAKE_PHOTO:
-                    if (captureManager.getCurrentPhotoPath() != null) {
-                        captureManager.galleryAddPic();
-
-                        ArrayList<String> paths = new ArrayList<>();
-                        paths.add(captureManager.getCurrentPhotoPath());
-                        loadAdpater(paths);
-                        Log.e("==========", paths.get(1));
-                    }
-                    break;
-                case REQUEST_CODE_ACCURATE_BASIC:
-                    RecognizeService.recAccurateBasic(this, FileUtil.getSaveFile(getApplicationContext()).getAbsolutePath(),
-                            new RecognizeService.ServiceListener() {
-                                @Override
-                                public void onResult(String result) {
-
-                                    Gson gson = new Gson();
-                                    JsonObject jsonObject = new JsonParser().parse(result).getAsJsonObject();
-                                    JsonArray array = jsonObject.get("words_result").getAsJsonArray();
-                                    messageList = new ArrayList<OCRMessage>();
-                                    if (array.size() == 0) {
-                                        ToastUtils.showLong(CommonFormsPrivateCarActivity.this, "拍照無效,請手動輸入!");
-                                    } else {
-                                        for (JsonElement type : array) {
-                                            OCRMessage humi = gson.fromJson(type, OCRMessage.class);
-                                            messageList.add(humi);
-                                        }
-
-                                        infoPopText(messageList.get(messageList.size() - 1).getWords());
-                                    }
-
-                                }
-                            });
-                    break;
-
+        spReason.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, wrongReasonList));
+        spReason.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                wrongReasonSp = wrongReasonList.get(position);
+                if (wrongReasonSp.equals("其他")){
+                    etOther.setVisibility(View.VISIBLE);
+                }else{
+                    etOther.setText("");
+                    etOther.setVisibility(View.GONE);
+                }
 
             }
-        }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -344,84 +291,7 @@ public class CommonFormsPrivateCarActivity extends BaseActivity implements View.
                 break;
         }
     }
-    private boolean checkTokenStatus() {
-        if (!hasGotToken) {
-            Toast.makeText(getApplicationContext(), "token还未成功获取", Toast.LENGTH_LONG).show();
-        }
-        return hasGotToken;
-    }
-    /**
-     * 以license文件方式初始化
-     */
-    private void initAccessToken() {
-        OCR.getInstance(this).initAccessToken(new OnResultListener<AccessToken>() {
-            @Override
-            public void onResult(AccessToken accessToken) {
-                String token = accessToken.getAccessToken();
-                hasGotToken = true;
-            }
 
-            @Override
-            public void onError(OCRError error) {
-                error.printStackTrace();
-                alertText("licence方式获取token失败", error.getMessage());
-            }
-        }, getApplicationContext());
-    }
-    /**
-     * 用明文ak，sk初始化
-     */
-    private void initAccessTokenWithAkSk() {
-        OCR.getInstance(this).initAccessTokenWithAkSk(new OnResultListener<AccessToken>() {
-            @Override
-            public void onResult(AccessToken result) {
-                String token = result.getAccessToken();
-                hasGotToken = true;
-            }
-
-            @Override
-            public void onError(OCRError error) {
-                error.printStackTrace();
-                alertText("AK，SK方式获取token失败", error.getMessage());
-            }
-        }, getApplicationContext(),  "d6PEEyy6O8WHXGHnmA4vApQo", "3h2BO8M1Kv4IGhXuRg4ylshPt6mNBeWw");
-    }
-    private void alertText(final String title, final String message) {
-        this.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                alertDialog.setTitle(title)
-                        .setMessage(message)
-                        .setPositiveButton("确定", null)
-                        .show();
-            }
-        });
-    }
-
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-                                           @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            initAccessToken();
-        } else {
-            Toast.makeText(getApplicationContext(), "需要android.permission.READ_PHONE_STATE", Toast.LENGTH_LONG).show();
-        }
-    }
-
-    private void infoPopText(final String result) {
-//        alertText("", result);
-        etInputNum.setText(result);
-        Log.e("-------------","ocr==="+result);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        // 释放内存资源
-        OCR.getInstance(this).release();
-    }
 
     private void check(){
         if(FoxContext.getInstance().getLoginId().equals("")){
@@ -437,14 +307,21 @@ public class CommonFormsPrivateCarActivity extends BaseActivity implements View.
             ToastUtils.showShort(CommonFormsPrivateCarActivity.this,"請检查稽核時間是否在當前時間之前");
             return;
         }
-        if (wrongPositionSp.equals("請選擇")){
+        if (wrongPositionSp.equals("")){
             ToastUtils.showShort(CommonFormsPrivateCarActivity.this,"請選擇違規地點!");
             return;
         }
-        if(etOther.getText().toString().equals("")){
-            ToastUtils.showLong(CommonFormsPrivateCarActivity.this,"請輸入違規原因!");
+        if (wrongReasonSp.equals("")){
+            ToastUtils.showShort(CommonFormsPrivateCarActivity.this,"請選擇違規原因!");
             return;
         }
+        if (wrongReasonSp.equals("其他")){
+            if(etOther.getText().toString().equals("")){
+                ToastUtils.showLong(CommonFormsPrivateCarActivity.this,"請輸入違規原因!");
+                return;
+            }
+        }
+
         if (imagePaths==null) {
             ToastUtils.showShort(this, "請選擇圖片");
             return;
@@ -465,7 +342,11 @@ public class CommonFormsPrivateCarActivity extends BaseActivity implements View.
         object.addProperty("date0",tvGateDate.getText().toString());//違規時間
         object.addProperty("chepai",etInputNum.getText().toString());//車牌號
         object.addProperty("wj_address",wrongPositionSp);//違規地點
-        object.addProperty("wj_remark",etOther.getText().toString());//違規原因
+        if (wrongReasonSp.equals("其他")) {
+            object.addProperty("wj_remark", etOther.getText().toString());//違規原因
+        }else{
+            object.addProperty("wj_remark",wrongReasonSp);//違規原因
+        }
         object.addProperty("login_code",FoxContext.getInstance().getLoginId());//稽核人工號
         object.addProperty("login_name",FoxContext.getInstance().getName());//稽核人姓名
 
@@ -556,21 +437,6 @@ public class CommonFormsPrivateCarActivity extends BaseActivity implements View.
         }
     };
 
-    private void setText() {
-
-        spPosition.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, wrongPosition));
-        spPosition.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String str = wrongPosition.get(position);
-                wrongPositionSp = wrongPosition.get(position);
-                Log.e("---------", "選擇的門崗：" + str);
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
-    }
     private void aboutAlert(String msg, final int type) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("提示信息")
@@ -676,6 +542,164 @@ public class CommonFormsPrivateCarActivity extends BaseActivity implements View.
             return convertView;
         }
     }
+    private boolean checkTokenStatus() {
+        if (!hasGotToken) {
+            Toast.makeText(getApplicationContext(), "token还未成功获取", Toast.LENGTH_LONG).show();
+        }
+        return hasGotToken;
+    }
+    /**
+     * 以license文件方式初始化
+     */
+    private void initAccessToken() {
+        OCR.getInstance(this).initAccessToken(new OnResultListener<AccessToken>() {
+            @Override
+            public void onResult(AccessToken accessToken) {
+                String token = accessToken.getAccessToken();
+                hasGotToken = true;
+            }
 
+            @Override
+            public void onError(OCRError error) {
+                error.printStackTrace();
+                alertText("licence方式获取token失败", error.getMessage());
+            }
+        }, getApplicationContext());
+    }
+    /**
+     * 用明文ak，sk初始化
+     */
+    private void initAccessTokenWithAkSk() {
+        OCR.getInstance(this).initAccessTokenWithAkSk(new OnResultListener<AccessToken>() {
+            @Override
+            public void onResult(AccessToken result) {
+                String token = result.getAccessToken();
+                hasGotToken = true;
+            }
+
+            @Override
+            public void onError(OCRError error) {
+                error.printStackTrace();
+                alertText("AK，SK方式获取token失败", error.getMessage());
+            }
+        }, getApplicationContext(),  "d6PEEyy6O8WHXGHnmA4vApQo", "3h2BO8M1Kv4IGhXuRg4ylshPt6mNBeWw");
+    }
+    private void alertText(final String title, final String message) {
+        this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                alertDialog.setTitle(title)
+                        .setMessage(message)
+                        .setPositiveButton("确定", null)
+                        .show();
+            }
+        });
+    }
+    private void loadAdpater(ArrayList<String> paths) {
+        if (imagePaths == null) {
+            imagePaths = new ArrayList<>();
+        }
+        imagePaths.clear();
+        imagePaths.addAll(paths);
+
+        if (paths.size() > 0) {
+            ivEmpty.setVisibility(View.GONE);
+        } else {
+            ivEmpty.setVisibility(View.VISIBLE);
+        }
+
+        try {
+            JSONArray obj = new JSONArray(imagePaths);
+            Log.e("--", obj.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        if (gridAdapter == null) {
+            gridAdapter = new GridAdapter(imagePaths);
+            gridView.setAdapter(gridAdapter);
+            Log.e("----------------", "ddd==" + imagePaths.size());
+        } else {
+            gridAdapter.notifyDataSetChanged();
+        }
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+
+            switch (requestCode) {
+                // 选择照片
+                case REQUEST_CAMERA_CODE:
+                    loadAdpater(data.getStringArrayListExtra(PhotoPickerActivity.EXTRA_RESULT));
+                    break;
+                // 预览
+                case REQUEST_PREVIEW_CODE:
+                    loadAdpater(data.getStringArrayListExtra(PhotoPreviewActivity.EXTRA_RESULT));
+                    break;
+                // 调用相机拍照
+                case ImageCaptureManager.REQUEST_TAKE_PHOTO:
+                    if (captureManager.getCurrentPhotoPath() != null) {
+                        captureManager.galleryAddPic();
+
+                        ArrayList<String> paths = new ArrayList<>();
+                        paths.add(captureManager.getCurrentPhotoPath());
+                        loadAdpater(paths);
+                        Log.e("==========", paths.get(1));
+                    }
+                    break;
+                case REQUEST_CODE_ACCURATE_BASIC:
+                    RecognizeService.recAccurateBasic(this, FileUtil.getSaveFile(getApplicationContext()).getAbsolutePath(),
+                            new RecognizeService.ServiceListener() {
+                                @Override
+                                public void onResult(String result) {
+
+                                    Gson gson = new Gson();
+                                    JsonObject jsonObject = new JsonParser().parse(result).getAsJsonObject();
+                                    JsonArray array = jsonObject.get("words_result").getAsJsonArray();
+                                    messageList = new ArrayList<OCRMessage>();
+                                    if (array.size() == 0) {
+                                        ToastUtils.showLong(CommonFormsPrivateCarActivity.this, "拍照無效,請手動輸入!");
+                                    } else {
+                                        for (JsonElement type : array) {
+                                            OCRMessage humi = gson.fromJson(type, OCRMessage.class);
+                                            messageList.add(humi);
+                                        }
+
+                                        infoPopText(messageList.get(messageList.size() - 1).getWords());
+                                    }
+
+                                }
+                            });
+                    break;
+
+
+            }
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            initAccessToken();
+        } else {
+            Toast.makeText(getApplicationContext(), "需要android.permission.READ_PHONE_STATE", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void infoPopText(final String result) {
+//        alertText("", result);
+        etInputNum.setText(result);
+        Log.e("-------------","ocr==="+result);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // 释放内存资源
+        OCR.getInstance(this).release();
+    }
 
 }

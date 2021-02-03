@@ -14,12 +14,8 @@ public class Constants {
     public static final String BASE_URL = "http://ytsafeserver.foxconn.com/SafeServer/";//玲姐
     public static final String EMP_BASE = "http://ytsafeserver.foxconn.com/Server/";    //杰哥
 
-
-    public static String J4 = "http://192.168.0.108:8080/Server/";//杰哥4F接口測試
-//  public static String J5 = "http://192.168.1.112:8080/Server/";//杰哥5F接口測試
-
-    public static String W4 = "http://192.168.1.136:8080/Server/";//我的接口測試
-    public static String L4 = "http://192.168.1.143:8080/SafeServer/";//玲姐4F接口測試
+    public static String SafeServer = "http://192.168.1.136:8080/SafeServer/";//SafeServer接口測試
+    public static String Server = "http://192.168.1.136:8080/Server/";//Server接口測試
 
     public static final String HTTP_LOGIN = BASE_URL + "LoginServlet";//登錄
     public static String HTTP_DIMEMSION_SERVLET = BASE_URL + "safeCheck/DimemsionServlet";//巡檢進度列表
@@ -92,14 +88,14 @@ public class Constants {
     public static String HTTP_DUTY_CHIEF_PROBLEM_SEE_SERVLET = EMP_BASE + "DutyChiefProblemSeeServlet";//值班科長稽核問題查看接口
     public static String HTTP_DUTY_CHIEF_PROBLEM_DEL_SERVLET = EMP_BASE + "DutyChiefProblemDeleteServlet";//值班科長稽核問題刪除接口
 
-    public static String HTTP_TUNGANDPRODUCT_SERVLET = W4 + "TungAndProductServlet";//獲取樓棟產品處接口
-    public static String HTTP_INDUSSAFE_DEPARTUPDATE_SERVLET = W4 + "IndusSafe_departUpdateServlet";//部門基本信息提交接口
-    public static String HTTP_INDUSSAFE_DEPARTLISTVIEW_SERVLET = W4 + "IndusSafe_departListViewServlet";//獲取部門基本信息列表接口
-    public static String HTTP_INDUSSAFE_PERSONUPDATE_SERVLET = W4 + "IndusSafe_personUpdateServlet";//巡查人陪查人上傳接口
-    public static String HTTP_INDUSSAFE_SUGGESTUPDATE_SERVLET = W4 + "IndusSafe_suggestUpdateServlet";//優缺建議上傳接口
-    public static String HTTP_INDUSSAFE_DANGER_UPDATE_SERVLET = W4 + "IndustrySafetyDangerPhotoServlet";//隱患上傳接口
-    public static String HTTP_INDUSSAFE_DANGER_VIEW_SERVLET = W4 + "IndusSafe_dangerListViewServlet";//隱患查看接口
-    public static String HTTP_INDUSSAFE_DANGER_DELETE_SERVLET = W4 + "IndusSafe_dangerDeleteServlet";//隱患刪除接口
+    public static String HTTP_TUNGANDPRODUCT_SERVLET = Server + "TungAndProductServlet";//獲取樓棟產品處接口
+    public static String HTTP_INDUSSAFE_DEPARTUPDATE_SERVLET = Server + "IndusSafe_departUpdateServlet";//部門基本信息提交接口
+    public static String HTTP_INDUSSAFE_DEPARTLISTVIEW_SERVLET = Server + "IndusSafe_departListViewServlet";//獲取部門基本信息列表接口
+    public static String HTTP_INDUSSAFE_PERSONUPDATE_SERVLET = Server + "IndusSafe_personUpdateServlet";//巡查人陪查人上傳接口
+    public static String HTTP_INDUSSAFE_SUGGESTUPDATE_SERVLET = Server + "IndusSafe_suggestUpdateServlet";//優缺建議上傳接口
+    public static String HTTP_INDUSSAFE_DANGER_UPDATE_SERVLET = Server + "IndustrySafetyDangerPhotoServlet";//隱患上傳接口
+    public static String HTTP_INDUSSAFE_DANGER_VIEW_SERVLET = Server + "IndusSafe_dangerListViewServlet";//隱患查看接口
+    public static String HTTP_INDUSSAFE_DANGER_DELETE_SERVLET = Server + "IndusSafe_dangerDeleteServlet";//隱患刪除接口
 
     public static String HTTP_CY_SAFEVIEW_SERVLET = EMP_BASE + "SafeViewServlet";//消殺車輛獲取列表
     public static String HTTP_XS_CY_SAFEDATASAVE_SERVLET = EMP_BASE+"XSUploadFileServlet";//消殺點檢提交接口
@@ -189,7 +185,10 @@ public class Constants {
     public static String HTTP_YJ_EXCE_INFO = BASE_URL +"YJ/YJExceInfoServlet";//    詳情
     public static String HTTP_YJ_EXCE_DELETE = BASE_URL +"YJ/YJExceDeleteServlet";//   異常刪除
 
-    public static String HTTP_DEVICE_BORROW_PHOTO = EMP_BASE +"photos/";    //  設備圖片
+    public static String HTTP_DEVICE_BORROW_PHOTO = BASE_URL +"photos/";    //  設備圖片
     public static String HTTP_DEVICE_BORROW_BASE = EMP_BASE +"DeviceBorrowBaseServlet";//   設備基本信息獲取 設備狀態查詢
     public static String HTTP_DEVICE_BORROW_UP = EMP_BASE +"DeviceBorrowUpServlet";//   設備借用歸還
+
+    public static String HTTP_CANT_CHECK_BSAE = SafeServer +"DimemsionBaseServlet";//  無法點檢獲取點位基本資料
+    public static String HTTP_CANT_CHECK_UP = SafeServer +"ExceCantCheckUpServlet";//  無法點檢上傳異常
 }

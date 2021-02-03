@@ -81,14 +81,14 @@ public class GCMainActivity extends BaseActivity implements View.OnClickListener
         if(type!=null&&type.equals("FX")){
             switch (view.getId()){
                 case R.id.btn_scan://充電區點檢
-                    FoxContext.getInstance().setType("HC");
+                    FoxContext.getInstance().setType("FX");
                     Intent intent = new Intent(GCMainActivity.this,QrCodeActivity.class);
                     intent.putExtra("title", "掃描二維碼");
                     intent.putExtra("num", "cz");
                     startActivity(intent);
                     break;
                 case R.id.btn_write://儲存區點檢
-                    FoxContext.getInstance().setType("FX");
+                    FoxContext.getInstance().setType("HC");
                     Intent intent2 = new Intent(GCMainActivity.this,QrCodeActivity.class);
                     intent2.putExtra("title", "掃描二維碼");
                     intent2.putExtra("num", "cz");
@@ -104,10 +104,8 @@ public class GCMainActivity extends BaseActivity implements View.OnClickListener
                     break;
                 case R.id.btn_self://無法點檢
 //                    FoxContext.getInstance().setType("HE");
-//                    Intent intent4 = new Intent(GCMainActivity.this,QrCodeActivity.class);
-//                    intent4.putExtra("title", "掃描二維碼");
-//                    intent4.putExtra("num", "cz");
-//                    startActivity(intent4);
+                    Intent intent4 = new Intent(GCMainActivity.this,AbnormalCantCheckActivity.class);
+                    startActivity(intent4);
                     break;
                 case R.id.btn_title_left:
                     finish();

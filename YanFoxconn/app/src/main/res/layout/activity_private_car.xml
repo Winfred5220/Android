@@ -112,14 +112,24 @@
                         style="@style/carTextName"
                         android:text="違規原因：" />
 
-                    <EditText
-                        android:id="@+id/et_other"
-                        style="@style/carEditTextBKG"
-                        android:layout_height="@dimen/dimen_60"
-                        android:layout_weight="1"
-                        android:maxLength="25" />
-
+                    <Spinner
+                        android:id="@+id/sp_reason"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
                 </TableRow>
+                <!--違規原因-->
+                <TableRow style="@style/tableRow">
+                <EditText
+                    android:id="@+id/et_other"
+                    android:visibility="gone"
+                    style="@style/carEditTextBKG"
+                    android:layout_height="@dimen/dimen_60"
+                    android:layout_weight="1"
+                    android:maxLength="25" />
+                </TableRow>
+
+
             </TableLayout>
 
             <RelativeLayout
