@@ -323,12 +323,18 @@ int position;
 
         switch (item.getItemId()){
             case 0:
-                Intent intent0 = new Intent(GTCheckActivity.this,GTMainActivity.class);
-                intent0.putExtra("result",gtMains.get(position).getProject_no());
-                intent0.putExtra("flag","S");
-                intent0.putExtra("from","check");
-                intent0.putExtra("message",gtMains.get(position));
-                startActivity(intent0);
+                if (gtMains.get(position).getCount()>0){
+
+                    ToastUtils.showShort(GTCheckActivity.this,"已點檢過，無法修改作業時間！");
+                }else{
+
+                    Intent intent0 = new Intent(GTCheckActivity.this,GTMainActivity.class);
+                    intent0.putExtra("result",gtMains.get(position).getProject_no());
+                    intent0.putExtra("flag","S");
+                    intent0.putExtra("from","check");
+                    intent0.putExtra("message",gtMains.get(position));
+                    startActivity(intent0);
+                }
                 break;
             case 1:
                 Intent intent = new Intent(GTCheckActivity.this,ComAbRouteItemListActivity.class);

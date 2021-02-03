@@ -6,11 +6,27 @@
 
 
         <RelativeLayout
+            android:id="@+id/rl"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="@dimen/dimen_5"
           >
 
+            <!--點檢項目-->
+            <TextView
+                android:id="@+id/tv_0"
+                android:layout_width="@dimen/dimen_80"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_size_17"
+                android:text="點檢項:"
+                android:textColor="@color/color_009adb"/>
+            <TextView
+                android:id="@+id/tv_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_size_17"
+                android:layout_toRightOf="@+id/tv_0"
+                android:text="時間:"/>
             <!--異常項-->
             <TextView
                 android:id="@+id/tv_1"
@@ -18,40 +34,41 @@
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/text_size_17"
                 android:text="異常項:"
+                android:layout_below="@+id/tv_content"
                 android:textColor="@color/color_009adb"/>
             <TextView
-                android:id="@+id/tv_content"
+                android:id="@+id/tv_result"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/text_size_17"
+                android:layout_below="@+id/tv_content"
                 android:layout_toRightOf="@+id/tv_1"
-                android:text="時間:"/>
+                android:text=""/>
             <!--異常描述-->
             <TextView
                 android:id="@+id/tv_2"
                 android:layout_width="@dimen/dimen_80"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_content"
+                android:layout_below="@+id/tv_result"
                 android:textSize="@dimen/text_size_17"
                 android:text="描述:     "
                 android:textColor="@color/color_009adb"
-                android:paddingTop="@dimen/dimen_15"/>
+                android:paddingTop="@dimen/dimen_10"/>
             <TextView
                 android:id="@+id/tv_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_content"
+                android:layout_below="@+id/tv_result"
                 android:layout_toRightOf="@+id/tv_2"
                 android:textSize="@dimen/text_size_17"
                 android:text="時間:"
-                android:paddingTop="@dimen/dimen_15"/>
+                android:paddingTop="@dimen/dimen_10"/>
             <LinearLayout
                 android:id="@+id/ll_get_image"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_below="@+id/tv_description"/>
-
 
         </RelativeLayout>
 
