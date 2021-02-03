@@ -149,6 +149,7 @@ public class GTMainActivity extends BaseActivity implements View.OnClickListener
                     intent.putExtra("name",name);
                     intent.putExtra("progress",progress);
                     intent.putExtra("todayWork",todayWork);
+                    intent.putExtra("building",tvPosition.getText().toString());
                     startActivity(intent);
                 }
             }

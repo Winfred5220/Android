@@ -70,7 +70,7 @@ public class GTDetailActivity extends BaseActivity implements View.OnClickListen
     @BindView(R.id.ll_get_image)
     LinearLayout llGetImage;//查驗現場圖片
     @BindView(R.id.lv_detail)
-    MyListView lvGtDetail;//異常列表
+    ListView lvGtDetail;//異常列表
 
     private String creater = "";
     private String dimId,scId="";
