@@ -119,8 +119,9 @@ public class GTMainActivity extends BaseActivity implements View.OnClickListener
         btnBack.setOnClickListener(this);
         btnUp.setOnClickListener(this);
         tvDate.setOnClickListener(this);
-        qrResult = getIntent().getStringExtra("result");
+        qrResult = getIntent().getStringExtra("result").split(";")[0];
         flag= getIntent().getStringExtra("flag");
+
         if (getIntent().getStringExtra("from").equals("qr")){
             getBtnMessage();
         }else{

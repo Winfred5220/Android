@@ -58,6 +58,7 @@ public class GTCheckListAdapter extends BaseAdapter {
 
             convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_gt_search_item, null);
 
+            holder.tvNumName = convertView.findViewById(R.id.tv_num_name);
             holder.tvNum = convertView.findViewById(R.id.tv_num);
             holder.tvName = convertView.findViewById(R.id.tv_name);
             holder.tvBuilding = convertView.findViewById(R.id.tv_building);
@@ -69,10 +70,12 @@ public class GTCheckListAdapter extends BaseAdapter {
         }
 
         if (flag.equals("N")){
+            holder.tvNumName.setVisibility(View.GONE);
             holder.tvNum.setVisibility(View.GONE);
         }
+
         holder.tvNum.setText(String.valueOf(lists.get(position).getCount()));
-        holder.tvName.setText(num+lists.get(position).getProject_name());
+        holder.tvName.setText(num+"."+lists.get(position).getProject_name());
         holder.tvBuilding.setText("施工位置："+lists.get(position).getBuilding());
         holder.tvWinVendor.setText("中標廠商："+lists.get(position).getWin_vendor());
         holder.tvCpc.setText("申請單位："+lists.get(position).getCpc());
@@ -81,7 +84,7 @@ Log.e("--------","tvNum=="+String.valueOf(lists.get(position).getCount())+"==tvB
     }
 
     private class ViewHolder {
-        public TextView tvNum, tvName,tvBuilding,tvWinVendor,tvCpc;//次數，工程名稱，施工位置，中標廠商，申請單位
+        public TextView tvNumName,tvNum, tvName,tvBuilding,tvWinVendor,tvCpc;//點檢次數，次數，工程名稱，施工位置，中標廠商，申請單位
     }
 
 

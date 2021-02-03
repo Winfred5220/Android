@@ -547,7 +547,11 @@ private int progress=0;//施工進度
                     ToastUtils.showLong(GTAbUpActivity.this, R.string.net_mistake);
                     break;
                 case MESSAGE_TOAST:
-                    ToastUtils.showShort(GTAbUpActivity.this, msg.obj.toString());
+                    if (msg.obj.toString().equals("success!")){
+
+                        ToastUtils.showLong(GTAbUpActivity.this, "點檢信息提交成功！");
+                    }else{
+                    ToastUtils.showShort(GTAbUpActivity.this, msg.obj.toString());}
                     finish();
                     break;
 //                case MESSAGE_SET_TEXT://text賦值

@@ -361,7 +361,7 @@ public class GTAbUPAdapter extends RecyclerView.Adapter<GTAbUPAdapter.ViewHolder
                holder.tvDate.setVisibility(View.GONE);
 
                if (zhiyinshuiCheckMsg.getContent().equals("進度-當日具體施工內容")&&!todayWork.equals("")){
-                   holder.etInput.setHint(todayWork);
+                   holder.etInput.setText(todayWork);
                }else{
                    holder.etInput.setHint("請輸入文字");
                }
