@@ -56,7 +56,7 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
         if (role.equals("F0")) {
             tvTitle.setText("碼頭出貨信息表");
         }else if (role.equals("FX")) {
-            tvTitle.setText("鋰電池報表");
+            tvTitle.setText("鋰電池防火報表");
         }else{
             tvTitle.setText("跨區申請單");
         }
@@ -88,7 +88,7 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
         }else if (role.equals("FX")) {//鋰電池報表
             //Todo
             //mWebview.loadUrl("http://60.212.41.39/forward/matou/mt.jsp");
-            mWebview.loadUrl(Constants.SafeServer+"baobiao/SafeCheck_last_week.jsp");
+            mWebview.loadUrl(Constants.BASE_URL+"baobiao/SafeCheck_last_week.jsp");
 
         }else{//跨區申請單
             mWebview.loadUrl("http://60.212.41.39/exportio/people/info_view.jsp?login_code="+ FoxContext.getInstance().getLoginId());
@@ -105,25 +105,23 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
 
         //设置WebChromeClient类
         mWebview.setWebChromeClient(new WebChromeClient() {
-
-
             //获取网站标题
             @Override
             public void onReceivedTitle(WebView view, String title) {
                 System.out.println("标题在这里");
                 mtitle.setText(title);
             }
-
-
             //获取加载进度
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
                 if (newProgress < 100) {
-                    String progress = newProgress + "%";
+                    String progress ="加載中..."+ newProgress + "%";
                     loading.setText(progress);
+                    loading.setVisibility(View.VISIBLE);
                 } else if (newProgress == 100) {
-                    String progress = newProgress + "%";
+                    String progress ="加載完成"+  newProgress + "%";
                     loading.setText(progress);
+                    loading.setVisibility(View.GONE);
                 }
             }
         });
@@ -134,15 +132,14 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
             //设置加载前的函数
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
-                System.out.println("开始加载了");
-                beginLoading.setText("开始加载了");
+                beginLoading.setText("正在玩命加載...");
 
             }
 
             //设置结束加载函数
             @Override
             public void onPageFinished(WebView view, String url) {
-                endLoading.setText("结束加载了");
+                endLoading.setText("加載完成");
 
             }
         });

@@ -189,6 +189,6 @@ public class Constants {
     public static String HTTP_DEVICE_BORROW_BASE = EMP_BASE +"DeviceBorrowBaseServlet";//   設備基本信息獲取 設備狀態查詢
     public static String HTTP_DEVICE_BORROW_UP = EMP_BASE +"DeviceBorrowUpServlet";//   設備借用歸還
 
-    public static String HTTP_CANT_CHECK_BSAE = SafeServer +"DimemsionBaseServlet";//  無法點檢獲取點位基本資料
-    public static String HTTP_CANT_CHECK_UP = SafeServer +"ExceCantCheckUpServlet";//  無法點檢上傳異常
+    public static String HTTP_CANT_CHECK_BSAE = BASE_URL +"DimemsionBaseServlet";//  無法點檢獲取點位基本資料
+    public static String HTTP_CANT_CHECK_UP = BASE_URL +"ExceCantCheckUpServlet";//  無法點檢上傳異常
 }

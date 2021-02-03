@@ -32,7 +32,6 @@
                 style="@style/retreatTextName"
                 android:text="原因"/>
             <EditText
-
                 android:id="@+id/et_describe"
                 style="@style/carEditTextBKG"
                 android:layout_weight="5.2"
