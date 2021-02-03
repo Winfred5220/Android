@@ -129,7 +129,7 @@ private int progress=0;//施工進度
         qrResult = getIntent().getStringExtra("dimId");
         flag = getIntent().getStringExtra("flag");
         type = FoxContext.getInstance().getType();
-        dimLocal = getIntent().getStringExtra("name");
+        dimLocal = getIntent().getStringExtra("building");
         tvDName.setText(getIntent().getStringExtra("name"));
         progress = getIntent().getIntExtra("progress",0);
         todayWork = getIntent().getStringExtra("todayWork");
