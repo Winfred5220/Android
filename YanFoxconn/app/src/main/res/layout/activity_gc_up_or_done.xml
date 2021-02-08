@@ -67,6 +67,18 @@
                         android:text="產品處：" />
 
                     <TextView
+                        android:id="@+id/tv_cpc"
+                        style="@style/carTextBKG"
+                        android:layout_weight="1" />
+                </TableRow>
+                <!--部門-->
+                <TableRow style="@style/tableRow">
+
+                    <TextView
+                        style="@style/carTextName"
+                        android:text="部門：" />
+
+                    <TextView
                         android:id="@+id/tv_pro"
                         style="@style/carTextBKG"
                         android:layout_weight="1" />

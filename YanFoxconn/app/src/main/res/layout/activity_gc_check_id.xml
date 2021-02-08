@@ -50,6 +50,18 @@
                     android:layout_weight="1" />
             </TableRow>
 
+            <!--產品處-->
+            <TableRow style="@style/tableRow">
+
+                <TextView
+                    style="@style/carTextName"
+                    android:text="產品處：" />
+
+                <TextView
+                    android:id="@+id/tv_bu_code"
+                    style="@style/carTextBKG"
+                    android:layout_weight="1" />
+            </TableRow>
             <!--部門-->
             <TableRow style="@style/tableRow">
 

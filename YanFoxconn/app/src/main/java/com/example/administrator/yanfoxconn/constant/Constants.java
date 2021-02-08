@@ -166,6 +166,7 @@ public class Constants {
     public static String HTTP_ZW_SCAN_DUTY = BASE_URL+"ZW/ZWScanDutyServlet";//总务临时工，职能信息
     public static String HTTP_ZW_SCAN_TYPE = BASE_URL+"ZW/ZWScanTypeServlet";//總務臨時工 獲取異常類別
 
+    public static String Z4 = "http://192.168.1.140:8080/SafeServer_Web_exploded/";//渣渣鳴4F接口測試
     public static String HTTP_HEALTH_SCAN =BASE_URL+"Health/HealthScanServlet";//安全健康追蹤，人員信息查看
     public static String HTTP_HEALTH_COMMIT=BASE_URL+"Health/HealthCommitServlet";//安全健康追蹤，提交生成單頭
     public static String HTTP_BODY_SELECT=BASE_URL+"Health/HealthBodySelectServlet";//安全健康追蹤，查詢已有紀錄
