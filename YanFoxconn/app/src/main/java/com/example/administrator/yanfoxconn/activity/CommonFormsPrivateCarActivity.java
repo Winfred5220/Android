@@ -326,7 +326,7 @@ public class CommonFormsPrivateCarActivity extends BaseActivity implements View.
             ToastUtils.showShort(this, "請選擇圖片");
             return;
         }
-
+        btnUp.setEnabled(false);
         upMsessage();
     }
 

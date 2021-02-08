@@ -49,7 +49,6 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
         loading = (TextView) findViewById(R.id.text_Loading);
         mtitle = (TextView) findViewById(R.id.title);
 
-
         Bundle bundle = this.getIntent().getExtras();
         role = bundle.getString("role");
 
@@ -66,11 +65,7 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
         mWebSettings.setJavaScriptEnabled(true);
         mWebSettings.setAllowContentAccess(true);
         mWebSettings.setAppCacheEnabled(false);
-
         mWebview.setVerticalScrollbarOverlay(true); //指定的垂直滚动条有叠加样式
-
-
-
         mWebSettings.setUseWideViewPort(true);//设定支持viewport
 
         mWebSettings.setLoadWithOverviewMode(true);

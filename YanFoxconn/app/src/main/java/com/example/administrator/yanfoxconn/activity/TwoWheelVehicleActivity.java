@@ -378,7 +378,7 @@ team = str;
             ToastUtils.showShort(this, "請選擇圖片");
             return;
         }
-
+        btnUp.setEnabled(false);
         upMsessage();
     }
     private void getMessage(){

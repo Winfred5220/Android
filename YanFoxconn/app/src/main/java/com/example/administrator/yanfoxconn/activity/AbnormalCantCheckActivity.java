@@ -163,7 +163,7 @@ public class AbnormalCantCheckActivity extends BaseActivity implements View.OnCl
 
         try {
             JSONArray obj = new JSONArray(imagePaths);
-            Log.e("--", obj.toString());
+            Log.e("----------", obj.toString());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -171,7 +171,7 @@ public class AbnormalCantCheckActivity extends BaseActivity implements View.OnCl
         if (gridAdapter == null) {
             gridAdapter = new GridAdapter(imagePaths);
             gridView.setAdapter(gridAdapter);
-            Log.e("----------------", "ddd==" + imagePaths.size());
+            Log.e("----------------", " " + imagePaths.size());
         } else {
             gridAdapter.notifyDataSetChanged();
         }
@@ -314,6 +314,7 @@ public class AbnormalCantCheckActivity extends BaseActivity implements View.OnCl
 
     //提交数据
     private void upMessage(){
+
         final String url = Constants.HTTP_CANT_CHECK_UP; //此處寫上自己的URL
         JsonObject object = new JsonObject();
         JsonArray photoArray = new JsonArray();
