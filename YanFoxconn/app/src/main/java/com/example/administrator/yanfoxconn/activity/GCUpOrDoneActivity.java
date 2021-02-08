@@ -88,8 +88,10 @@ public class GCUpOrDoneActivity extends BaseActivity implements View.OnClickList
     TextView tvName;//姓名
     @BindView(R.id.tv_identity)
     TextView tvIdentity;//身份證
+    @BindView(R.id.tv_cpc)
+    TextView tvCpc;//產品處
     @BindView(R.id.tv_pro)
-    TextView tvPro;//產品處
+    TextView tvPro;//部門
     @BindView(R.id.tv_first_temp)
     TextView tvFirstTemp;//初始體溫
     @BindView(R.id.tv_men)
@@ -162,6 +164,7 @@ public class GCUpOrDoneActivity extends BaseActivity implements View.OnClickList
         tvId.setText(gcHeads.getIn_Number());
         tvName.setText(gcHeads.getIn_Name());
         tvIdentity.setText(gcHeads.getIn_Sex());
+        tvCpc.setText(gcHeads.getIn_Cpc());
         tvPro.setText(gcHeads.getIn_Department());
         tvFirstTemp.setText(gcHeads.getIn_Tempature());
         tvMen.setText(gcHeads.getIn_Door());
@@ -466,6 +469,7 @@ public class GCUpOrDoneActivity extends BaseActivity implements View.OnClickList
         object.addProperty("In_Category", gcHeads.getIn_Category());
         object.addProperty("In_Name", gcHeads.getIn_Name());
         object.addProperty("In_Department", gcHeads.getIn_Department());
+//        object.addProperty("In_Cpc", gcHeads.getIn_Cpc());
         object.addProperty("T_Description",etDescription.getText().toString());
         object.addProperty("T_Tempature", etTemp.getText().toString());
         object.addProperty("T_Createor", FoxContext.getInstance().getName());
@@ -523,6 +527,7 @@ public class GCUpOrDoneActivity extends BaseActivity implements View.OnClickList
         object.addProperty("In_Random_Id", gcHeads.getIn_Random_Id());
         object.addProperty("In_Category", gcHeads.getIn_Category());
         object.addProperty("In_Name", gcHeads.getIn_Name());
+//        object.addProperty("In_Cpc", gcHeads.getIn_Cpc());
         object.addProperty("In_Department", gcHeads.getIn_Department());
         object.addProperty("T_Description",etDescription.getText().toString());
         object.addProperty("T_Tempature", etTemp.getText().toString());
@@ -582,6 +587,7 @@ Log.e("-------------","ddddd==="+tvTimeDate.getText().toString());
         object.addProperty("In_Random_Id", gcHeads.getIn_Random_Id());
         object.addProperty("In_Category", gcHeads.getIn_Category());
         object.addProperty("In_Name", gcHeads.getIn_Name());
+//        object.addProperty("In_Cpc", gcHeads.getIn_Cpc());
         object.addProperty("In_Department", gcHeads.getIn_Department());
         object.addProperty("In_C_description", etDescription.getText().toString());
         object.addProperty("In_C_result", done);

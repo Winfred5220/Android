@@ -8,8 +8,26 @@ public class GEPeopleMsg {
     private String WORKNO;//工號
     private String CHINESENAME;//姓名
     private String SEX;//性別
-    private String ORGNAME;//產品處
+    private String BU_CODE;//產品處
+    private String CZC03;//部門
+//    private String ORGNAME;//產品處
     private String PRIVATETEL;//電話
+
+    public String getBU_CODE() {
+        return BU_CODE;
+    }
+
+    public String getCZC03() {
+        return CZC03;
+    }
+
+    public void setBU_CODE(String BU_CODE) {
+        this.BU_CODE = BU_CODE;
+    }
+
+    public void setCZC03(String CZC03) {
+        this.CZC03 = CZC03;
+    }
 
     public String getPRIVATETEL() {
         return PRIVATETEL;
@@ -23,9 +41,9 @@ public class GEPeopleMsg {
         return CHINESENAME;
     }
 
-    public String getORGNAME() {
-        return ORGNAME;
-    }
+//    public String getORGNAME() {
+//        return ORGNAME;
+//    }
 
     public String getSEX() {
         return SEX;
@@ -39,9 +57,9 @@ public class GEPeopleMsg {
         this.CHINESENAME = CHINESENAME;
     }
 
-    public void setORGNAME(String ORGNAME) {
-        this.ORGNAME = ORGNAME;
-    }
+//    public void setORGNAME(String ORGNAME) {
+//        this.ORGNAME = ORGNAME;
+//    }
 
     public void setSEX(String SEX) {
         this.SEX = SEX;

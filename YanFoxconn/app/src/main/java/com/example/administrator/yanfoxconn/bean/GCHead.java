@@ -8,12 +8,21 @@ public class GCHead implements Serializable {
     private String In_Category;//人員類別
     private String In_Name;//姓名
     private String In_Sex;//性別
+    private String In_Cpc;//產品處
     private String In_Department;//部門
     private String In_Number;//工號
     private String In_Tempature;//初始體溫
     private String In_Door;//初始門崗
     private String In_Observation;//留觀地點
     private String isdelete;//是否刪除
+
+    public void setIn_Cpc(String in_Cpc) {
+        In_Cpc = in_Cpc;
+    }
+
+    public String getIn_Cpc() {
+        return In_Cpc;
+    }
 
     public String getIsdelete() {
         return isdelete;

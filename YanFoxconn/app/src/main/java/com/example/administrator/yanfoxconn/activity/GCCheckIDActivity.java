@@ -53,7 +53,7 @@ import taobe.tec.jcc.JChineseConvertor;
 /**
  *安保部健康追蹤
  * song 2020/11/28
- * 1員工  2供應商
+ * 2員工  1供應商
  */
 public class GCCheckIDActivity extends BaseActivity implements View.OnClickListener
 {
@@ -75,6 +75,8 @@ public class GCCheckIDActivity extends BaseActivity implements View.OnClickListe
     TextView tvName;//姓名
     @BindView(R.id.tv_identity)
     TextView tvIdentity;//身份證
+    @BindView(R.id.tv_bu_code)
+    TextView tvBuCode;//產品處
     @BindView(R.id.tv_dep)
     TextView tvDep;//部門
     @BindView(R.id.et_gate_post)
@@ -295,15 +297,17 @@ public class GCCheckIDActivity extends BaseActivity implements View.OnClickListe
     };
     private void setText(){
         if (flag.equals("2")){
-        tvId.setText(gePeopleMsgs.get(0).getWORKNO());
-        tvName.setText(gePeopleMsgs.get(0).getCHINESENAME());
-        tvIdentity.setText(gePeopleMsgs.get(0).getSEX());
-        tvDep.setText(gePeopleMsgs.get(0).getORGNAME());
+            tvId.setText(gePeopleMsgs.get(0).getWORKNO());
+            tvName.setText(gePeopleMsgs.get(0).getCHINESENAME());
+            tvIdentity.setText(gePeopleMsgs.get(0).getSEX());
+            tvDep.setText(gePeopleMsgs.get(0).getCZC03());
+            tvBuCode.setText(gePeopleMsgs.get(0).getBU_CODE());
         }else{
             tvId.setText(gePeopleMsgs.get(0).getSF_CODE());
             tvName.setText(gePeopleMsgs.get(0).getNAME());
             tvIdentity.setText(gePeopleMsgs.get(0).getSEX());
             tvDep.setText(gePeopleMsgs.get(0).getDANWEI());
+            tvBuCode.setText(gePeopleMsgs.get(0).getDANWEI());
         }
         List<String> men=new ArrayList<>();
         List<String> liu=new ArrayList<>();
@@ -366,13 +370,16 @@ if (etDescription.getText().toString().equals("")||etTemp.getText().toString().e
         if (flag.equals("2")){
 
             object.addProperty("In_id",id);
-            object.addProperty("In_Department",gePeopleMsgs.get(0).getORGNAME());
+            object.addProperty("In_Department",gePeopleMsgs.get(0).getCZC03());
+            object.addProperty("In_Cpc",gePeopleMsgs.get(0).getBU_CODE());
             object.addProperty("In_Tel",gePeopleMsgs.get(0).getPRIVATETEL());
             object.addProperty("In_Name",gePeopleMsgs.get(0).getCHINESENAME());
             object.addProperty("In_Sex",gePeopleMsgs.get(0).getSEX());
-        }else{
 
+
+        }else{
             object.addProperty("In_id",id);
+            object.addProperty("In_Cpc",gePeopleMsgs.get(0).getDANWEI());
             object.addProperty("In_Department",gePeopleMsgs.get(0).getDANWEI());
             object.addProperty("In_Tel",gePeopleMsgs.get(0).getTEL());
             object.addProperty("In_Name",gePeopleMsgs.get(0).getNAME());
