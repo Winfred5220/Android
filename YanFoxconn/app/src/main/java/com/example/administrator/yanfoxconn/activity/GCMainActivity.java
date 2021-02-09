@@ -32,7 +32,9 @@ public class GCMainActivity extends BaseActivity implements View.OnClickListener
     @BindView(R.id.btn_ocr)
     Button btnVehicle;//處置後消殺點檢  鋰電池使用區
     @BindView(R.id.btn_self)
-    Button btnSelf;//處置後消殺點檢  上報無法點檢異常
+    Button btnSelf;//處置後消殺點檢  充電樁點檢
+    @BindView(R.id.btn_search)
+    Button btnSearch;//已有記錄查詢 上報無法點檢異常
 
     String type="";//類別
 
@@ -46,12 +48,13 @@ public class GCMainActivity extends BaseActivity implements View.OnClickListener
         type=getIntent().getStringExtra("type");
         if(type!=null&&type.equals("FX")){
             btnSelf.setVisibility(View.VISIBLE);
-
+            btnSearch.setVisibility(View.VISIBLE);
             tvTitle.setText("鋰電池防火");
             btnViolation.setText("充電區點檢");
             btnTurnover.setText("儲存區點檢");
             btnVehicle.setText("使用區點檢");
-            btnSelf.setText("無法點檢");
+            btnSelf.setText("充電樁點檢");
+            btnSearch.setText("無法點檢");
         }else{
             tvTitle.setText("異常處置區");
             btnViolation.setText("日常消殺點檢");
@@ -65,7 +68,9 @@ public class GCMainActivity extends BaseActivity implements View.OnClickListener
         btnTurnover.setTextColor(getResources().getColor(R.color.color_eeeeee));
         btnVehicle.setBackgroundColor(getResources().getColor(R.color.color_009adb));
         btnVehicle.setTextColor(getResources().getColor(R.color.color_eeeeee));
-        btnSelf.setBackgroundColor(getResources().getColor(R.color.color_f5a306));
+        btnSearch.setBackgroundColor(getResources().getColor(R.color.color_f5a306));
+        btnSearch.setTextColor(getResources().getColor(R.color.color_eeeeee));
+        btnSelf.setBackgroundColor(getResources().getColor(R.color.color_009adb));
         btnSelf.setTextColor(getResources().getColor(R.color.color_eeeeee));
 
         btnBack.setOnClickListener(this);
@@ -73,6 +78,7 @@ public class GCMainActivity extends BaseActivity implements View.OnClickListener
         btnTurnover.setOnClickListener(this);
         btnVehicle.setOnClickListener(this);
         btnSelf.setOnClickListener(this);
+        btnSearch.setOnClickListener(this);
     }
 
     @Override
@@ -103,7 +109,13 @@ public class GCMainActivity extends BaseActivity implements View.OnClickListener
                     startActivity(intent3);
                     break;
                 case R.id.btn_self://無法點檢
-//                    FoxContext.getInstance().setType("HE");
+                    FoxContext.getInstance().setType("HK");
+                    Intent intent5 = new Intent(GCMainActivity.this,QrCodeActivity.class);
+                    intent5.putExtra("title", "掃描二維碼");
+                    intent5.putExtra("num", "cz");
+                    startActivity(intent5);
+                    break;
+                case R.id.btn_search://充電樁點檢
                     Intent intent4 = new Intent(GCMainActivity.this,AbnormalCantCheckActivity.class);
                     startActivity(intent4);
                     break;

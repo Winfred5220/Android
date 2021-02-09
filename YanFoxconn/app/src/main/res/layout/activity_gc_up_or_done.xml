@@ -33,7 +33,8 @@
                 <TextView
                     android:id="@+id/tv_id"
                     style="@style/carTextBKG"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:text="F3416918" />
             </TableRow>
             <!--姓名-->
             <TableRow style="@style/tableRow">
@@ -45,7 +46,8 @@
                 <TextView
                     android:id="@+id/tv_name"
                     style="@style/carTextBKG"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:text="黃建超"  />
             </TableRow>
             <!--性別-->
             <TableRow style="@style/tableRow">
@@ -57,7 +59,8 @@
                 <TextView
                     android:id="@+id/tv_identity"
                     style="@style/carTextBKG"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:text="男" />
             </TableRow>
                 <!--產品處-->
                 <TableRow style="@style/tableRow">
@@ -69,7 +72,8 @@
                     <TextView
                         android:id="@+id/tv_cpc"
                         style="@style/carTextBKG"
-                        android:layout_weight="1" />
+                        android:layout_weight="1"
+                        android:text="營運中心"  />
                 </TableRow>
                 <!--部門-->
                 <TableRow style="@style/tableRow">
@@ -81,7 +85,8 @@
                     <TextView
                         android:id="@+id/tv_pro"
                         style="@style/carTextBKG"
-                        android:layout_weight="1" />
+                        android:layout_weight="1"
+                        android:text="運籌服務處"  />
                 </TableRow>
                 <!--初錄體溫-->
                 <TableRow style="@style/tableRow">
@@ -93,7 +98,8 @@
                     <TextView
                         android:id="@+id/tv_first_temp"
                         style="@style/carTextBKG"
-                        android:layout_weight="1" />
+                        android:layout_weight="1"
+                        android:text="36.5" />
                 </TableRow>
                 <!--初錄門崗-->
                 <TableRow style="@style/tableRow">
@@ -105,7 +111,8 @@
                     <TextView
                         android:id="@+id/tv_men"
                         style="@style/carTextBKG"
-                        android:layout_weight="1" />
+                        android:layout_weight="1"
+                        android:text="A區-A-社康中心-一樓"  />
                 </TableRow>
                 <!--留觀地點-->
                 <TableRow style="@style/tableRow">
@@ -117,7 +124,8 @@
                     <TextView
                         android:id="@+id/tv_area"
                         style="@style/carTextBKG"
-                        android:layout_weight="1" />
+                        android:layout_weight="1"
+                        android:text="觀察區"  />
                 </TableRow>
                 <!--日期時間-->
                 <TableRow style="@style/tableRow"
@@ -151,6 +159,68 @@
 
                     <EditText
                         android:id="@+id/et_temp"
+                        style="@style/carEditTextBKG"
+                        android:layout_weight="1"
+                        android:inputType="numberDecimal"/>
+                </TableRow>
+                <!--值班醫生-->
+                <TableRow style="@style/tableRow">
+
+                    <TextView
+                        style="@style/carTextName"
+                        android:text="值班醫生："
+                        android:focusable="true"
+                        android:focusableInTouchMode="true" />
+
+                    <EditText
+                        android:id="@+id/et_doctor"
+                        style="@style/carEditTextBKG"
+                        android:layout_weight="1"
+                        android:inputType="numberDecimal"/>
+                </TableRow>
+                <!--留觀地點-->
+                <TableRow style="@style/tableRow"
+                    android:layout_marginTop="@dimen/dimen_40">
+
+                    <TextView
+                        style="@style/carTextName"
+                        android:text="留觀地點："
+                        android:focusable="true"
+                        android:focusableInTouchMode="true" />
+
+                    <EditText
+                        android:id="@+id/et_room"
+                        style="@style/carEditTextBKG"
+                        android:layout_weight="1"
+                        android:inputType="numberDecimal"/>
+                </TableRow>
+                <!--進入時間-->
+                <TableRow style="@style/tableRow"
+                    android:layout_marginTop="@dimen/dimen_30">
+
+                    <TextView
+                        style="@style/carTextName"
+                        android:text="進入時間："
+                        android:focusable="true"
+                        android:focusableInTouchMode="true" />
+
+                    <EditText
+                        android:id="@+id/et_in_time"
+                        style="@style/carEditTextBKG"
+                        android:layout_weight="1"
+                        android:inputType="numberDecimal"/>
+                </TableRow>
+                <!--離開時間-->
+                <TableRow style="@style/tableRow">
+
+                    <TextView
+                        style="@style/carTextName"
+                        android:text="離開時間："
+                        android:focusable="true"
+                        android:focusableInTouchMode="true" />
+
+                    <EditText
+                        android:id="@+id/et_out_time"
                         style="@style/carEditTextBKG"
                         android:layout_weight="1"
                         android:inputType="numberDecimal"/>
@@ -201,7 +271,8 @@
             </RelativeLayout>
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:visibility="gone">
 
                 <com.example.administrator.yanfoxconn.widget.MyGridView
                     android:id="@+id/gv_photo"

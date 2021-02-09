@@ -88,7 +88,5 @@
             style="@style/btn_input"
             android:text="文字識別" />
 
-
-
     </LinearLayout>
 </LinearLayout>
