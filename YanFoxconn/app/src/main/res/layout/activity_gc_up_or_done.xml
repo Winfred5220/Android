@@ -8,7 +8,6 @@
     tools:context=".activity.DZFoodAbUpActivity"
     android:orientation="vertical">
 
-    
 <!--標題-->
     <include layout="@layout/common_title"/>
     <ScrollView
