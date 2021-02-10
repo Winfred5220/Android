@@ -43,8 +43,9 @@ public class ProductDivisionActivity extends BaseActivity implements View.OnClic
     private List<RouteMessage> routeMessageList;//巡檢點信息列表
 
     public String[][] proName = {
-            {"車間巡檢", "天台巡檢","安全出口巡檢","成型巡檢","沖壓消殺", "成型消殺","組裝消殺","SMT消殺",
-                    "塗裝消殺"},//NME
+            {"車間巡檢", "天台巡檢","安全出口巡檢"
+                    ,"成型巡檢","沖壓巡檢","組裝巡檢", "塗裝巡檢","SMT巡檢"
+                    ,"沖壓消殺", "成型消殺","組裝消殺","SMT消殺", "塗裝消殺"},//NME
             {"VIP巡檢"},//VIP
             {"製二安環&值星", "製二層主","PME製一(E區)E化系統-日","PME製一(E區)E化系統-週","製一(八角)巡檢",
                     "制二兼職安全員","製二棟主(企業負責人)"},//PME
@@ -61,7 +62,9 @@ public class ProductDivisionActivity extends BaseActivity implements View.OnClic
             { "放電加工機", "線割加工機", "工安巡檢"}//模具
     };
     public String[][] proRole = {
-            {"U0", "BD","BE","CH","CZ","DU","DV","DW","DX"},//NME
+            {"U0", "BD","BE"
+                    ,"CH","HJ","HH","HI","HF"
+                    ,"CZ","DU","DV","DW","DX"},//NME
             {"BF"},//VIP
             {"BR", "CG","DY","GP","CJ","BU","CW"},//PME，原CF可以刪除
             {"CP","CS"},//EBL
@@ -77,8 +80,8 @@ public class ProductDivisionActivity extends BaseActivity implements View.OnClic
     };
     public int[][] proIcon = {
             {R.mipmap.icon_chejian, R.mipmap.icon_tiantai, R.mipmap.icon_anquanchu,
-                    R.mipmap.icon_pmezhiyi,R.mipmap.icon_nmexiaosha, R.mipmap.icon_nmexiaosha,
-                    R.mipmap.icon_nmexiaosha, R.mipmap.icon_nmexiaosha,R.mipmap.icon_nmexiaosha},//NME
+                    R.mipmap.icon_pmezhiyi,R.mipmap.icon_pmezhiyi,R.mipmap.icon_pmezhiyi,R.mipmap.icon_pmezhiyi,R.mipmap.icon_pmezhiyi,
+                    R.mipmap.icon_nmexiaosha, R.mipmap.icon_nmexiaosha, R.mipmap.icon_nmexiaosha, R.mipmap.icon_nmexiaosha,R.mipmap.icon_nmexiaosha},//NME
             {R.mipmap.icon_vip_safe},//VIP
             {R.mipmap.icon_pme_safe, R.mipmap.icon_pmecengzhu, R.mipmap.icon_pmezhiyi,
                     R.mipmap.icon_pmezhiyi, R.mipmap.icon_anquanchu, R.mipmap.icon_jianzhi,
