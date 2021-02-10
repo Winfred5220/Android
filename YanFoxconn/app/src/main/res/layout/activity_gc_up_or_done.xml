@@ -143,6 +143,37 @@
                         android:layout_weight="1"
                         android:inputType="numberDecimal"/>
                 </TableRow>
+                <!--進入時間-->
+                <TableRow style="@style/tableRow"
+                    android:layout_marginTop="@dimen/dimen_40">
+
+                    <TextView
+                        style="@style/carTextName"
+                        android:text="進入時間："
+                        android:focusable="true"
+                        android:focusableInTouchMode="true" />
+
+                    <EditText
+                        android:id="@+id/et_in_time"
+                        style="@style/carEditTextBKG"
+                        android:layout_weight="1"
+                        android:inputType="numberDecimal"/>
+                </TableRow>
+                <!--離開時間-->
+                <TableRow style="@style/tableRow">
+
+                    <TextView
+                        style="@style/carTextName"
+                        android:text="離開時間："
+                        android:focusable="true"
+                        android:focusableInTouchMode="true" />
+
+                    <EditText
+                        android:id="@+id/et_out_time"
+                        style="@style/carEditTextBKG"
+                        android:layout_weight="1"
+                        android:inputType="numberDecimal"/>
+                </TableRow>
                 <!--日期時間-->
                 <TableRow style="@style/tableRow"
                     android:id="@+id/tr_time"
@@ -165,8 +196,7 @@
                 </TableRow>
 
                 <!--值班醫生-->
-                <TableRow style="@style/tableRow"
-                    android:layout_marginTop="@dimen/dimen_40">
+                <TableRow style="@style/tableRow">
 
                     <TextView
                         style="@style/carTextName"
@@ -196,37 +226,7 @@
                         android:layout_weight="1"
                         android:inputType="numberDecimal"/>
                 </TableRow>
-                <!--進入時間-->
-                <TableRow style="@style/tableRow"
-                    android:layout_marginTop="@dimen/dimen_30">
 
-                    <TextView
-                        style="@style/carTextName"
-                        android:text="進入時間："
-                        android:focusable="true"
-                        android:focusableInTouchMode="true" />
-
-                    <EditText
-                        android:id="@+id/et_in_time"
-                        style="@style/carEditTextBKG"
-                        android:layout_weight="1"
-                        android:inputType="numberDecimal"/>
-                </TableRow>
-                <!--離開時間-->
-                <TableRow style="@style/tableRow">
-
-                    <TextView
-                        style="@style/carTextName"
-                        android:text="離開時間："
-                        android:focusable="true"
-                        android:focusableInTouchMode="true" />
-
-                    <EditText
-                        android:id="@+id/et_out_time"
-                        style="@style/carEditTextBKG"
-                        android:layout_weight="1"
-                        android:inputType="numberDecimal"/>
-                </TableRow>
             </TableLayout>
             <!--    結案時顯示-->
             <RadioGroup
@@ -250,6 +250,7 @@
             </RadioGroup>
             <!--文字描述-->
             <RelativeLayout
+                android:layout_marginTop="@dimen/dimen_30"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dimen_8"
