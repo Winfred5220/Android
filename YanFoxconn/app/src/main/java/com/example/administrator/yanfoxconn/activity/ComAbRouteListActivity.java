@@ -92,8 +92,9 @@ public class ComAbRouteListActivity extends BaseActivity implements View.OnClick
     private int qrCount = 0;//總的掃描次數
     private String nowDateTime; // 獲取當前时间
 
-    private String flag;//查詢標誌
+    private String flag;//查詢車輛C
     private String id;//
+    private String type;//查詢類別
     private int width;
     private  int height;
     private String statut="Y";//點檢狀態,Y已點檢,N未點檢
@@ -105,11 +106,13 @@ public class ComAbRouteListActivity extends BaseActivity implements View.OnClick
         ButterKnife.bind(this);
         WindowManager wm = this.getWindowManager();
 
-         width = wm.getDefaultDisplay().getWidth();
+        width = wm.getDefaultDisplay().getWidth();
         height = wm.getDefaultDisplay().getHeight();
         Log.e("------", "MainActivityGao==width=="+width+"==height=="+height);
-
-
+        flag = getIntent().getStringExtra("flag");
+        if (flag==null)flag="";
+        type = getIntent().getStringExtra("type");
+        if (type==null)type="";
         tvTitle.setText("已點檢進度");
         btnBack.setVisibility(View.VISIBLE);
         ibRight.setVisibility(View.VISIBLE);
@@ -123,19 +126,20 @@ public class ComAbRouteListActivity extends BaseActivity implements View.OnClick
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.e("-------","進入點位異常列表==="+position);
+               if (!flag.equals("C")) {
 //                getRouteItemList( FoxContext.getInstance().getType(),routeMessageList.get(position).getDim_id());
-               if (!routeMessageList.get(position).getCount().equals("0")){
-                Intent intent = new Intent(ComAbRouteListActivity.this,ComAbRouteItemListActivity.class);
-                intent.putExtra("dimId",routeMessageList.get(position).getDim_id());
-                intent.putExtra("dName",routeMessageList.get(position).getDim_locale());
-                intent.putExtra("creatorId",FoxContext.getInstance().getLoginId());
-                   intent.putExtra("from","Com");
+                   if (!routeMessageList.get(position).getCount().equals("0")) {
+                       Intent intent = new Intent(ComAbRouteListActivity.this, ComAbRouteItemListActivity.class);
+                       intent.putExtra("dimId", routeMessageList.get(position).getDim_id());
+                       intent.putExtra("dName", routeMessageList.get(position).getDim_locale());
+                       intent.putExtra("creatorId", FoxContext.getInstance().getLoginId());
+                       intent.putExtra("from", "Com");
 //                intent.putExtra("scId",routeMessageList.get(position).getSc_id());
-                startActivity(intent);
-               }else{
-                   ToastUtils.showLong(ComAbRouteListActivity.this,"無異常可查看!");
+                       startActivity(intent);
+                   } else {
+                       ToastUtils.showLong(ComAbRouteListActivity.this, "無異常可查看!");
+                   }
                }
-
             }
         });
     }
@@ -188,7 +192,6 @@ public class ComAbRouteListActivity extends BaseActivity implements View.OnClick
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.ll_qr_code:
-
                     Intent intent = new Intent(ComAbRouteListActivity.this, QrCodeActivity.class);
                     intent.putExtra("title", "掃描二維碼");
                     intent.putExtra("num", FoxContext.getInstance().getType());
@@ -203,14 +206,20 @@ public class ComAbRouteListActivity extends BaseActivity implements View.OnClick
                         tvTitle.setText("已點檢進度");
                         statut = "Y";
                     }
-                    updateRouteList("D",FoxContext.getInstance().getType(),statut,"","","");
+                    if (flag.equals("C")){
+                        updateRouteList("C",type,statut,"","","");
+                    }else{
+                        updateRouteList("D",FoxContext.getInstance().getType(),statut,"","","");
+                    }
+
                     break;
                 case R.id.ll_query_error:
+                    if (flag.equals("C")){
+                        FoxContext.getInstance().setType(type);
+                    }
                     Intent intentAb = new Intent(ComAbRouteListActivity.this,ComAbDListActivity.class);
 
-
                     startActivity(intentAb);
-
                     break;
 //                case R.id.ll_self_error:
 //                    flag = "SELF";
@@ -442,7 +451,12 @@ public class ComAbRouteListActivity extends BaseActivity implements View.OnClick
     @Override
     protected void onStart() {
         super.onStart();
-        updateRouteList("D",FoxContext.getInstance().getType(),statut,"","","");
+        if (flag.equals("C")){
+            updateRouteList("C",type,statut,"","","");
+        }else {
+            updateRouteList("D",FoxContext.getInstance().getType(),statut,"","","");
+        }
+
     }
 
 }

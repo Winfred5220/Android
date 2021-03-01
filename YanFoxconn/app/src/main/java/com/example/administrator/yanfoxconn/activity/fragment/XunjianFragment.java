@@ -100,9 +100,9 @@ public class XunjianFragment extends Fragment implements View.OnClickListener{
             {"CT","FE","FF","FG","FV","FX","FZ","GE","GX"},//工業安全部
             {"BG", "BP", "ZXS", "DN","DQ","DT","FH","GA"},//總務
             {"N0", "O0", "P0", "Q0", "V0","DR","FS","FW","GD","GCGL"},//營建 GCGL工程管理，開放權限，掃碼後會根據登錄帳號權限進行判斷
-            {"NME", "VIP", "PME", "EBL", "PWB","HEC","MDI","MUJ"},//產品處
+            {"NME", "VIP", "PME", "EBL", "PWB","HEC","MDI","MUJ","HAN"},//產品處
             {"F0", "E0", "CI", "EC"},//碼頭物流
-            {"BS", "CK", "EA","FQ","BV"},//車調服務
+            {"BS", "CK", "EA"},//車調服務,"FQ","BV"
             {"BK", "BT", "CQ"},//海關協管
             //{"W0"},//煙台工會
             {"X0", "Y0", "DO", "DP","DZ","ED"},//人力資源部
@@ -119,9 +119,9 @@ public class XunjianFragment extends Fragment implements View.OnClickListener{
                     "設備借用"},//工業安全部
             {"宿舍巡檢", "餐飲巡檢", "消殺巡檢", "宿舍查驗","直飲水","生活垃圾清運","餐廳巡檢","臨時工簽到"},//總務
             {"A區巡檢", "E區巡檢", "C區巡檢", "D/G區巡檢", "維保巡檢","工程項目點檢","空調防疫點檢","配電箱點檢","路燈射燈點檢","工程管理"},//營建
-            {"NME", "VIP", "PME", "EBL", "PWB","HEC","MDI","模具加工"},//產品處
+            {"NME", "VIP", "PME", "EBL", "PWB","HEC","MDI","模具加工","環境安全"},//產品處
             {"碼頭網站", "出口碼頭", "HUB倉", "碼頭巡檢"},//碼頭物流
-            {"候車亭巡檢", "叉車廠商巡檢","車輛巡檢","車調車輛巡檢","叉車球車巡檢"},//車調服務
+            {"候車亭巡檢", "叉車廠商巡檢","車輛巡檢"},//車調服務,"車調車輛巡檢","叉車球車巡檢"
             {"人工跨區", "跨區申請單", "車輛跨區"},//海關協管
             //{"餐監會"},//煙台工會
             {"活動生成", "活動簽到", "退訓放行", "班導志","人資監餐","教室點檢"},//人力資源部
@@ -145,10 +145,9 @@ public class XunjianFragment extends Fragment implements View.OnClickListener{
                     R.mipmap.icon_yingjian, R.mipmap.icon_yingjian, R.mipmap.icon_kongtiao, R.mipmap.icon_peidianxiang,
                     R.mipmap.icon_ludeng, R.mipmap.icon_gongcheng},//營建
             {R.mipmap.icon_nme, R.mipmap.icon_vip, R.mipmap.icon_pme, R.mipmap.icon_ebl, R.mipmap.icon_pwb1,
-                    R.mipmap.icon_hec, R.mipmap.icon_mdi, R.mipmap.icon_muj},//產品處
+                    R.mipmap.icon_hec, R.mipmap.icon_mdi, R.mipmap.icon_muj,R.mipmap.icon_huanan},//產品處
             {R.mipmap.icon_chuwang, R.mipmap.icon_chukou, R.mipmap.icon_hub,R.mipmap.icon_kuaqusao},//碼頭物流
-            {R.mipmap.icon_ting, R.mipmap.icon_forklift,R.mipmap.icon_cheliang, R.mipmap.icon_cross_car,
-                    R.mipmap.icon_forklift},//車調服務
+            {R.mipmap.icon_ting, R.mipmap.icon_forklift,R.mipmap.icon_cheliang},//車調服務, R.mipmap.icon_cross_car,R.mipmap.icon_forklift
             {R.mipmap.icon_kuaqusao, R.mipmap.icon_kuaqushen, R.mipmap.icon_cross_car},//海關協管
             //{R.mipmap.icon_shijian},//煙台工會
             {R.mipmap.icon_huodong, R.mipmap.icon_qiandao, R.mipmap.icon_retreat, R.mipmap.icon_bandao,
@@ -263,7 +262,7 @@ public class XunjianFragment extends Fragment implements View.OnClickListener{
      */
     private void setExListView() {
 
-        roles = FoxContext.getInstance().getRoles() + ",GCGL,NME,VIP,PME,EBL,PWB,ZXS,GAN,HEC,QAQ,SMT,MEM,MDI,MUJ";//ZXS:總務消殺巡檢 GAN:工安巡檢
+        roles = FoxContext.getInstance().getRoles() + ",GCGL,NME,VIP,PME,EBL,PWB,ZXS,GAN,HEC,QAQ,SMT,MEM,MDI,MUJ,HAN";//ZXS:總務消殺巡檢 GAN:工安巡檢
         rolesList = new ArrayList<String>();
         String spStr[] = roles.split(",");
         for (int i = 0; i < spStr.length; i++) {

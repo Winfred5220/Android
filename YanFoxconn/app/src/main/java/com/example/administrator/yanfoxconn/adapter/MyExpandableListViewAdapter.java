@@ -350,6 +350,13 @@ public class MyExpandableListViewAdapter extends BaseExpandableListAdapter {
                 intent.putExtra("type", "MUJ");
                 mContext.getActivity().startActivity(intent);
             }
+            @Override//環安
+            public void OnClickHAN() {
+                Intent intent = new Intent(mContext.getActivity(), ProductDivisionActivity.class);
+                intent.putExtra("title", "環境安全");
+                intent.putExtra("type", "HAN");
+                mContext.getActivity().startActivity(intent);
+            }
             @Override//產品處======
             public void OnClickMDI() {
                 Intent intent = new Intent(mContext.getActivity(), ProductDivisionActivity.class);

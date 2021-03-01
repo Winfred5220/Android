@@ -339,6 +339,7 @@
         <activity android:name=".activity.DeviceBorrowMainActivity"/><!-- 設備借用界面 -->
         <activity android:name=".activity.DeviceBorrowListActivity"/><!-- 設備借用狀態查詢界面 -->
         <activity android:name=".activity.AbnormalCantCheckActivity"/><!-- 無法點檢上傳原因界面 -->
+        <activity android:name=".activity.CarCheckProgressTypeListActivity"/><!-- 車輛點檢進度類別界面 -->
 
 
     </application>

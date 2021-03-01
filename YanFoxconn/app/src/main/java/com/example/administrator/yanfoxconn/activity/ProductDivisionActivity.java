@@ -44,8 +44,8 @@ public class ProductDivisionActivity extends BaseActivity implements View.OnClic
 
     public String[][] proName = {
             {"車間巡檢", "天台巡檢","安全出口巡檢"
-                    ,"成型巡檢","沖壓巡檢","組裝巡檢", "塗裝巡檢","SMT巡檢"
-                    ,"沖壓消殺", "成型消殺","組裝消殺","SMT消殺", "塗裝消殺"},//NME
+              ,"成型巡檢","沖壓巡檢","組裝巡檢", "塗裝巡檢","SMT巡檢"
+              ,"沖壓消殺", "成型消殺","組裝消殺","SMT消殺", "塗裝消殺"},//NME
             {"VIP巡檢"},//VIP
             {"製二安環&值星", "製二層主","PME製一(E區)E化系統-日","PME製一(E區)E化系統-週","製一(八角)巡檢",
                     "制二兼職安全員","製二棟主(企業負責人)"},//PME
@@ -56,15 +56,15 @@ public class ProductDivisionActivity extends BaseActivity implements View.OnClic
             {"A區生活區", "A區廠區", "C區", "E區", "八角", "宿舍区A/E"},//總務消殺巡檢
             { "A區", "C區", "D區", "G區", "E區","A區生活區","E區生活區"},//工安巡檢
             { "電源供應器","靜電試驗機","插拔試驗機","冷熱衝擊柜","恆溫恆濕柜","推拉力試驗機","高空試驗機",
-                    "高溫台車","電源模擬器","衝擊試驗機","靜電放電模擬器"},//品質保證處QA
+              "高溫台車","電源模擬器","衝擊試驗機","靜電放電模擬器"},//品質保證處QA
             { "X光檢測機", "研磨機", "電特性檢測設備", "溫度測定儀","電子顯微鏡"},//品質保證處SMT
             { "光譜儀", "卡尺校正儀", "多功能校準器", "三次元","臺式色差儀器","數字萬用表"},//品質保證處ME
-            { "放電加工機", "線割加工機", "工安巡檢"}//模具
+            { "放電加工機", "線割加工機", "工安巡檢"},//模具
+            { "廢料點檢", "污水及廢氣點檢", "危廢倉點檢","棧板廠點檢"}//環境安全
     };
     public String[][] proRole = {
-            {"U0", "BD","BE"
-                    ,"CH","HJ","HH","HI","HF"
-                    ,"CZ","DU","DV","DW","DX"},//NME
+            {"U0", "BD","BE","CH","HJ","HH","HI","HF"
+             ,"CZ","DU","DV","DW","DX"},//NME
             {"BF"},//VIP
             {"BR", "CG","DY","GP","CJ","BU","CW"},//PME，原CF可以刪除
             {"CP","CS"},//EBL
@@ -76,7 +76,8 @@ public class ProductDivisionActivity extends BaseActivity implements View.OnClic
             {"EE","EF","EM","EP","EQ","ER","ES","ET","EY","FC","FD"},//品質保證處QA
             {"EG","EJ","EL","EW","EX"},//品質保證處SMT
             {"EH","EK","EN","EU","FA","FB"},//品質保證處ME
-            {"GY","GZ","HG"}//模具
+            {"GY","GZ","HG"},//模具
+            {"HM","HO","HN","HP"}//環境安全
     };
     public int[][] proIcon = {
             {R.mipmap.icon_chejian, R.mipmap.icon_tiantai, R.mipmap.icon_anquanchu,
@@ -100,7 +101,8 @@ public class ProductDivisionActivity extends BaseActivity implements View.OnClic
             {R.mipmap.icon_a,R.mipmap.icon_b,R.mipmap.icon_c,R.mipmap.icon_e,R.mipmap.icon_d},//品質保證處SMT
             {R.mipmap.icon_a,R.mipmap.icon_b,R.mipmap.icon_c,R.mipmap.icon_e,R.mipmap.icon_d,
                     R.mipmap.icon_df},//品質保證處ME
-            {R.mipmap.icon_a,R.mipmap.icon_b,R.mipmap.icon_c}//模具
+            {R.mipmap.icon_a,R.mipmap.icon_b,R.mipmap.icon_c},//模具
+            {R.mipmap.icon_a,R.mipmap.icon_b,R.mipmap.icon_c,R.mipmap.icon_d}//環境安全
     };
 
     private List<ProductDivisionMessage> mProductDivisionMessagelist;
@@ -149,7 +151,7 @@ public class ProductDivisionActivity extends BaseActivity implements View.OnClic
                     startActivity(intent);
                 }else if(FoxContext.getInstance().getRoles().contains(role)&&(role.equals("CZ")||role.equals("DU")||role.equals("DV")
                         ||role.equals("DW")||role.equals("DX")||role.equals("EB")||role.equals("DY")||role.equals("GP")||role.equals("GO")
-                        ||role.equals("HG"))){
+                        ||role.equals("HG")||role.equals("HM")||role.equals("HO")||role.equals("HP")||role.equals("HN"))){
                     FoxContext.getInstance().setType(role);
                     Intent intent = new Intent(ProductDivisionActivity.this, QrCodeActivity.class);
                     intent.putExtra("title", "掃描二維碼");
@@ -287,6 +289,14 @@ public class ProductDivisionActivity extends BaseActivity implements View.OnClic
                 proNameList.add(proName[12][i]);
                 proRoleList.add(proRole[12][i]);
                 proIconList.add(proIcon[12][i]);
+                ProductDivisionMessage productDivisionMessage = new ProductDivisionMessage(proNameList.get(i),proRoleList.get(i),proIconList.get(i));
+                mProductDivisionMessagelist.add(productDivisionMessage);
+            }
+        }else if (type.equals("HAN")){
+            for (int i = 0; i < proName[13].length; i++) {
+                proNameList.add(proName[13][i]);
+                proRoleList.add(proRole[13][i]);
+                proIconList.add(proIcon[13][i]);
                 ProductDivisionMessage productDivisionMessage = new ProductDivisionMessage(proNameList.get(i),proRoleList.get(i),proIconList.get(i));
                 mProductDivisionMessagelist.add(productDivisionMessage);
             }

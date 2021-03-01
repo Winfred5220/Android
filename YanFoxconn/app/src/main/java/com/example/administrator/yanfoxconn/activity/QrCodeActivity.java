@@ -100,7 +100,7 @@ public class QrCodeActivity extends BaseActivity implements Callback, View.OnCli
         btnBack.setOnClickListener(this);
         btnOpen.setOnClickListener(this);
         btnOpen.setText("手電筒關");
-        if (num.equals("cz")){//後期根據不同部門需求,增加判斷
+        if (num.equals("cz")||num.equals("EA")){//後期根據不同部門需求,增加判斷
             btnList.setVisibility(View.VISIBLE);
             btnList.setOnClickListener(this);
         }else if (num.equals("dn")){//dn宿舍查驗，點擊顯示異常整改
@@ -458,6 +458,9 @@ public class QrCodeActivity extends BaseActivity implements Callback, View.OnCli
                     startActivity(intent);
                 }else if (num.equals("borrow")){
                     Intent intent = new Intent(QrCodeActivity.this, DeviceBorrowListActivity.class);
+                    startActivity(intent);
+                }else if (num.equals("EA")){
+                    Intent intent = new Intent(QrCodeActivity.this,CarCheckProgressTypeListActivity.class);
                     startActivity(intent);
                 }else{
                     Intent intent = new Intent(QrCodeActivity.this, ComAbRouteListActivity.class);

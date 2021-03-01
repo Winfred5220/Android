@@ -33,7 +33,7 @@ public class BaobiaoFragment extends Fragment {
         tvTitle.setText("報表");
         btnBack.setVisibility(view.GONE);
 
-
+        /** 工業安全 */
         //工業安全鋰電池
         LinearLayout btnYuyue = (LinearLayout) view.findViewById(R.id.ib_yuyue);
         btnYuyue.setOnClickListener(new View.OnClickListener() {
@@ -44,55 +44,59 @@ public class BaobiaoFragment extends Fragment {
                 startActivity(intent);
             }
         });
-        //查看预约
+        //洗眼器
         LinearLayout btnChakan = (LinearLayout) view.findViewById(R.id.ib_chakan);
         btnChakan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent= new Intent(getActivity(), WebViewActivity.class);
                 intent.putExtra("role","FX");
-                startActivity(intent);
+                //startActivity(intent);
             }
         });
-        //考勤
+        /** 安保 */
+
+        //巡邏崗
         LinearLayout ibKaoqin = (LinearLayout) view.findViewById(R.id.ib_kaoqin);
         ibKaoqin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent= new Intent(getActivity(), WebViewActivity.class);
                 intent.putExtra("role","FX");
-                startActivity(intent);
+                //startActivity(intent);
             }
         });
-        //签核
+        //固定崗
         LinearLayout ibSign = (LinearLayout) view.findViewById(R.id.ib_sign);
         ibSign.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent= new Intent(getActivity(), WebViewActivity.class);
                 intent.putExtra("role","FX");
-                startActivity(intent);
+                //startActivity(intent);
             }
         });
-        //教室利用率
+        //異常處置區
         LinearLayout btnUsedRatio = (LinearLayout) view.findViewById(R.id.btn_used_ratio);
         btnUsedRatio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent= new Intent(getActivity(), WebViewActivity.class);
                 intent.putExtra("role","FX");
-                startActivity(intent);
+                //startActivity(intent);
             }
         });
 
-        //空间数据
+        /** 總務 */
+
+        //餐飲巡檢
         LinearLayout btnRoom = (LinearLayout) view.findViewById(R.id.btn_room);
         btnRoom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent= new Intent(getActivity(), WebViewActivity.class);
                 intent.putExtra("role","FX");
-                startActivity(intent);
+                //startActivity(intent);
             }
         });
 
