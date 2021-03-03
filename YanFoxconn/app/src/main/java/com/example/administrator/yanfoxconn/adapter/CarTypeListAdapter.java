@@ -58,7 +58,7 @@ public class CarTypeListAdapter extends BaseAdapter {
 
             convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_com_ab_route_item, null);
 
-            //holder.tvNum = convertView.findViewById(R.id.tv_num);
+            holder.tvNum = convertView.findViewById(R.id.tv_count);
             holder.tvContent = convertView.findViewById(R.id.tv_name);
            // holder.tvExceDesp = convertView.findViewById(R.id.tv_exce_desp);
             convertView.setTag(holder);
@@ -68,7 +68,10 @@ public class CarTypeListAdapter extends BaseAdapter {
 
         //holder.tvNum.setText(num+"");
         holder.tvContent.setText(lists.get(position).getName());
-        holder.tvContent.setTextColor(R.color.color_7edbf4);
+        holder.tvNum.setText(lists.get(position).getDep());
+        if (lists.get(position).getDep().equals("特種車輛")){
+            holder.tvNum.setText("特種");
+        }
        // holder.tvExceDesp.setText(lists.get(position).getType());
 
         return convertView;

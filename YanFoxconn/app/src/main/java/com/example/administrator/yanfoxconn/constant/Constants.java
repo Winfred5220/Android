@@ -14,7 +14,7 @@ public class Constants {
     public static final String BASE_URL = "http://ytsafeserver.foxconn.com/SafeServer/";//玲姐
     public static final String EMP_BASE = "http://ytsafeserver.foxconn.com/Server/";    //杰哥
 
-    public static String SafeServer = "http://192.168.1.120:8080/SafeServer/";//SafeServer接口測試
+    public static String SafeServer = "http://192.168.1.128:8080/SafeServer/";//SafeServer接口測試
     public static String Server = "http://192.168.1.136:8080/Server/";//Server接口測試
 
     public static final String HTTP_LOGIN = BASE_URL + "LoginServlet";//登錄
@@ -131,7 +131,7 @@ public class Constants {
     public static String HTTP_WATER_AREA_SERVLET = BASE_URL + "Water/AreaServlet";//區域
     public static String HTTP_WATER_BUILDING_SERVLET = BASE_URL + "Water/BuildingServlet";//樓棟
     public static String HTTP_WATER_FLOOR_SERVLET = BASE_URL + "Water/FloorServlet";//樓層
-    public static String HTTP_WATER_PROCESS_SERVLET = SafeServer + "Water/ProcessServlet";//進度
+    public static String HTTP_WATER_PROCESS_SERVLET = BASE_URL + "Water/ProcessServlet";//進度
     public static String HTTP_WATER_MAINTAIN_SERVLET = BASE_URL + "Water/MaintainViewServlet";//維保查看
     public static String HTTP_WATER_MAINTAIN_OK_SERVLET = BASE_URL + "Water/MaintainOKServlet";//維保提交
     public static String HTTP_WATER_EXCE_DELETE = BASE_URL + "Water/ExceDeleteServlet";//異常刪除
@@ -185,13 +185,10 @@ public class Constants {
     public static String HTTP_YJ_LIST = BASE_URL +"YJ/YJListServlet";//  異常列表
     public static String HTTP_YJ_EXCE_INFO = BASE_URL +"YJ/YJExceInfoServlet";//    詳情
     public static String HTTP_YJ_EXCE_DELETE = BASE_URL +"YJ/YJExceDeleteServlet";//   異常刪除
-
     public static String HTTP_DEVICE_BORROW_PHOTO = BASE_URL +"photos/";    //  設備圖片
     public static String HTTP_DEVICE_BORROW_BASE = EMP_BASE +"DeviceBorrowBaseServlet";//   設備基本信息獲取 設備狀態查詢
     public static String HTTP_DEVICE_BORROW_UP = EMP_BASE +"DeviceBorrowUpServlet";//   設備借用歸還
-
     public static String HTTP_CANT_CHECK_BSAE = BASE_URL +"DimemsionBaseServlet";//  無法點檢獲取點位基本資料
     public static String HTTP_CANT_CHECK_UP = BASE_URL +"ExceCantCheckUpServlet";//  無法點檢上傳異常
-
-    public static String HTTP_CAR_TYPE = SafeServer +"CarProgressTypeServlet";//  車輛點檢進度-車輛類別
+    public static String HTTP_CAR_TYPE = BASE_URL +"CarProgressTypeServlet";//  車輛點檢進度-車輛類別
 }

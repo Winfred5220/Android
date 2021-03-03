@@ -147,7 +147,7 @@ public class MyGridViewAdapter extends BaseAdapter {
                     tvGridView.setTag("dp");
                 } else if (rolesList.get(i).equals("DQ")) {//直飲水
                     tvGridView.setTag("dq");
-                } else if (rolesList.get(i).equals("BS")) {//直飲水
+                } else if (rolesList.get(i).equals("BS")) {//
                     tvGridView.setTag("bs");
                 } else if (rolesList.get(i).equals("DZ")) {//人資監餐
                     tvGridView.setTag("dz");
@@ -165,11 +165,21 @@ public class MyGridViewAdapter extends BaseAdapter {
                     tvGridView.setTag("i0");
                 } else if (rolesList.get(i).equals("J0")) {//三大隊固定
                     tvGridView.setTag("j0");
+                } else if (rolesList.get(i).equals("S0")) {//機動隊固定
+                    tvGridView.setTag("s0");
+                } else if (rolesList.get(i).equals("A0")) {//安保值班室
+                    tvGridView.setTag("a0");
                 } else if (rolesList.get(i).equals("ED")) {//人資教室點檢
                     tvGridView.setTag("ed");
                 } else if (rolesList.get(i).equals("EC")) {//碼頭點檢
                     tvGridView.setTag("ec");
-                } else if (rolesList.get(i).equals("FE")) {//洗眼器點檢
+                } else if (rolesList.get(i).equals("HR")) {//會議室
+                    tvGridView.setTag("hr");
+                } else if (rolesList.get(i).equals("HQ")) {//值班室
+                    tvGridView.setTag("hq");
+                } else if (rolesList.get(i).equals("HS")) {//資料室
+                    tvGridView.setTag("hs");
+                }  else if (rolesList.get(i).equals("FE")) {//洗眼器點檢
                     tvGridView.setTag("fe");
                 } else if (rolesList.get(i).equals("FF")) {//危化品暫存柜點檢
                     tvGridView.setTag("ff");
@@ -221,6 +231,22 @@ public class MyGridViewAdapter extends BaseAdapter {
                     tvGridView.setTag("gx");
                 } else if (rolesList.get(i).equals("GCGL")) {//營建 工程管理
                     tvGridView.setTag("gcgl");
+                } else if (rolesList.get(i).equals("HL")) {//總務倉庫
+                    tvGridView.setTag("hl");
+                } else if (rolesList.get(i).equals("HX")) {//總務餐廳及多媒體
+                    tvGridView.setTag("hx");
+                } else if (rolesList.get(i).equals("HT")) {//人資會議室
+                    tvGridView.setTag("ht");
+                } else if (rolesList.get(i).equals("HU")) {//人資資料室
+                    tvGridView.setTag("hu");
+                } else if (rolesList.get(i).equals("HV")) {//人資倉庫
+                    tvGridView.setTag("hv");
+                } else if (rolesList.get(i).equals("HW")) {//人資文康場館
+                    tvGridView.setTag("hw");
+                } else if (rolesList.get(i).equals("HZ")) {//華北商貿倉庫
+                    tvGridView.setTag("hz");
+                } else if (rolesList.get(i).equals("IA")) {//關愛中心倉庫
+                    tvGridView.setTag("ia");
                 } else {
                     tvGridView.setTag("true");
                 }
@@ -327,10 +353,20 @@ public class MyGridViewAdapter extends BaseAdapter {
                     onClickListener.OnClickI0();
                 } else if (view.getTag().equals("j0")) {//三大隊固定
                     onClickListener.OnClickJ0();
+                } else if (view.getTag().equals("s0")) {//機動隊固定
+                    onClickListener.OnClickS0();
+                } else if (view.getTag().equals("a0")) {//安保值班室
+                    onClickListener.OnClickA0();
                 } else if (view.getTag().equals("ed")) {//人資教室點檢
                     onClickListener.OnClickED();
                 } else if (view.getTag().equals("ec")) {//碼頭點檢
                     onClickListener.OnClickEC();
+                } else if (view.getTag().equals("hr")) {//會議室
+                    onClickListener.OnClickHR();
+                } else if (view.getTag().equals("hq")) {//值班室
+                    onClickListener.OnClickHQ();
+                } else if (view.getTag().equals("hs")) {//資料室
+                    onClickListener.OnClickHS();
                 } else if (view.getTag().equals("fe")) {//洗眼器點檢
                     onClickListener.OnClickFE();
                 } else if (view.getTag().equals("ff")) {//危化品暫存柜點檢
@@ -361,7 +397,7 @@ public class MyGridViewAdapter extends BaseAdapter {
                     onClickListener.OnClickFX();
                 } else if (view.getTag().equals("fz")) {//工業安全-有限空間
                     onClickListener.OnClickFZ();
-                }else if (view.getTag().equals("ge")) {//工業安全-室外堆場
+                } else if (view.getTag().equals("ge")) {//工業安全-室外堆場
                     onClickListener.OnClickGE();
                 } else if (view.getTag().equals("gb")) {//越南巡更
                     onClickListener.OnClickGB();
@@ -379,10 +415,26 @@ public class MyGridViewAdapter extends BaseAdapter {
                     onClickListener.OnClickGR();
                 } else if (view.getTag().equals("gs")) {//南寧警衛巡邏
                     onClickListener.OnClickGS();
-                }  else if (view.getTag().equals("gx")) {//南寧警衛巡邏
+                } else if (view.getTag().equals("gx")) {//南寧警衛巡邏
                     onClickListener.OnClickGX();
-                }  else if (view.getTag().equals("gcgl")) {//營建 工程管理
+                } else if (view.getTag().equals("gcgl")) {//營建 工程管理
                     onClickListener.OnClickGCGL();
+                } else if (view.getTag().equals("hl")) {//總務倉庫
+                    onClickListener.OnClickHL();
+                } else if (view.getTag().equals("hx")) {//總務餐廳及多媒體
+                    onClickListener.OnClickHX();
+                } else if (view.getTag().equals("ht")) {//人資會議室
+                    onClickListener.OnClickHT();
+                } else if (view.getTag().equals("hu")) {//人資資料室
+                    onClickListener.OnClickHU();
+                } else if (view.getTag().equals("hv")) {//人資倉庫
+                    onClickListener.OnClickHV();
+                } else if (view.getTag().equals("hw")) {//人資文康場館
+                    onClickListener.OnClickHW();
+                } else if (view.getTag().equals("hz")) {//華北商貿倉庫
+                    onClickListener.OnClickHZ();
+                } else if (view.getTag().equals("ia")) {//關愛中心倉庫
+                    onClickListener.OnClickIA();
                 } else {
                     onClickListener.OnClickListenerFalse(position);
                 }
@@ -434,9 +486,11 @@ public class MyGridViewAdapter extends BaseAdapter {
         void OnClickLO();//二大隊巡邏
         void OnClickMO();//三大隊巡邏
         void OnClickRO();//機動隊巡邏
-        void OnClickH0();//一大隊巡邏
-        void OnClickI0();//二大隊巡邏
-        void OnClickJ0();//三大隊巡邏
+        void OnClickH0();//一大隊固定
+        void OnClickI0();//二大隊固定
+        void OnClickJ0();//三大隊固定
+        void OnClickS0();//機動隊固定
+        void OnClickA0();//安保值班室
         void OnClickED();//人資教室點檢
         void OnClickEC();//碼頭點檢
         void OnClickFE();//洗眼器點檢 危化品暫存柜點檢 危化品暫存倉點檢
@@ -465,6 +519,17 @@ public class MyGridViewAdapter extends BaseAdapter {
         void OnClickGS();//南寧警衛巡邏
         void OnClickGX();//南寧警衛巡邏
         void OnClickGCGL();//營建 工程管理
+        void OnClickHR();//運籌會議室
+        void OnClickHQ();//運籌值班室
+        void OnClickHS();//運籌資料室
+        void OnClickHL();//總務倉庫
+        void OnClickHX();//總務餐廳區域及多媒體
+        void OnClickHT();//人資會議室
+        void OnClickHU();//人資資料室
+        void OnClickHV();//人資倉庫
+        void OnClickHW();//人資文康場館
+        void OnClickHZ();//華北商貿倉庫
+        void OnClickIA();//關愛中心倉庫
     }
 
     public void setOnClickListener(OnClickListener onClickListener) {

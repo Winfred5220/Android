@@ -3,6 +3,7 @@ package com.example.administrator.yanfoxconn.bean;
 public class CarType {
     private String type;//類別
     private String name;//名稱
+    private String dep;//部門
 
     public String getType() {
         return type;
@@ -20,11 +21,13 @@ public class CarType {
         this.name = name;
     }
 
-    @Override
-    public String toString() {
-        return "CarType{" +
-                "type='" + type + '\'' +
-                ", name='" + name + '\'' +
-                '}';
+    public String getDep() {
+        return dep;
     }
+
+    public void setDep(String dep) {
+        this.dep = dep;
+    }
+
+
 }

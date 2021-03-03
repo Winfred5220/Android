@@ -46,7 +46,7 @@ public class ProductDivisionActivity extends BaseActivity implements View.OnClic
             {"車間巡檢", "天台巡檢","安全出口巡檢"
               ,"成型巡檢","沖壓巡檢","組裝巡檢", "塗裝巡檢","SMT巡檢"
               ,"沖壓消殺", "成型消殺","組裝消殺","SMT消殺", "塗裝消殺"},//NME
-            {"VIP巡檢"},//VIP
+            {"VIP巡檢","VIP消殺"},//VIP
             {"製二安環&值星", "製二層主","PME製一(E區)E化系統-日","PME製一(E區)E化系統-週","製一(八角)巡檢",
                     "制二兼職安全員","製二棟主(企業負責人)"},//PME
             {"EBL巡檢","TV製造巡檢"},//EBL
@@ -65,7 +65,7 @@ public class ProductDivisionActivity extends BaseActivity implements View.OnClic
     public String[][] proRole = {
             {"U0", "BD","BE","CH","HJ","HH","HI","HF"
              ,"CZ","DU","DV","DW","DX"},//NME
-            {"BF"},//VIP
+            {"BF","CF"},//VIP
             {"BR", "CG","DY","GP","CJ","BU","CW"},//PME，原CF可以刪除
             {"CP","CS"},//EBL
             {"CV"},//PWB
@@ -83,7 +83,7 @@ public class ProductDivisionActivity extends BaseActivity implements View.OnClic
             {R.mipmap.icon_chejian, R.mipmap.icon_tiantai, R.mipmap.icon_anquanchu,
                     R.mipmap.icon_pmezhiyi,R.mipmap.icon_pmezhiyi,R.mipmap.icon_pmezhiyi,R.mipmap.icon_pmezhiyi,R.mipmap.icon_pmezhiyi,
                     R.mipmap.icon_nmexiaosha, R.mipmap.icon_nmexiaosha, R.mipmap.icon_nmexiaosha, R.mipmap.icon_nmexiaosha,R.mipmap.icon_nmexiaosha},//NME
-            {R.mipmap.icon_vip_safe},//VIP
+            {R.mipmap.icon_vip_safe,R.mipmap.icon_vip_safe},//VIP
             {R.mipmap.icon_pme_safe, R.mipmap.icon_pmecengzhu, R.mipmap.icon_pmezhiyi,
                     R.mipmap.icon_pmezhiyi, R.mipmap.icon_anquanchu, R.mipmap.icon_jianzhi,
                     R.mipmap.icon_pme_2},//PME
@@ -151,7 +151,7 @@ public class ProductDivisionActivity extends BaseActivity implements View.OnClic
                     startActivity(intent);
                 }else if(FoxContext.getInstance().getRoles().contains(role)&&(role.equals("CZ")||role.equals("DU")||role.equals("DV")
                         ||role.equals("DW")||role.equals("DX")||role.equals("EB")||role.equals("DY")||role.equals("GP")||role.equals("GO")
-                        ||role.equals("HG")||role.equals("HM")||role.equals("HO")||role.equals("HP")||role.equals("HN"))){
+                        ||role.equals("HG")||role.equals("HM")||role.equals("HO")||role.equals("HP")||role.equals("HN")||role.equals("CF"))){
                     FoxContext.getInstance().setType(role);
                     Intent intent = new Intent(ProductDivisionActivity.this, QrCodeActivity.class);
                     intent.putExtra("title", "掃描二維碼");

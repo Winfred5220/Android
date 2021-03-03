@@ -237,8 +237,6 @@ public class MyExpandableListViewAdapter extends BaseExpandableListAdapter {
 //                intent.putExtra("num", "cy");
                 mContext.getActivity().startActivity(intent);
             }
-
-
             @Override//總務消殺巡檢
             public void OnDAKill(int position) {
                 Intent intent = new Intent(mContext.getActivity(), ProductDivisionActivity.class);
@@ -246,7 +244,6 @@ public class MyExpandableListViewAdapter extends BaseExpandableListAdapter {
                 intent.putExtra("type", "ZXS");
                 mContext.getActivity().startActivity(intent);
             }
-
             @Override//宿舍查验
             public void OnDN() {
                 Intent intent = new Intent(mContext.getActivity(), QrCodeActivity.class);
@@ -431,7 +428,7 @@ public class MyExpandableListViewAdapter extends BaseExpandableListAdapter {
                 intent.putExtra("num", "cz");
                 mContext.getActivity().startActivity(intent);
             }
-            @Override//二大隊點檢項巡檢
+            @Override//二大隊巡邏點檢項巡檢
             public void OnClickLO() {
                 FoxContext.getInstance().setType("L0");
                 Intent intent = new Intent(mContext.getActivity(), QrCodeActivity.class);
@@ -439,7 +436,7 @@ public class MyExpandableListViewAdapter extends BaseExpandableListAdapter {
                 intent.putExtra("num", "cz");
                 mContext.getActivity().startActivity(intent);
             }
-            @Override//三大隊點檢項巡檢
+            @Override//三大隊巡邏點檢項巡檢
             public void OnClickMO() {
                 FoxContext.getInstance().setType("M0");
                 Intent intent = new Intent(mContext.getActivity(), QrCodeActivity.class);
@@ -447,7 +444,7 @@ public class MyExpandableListViewAdapter extends BaseExpandableListAdapter {
                 intent.putExtra("num", "cz");
                 mContext.getActivity().startActivity(intent);
             }
-            @Override//機動隊點檢項巡檢
+            @Override//機動隊巡邏點檢項巡檢
             public void OnClickRO() {
                 FoxContext.getInstance().setType("R0");
                 Intent intent = new Intent(mContext.getActivity(), QrCodeActivity.class);
@@ -480,6 +477,22 @@ public class MyExpandableListViewAdapter extends BaseExpandableListAdapter {
                 intent.putExtra("num", "cz");
                 mContext.getActivity().startActivity(intent);
             }
+            @Override//機動隊固定點檢項巡檢
+            public void OnClickS0() {
+                FoxContext.getInstance().setType("S0");
+                Intent intent = new Intent(mContext.getActivity(), QrCodeActivity.class);
+                intent.putExtra("title", "掃描二維碼");
+                intent.putExtra("num", "cz");
+                mContext.getActivity().startActivity(intent);
+            }
+            @Override//安保值班室點檢項巡檢
+            public void OnClickA0() {
+                FoxContext.getInstance().setType("A0");
+                Intent intent = new Intent(mContext.getActivity(), QrCodeActivity.class);
+                intent.putExtra("title", "掃描二維碼");
+                intent.putExtra("num", "cz");
+                mContext.getActivity().startActivity(intent);
+            }
             @Override//人資教室點檢
             public void OnClickED() {
                 FoxContext.getInstance().setType("ED");
@@ -496,7 +509,30 @@ public class MyExpandableListViewAdapter extends BaseExpandableListAdapter {
                 intent.putExtra("num", "cz");
                 mContext.getActivity().startActivity(intent);
             }
-
+            @Override//會議室
+            public void OnClickHR() {
+                FoxContext.getInstance().setType("HR");
+                Intent intent = new Intent(mContext.getActivity(), QrCodeActivity.class);
+                intent.putExtra("title", "掃描二維碼");
+                intent.putExtra("num", "cz");
+                mContext.getActivity().startActivity(intent);
+            }
+            @Override//值班室
+            public void OnClickHQ() {
+                FoxContext.getInstance().setType("HQ");
+                Intent intent = new Intent(mContext.getActivity(), QrCodeActivity.class);
+                intent.putExtra("title", "掃描二維碼");
+                intent.putExtra("num", "cz");
+                mContext.getActivity().startActivity(intent);
+            }
+            @Override//資料室
+            public void OnClickHS() {
+                FoxContext.getInstance().setType("HS");
+                Intent intent = new Intent(mContext.getActivity(), QrCodeActivity.class);
+                intent.putExtra("title", "掃描二維碼");
+                intent.putExtra("num", "cz");
+                mContext.getActivity().startActivity(intent);
+            }
             @Override//洗眼器點檢
             public void OnClickFE() {
                 FoxContext.getInstance().setType("FE");
@@ -705,6 +741,70 @@ public class MyExpandableListViewAdapter extends BaseExpandableListAdapter {
             @Override
             public void OnClickGCGL() {
                 FoxContext.getInstance().setType("GCGL");
+                Intent intent = new Intent(mContext.getActivity(), QrCodeActivity.class);
+                intent.putExtra("title", "掃描二維碼");
+                intent.putExtra("num", "cz");
+                mContext.getActivity().startActivity(intent);
+            }
+            @Override//總務倉庫
+            public void OnClickHL() {
+                FoxContext.getInstance().setType("HL");
+                Intent intent = new Intent(mContext.getActivity(), QrCodeActivity.class);
+                intent.putExtra("title", "掃描二維碼");
+                intent.putExtra("num", "cz");
+                mContext.getActivity().startActivity(intent);
+            }
+            @Override//總務餐廳區域及多媒體
+            public void OnClickHX() {
+                FoxContext.getInstance().setType("HX");
+                Intent intent = new Intent(mContext.getActivity(), QrCodeActivity.class);
+                intent.putExtra("title", "掃描二維碼");
+                intent.putExtra("num", "cz");
+                mContext.getActivity().startActivity(intent);
+            }
+            @Override//人資會議室
+            public void OnClickHT() {
+                FoxContext.getInstance().setType("HT");
+                Intent intent = new Intent(mContext.getActivity(), QrCodeActivity.class);
+                intent.putExtra("title", "掃描二維碼");
+                intent.putExtra("num", "cz");
+                mContext.getActivity().startActivity(intent);
+            }
+            @Override//人資資料室
+            public void OnClickHU() {
+                FoxContext.getInstance().setType("HU");
+                Intent intent = new Intent(mContext.getActivity(), QrCodeActivity.class);
+                intent.putExtra("title", "掃描二維碼");
+                intent.putExtra("num", "cz");
+                mContext.getActivity().startActivity(intent);
+            }
+            @Override//人資倉庫
+            public void OnClickHV() {
+                FoxContext.getInstance().setType("HV");
+                Intent intent = new Intent(mContext.getActivity(), QrCodeActivity.class);
+                intent.putExtra("title", "掃描二維碼");
+                intent.putExtra("num", "cz");
+                mContext.getActivity().startActivity(intent);
+            }
+            @Override//人資文康場館
+            public void OnClickHW() {
+                FoxContext.getInstance().setType("HW");
+                Intent intent = new Intent(mContext.getActivity(), QrCodeActivity.class);
+                intent.putExtra("title", "掃描二維碼");
+                intent.putExtra("num", "cz");
+                mContext.getActivity().startActivity(intent);
+            }
+            @Override//華北商貿倉庫
+            public void OnClickHZ() {
+                FoxContext.getInstance().setType("HZ");
+                Intent intent = new Intent(mContext.getActivity(), QrCodeActivity.class);
+                intent.putExtra("title", "掃描二維碼");
+                intent.putExtra("num", "cz");
+                mContext.getActivity().startActivity(intent);
+            }
+            @Override//關愛中心倉庫
+            public void OnClickIA() {
+                FoxContext.getInstance().setType("IA");
                 Intent intent = new Intent(mContext.getActivity(), QrCodeActivity.class);
                 intent.putExtra("title", "掃描二維碼");
                 intent.putExtra("num", "cz");

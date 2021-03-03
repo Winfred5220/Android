@@ -44,7 +44,7 @@
                 android:layout_height="@dimen/dimen_35"
                 android:layout_marginRight="@dimen/dimen_10"
                 android:gravity="center_vertical"
-                android:text="查看"
+                android:text="11"
                 android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"/>
         </RelativeLayout>
