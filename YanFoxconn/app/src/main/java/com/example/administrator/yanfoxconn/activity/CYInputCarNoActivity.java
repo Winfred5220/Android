@@ -91,7 +91,7 @@ public class CYInputCarNoActivity extends BaseActivity implements View.OnClickLi
                 finish();
                 break;
             case R.id.btn_up:
-                if (etWorkId.getText().toString().equals("")){
+                if (etWorkId.getText().toString().replace(" ","").equals("")){
                     ToastUtils.showShort(this,"車牌輸入結果不能為空!");
 
                 }

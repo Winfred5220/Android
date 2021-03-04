@@ -99,7 +99,7 @@ public class XunjianFragment extends Fragment implements View.OnClickListener{
                     "CU", "CX","GC"},//安保部
             {"CT","FE","FF","FG","FV","FX","FZ","GE","GX"},//工業安全部
             {"BG", "BP", "ZXS", "DN","DQ","DT","FH","GA","HL","HX"},//總務
-            {"N0", "O0", "P0", "Q0", "V0","DR","FS","FW","GD","GCGL"},//營建 GCGL工程管理，開放權限，掃碼後會根據登錄帳號權限進行判斷
+            {"N0", "O0", "P0", "Q0","IB","IC", "V0","FS","FW","GD","GCGL"},//營建 GCGL工程管理，開放權限，掃碼後會根據登錄帳號權限進行判斷
             {"NME", "VIP", "PME", "EBL", "PWB","HEC","MDI","MUJ","HAN"},//產品處
             {"F0", "E0", "CI", "EC","HR","HQ","HS"},//運籌物流
             {"BS", "CK", "EA"},//車調服務,"FQ","BV"
@@ -119,7 +119,7 @@ public class XunjianFragment extends Fragment implements View.OnClickListener{
             {"消防巡檢","洗眼器點檢","危化品暫存柜","危化品暫存倉","吸煙區","鋰電池防火","有限空間","室外堆場",
                     "設備借用"},//工業安全部
             {"宿舍巡檢", "餐飲巡檢", "消殺巡檢", "宿舍查驗","直飲水","生活垃圾清運","餐廳巡檢","臨時工簽到","倉庫巡檢","餐廳及多媒體"},//總務
-            {"A區巡檢", "E區巡檢", "C區巡檢", "D/G區巡檢", "維保巡檢","工程項目點檢","空調防疫點檢","配電箱點檢","路燈射燈點檢","工程管理"},//營建
+            {"A區巡檢", "E區巡檢", "C區巡檢", "D區巡檢", "G區巡檢","A-5區巡檢","維保巡檢","空調防疫點檢","配電箱點檢","路燈射燈點檢","工程管理"},//營建
             {"NME", "VIP", "PME", "EBL", "PWB","HEC","MDI","模具加工","環境安全"},//產品處
             {"碼頭網站", "出口碼頭", "HUB倉", "碼頭點檢", "會議室點檢", "值班室點檢", "資料室點檢"},//運籌物流
             {"候車亭巡檢", "叉車廠商巡檢","車輛點檢"},//車調服務,"車調車輛巡檢","叉車球車巡檢"
@@ -145,7 +145,7 @@ public class XunjianFragment extends Fragment implements View.OnClickListener{
                     R.mipmap.icon_zhiyinshui,R.mipmap.icon_laji, R.mipmap.icon_canting, R.mipmap.icon_linshi,
                     R.mipmap.icon_ziliaoshi, R.mipmap.icon_huiyishi},//總務
             {R.mipmap.icon_yingjian, R.mipmap.icon_yingjian, R.mipmap.icon_yingjian, R.mipmap.icon_yingjian,
-                    R.mipmap.icon_yingjian, R.mipmap.icon_yingjian, R.mipmap.icon_kongtiao, R.mipmap.icon_peidianxiang,
+                    R.mipmap.icon_yingjian,R.mipmap.icon_yingjian,R.mipmap.icon_yingjian, R.mipmap.icon_kongtiao, R.mipmap.icon_peidianxiang,
                     R.mipmap.icon_ludeng, R.mipmap.icon_gongcheng},//營建
             {R.mipmap.icon_nme, R.mipmap.icon_vip, R.mipmap.icon_pme, R.mipmap.icon_ebl, R.mipmap.icon_pwb1,
                     R.mipmap.icon_hec, R.mipmap.icon_mdi, R.mipmap.icon_muj,R.mipmap.icon_huanan},//產品處

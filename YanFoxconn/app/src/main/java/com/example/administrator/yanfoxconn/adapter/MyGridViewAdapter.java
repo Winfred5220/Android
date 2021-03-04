@@ -247,6 +247,18 @@ public class MyGridViewAdapter extends BaseAdapter {
                     tvGridView.setTag("hz");
                 } else if (rolesList.get(i).equals("IA")) {//關愛中心倉庫
                     tvGridView.setTag("ia");
+                } else if (rolesList.get(i).equals("N0")) {//A
+                    tvGridView.setTag("n0");
+                } else if (rolesList.get(i).equals("P0")) {//C
+                    tvGridView.setTag("p0");
+                } else if (rolesList.get(i).equals("O0")) {//E
+                    tvGridView.setTag("o0");
+                } else if (rolesList.get(i).equals("Q0")) {//D
+                    tvGridView.setTag("q0");
+                } else if (rolesList.get(i).equals("IB")) {//G
+                    tvGridView.setTag("ib");
+                } else if (rolesList.get(i).equals("IC")) {//A-5
+                    tvGridView.setTag("ic");
                 } else {
                     tvGridView.setTag("true");
                 }
@@ -435,6 +447,18 @@ public class MyGridViewAdapter extends BaseAdapter {
                     onClickListener.OnClickHZ();
                 } else if (view.getTag().equals("ia")) {//關愛中心倉庫
                     onClickListener.OnClickIA();
+                } else if (view.getTag().equals("n0")) {//A
+                    onClickListener.OnClickN0();
+                } else if (view.getTag().equals("p0")) {//C
+                    onClickListener.OnClickP0();
+                } else if (view.getTag().equals("o0")) {//E
+                    onClickListener.OnClickO0();
+                } else if (view.getTag().equals("q0")) {//D
+                    onClickListener.OnClickQ0();
+                } else if (view.getTag().equals("ib")) {//G
+                    onClickListener.OnClickIB();
+                } else if (view.getTag().equals("ic")) {//A-5
+                    onClickListener.OnClickIC();
                 } else {
                     onClickListener.OnClickListenerFalse(position);
                 }
@@ -530,6 +554,14 @@ public class MyGridViewAdapter extends BaseAdapter {
         void OnClickHW();//人資文康場館
         void OnClickHZ();//華北商貿倉庫
         void OnClickIA();//關愛中心倉庫
+
+        void OnClickN0();//A
+        void OnClickP0();//C
+        void OnClickO0();//E
+        void OnClickQ0();//D
+        void OnClickIB();//G
+        void OnClickIC();//A-5
+
     }
 
     public void setOnClickListener(OnClickListener onClickListener) {

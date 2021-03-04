@@ -68,7 +68,7 @@ public class CyDelListActivity extends BaseActivity implements View.OnClickListe
         from=getIntent().getStringExtra("from");
         if (from.equals("two")){
             tvTitle.setText("特殊車輛列表");
-            code=getIntent().getStringExtra("code");
+            code=getIntent().getStringExtra("code").replace(" ","");
         }else if (from.equals("one")){
             tvTitle.setText("已消殺車輛列表");
         }else{

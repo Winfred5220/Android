@@ -810,6 +810,55 @@ public class MyExpandableListViewAdapter extends BaseExpandableListAdapter {
                 intent.putExtra("num", "cz");
                 mContext.getActivity().startActivity(intent);
             }
+
+            @Override//A
+            public void OnClickN0() {
+                FoxContext.getInstance().setType("N0");
+                Intent intent = new Intent(mContext.getActivity(), QrCodeActivity.class);
+                intent.putExtra("title", "掃描二維碼");
+                intent.putExtra("num", "cz");
+                mContext.getActivity().startActivity(intent);
+            }
+            @Override//C
+            public void OnClickP0() {
+                FoxContext.getInstance().setType("P0");
+                Intent intent = new Intent(mContext.getActivity(), QrCodeActivity.class);
+                intent.putExtra("title", "掃描二維碼");
+                intent.putExtra("num", "cz");
+                mContext.getActivity().startActivity(intent);
+            }
+            @Override//E
+            public void OnClickO0() {
+                FoxContext.getInstance().setType("O0");
+                Intent intent = new Intent(mContext.getActivity(), QrCodeActivity.class);
+                intent.putExtra("title", "掃描二維碼");
+                intent.putExtra("num", "cz");
+                mContext.getActivity().startActivity(intent);
+            }
+            @Override//D
+            public void OnClickQ0() {
+                FoxContext.getInstance().setType("Q0");
+                Intent intent = new Intent(mContext.getActivity(), QrCodeActivity.class);
+                intent.putExtra("title", "掃描二維碼");
+                intent.putExtra("num", "cz");
+                mContext.getActivity().startActivity(intent);
+            }
+            @Override//G
+            public void OnClickIB() {
+                FoxContext.getInstance().setType("IB");
+                Intent intent = new Intent(mContext.getActivity(), QrCodeActivity.class);
+                intent.putExtra("title", "掃描二維碼");
+                intent.putExtra("num", "cz");
+                mContext.getActivity().startActivity(intent);
+            }
+            @Override//A-5
+            public void OnClickIC() {
+                FoxContext.getInstance().setType("IC");
+                Intent intent = new Intent(mContext.getActivity(), QrCodeActivity.class);
+                intent.putExtra("title", "掃描二維碼");
+                intent.putExtra("num", "cz");
+                mContext.getActivity().startActivity(intent);
+            }
         });
         return convertView;
     }

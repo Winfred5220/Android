@@ -206,7 +206,7 @@ public class CarCheckActivity extends BaseActivity implements View.OnClickListen
 
         object.addProperty("dim_id", mMsgList.get(0).getId());
         object.addProperty("type", type);
-        object.addProperty("dim_locale", mMsgList.get(0).getArea());
+        object.addProperty("dim_locale", mMsgList.get(0).getChepai());
         object.addProperty("flag", "S");
         object.addProperty("sc_lat", FoxContext.getInstance().getLocation().getLatitude());
         object.addProperty("sc_lng", FoxContext.getInstance().getLocation().getLongitude());
@@ -295,9 +295,9 @@ public class CarCheckActivity extends BaseActivity implements View.OnClickListen
                     String _path =  sign_dir + File.separator  + System.currentTimeMillis() +j+k+ ".jpg";
                     Log.e("------_path-------", _path);
                     final String compressImage = ImageZipUtils.compressImage(pic_path, _path, 50);
-                    Log.e("-------compressImage------", compressImage);
+                    Log.e("----compressImage---", compressImage);
                     String picBase64Code = ImageZipUtils.imageToBase64(compressImage);
-                    Log.e("-------picBase64Code-------", "===="+ picBase64Code);
+                    Log.e("----picBase64Code----", "===="+ picBase64Code);
                     JsonObject jsonObject1 = new JsonObject();
                     jsonObject1.addProperty("file", picBase64Code);
                     photoArray.add(jsonObject1);
@@ -372,9 +372,9 @@ public class CarCheckActivity extends BaseActivity implements View.OnClickListen
                     String _path =  sign_dir + File.separator  + System.currentTimeMillis() +j+k+ ".jpg";
                     Log.e("------_path-------", _path);
                     final String compressImage = ImageZipUtils.compressImage(pic_path, _path, 50);
-                    Log.e("-------compressImage------", compressImage);
+                    Log.e("----compressImage---", compressImage);
                     String picBase64Code = ImageZipUtils.imageToBase64(compressImage);
-                    Log.e("-------picBase64Code-------", "===="+ picBase64Code);
+                    Log.e("----picBase64Code----", "===="+ picBase64Code);
                     JsonObject jsonObject1 = new JsonObject();
                     jsonObject1.addProperty("file", picBase64Code);
                     photoArray.add(jsonObject1);
