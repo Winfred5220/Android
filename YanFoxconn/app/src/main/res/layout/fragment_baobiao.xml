@@ -58,15 +58,7 @@
                     android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
-                    <ImageView
-                        style="@style/mainbuttonstyle"
-                        android:background="@mipmap/ic_myyuyue"/>
-                    <TextView
-                        android:gravity="center"
-                        android:layout_marginTop="@dimen/dimen_8"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="洗眼器" />
+
 
                 </LinearLayout>
                 <LinearLayout
@@ -85,7 +77,7 @@
                 android:layout_height="@dimen/dimen_40"
                 android:gravity="center_vertical"
                 android:paddingLeft="@dimen/dimen_8"
-                android:text="安保部"
+                android:text="營建"
                 android:textColor="@color/color_303030"
                 android:textSize="18dp"
                 android:textStyle="bold" />
@@ -110,7 +102,7 @@
                         android:layout_marginTop="@dimen/dimen_8"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="巡邏崗" />
+                        android:text="設備報表" />
 
                 </LinearLayout>
                 <LinearLayout
@@ -120,14 +112,7 @@
                     android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
-                    <ImageView
-                        style="@style/mainbuttonstyle"
-                        android:background="@mipmap/ic_room"/>
-                    <TextView
-                        android:layout_marginTop="@dimen/dimen_8"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="固定崗" />
+
 
                 </LinearLayout>
                 <LinearLayout
@@ -138,14 +123,7 @@
                     android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
-                    <ImageView
-                        style="@style/mainbuttonstyle"
-                        android:background="@mipmap/ic_ratio"/>
-                    <TextView
-                        android:layout_marginTop="@dimen/dimen_8"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="異常處置區" />
+
 
                 </LinearLayout>
 

@@ -92,12 +92,12 @@ public class XunjianFragment extends Fragment implements View.OnClickListener{
 //    private AMapLocationClient locationClient = null;
 
     public String[] group = {"物流防疫", "安全保障服務部", "工業安全部", "總務", "營建", "產品處", "運籌物流",
-            "車輛服務", "海關協管", "人力資源部","華北商務","關愛中心","品質保證處","南寧廠區"}; //"NME安全部", "VIP安全部", "PME安全部",
+            "車輛服務", "海關協管", "人力資源部","華北商務","關愛中心","工會","品規發展服務處","南寧廠區"}; //"NME安全部", "VIP安全部", "PME安全部",
     public String[][] gridViewType = {
             {"CY"},//物流防疫
             {"A0", "T0", "H0", "K0", "I0", "L0", "J0", "M0", "R0", "S0", "CD", "CE", "CL", "CR",
                     "CU", "CX","GC"},//安保部
-            {"CT","FE","FF","FG","FV","FX","FZ","GE","GX"},//工業安全部
+            {"CT","FE","FF","FG","FV","FX","FZ","GE","GX","ID"},//工業安全部
             {"BG", "BP", "ZXS", "DN","DQ","DT","FH","GA","HL","HX"},//總務
             {"N0", "O0", "P0", "Q0","IB","IC", "V0","FS","FW","GD","GCGL"},//營建 GCGL工程管理，開放權限，掃碼後會根據登錄帳號權限進行判斷
             {"NME", "VIP", "PME", "EBL", "PWB","HEC","MDI","MUJ","HAN"},//產品處
@@ -107,7 +107,8 @@ public class XunjianFragment extends Fragment implements View.OnClickListener{
             //{"W0"},//煙台工會
             {"X0", "Y0", "DO", "DP","DZ","ED","HT","HU","HV","HW"},//人力資源部
             {"DS","FT","FU","HZ"},//華北商務
-            {"IA"},//關愛中心
+            {"IA","IF"},//關愛中心
+            {"IE"},//工會
             {"QAQ","SMT","MEM"},//品質保證處
             {"GQ","GR","GS"}//南寧
     };
@@ -117,7 +118,7 @@ public class XunjianFragment extends Fragment implements View.OnClickListener{
                     "三大隊固定崗", "三大隊巡邏崗", "機動隊巡邏崗", "機動隊固定崗", "常用表單", "物品放行",
                     "移動設備管控", "廢料出廠", "值班課長", "三防隱患通報","異常處置區"},//安全保障服務部
             {"消防巡檢","洗眼器點檢","危化品暫存柜","危化品暫存倉","吸煙區","鋰電池防火","有限空間","室外堆場",
-                    "設備借用"},//工業安全部
+                    "設備借用","會議室點檢"},//工業安全部
             {"宿舍巡檢", "餐飲巡檢", "消殺巡檢", "宿舍查驗","直飲水","生活垃圾清運","餐廳巡檢","臨時工簽到","倉庫巡檢","餐廳及多媒體"},//總務
             {"A區巡檢", "E區巡檢", "C區巡檢", "D區巡檢", "G區巡檢","A-5區巡檢","維保巡檢","空調防疫點檢","配電箱點檢","路燈射燈點檢","工程管理"},//營建
             {"NME", "VIP", "PME", "EBL", "PWB","HEC","MDI","模具加工","環境安全"},//產品處
@@ -127,7 +128,8 @@ public class XunjianFragment extends Fragment implements View.OnClickListener{
             //{"餐監會"},//煙台工會
             {"活動生成", "活動簽到", "退訓放行", "班導志","人資監餐","教室點檢", "會議室", "資料室","倉庫","文康場館"},//人力資源部
             {"販賣機巡檢","流動攤位巡檢","門市房巡檢","倉庫點檢"},//華北商務
-            {"倉庫點檢"},//關愛中心
+            {"屋室點檢","其他工作區"},//關愛中心
+            {"空間點檢"},//工會
             {"QA","SMT","ME"},//品質保證處
             {"總務直飲水","機電巡檢","警衛巡邏"}//南寧
     };
@@ -140,7 +142,7 @@ public class XunjianFragment extends Fragment implements View.OnClickListener{
                     R.mipmap.icon_chuzhiqu},//安保部
             {R.mipmap.icon_gongan, R.mipmap.icon_control_room, R.mipmap.icon_gui, R.mipmap.icon_cang,
                     R.mipmap.icon_xiyanqu, R.mipmap.icon_battery, R.mipmap.icon_kongjian, R.mipmap.icon_dui,
-                    R.mipmap.icon_borrow},//工業安全部
+                    R.mipmap.icon_borrow,R.mipmap.icon_huiyishi},//工業安全部
             {R.mipmap.icon_sushe, R.mipmap.icon_canyin, R.mipmap.icon_xiaosha, R.mipmap.icon_sushe2,
                     R.mipmap.icon_zhiyinshui,R.mipmap.icon_laji, R.mipmap.icon_canting, R.mipmap.icon_linshi,
                     R.mipmap.icon_ziliaoshi, R.mipmap.icon_huiyishi},//總務
@@ -158,7 +160,8 @@ public class XunjianFragment extends Fragment implements View.OnClickListener{
                     R.mipmap.icon_jiancan, R.mipmap.icon_jiaoshi, R.mipmap.icon_huiyishi, R.mipmap.icon_ziliaoshi,
                     R.mipmap.icon_zhibanshi, R.mipmap.icon_jiaoshi},//人力資源部
             {R.mipmap.icon_fanmaiji,R.mipmap.icon_tanwei,R.mipmap.icon_menshifang,R.mipmap.icon_ziliaoshi},//華北商務
-            {R.mipmap.icon_ziliaoshi},//關愛中心
+            {R.mipmap.icon_ziliaoshi,R.mipmap.icon_zhibanshi},//關愛中心
+            {R.mipmap.icon_ziliaoshi},//工會
             {R.mipmap.icon_pzbzc,R.mipmap.icon_pzbzc,R.mipmap.icon_pzbzc},//品質保證處
             {R.mipmap.icon_zhiyinshui,R.mipmap.icon_jidongx,R.mipmap.icon_yidadui_1},//南寧
     };

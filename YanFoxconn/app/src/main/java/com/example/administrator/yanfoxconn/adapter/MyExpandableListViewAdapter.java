@@ -859,6 +859,30 @@ public class MyExpandableListViewAdapter extends BaseExpandableListAdapter {
                 intent.putExtra("num", "cz");
                 mContext.getActivity().startActivity(intent);
             }
+            @Override//工業安全會議室
+            public void OnClickID() {
+                FoxContext.getInstance().setType("ID");
+                Intent intent = new Intent(mContext.getActivity(), QrCodeActivity.class);
+                intent.putExtra("title", "掃描二維碼");
+                intent.putExtra("num", "cz");
+                mContext.getActivity().startActivity(intent);
+            }
+            @Override//工會空間點檢
+            public void OnClickIE() {
+                FoxContext.getInstance().setType("IE");
+                Intent intent = new Intent(mContext.getActivity(), QrCodeActivity.class);
+                intent.putExtra("title", "掃描二維碼");
+                intent.putExtra("num", "cz");
+                mContext.getActivity().startActivity(intent);
+            }
+            @Override//關愛中心其他工作室
+            public void OnClickIF() {
+                FoxContext.getInstance().setType("IF");
+                Intent intent = new Intent(mContext.getActivity(), QrCodeActivity.class);
+                intent.putExtra("title", "掃描二維碼");
+                intent.putExtra("num", "cz");
+                mContext.getActivity().startActivity(intent);
+            }
         });
         return convertView;
     }

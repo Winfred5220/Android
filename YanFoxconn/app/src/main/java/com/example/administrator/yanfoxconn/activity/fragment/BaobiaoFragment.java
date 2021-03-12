@@ -54,36 +54,16 @@ public class BaobiaoFragment extends Fragment {
                 //startActivity(intent);
             }
         });
-        /** 安保 */
+        /** 營建 */
 
-        //巡邏崗
+        //設備點檢
         LinearLayout ibKaoqin = (LinearLayout) view.findViewById(R.id.ib_kaoqin);
         ibKaoqin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent= new Intent(getActivity(), WebViewActivity.class);
-                intent.putExtra("role","FX");
-                //startActivity(intent);
-            }
-        });
-        //固定崗
-        LinearLayout ibSign = (LinearLayout) view.findViewById(R.id.ib_sign);
-        ibSign.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent= new Intent(getActivity(), WebViewActivity.class);
-                intent.putExtra("role","FX");
-                //startActivity(intent);
-            }
-        });
-        //異常處置區
-        LinearLayout btnUsedRatio = (LinearLayout) view.findViewById(R.id.btn_used_ratio);
-        btnUsedRatio.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent= new Intent(getActivity(), WebViewActivity.class);
-                intent.putExtra("role","FX");
-                //startActivity(intent);
+                intent.putExtra("role","FW");
+                startActivity(intent);
             }
         });
 

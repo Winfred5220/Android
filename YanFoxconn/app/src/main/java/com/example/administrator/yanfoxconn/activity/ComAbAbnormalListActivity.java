@@ -107,7 +107,7 @@ public class ComAbAbnormalListActivity extends BaseActivity implements View.OnCl
         isDate = getIntent().getBooleanExtra("isDate",false);
         if (!isDate){
             btnBefore.setVisibility(View.GONE);
-                    btnAfter.setVisibility(View.GONE);
+            btnAfter.setVisibility(View.GONE);
         }
     }
 

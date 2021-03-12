@@ -19,6 +19,7 @@ import com.example.administrator.yanfoxconn.adapter.ZhiyinshuiExceListAdapter;
 import com.example.administrator.yanfoxconn.bean.CarType;
 import com.example.administrator.yanfoxconn.bean.ExceInfo;
 import com.example.administrator.yanfoxconn.constant.Constants;
+import com.example.administrator.yanfoxconn.constant.FoxContext;
 import com.example.administrator.yanfoxconn.utils.BaseActivity;
 import com.example.administrator.yanfoxconn.utils.HttpUtils;
 import com.example.administrator.yanfoxconn.utils.ToastUtils;
@@ -75,6 +76,7 @@ public class CarCheckProgressTypeListActivity extends BaseActivity implements Vi
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(CarCheckProgressTypeListActivity.this, ComAbRouteListActivity.class);
+                FoxContext.getInstance().setType(carTypeList.get(i).getType());
                 intent.putExtra("type",carTypeList.get(i).getType());
                 intent.putExtra("flag","C");
                 startActivity(intent);

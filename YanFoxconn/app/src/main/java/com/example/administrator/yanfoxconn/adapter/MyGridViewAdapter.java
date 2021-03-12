@@ -245,7 +245,7 @@ public class MyGridViewAdapter extends BaseAdapter {
                     tvGridView.setTag("hw");
                 } else if (rolesList.get(i).equals("HZ")) {//華北商貿倉庫
                     tvGridView.setTag("hz");
-                } else if (rolesList.get(i).equals("IA")) {//關愛中心倉庫
+                } else if (rolesList.get(i).equals("IA")) {//關愛中心屋室
                     tvGridView.setTag("ia");
                 } else if (rolesList.get(i).equals("N0")) {//A
                     tvGridView.setTag("n0");
@@ -259,6 +259,12 @@ public class MyGridViewAdapter extends BaseAdapter {
                     tvGridView.setTag("ib");
                 } else if (rolesList.get(i).equals("IC")) {//A-5
                     tvGridView.setTag("ic");
+                } else if (rolesList.get(i).equals("ID")) {//工業安全會議室
+                    tvGridView.setTag("id");
+                } else if (rolesList.get(i).equals("IE")) {//工會空間點檢
+                    tvGridView.setTag("ie");
+                } else if (rolesList.get(i).equals("IF")) {//關愛中心其他工作室
+                    tvGridView.setTag("if");
                 } else {
                     tvGridView.setTag("true");
                 }
@@ -459,6 +465,12 @@ public class MyGridViewAdapter extends BaseAdapter {
                     onClickListener.OnClickIB();
                 } else if (view.getTag().equals("ic")) {//A-5
                     onClickListener.OnClickIC();
+                } else if (view.getTag().equals("id")) {//工業安全會議室
+                    onClickListener.OnClickID();
+                } else if (view.getTag().equals("ie")) {//工會空間點檢
+                    onClickListener.OnClickIE();
+                } else if (view.getTag().equals("if")) {//關愛中心其他工作室
+                    onClickListener.OnClickIF();
                 } else {
                     onClickListener.OnClickListenerFalse(position);
                 }
@@ -561,7 +573,9 @@ public class MyGridViewAdapter extends BaseAdapter {
         void OnClickQ0();//D
         void OnClickIB();//G
         void OnClickIC();//A-5
-
+        void OnClickID();//工業安全會議室
+        void OnClickIE();//工會空間點檢
+        void OnClickIF();//關愛中心其他工作室
     }
 
     public void setOnClickListener(OnClickListener onClickListener) {

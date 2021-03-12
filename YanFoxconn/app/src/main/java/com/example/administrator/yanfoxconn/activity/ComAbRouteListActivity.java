@@ -126,7 +126,7 @@ public class ComAbRouteListActivity extends BaseActivity implements View.OnClick
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.e("-------","進入點位異常列表==="+position);
-               if (!flag.equals("C")) {
+
 //                getRouteItemList( FoxContext.getInstance().getType(),routeMessageList.get(position).getDim_id());
                    if (!routeMessageList.get(position).getCount().equals("0")) {
                        Intent intent = new Intent(ComAbRouteListActivity.this, ComAbRouteItemListActivity.class);
@@ -140,7 +140,7 @@ public class ComAbRouteListActivity extends BaseActivity implements View.OnClick
                        ToastUtils.showLong(ComAbRouteListActivity.this, "無異常可查看!");
                    }
                }
-            }
+
         });
     }
 
@@ -214,9 +214,7 @@ public class ComAbRouteListActivity extends BaseActivity implements View.OnClick
 
                     break;
                 case R.id.ll_query_error:
-                    if (flag.equals("C")){
-                        FoxContext.getInstance().setType(type);
-                    }
+
                     Intent intentAb = new Intent(ComAbRouteListActivity.this,ComAbDListActivity.class);
 
                     startActivity(intentAb);
