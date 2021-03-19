@@ -137,14 +137,15 @@
                         style="@style/carTextName"
                         android:text="留觀地點：" />
 
-                    <EditText
-                        android:id="@+id/et_area"
+                    <TextView
+                        android:id="@+id/tv_area"
                         style="@style/carEditTextBKG"
                         android:layout_weight="1"
                         android:inputType="numberDecimal"/>
                 </TableRow>
                 <!--進入時間-->
                 <TableRow style="@style/tableRow"
+                    android:visibility="gone"
                     android:layout_marginTop="@dimen/dimen_40">
 
                     <TextView
@@ -160,7 +161,8 @@
                         android:inputType="numberDecimal"/>
                 </TableRow>
                 <!--離開時間-->
-                <TableRow style="@style/tableRow">
+                <TableRow style="@style/tableRow"
+                    android:visibility="gone">
 
                     <TextView
                         style="@style/carTextName"
@@ -176,8 +178,7 @@
                 </TableRow>
                 <!--日期時間-->
                 <TableRow style="@style/tableRow"
-                    android:id="@+id/tr_time"
-                    android:visibility="gone">
+                    android:id="@+id/tr_time">
 
                     <TextView
                         style="@style/carTextName"
@@ -196,7 +197,8 @@
                 </TableRow>
 
                 <!--值班醫生-->
-                <TableRow style="@style/tableRow">
+                <TableRow style="@style/tableRow"
+                    android:visibility="gone">
 
                     <TextView
                         style="@style/carTextName"
@@ -212,14 +214,13 @@
                 </TableRow>
                 <!--觀察地點-->
                 <TableRow style="@style/tableRow"
+                    android:visibility="gone"
                     android:layout_marginTop="@dimen/dimen_40">
-
                     <TextView
                         style="@style/carTextName"
                         android:text="觀察地點："
                         android:focusable="true"
                         android:focusableInTouchMode="true" />
-
                     <EditText
                         android:id="@+id/et_room"
                         style="@style/carEditTextBKG"

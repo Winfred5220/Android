@@ -140,15 +140,35 @@
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <!--攜帶人-->
+        <TableRow
+            android:layout_marginTop="@dimen/dimen_20"
+            style="@style/tableRow">
+            <TextView style="@style/carTextName"
+                android:text="攜帶人："/>
+            <EditText
+                style="@style/CommonGoodsEditText"
+                android:digits="0123456789qwertyuioplkjhgfdsazxcvbnmQWETYUIOPASDFGHJKLZXCVBNM"
+                android:id="@+id/et_code"
+                android:hint="請輸入工號"
+                android:layout_width="0dp"
+                android:layout_weight="1" />
+            <EditText
+                android:id="@+id/et_name"
+                style="@style/CommonGoodsEditText"
+                android:hint="請輸入姓名"
+                android:layout_width="0dp"
+                android:layout_marginLeft="@dimen/dimen_2"
+                android:layout_weight="1" />
+        </TableRow>
         <!--当值警卫-->
         <TableRow
             android:id="@+id/tr_duty_guard"
-            android:layout_marginTop="@dimen/dimen_20"
             style="@style/tableRow">
             <TextView style="@style/carTextName"
                 android:text="当值警卫："/>
             <TextView
-                android:id="@+id/et_duty_guard"
+                android:id="@+id/tv_duty_guard"
                 style="@style/mobile_message"
                 android:layout_weight="1" />
         </TableRow>

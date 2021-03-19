@@ -20,6 +20,7 @@ import com.example.administrator.yanfoxconn.R;
 import com.example.administrator.yanfoxconn.adapter.EmpListAdapter;
 import com.example.administrator.yanfoxconn.adapter.GoodsListAdapter;
 import com.example.administrator.yanfoxconn.bean.EmpFile;
+import com.example.administrator.yanfoxconn.bean.EmpMessage;
 import com.example.administrator.yanfoxconn.bean.GoodsMessage;
 import com.example.administrator.yanfoxconn.constant.Constants;
 import com.example.administrator.yanfoxconn.constant.FoxContext;
@@ -63,6 +64,8 @@ public class GoodsGeneralActivity extends BaseActivity implements View.OnClickLi
     private final int MESSAGE_NETMISTAKE = 4;//網絡錯誤
     private final int MESSAGE_SHOW = 5;//顯示提醒
     private final int MESSAGE_CHOISE = 6;//選擇
+    private final int MESSAGE_SET_NAME = 7;//設置攜帶人姓名
+
 
     private String initStartDateTime; // 初始化开始时间
     private Date selectTime = null;//所選時間
@@ -102,22 +105,27 @@ public class GoodsGeneralActivity extends BaseActivity implements View.OnClickLi
     TableRow trListGate;
     @BindView(R.id.lv_gate)
     MyListView lvGate;//放行門崗列表
-    @BindView(R.id.et_duty_guard)
+    @BindView(R.id.tv_duty_guard)
     TextView tvDutyGuard;//当值警卫
+    @BindView(R.id.et_code)
+    EditText etCode;//工號
+    @BindView(R.id.et_name)
+    EditText etName;//姓名
 
     private String code;//工號或車牌
-    private String id;//放行單號后4位
     private String url;//地址
     private String result;//网络获取结果
     private List<GoodsMessage> goodsMessage;//物品信息
     private List<GoodsMessage> goodsList;//物品列表
     private GoodsListAdapter goodsListAdapter;//物品列表适配器
-
+    private String xcode,xname;//攜帶人工號，姓名
     private List<String> teamList;
     private EmpListAdapter mAdapter;
     private List<EmpFile> empFileList;
     private AlertDialog alertDialog1; //信息框
     private String[] dandan;//有多個單號時的單號
+    private List<EmpMessage> empMessagesList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -125,7 +133,6 @@ public class GoodsGeneralActivity extends BaseActivity implements View.OnClickLi
         ButterKnife.bind(this);
 
         code = getIntent().getStringExtra("code");
-        id = getIntent().getStringExtra("id");
 
         tvTitle.setText("普通物品放行");
         btnBack.setOnClickListener(this);
@@ -143,7 +150,7 @@ public class GoodsGeneralActivity extends BaseActivity implements View.OnClickLi
         tvReleaseDate.setText(formatter.format(curDate));
         curDates = formatter.format(curDate);
 
-        getMessage(code,id);
+        getMessage(code,"");
 
         //搜索关键字
         etRelGate.addTextChangedListener(new TextWatcher() {
@@ -164,6 +171,9 @@ public class GoodsGeneralActivity extends BaseActivity implements View.OnClickLi
             }
 
         });
+
+
+
     }
 
     @Override
@@ -181,42 +191,10 @@ public class GoodsGeneralActivity extends BaseActivity implements View.OnClickLi
                 break;
         }
     }
-    //提交前檢查
-    private void check(){
-        if(FoxContext.getInstance().getLoginId().equals("")){
-            ToastUtils.showLong(GoodsGeneralActivity.this,"登錄超時,請退出重新登登錄!");
-            return;
-        }
-        try {
-            selectTime = formatter.parse(tvReleaseDate.getText().toString());
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        if (selectTime.getTime()-curDate.getTime()>0){
-            ToastUtils.showShort(GoodsGeneralActivity.this,"放行時間不能超過當前時間");
-            return;
-        }
-        if (etRelGate.getTag().equals("0")){
-            ToastUtils.showShort(GoodsGeneralActivity.this,"請選擇放行門崗!");
-            return;
-        }
 
-        String jc_type="";
-        if (rb_j.isChecked()){
-            jc_type="進";
-        }else {
-            jc_type="出";
-        }
-
-
-        upMsessage(code,tvEffNum.getText().toString(),change(etRelGate.getText().toString()),
-                FoxContext.getInstance().getLoginId().toString(),FoxContext.getInstance().getName().toString(),
-                tvCirMode.getText().toString(),tvReleaseDate.getText().toString(),jc_type);
-    }
 
     private void getMessage(String code, String id) {
         showDialog();
-
         try {
             String code1 =  URLEncoder.encode(URLEncoder.encode(code.toString(), "UTF-8"), "UTF-8");
             url = Constants.HTTP_COMMON_GOODS_SERVLET + "?flag=CC" + "&code=" + code1 + "&id=" + id;
@@ -301,12 +279,12 @@ public class GoodsGeneralActivity extends BaseActivity implements View.OnClickLi
                         JSONArray array = null;
                         try {
                             array = new JSONArray(ss);
-                            Log.e("-------array.length()---------",array.length()+"");
+                            Log.e("----array.length()----",array.length()+"");
                             dandan=new String[array.length()];
                             for (int i=0;i<array.length();i++) {
                                 JSONObject dan = array.getJSONObject(i);// 遍历 jsonarray 数组，把每一个对象转成 json 对象
-                                dandan[i]=dan.getString("OUT00");
-                                Log.e("-------dandan---------",dandan[i]);
+                                dandan[i]=dan.getString("OUT00")+"-"+dan.getString("OUT11A");
+                                Log.e("----dandan----",dandan[i]);
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -334,13 +312,12 @@ public class GoodsGeneralActivity extends BaseActivity implements View.OnClickLi
 
     //彈出選擇單號框
     public void showList(String[] dan){
-        final String[] items = dan;
         AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
         alertBuilder.setTitle("請選擇單號");
-        alertBuilder.setItems(items, new DialogInterface.OnClickListener() {
+        alertBuilder.setItems(dan, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                getMessage(code,items[i]);
+                getMessage(code,(dan[i].split("-"))[0]);
                 alertDialog1.dismiss();
             }
         });
@@ -348,10 +325,56 @@ public class GoodsGeneralActivity extends BaseActivity implements View.OnClickLi
         alertDialog1.show();
         alertDialog1.setCanceledOnTouchOutside(false);
     }
+    //提交前檢查
+    private void check(){
+        if(FoxContext.getInstance().getLoginId().equals("")){
+            ToastUtils.showLong(GoodsGeneralActivity.this,"登錄超時,請退出重新登登錄!");
+            return;
+        }
 
+
+        try {
+            selectTime = formatter.parse(tvReleaseDate.getText().toString());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        if (etCode.getText().toString().replaceAll(" ","").equals("")){
+            ToastUtils.showShort(GoodsGeneralActivity.this,"請輸入攜帶人工號!");
+            return;
+        }else {
+            xcode=etCode.getText().toString().replaceAll(" ","");
+        }
+        if (etName.getText().toString().replaceAll(" ","").equals("")){
+            ToastUtils.showShort(GoodsGeneralActivity.this,"請輸入攜帶人姓名!");
+            return;
+        }else{
+            xname=etName.getText().toString().replaceAll(" ","");
+        }
+        if (selectTime.getTime()-curDate.getTime()>0){
+            ToastUtils.showShort(GoodsGeneralActivity.this,"放行時間不能超過當前時間");
+            return;
+        }
+        Log.e("---攜帶人---",  xcode+"--"+xname);
+        if (etRelGate.getTag().equals("0")){
+            ToastUtils.showShort(GoodsGeneralActivity.this,"請選擇放行門崗!");
+            return;
+        }
+
+        String jc_type="";
+        if (rb_j.isChecked()){
+            jc_type="進";
+        }else {
+            jc_type="出";
+        }
+
+
+        upMsessage(code,tvEffNum.getText().toString(),change(etRelGate.getText().toString()),
+                FoxContext.getInstance().getLoginId().toString(),FoxContext.getInstance().getName().toString(),
+                tvCirMode.getText().toString(),tvReleaseDate.getText().toString(),jc_type,xcode,xname);
+    }
 //提交数据
     private void upMsessage(String code, String id,String mengang,String scode,String sname,String type,
-                            String creat_date,String jc_type){
+                            String creat_date,String jc_type,String xcode,String xname){
         showDialog();
         try {
          String code1 =  URLEncoder.encode(URLEncoder.encode(code.toString(), "UTF-8"), "UTF-8");
@@ -360,13 +383,13 @@ public class GoodsGeneralActivity extends BaseActivity implements View.OnClickLi
          String creat_date1 =  URLEncoder.encode(URLEncoder.encode(creat_date.toString(), "UTF-8"), "UTF-8");
          String mengang1 =  URLEncoder.encode(URLEncoder.encode(mengang.toString(), "UTF-8"), "UTF-8");
          String jc_type1 =  URLEncoder.encode(URLEncoder.encode(jc_type.toString(), "UTF-8"), "UTF-8");
-
-            url = Constants.HTTP_COMMON_GOODS_SERVLET + "?flag=TT" + "&code=" + code1 + "&id=" + id + "&mengang=" +
-                     mengang1 + "&sname=" + sname1+ "&type=" + type1 +"&scode=" + scode +"&creat_date=" + creat_date1
-                    +"&jc_type=" + jc_type1;
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            }
+         String xname1 =  URLEncoder.encode(URLEncoder.encode(xname.toString(), "UTF-8"), "UTF-8");
+        url = Constants.HTTP_COMMON_GOODS_SERVLET + "?flag=TT" + "&code=" + code1 + "&id=" + id + "&mengang=" +
+                 mengang1 + "&sname=" + sname1+ "&type=" + type1 +"&scode=" + scode +"&creat_date=" + creat_date1
+                +"&jc_type=" + jc_type1 +"&xcode=" + xcode +"&xname=" + xname1;
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
         Log.e("-----------", "url-----" + url);
         new Thread() {
             @Override
@@ -423,6 +446,11 @@ public class GoodsGeneralActivity extends BaseActivity implements View.OnClickLi
                 case MESSAGE_CHOISE://text賦值
                     showList(dandan);
                     break;
+                case MESSAGE_SET_NAME://名字賦值
+                    etName.setText(empMessagesList.get(0).getCHINESENAME());
+                    etCode.setEnabled(false);
+                    etName.setEnabled(false);
+                    break;
                 case MESSAGE_NETMISTAKE://Toast彈出
                     ToastUtils.showLong(GoodsGeneralActivity.this,R.string.net_mistake);
                     break;
@@ -441,6 +469,26 @@ public class GoodsGeneralActivity extends BaseActivity implements View.OnClickLi
         tvEffDate.setText(goodsMessage.get(0).getOUT02());
         tvRecUnit.setText(goodsMessage.get(0).getOUT04());
         tvCirMode.setText(goodsMessage.get(0).getOUT11A());
+
+        if (goodsMessage.get(0).getOUT06A()!=null&&!goodsMessage.get(0).getOUT06A().equals("")){
+            etCode.setText(goodsMessage.get(0).getOUT06A());
+            etName.setText(goodsMessage.get(0).getOUT06B());
+            etCode.setEnabled(false);
+            etName.setEnabled(false);
+        }else{
+            etCode.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View v, boolean hasFocus) {
+                    if (hasFocus) {
+                        // 此处为得到焦点时的处理内容
+                    } else {
+                        // 此处为失去焦点时的处理内容
+                        getXName(etCode.getText().toString().replaceAll(" ","").toUpperCase());
+                    }
+
+                }
+            });
+        }
 
         if(goodsMessage.get(0).getOUT11A().equals("跨廠區")){
             trJc.setVisibility(View.VISIBLE);
@@ -471,6 +519,44 @@ public class GoodsGeneralActivity extends BaseActivity implements View.OnClickLi
         });
     }
 
+    //輸入工號獲取攜帶人姓名
+    private void getXName(String xcode){
+        showDialog();
+        final String url = Constants.HTTP_COMMON_FORMS_SERVLET+"?code="+xcode;
+
+        new Thread() {
+            @Override
+            public void run() {
+                //把网络访问的代码放在这里
+                String result = HttpUtils.queryStringForPost(url);
+
+                dismissDialog();
+                Log.e("---------", "==fff===" + url);
+                Gson gson = new Gson();
+                if (result != null) {
+                    Log.e("---------", "result==fff===" + result);
+
+                    JsonObject jsonObject = new JsonParser().parse(result).getAsJsonObject();
+                    String errCode = jsonObject.get("errCode").getAsString();
+                    if (errCode.equals("200")) {
+                        Log.e("--fff---------", "result==" + result);
+                        JsonArray array = jsonObject.get("data").getAsJsonArray();
+                        empMessagesList = new ArrayList<EmpMessage>();
+
+                        for (JsonElement type : array) {
+                            EmpMessage humi = gson.fromJson(type, EmpMessage.class);
+                            empMessagesList.add(humi);
+                        }
+
+                        Message message = new Message();
+                        message.what = MESSAGE_SET_NAME;
+                        message.obj = jsonObject.get("errMessage").getAsString();
+                        mHandler.sendMessage(message);
+
+                    }
+                }
+            } }.start();
+    }
     //简体转成繁体
     public String change(String changeText) {
         try {
@@ -481,6 +567,7 @@ public class GoodsGeneralActivity extends BaseActivity implements View.OnClickLi
         }
         return changeText;
     }
+
     //繁体转成简体
     public String change1(String changeText) {
         try {

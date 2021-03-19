@@ -12,6 +12,8 @@ public class GoodsMessage {
     private String OUT03;//流出地
     private String OUT04;//接收單位
     private String OUT11A;//流通方式
+    private String OUT06A;//攜帶人工號
+    private String OUT06B;//攜帶人
     private String OUTLOCK;//當值警衛
 
     private String OUTD01;//品名
@@ -261,5 +263,21 @@ public class GoodsMessage {
 
     public void setWIRELESS(String WIRELESS) {
         this.WIRELESS = WIRELESS;
+    }
+
+    public String getOUT06B() {
+        return OUT06B;
+    }
+
+    public void setOUT06B(String OUT06B) {
+        this.OUT06B = OUT06B;
+    }
+
+    public String getOUT06A() {
+        return OUT06A;
+    }
+
+    public void setOUT06A(String OUT06A) {
+        this.OUT06A = OUT06A;
     }
 }

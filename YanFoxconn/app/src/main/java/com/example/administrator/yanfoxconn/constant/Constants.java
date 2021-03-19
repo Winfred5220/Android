@@ -14,8 +14,8 @@ public class Constants {
     public static final String BASE_URL = "http://ytsafeserver.foxconn.com/SafeServer/";//玲姐
     public static final String EMP_BASE = "http://ytsafeserver.foxconn.com/Server/";    //杰哥
 
-    public static String SafeServer = "http://192.168.1.128:8080/SafeServer/";//SafeServer接口測試
-    public static String Server = "http://192.168.1.136:8080/Server/";//Server接口測試
+    public static String SafeServer = "http://192.168.1.124:8080/SafeServer/";//SafeServer接口測試
+    public static String Server = "http://192.168.1.124:8080/Server/";//Server接口測試
 
     public static final String HTTP_LOGIN = BASE_URL + "LoginServlet";//登錄
     public static String HTTP_DIMEMSION_SERVLET = BASE_URL + "safeCheck/DimemsionServlet";//巡檢進度列表
@@ -167,9 +167,9 @@ public class Constants {
     public static String HTTP_ZW_SCAN_TYPE = BASE_URL+"ZW/ZWScanTypeServlet";//總務臨時工 獲取異常類別
 
     public static String Z4 = "http://192.168.1.140:8080/SafeServer_Web_exploded/";//渣渣鳴4F接口測試
-    public static String HTTP_HEALTH_SCAN =BASE_URL+"Health/HealthScanServlet";//安全健康追蹤，人員信息查看
-    public static String HTTP_HEALTH_COMMIT=BASE_URL+"Health/HealthCommitServlet";//安全健康追蹤，提交生成單頭
-    public static String HTTP_BODY_SELECT=BASE_URL+"Health/HealthBodySelectServlet";//安全健康追蹤，查詢已有紀錄
+    public static String HTTP_HEALTH_SCAN = BASE_URL+"Health/HealthScanServlet";//安全健康追蹤，人員信息查看
+    public static String HTTP_HEALTH_COMMIT = BASE_URL+"Health/HealthCommitServlet";//安全健康追蹤，提交生成單頭
+    public static String HTTP_BODY_SELECT= BASE_URL+"Health/HealthBodySelectServlet";//安全健康追蹤，查詢已有紀錄
     public static String HTTP_HEAD_DELETE = BASE_URL+"Health/HeadDeleteServlet";//安全部健康追蹤，刪除單頭
     public static String HTTP_HEALTH_TRACE_COMMIT=BASE_URL+"Health/HealthTraceCommitServlet";//安全部健康追蹤 單身錄入
     public static String HTTP_BODY_DELETE = BASE_URL+"Health/HealthBodyDeleteServlet";//安全部健康追蹤 單身刪除

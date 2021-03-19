@@ -64,8 +64,6 @@ public class GoodsReleaseInputActivity extends BaseActivity implements View.OnCl
     EditText etWorkId;//车牌號 或 工號
     @BindView(R.id.btn_scan_brand)
     ImageButton ibScan;//扫描
-    @BindView(R.id.sp_release_num)
-    EditText etReleaseNum;//放行单号后四位
 
     private boolean hasGotToken = false;
 
@@ -96,36 +94,24 @@ public class GoodsReleaseInputActivity extends BaseActivity implements View.OnCl
                 finish();
                 break;
             case R.id.btn_up:
-                if (etWorkId.getText().toString().equals("")&&etReleaseNum.getText().toString().equals("")){
-                    ToastUtils.showShort(this,"工號和單號不能同時為空!");
-
-                }
-//                else if(etReleaseNum.getText().toString().equals("")){
-//                    ToastUtils.showShort(this,"放行單號輸入結果不能為空!");
-//
-//                }
-                else {
+                if (etWorkId.getText().toString().equals("")){
+                    ToastUtils.showShort(this,"工號或車牌號不能為空!");
+                    return;
+                } else {
                     Intent resultIntent = new Intent(GoodsReleaseInputActivity.this, GoodsGeneralActivity.class);
                     resultIntent.putExtra("code", etWorkId.getText().toString().toUpperCase());
-                    resultIntent.putExtra("id",etReleaseNum.getText().toString());
                     startActivity(resultIntent);
 //                    Log.e("----------", "ddd4dddddddd===" + etWorkId.getText().toString());
                     finish();
                 }
                 break;
             case R.id.btn_up_z:
-                if (etWorkId.getText().toString().equals("")&&etReleaseNum.getText().toString().equals("")){
-                    ToastUtils.showShort(this,"工號和單號不能同時為空!");
+                if (etWorkId.getText().toString().equals("")){
+                    ToastUtils.showShort(this,"工號或車牌號不能為空!");
 
-                }
-//                else if(etReleaseNum.getText().toString().equals("")){
-//                    ToastUtils.showShort(this,"放行單號輸入結果不能為空!");
-//
-//                }
-                else {
+                } else {
                     Intent resultIntent2 = new Intent(GoodsReleaseInputActivity.this, GoodsIntelligenceActivity.class);
                     resultIntent2.putExtra("code", etWorkId.getText().toString().toUpperCase());
-                    resultIntent2.putExtra("id",etReleaseNum.getText().toString());
                     startActivity(resultIntent2);
 //                    Log.e("----------", "ddddddddddd===" + etWorkId.getText().toString());
                     finish();
