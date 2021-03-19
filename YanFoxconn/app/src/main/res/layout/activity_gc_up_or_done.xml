@@ -178,7 +178,8 @@
                 </TableRow>
                 <!--日期時間-->
                 <TableRow style="@style/tableRow"
-                    android:id="@+id/tr_time">
+                    android:id="@+id/tr_time"
+                    android:visibility="gone">
 
                     <TextView
                         style="@style/carTextName"
@@ -275,8 +276,7 @@
             </RelativeLayout>
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:visibility="gone">
+                android:layout_height="match_parent">
 
                 <com.example.administrator.yanfoxconn.widget.MyGridView
                     android:id="@+id/gv_photo"
