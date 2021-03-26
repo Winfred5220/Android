@@ -101,21 +101,6 @@
                     style="@style/carTextBKG"
                     android:layout_weight="1" />
             </TableRow>
-            <!--留觀地點-->
-            <TableRow style="@style/tableRow">
-
-                <TextView
-                    style="@style/carTextName"
-                    android:text="留觀地點：" />
-
-                <Spinner
-                    android:id="@+id/sp_area"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-
-            </TableRow>
-
             <!--體溫-->
             <TableRow style="@style/tableRow">
 
