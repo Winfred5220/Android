@@ -37,7 +37,7 @@
 
                 <TextView
                     style="@style/carTextName"
-                    android:text="放行单号：" />
+                    android:text="放行單號：" />
 
                 <TextView
                     android:id="@+id/tv_eff_num"
@@ -61,7 +61,7 @@
 
                 <TextView
                     style="@style/carTextName"
-                    android:text="流出地点：" />
+                    android:text="流出地點：" />
 
                 <TextView
                     android:id="@+id/tv_out_location"
@@ -74,7 +74,7 @@
 
                 <TextView
                     style="@style/carTextName"
-                    android:text="接收单位：" />
+                    android:text="接收單位：" />
 
                 <TextView
                     android:id="@+id/tv_rec_unit"
@@ -132,10 +132,10 @@
           android:layout_height="1dp"
           android:background="#D3D3D3"
           android:layout_marginTop="@dimen/dimen_5"/>
-    <com.example.administrator.yanfoxconn.widget.MyListView
-        android:id="@+id/lv_goods"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+      <androidx.recyclerview.widget.RecyclerView
+          android:id="@+id/rv_goods"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"/>
 
     <TableLayout
         android:layout_width="match_parent"
@@ -166,7 +166,7 @@
             android:id="@+id/tr_duty_guard"
             style="@style/tableRow">
             <TextView style="@style/carTextName"
-                android:text="当值警卫："/>
+                android:text="當值警衛："/>
             <TextView
                 android:id="@+id/tv_duty_guard"
                 style="@style/mobile_message"
@@ -214,7 +214,7 @@
         <TableRow style="@style/tableRow" >
             <TextView
                 style="@style/carTextName"
-                android:text="放行门岗：" />
+                android:text="放行門崗：" />
 
             <EditText
                 android:id="@+id/et_release_gate"

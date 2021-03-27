@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--110接處警 處警反饋-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+    <!--標題-->
+    <include layout="@layout/common_title"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <!--工號-->
+                    <TableRow style="@style/tableRow">
+
+                        <TextView
+                            style="@style/carTextName"
+                            android:lines="1"
+                            android:text="報案人工號" />
+                        <EditText
+                            android:id="@+id/et_code"
+                            android:background="@drawable/login_input"
+                            style="@style/carTextBKG"
+                            android:layout_weight="1" />
+                    </TableRow>
+                    <!--姓名-->
+                    <TableRow style="@style/tableRow">
+
+                        <TextView
+                            style="@style/carTextName"
+                            android:text="姓名：" />
+
+                        <EditText
+                            android:id="@+id/et_name"
+                            android:background="@drawable/login_input"
+                            style="@style/carTextBKG"
+                            android:layout_weight="1" />
+                    </TableRow>
+                    <!--部門-->
+                    <TableRow style="@style/tableRow">
+
+                        <TextView
+                            style="@style/carTextName"
+                            android:text="部門：" />
+
+                        <EditText
+                            android:id="@+id/et_dep"
+                            android:background="@drawable/login_input"
+                            style="@style/carTextBKG"
+                            android:layout_weight="1" />
+                    </TableRow>
+                    <!--资位-->
+                    <TableRow style="@style/tableRow">
+
+                        <TextView
+                            style="@style/carTextName"
+                            android:text="資位：" />
+
+                        <EditText
+                            android:id="@+id/et_level"
+                            style="@style/carTextBKG"
+                            android:background="@drawable/login_input"
+                            android:layout_weight="1" />
+                    </TableRow>
+                    <!--入廠時間-->
+                    <TableRow style="@style/tableRow">
+
+                        <TextView
+                            style="@style/carTextName"
+                            android:text="入廠時間：" />
+
+                        <EditText
+                            android:id="@+id/et_join_date"
+                            android:background="@drawable/login_input"
+                            style="@style/carTextBKG"
+                            android:layout_weight="1" />
+                    </TableRow>
+
+                    <!--警情類別-->
+                    <TableRow style="@style/tableRow">
+
+                        <TextView
+                            android:id="@+id/textView4"
+                            style="@style/carTextName"
+                            android:text="警情類別："/>
+
+                        <Spinner
+                            android:id="@+id/sp_team"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1" />
+                        <TextView
+                            android:visibility="gone"
+                            android:id="@+id/tv_team"
+                            style="@style/carEditTextBKG"
+                            android:background="@drawable/login_input"
+                            android:layout_weight="1"/>
+                    </TableRow>
+                    <!--處警描述-->
+                    <TableRow
+                        android:id="@+id/tr_wrong"
+                        style="@style/tableRow">
+
+                        <TextView
+                            style="@style/carTextName"
+                            android:layout_gravity="top"
+                            android:text="處警描述："/>
+
+                        <EditText
+                            android:id="@+id/et_describe"
+                            style="@style/carEditTextBKG"
+                            android:background="@drawable/login_input"
+                            android:layout_height="@dimen/dimen_60"
+                            android:layout_weight="1" />
+                    </TableRow>
+                    <!--挽回損失-->
+                    <TableRow style="@style/tableRow">
+
+                        <TextView
+                            style="@style/carTextName"
+                            android:focusable="true"
+                            android:focusableInTouchMode="true"
+                            android:text="挽回損失：" />
+
+                        <EditText
+                            android:id="@+id/et_redeem"
+                            android:hint="結案時必填"
+                            android:background="@drawable/login_input"
+                            style="@style/carEditTextBKG"
+                            android:layout_weight="1" />
+                    </TableRow>
+                </TableLayout>
+            <com.example.administrator.yanfoxconn.widget.MyListView
+                android:id="@+id/lv_zz"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

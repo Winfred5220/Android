@@ -16,9 +16,13 @@ import android.widget.RadioButton;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.administrator.yanfoxconn.R;
 import com.example.administrator.yanfoxconn.adapter.EmpListAdapter;
 import com.example.administrator.yanfoxconn.adapter.GoodsListAdapter;
+import com.example.administrator.yanfoxconn.adapter.ZhiyinshuiCheckAdapter;
 import com.example.administrator.yanfoxconn.bean.EmpFile;
 import com.example.administrator.yanfoxconn.bean.EmpMessage;
 import com.example.administrator.yanfoxconn.bean.GoodsMessage;
@@ -46,7 +50,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 import butterknife.BindView;
@@ -91,8 +97,8 @@ public class GoodsGeneralActivity extends BaseActivity implements View.OnClickLi
     TextView tvRecUnit;//接收单位
     @BindView(R.id.tv_cir_mode)
     TextView tvCirMode;//流通方式
-    @BindView(R.id.lv_goods)
-    MyListView lvGoods;//物品列表
+    @BindView(R.id.rv_goods)
+    RecyclerView rvGoods;//物品列表
     @BindView(R.id.et_release_gate)
     EditText etRelGate;//放行門崗
     @BindView(R.id.tv_release_date)
@@ -283,7 +289,7 @@ public class GoodsGeneralActivity extends BaseActivity implements View.OnClickLi
                             dandan=new String[array.length()];
                             for (int i=0;i<array.length();i++) {
                                 JSONObject dan = array.getJSONObject(i);// 遍历 jsonarray 数组，把每一个对象转成 json 对象
-                                dandan[i]=dan.getString("OUT00")+"-"+dan.getString("OUT11A");
+                                dandan[i]=dan.getString("OUT00")+"-"+dan.getString("OUT11A")+"-"+dan.getString("OUT05");
                                 Log.e("----dandan----",dandan[i]);
                             }
                         } catch (JSONException e) {
@@ -331,8 +337,15 @@ public class GoodsGeneralActivity extends BaseActivity implements View.OnClickLi
             ToastUtils.showLong(GoodsGeneralActivity.this,"登錄超時,請退出重新登登錄!");
             return;
         }
+        HashMap<String, String> etMap = GoodsListAdapter.getGoodsMap();
+        String goodsMsg="";
 
-
+        for (Map.Entry<String, String> entry : etMap.entrySet()){
+            goodsMsg += entry.getKey()+"-"+entry.getValue()+"_";
+            Log.e("---goodsMap---", entry.getKey()+"--->"+entry.getValue());
+        }
+        goodsMsg = goodsMsg.substring(0,goodsMsg.length()-1);
+        Log.e("---goodsMsg---", goodsMsg);
         try {
             selectTime = formatter.parse(tvReleaseDate.getText().toString());
         } catch (ParseException e) {
@@ -370,11 +383,11 @@ public class GoodsGeneralActivity extends BaseActivity implements View.OnClickLi
 
         upMsessage(code,tvEffNum.getText().toString(),change(etRelGate.getText().toString()),
                 FoxContext.getInstance().getLoginId().toString(),FoxContext.getInstance().getName().toString(),
-                tvCirMode.getText().toString(),tvReleaseDate.getText().toString(),jc_type,xcode,xname);
+                tvCirMode.getText().toString(),tvReleaseDate.getText().toString(),jc_type,xcode,xname,goodsMsg);
     }
 //提交数据
     private void upMsessage(String code, String id,String mengang,String scode,String sname,String type,
-                            String creat_date,String jc_type,String xcode,String xname){
+                            String creat_date,String jc_type,String xcode,String xname,String goodsMsg){
         showDialog();
         try {
          String code1 =  URLEncoder.encode(URLEncoder.encode(code.toString(), "UTF-8"), "UTF-8");
@@ -384,9 +397,10 @@ public class GoodsGeneralActivity extends BaseActivity implements View.OnClickLi
          String mengang1 =  URLEncoder.encode(URLEncoder.encode(mengang.toString(), "UTF-8"), "UTF-8");
          String jc_type1 =  URLEncoder.encode(URLEncoder.encode(jc_type.toString(), "UTF-8"), "UTF-8");
          String xname1 =  URLEncoder.encode(URLEncoder.encode(xname.toString(), "UTF-8"), "UTF-8");
+         String goodsMsg1 =  URLEncoder.encode(URLEncoder.encode(goodsMsg.toString(), "UTF-8"), "UTF-8");
         url = Constants.HTTP_COMMON_GOODS_SERVLET + "?flag=TT" + "&code=" + code1 + "&id=" + id + "&mengang=" +
                  mengang1 + "&sname=" + sname1+ "&type=" + type1 +"&scode=" + scode +"&creat_date=" + creat_date1
-                +"&jc_type=" + jc_type1 +"&xcode=" + xcode +"&xname=" + xname1;
+                +"&jc_type=" + jc_type1 +"&xcode=" + xcode +"&xname=" + xname1+"&goodsMsg=" + goodsMsg1;
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
@@ -496,9 +510,16 @@ public class GoodsGeneralActivity extends BaseActivity implements View.OnClickLi
         }
         tvDutyGuard.setText(FoxContext.getInstance().getName());
 
-        goodsListAdapter = new GoodsListAdapter(GoodsGeneralActivity.this, goodsList);
-        lvGoods.setAdapter(goodsListAdapter);
 
+        if (goodsList != null) {
+            LinearLayoutManager layoutManager = new LinearLayoutManager(GoodsGeneralActivity.this);
+            rvGoods.setLayoutManager(layoutManager);
+            rvGoods.setItemViewCacheSize(500);
+            goodsListAdapter = new GoodsListAdapter(GoodsGeneralActivity.this, goodsList);
+            rvGoods.setAdapter(goodsListAdapter);
+        } else {
+            ToastUtils.showShort(GoodsGeneralActivity.this, "沒有物品數據!");
+        }
         teamList = new ArrayList<>();
         for (int i = 0;i<empFileList.size();i++){
             teamList.add(change1(empFileList.get(i).getID()+","+empFileList.get(i).getAQ1()+"-"+empFileList.get(i).getAQ2()+"-"+empFileList.get(i).getAQ3()+"-"+empFileList.get(i).getAQ4()));

@@ -471,41 +471,17 @@ public class ZhiyinshuiCheckAdapter extends RecyclerView.Adapter<ZhiyinshuiCheck
 
     public void loadAdpater(ArrayList<String> paths, int position) {
 
-//        imagePaths = new ArrayList<>(paths);
-//        imagePaths.clear();
-//        imagePaths.addAll(paths);
-
         imagePathsMap.put(position,paths);
 
-        Log.e("--------Position------","Position=="+position);
+        Log.e("-----Position----","Position=="+position);
         if (imagePathsMap.get(position).size() > 0) {
             hivEmpty.setVisibility(View.GONE);
         } else {
             hivEmpty.setVisibility(View.VISIBLE);
         }
 
-//        try {
-//            JSONArray obj = new JSONArray(imagePathsMap.get(position));
-//            Log.e("--", obj.toString());
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-
-//        if (gridMap.get(position)==null){
-//            gridAdapter = new GridAdapter(imagePathsMap.get(position));
         gridMap.put(position,new ZhiyinshuiCheckAdapter.GridAdapter(imagePathsMap.get(position)));
         hgvPhoto.setAdapter(gridMap.get(position));
-//        }else {
-//            gridMap.get(position).notifyDataSetChanged();
-//        }
-
-
-        Log.e("----------------", "imagePathsMap====" + imagePathsMap);
-        for (int i=0;i<imagePathsMap.size();i++){
-            Log.e("----------------", "imagePathsMap==k==" + imagePathsMap.get(i));
-        }
-//      Log.e("----------------", "ddd==" + imagePathsMap.get(imagePosition).size());
-
 
 
     }

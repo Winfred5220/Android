@@ -388,9 +388,9 @@ public class ZhiyinshuiCheckActivity extends BaseActivity implements View.OnClic
                     String _path =  sign_dir + File.separator  + System.currentTimeMillis() +j+k+ ".jpg";
                     Log.e("------_path-------", _path);
                     final String compressImage = ImageZipUtils.compressImage(pic_path, _path, 50);
-                    Log.e("-------compressImage------", compressImage);
+                    Log.e("----compressImage---", compressImage);
                     String picBase64Code = ImageZipUtils.imageToBase64(compressImage);
-                    Log.e("-------picBase64Code-------", "===="+ picBase64Code);
+                    Log.e("----picBase64Code----", "===="+ picBase64Code);
                     JsonObject jsonObject1 = new JsonObject();
                     jsonObject1.addProperty("file", picBase64Code);
                     photoArray.add(jsonObject1);
@@ -465,9 +465,9 @@ public class ZhiyinshuiCheckActivity extends BaseActivity implements View.OnClic
                     String _path =  sign_dir + File.separator  + System.currentTimeMillis() +j+k+ ".jpg";
                     Log.e("------_path-------", _path);
                     final String compressImage = ImageZipUtils.compressImage(pic_path, _path, 50);
-                    Log.e("-------compressImage------", compressImage);
+                    Log.e("----compressImage---", compressImage);
                     String picBase64Code = ImageZipUtils.imageToBase64(compressImage);
-                    Log.e("-------picBase64Code-------", "===="+ picBase64Code);
+                    Log.e("----picBase64Code----", "===="+ picBase64Code);
                     JsonObject jsonObject1 = new JsonObject();
                     jsonObject1.addProperty("file", picBase64Code);
                     photoArray.add(jsonObject1);

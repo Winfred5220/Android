@@ -53,6 +53,39 @@
             android:layout_width="@dimen/dimen_150"
             android:layout_height="@dimen/dimen_50"
             android:text="當日記錄查詢" />
+        <!--110接處警登記表-->
+        <LinearLayout
+            android:id="@+id/ll_110"
+            android:visibility="gone"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent">
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_marginLeft="@dimen/dimen_8"
+                android:layout_marginRight="@dimen/dimen_8"
+                android:gravity="center"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent">
+                <Button
+                    android:id="@+id/btn_jqtb"
+                    android:text="警情通報"
+                    android:layout_marginRight="@dimen/dimen_4"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:textSize="@dimen/dimen_18"
+                    android:layout_height="wrap_content"/>
+                <Button
+                    android:layout_marginLeft="@dimen/dimen_4"
+                    android:id="@+id/btn_cjfk"
+                    android:layout_weight="1"
+                    android:text="處警反饋"
+                    android:textSize="@dimen/dimen_18"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+        </LinearLayout>
         <!--私家車車違規登記表-->
         <Button
             android:visibility="gone"

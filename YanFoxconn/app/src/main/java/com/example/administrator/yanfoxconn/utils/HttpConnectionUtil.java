@@ -27,6 +27,7 @@ public class HttpConnectionUtil {
     static String MULTIPART_FROM_DATA = "multipart/form-data";
     static String CHARSET = "UTF-8";
 
+    //上傳圖片 成功返回字符串
     public static String doPostPictureLog(String urlStr, Map<String, String> paramMap, Map<String, File> fileMap)
             throws Exception {
 
@@ -116,6 +117,7 @@ public class HttpConnectionUtil {
         conn.disconnect();
         return b.toString();
     }
+    //上傳json數據 返回字符串
     public static String doPostJsonObject(String urlStr,  JsonObject object)
             throws Exception {
 
@@ -171,6 +173,7 @@ public class HttpConnectionUtil {
         conn.disconnect();
         return result.toString();
     }
+    //上傳圖片 成功返回HttpURLConnection
     public static HttpURLConnection doPostPicture(String urlStr, Map<String, String> paramMap, Map<String, File> fileMap)
             throws Exception {
 

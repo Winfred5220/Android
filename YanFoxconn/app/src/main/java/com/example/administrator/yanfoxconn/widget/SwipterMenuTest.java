@@ -69,4 +69,5 @@ public class SwipterMenuTest extends SwipeMenuListView
 //        LogUtil.w("setParentScrollAble", "flag->" + flag);
         getParent().requestDisallowInterceptTouchEvent(!flag);
     }
+
 }

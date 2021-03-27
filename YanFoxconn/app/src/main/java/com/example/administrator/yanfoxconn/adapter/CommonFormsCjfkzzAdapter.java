@@ -9,23 +9,23 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.example.administrator.yanfoxconn.R;
+import com.example.administrator.yanfoxconn.bean.AQ110Message;
 import com.example.administrator.yanfoxconn.bean.GCBody;
-import com.example.administrator.yanfoxconn.bean.GCHead;
 
 import java.util.List;
 
 /**
  * Created by Song
  * on 2020/12/05
- * Description：安保部健康追蹤 個人追蹤情況item
+ * Description：安保部處警反饋追蹤情況item
  */
-public class GCHealthAdapter extends BaseAdapter {
+public class CommonFormsCjfkzzAdapter extends BaseAdapter {
     public Context mContext;
-    private List<GCBody> lists;
+    private List<AQ110Message> lists;
 
     private OnClickListenerSeeOrAdd onClickListenerSeeOrAdd;
 
-    public GCHealthAdapter(Context context, List<GCBody> lists) {
+    public CommonFormsCjfkzzAdapter(Context context, List<AQ110Message> lists) {
         this.mContext = context;
         this.lists = lists;
     }
@@ -63,24 +63,9 @@ public class GCHealthAdapter extends BaseAdapter {
         }
 
         holder.tvNum.setText(""+(position+1));
-        holder.tvDate.setText(lists.get(position).getT_Createor_time().substring(0,20));
-        holder.tvTemp.setText("體溫："+lists.get(position).getT_Tempature());
-        holder.tvDep.setText("描述："+lists.get(position).getT_Description());
-//        Log.e("-----------","lists.get(position).getJc_result().get(0).getName()==="+lists.get(position).getJc_result().get(0).getName());
-        if (lists.get(position).getIsdelete().equals("Y")){
-            holder.tvDel.setVisibility(View.VISIBLE);
-        }else{
-            holder.tvDel.setVisibility(View.GONE);
-        }
-
-        holder.tvDel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (onClickListenerSeeOrAdd != null) {
-                    onClickListenerSeeOrAdd.OnClickListenerDel(position);
-                }
-            }
-        });
+        holder.tvDate.setText(lists.get(position).getB_CREATE_DATE().substring(0,16));
+        holder.tvTemp.setText(lists.get(position).getB_REDEEM());
+        holder.tvDep.setText(lists.get(position).getB_DESC());
         return convertView;
         }
 

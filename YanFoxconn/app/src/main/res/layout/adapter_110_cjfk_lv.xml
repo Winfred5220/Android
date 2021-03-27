@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?><!--110列表 item-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/ll_110"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_60"
+            android:orientation="horizontal">
+            <!--序號-->
+            <TextView
+                android:id="@+id/tv_num"
+                style="@style/TextView110List"
+                android:layout_weight="0.5"
+                android:text="序號" />
+            <!--報警方式-->
+            <TextView
+                android:id="@+id/tv_cpc"
+                android:text="S9999999"
+                style="@style/TextView110List"
+                />
+            <!--報案日期-->
+            <TextView
+                android:id="@+id/tv_date"
+                style="@style/TextView110List"
+                android:text="歐央大事"
+                />
+            <!--警情位置-->
+            <TextView
+                android:id="@+id/tv_position"
+                style="@style/TextView110List"
+                android:text="女abghdbahdancvn" />
+            <!--報警內容-->
+            <TextView
+                android:id="@+id/tv_content"
+                style="@style/TextView110List"
+                android:text="女vagagdavbba" />
+            <!--聯繫方式-->
+            <TextView
+                android:id="@+id/tv_phone"
+                style="@style/TextView110List"
+                android:text="女vafhagfav" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_0.5"
+            android:background="@color/color_c3c3c3" />
+    </LinearLayout>
+</LinearLayout>

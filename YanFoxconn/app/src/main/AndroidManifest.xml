@@ -18,9 +18,9 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <!--<uses-permission android:name="android.permission.WRITE_SETTINGS" />-->
     <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <!--<uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />-->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> <!-- Optional for location -->
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" /> <!-- 用于开启 debug 版本的应用在6.0 系统上 层叠窗口权限 -->
@@ -46,7 +46,7 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" /> <!-- 写入扩展存储，向扩展卡写入数据，用于写入离线定位数据 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- 访问网络，网络定位需要上网 -->
     <uses-permission android:name="android.permission.INTERNET" /> <!-- SD卡读取权限，用户写入离线定位数据 -->
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <!--<uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />-->
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/><!-- APP內安裝更新 -->
     <application
         android:name=".constant.FoxApplication"
@@ -203,84 +203,152 @@
         <!-- </intent-filter> -->
         <!-- </activity> -->
         <!-- 登錄 -->
-        <activity android:name=".activity.LoginActivity" /> <!-- 路線進度列表 -->
-        <activity android:name=".activity.RouteListActivity" /> <!-- 二維碼掃描 -->
-        <activity android:name=".activity.QrCodeActivity" /> <!-- 異常維護 -->
-        <activity android:name=".activity.UpAbnormalActivity" /> <!-- 圖片選擇 -->
-        <activity android:name=".activity.PhotoPickerActivity" /> <!-- 圖片預覽 -->
-        <activity android:name=".activity.PhotoPreviewActivity" /> <!-- 查看異常列表 -->
-        <activity android:name=".activity.AbnormalListActivity" /> <!-- 查看個人異常列表 -->
-        <activity android:name=".activity.AbnormalSelfListActivity" /> <!-- 異常詳情 -->
-        <activity android:name=".activity.AbnormalDetailsActivity" /> <!-- &lt;!&ndash;主頁定位&ndash;&gt; -->
-        <activity android:name=".activity.MainActivity"/><!-- 主頁 -->
-        <activity android:name=".activity.CheckVersionActivity" /> <!-- 網頁跳轉 -->
-        <activity android:name=".activity.WebViewActivity" /> <!-- 二級菜單主界面 -->
-        <activity android:name=".activity.ExListViewActivity" /> <!-- 實際巡檢人維護 -->
-        <activity android:name=".activity.ActualPeopleActivity" /> <!-- 條形碼掃描信息顯示 -->
-        <activity android:name=".activity.CarScanActivity" /> <!-- Spinner測試 -->
-        <activity android:name=".activity.SpinnerActivity" /> <!-- 行車日誌-日期選擇 -->
-        <activity android:name=".activity.CarLogDayActivity" /> <!-- 行車日誌_日誌列表 -->
-        <activity android:name=".activity.CarLogListActivity" /> <!-- 行車日誌-日誌提交 -->
+        <activity android:name=".activity.LoginActivity" />
+        <!-- 路線進度列表 -->
+        <activity android:name=".activity.RouteListActivity" />
+        <!-- 二維碼掃描 -->
+        <activity android:name=".activity.QrCodeActivity" />
+        <!-- 異常維護 -->
+        <activity android:name=".activity.UpAbnormalActivity" />
+        <!-- 圖片選擇 -->
+        <activity android:name=".activity.PhotoPickerActivity" />
+        <!-- 圖片預覽 -->
+        <activity android:name=".activity.PhotoPreviewActivity" />
+        <!-- 查看異常列表 -->
+        <activity android:name=".activity.AbnormalListActivity" />
+        <!-- 查看個人異常列表 -->
+        <activity android:name=".activity.AbnormalSelfListActivity" />
+        <!-- 異常詳情 -->
+        <activity android:name=".activity.AbnormalDetailsActivity" />
+        <!-- &lt;!&ndash;主頁定位&ndash;&gt; -->
+        <activity android:name=".activity.MainActivity"/>
+        <!-- 主頁 -->
+        <activity android:name=".activity.CheckVersionActivity" />
+        <!-- 網頁跳轉 -->
+        <activity android:name=".activity.WebViewActivity" />
+        <!-- 二級菜單主界面 -->
+        <activity android:name=".activity.ExListViewActivity" />
+        <!-- 實際巡檢人維護 -->
+        <activity android:name=".activity.ActualPeopleActivity" />
+        <!-- 條形碼掃描信息顯示 -->
+        <activity android:name=".activity.CarScanActivity" />
+        <!-- Spinner測試 -->
+        <activity android:name=".activity.SpinnerActivity" />
+        <!-- 行車日誌-日期選擇 -->
+        <activity android:name=".activity.CarLogDayActivity" />
+        <!-- 行車日誌_日誌列表 -->
+        <activity android:name=".activity.CarLogListActivity" />
+        <!-- 行車日誌-日誌提交 -->
         <activity android:name=".activity.CarLogUpActivity" />
-        <activity android:name=".activity.CarLogUpAcE" /> <!-- 行車日誌-日誌詳情 -->
-        <activity android:name=".activity.CarLogDetailsActivity" /> <!-- 圖片測試 -->
-        <activity android:name=".activity.SpaceImageDetailActivity" /> <!-- 行車日誌-退件列表 -->
-        <activity android:name=".activity.CarLogReturnActivity" /> <!-- 地圖測試類 -->
+        <activity android:name=".activity.CarLogUpAcE" />
+        <!-- 行車日誌-日誌詳情 -->
+        <activity android:name=".activity.CarLogDetailsActivity" />
+        <!-- 圖片測試 -->
+        <activity android:name=".activity.SpaceImageDetailActivity" />
+        <!-- 行車日誌-退件列表 -->
+        <activity android:name=".activity.CarLogReturnActivity" />
+        <!-- 地圖測試類 -->
         <!-- <activity android:name=".activity.MyMapActivity" -->
         <!-- android:screenOrientation="portrait"/> -->
         <!-- <activity android:name=".activity.MyOptionActivity" -->
         <!-- android:screenOrientation="portrait"/> -->
         <!-- 營建 維保巡檢 以及 宿舍一級 -->
-        <activity android:name=".activity.OutKeepFirstActivity" /> <!-- 營建 維保巡檢 -->
-        <activity android:name=".activity.OutKeepSecondActivity" /> <!-- 宿舍 二級 -->
-        <activity android:name=".activity.DimemsionMenuActivity" /> <!-- 跨區無紙化作業 主界面 -->
-        <activity android:name=".activity.CrossScanMainActivity" /> <!-- 跨區無紙化作業 -->
-        <activity android:name=".activity.CrossScanActivity" /> <!-- 碼頭車輛放行 列表界面 -->
-        <activity android:name=".activity.CarListActivity" /> <!-- 碼頭車輛放行 圖片上傳 -->
-        <activity android:name=".activity.CarListUpActivity" /> <!-- 手動輸入銷單號 -->
-        <activity android:name=".activity.CarWriteIdActivity" /> <!-- 活動列表 -->
-        <activity android:name=".activity.EventListActivity" /> <!-- 活動生成 -->
-        <activity android:name=".activity.EventBuildActivity" /> <!-- 活動二維碼 -->
-        <activity android:name=".activity.EventShowActivity" /> <!-- 活動簽到 -->
-        <activity android:name=".activity.EventCheckInActivity" /> <!-- 活動簽到時間 -->
-        <activity android:name=".activity.EventTimeLvActivity" /> <!-- 圖像文字識別測試 -->
-        <activity android:name=".activity.OCRMainActivity" /> <!-- 安全部 常用表單 -->
-        <activity android:name=".activity.CommonformsActivity" /> <!-- 常用表單 員工進出異常 -->
-        <activity android:name=".activity.EmpTurnoverActivity" /> <!-- 常用表單 員工違規 -->
-        <activity android:name=".activity.EmpWrongActivity" /> <!-- 常用表單 二輪車違規 -->
-        <activity android:name=".activity.TwoWheelVehicleActivity" /> <!-- 普通物品放行 提交界面 -->
-        <activity android:name=".activity.GoodsGeneralActivity" /> <!-- 普通物品放行 輸入界面 -->
-        <activity android:name=".activity.GoodsReleaseInputActivity" /> <!-- HUB倉物品 輸入區域界面 -->
-        <activity android:name=".activity.HubAreaActivity" /> <!-- HUB倉物品 輸入界面 -->
-        <activity android:name=".activity.HubInputActivity" /> <!-- HUB倉物品 提交界面 -->
-        <activity android:name=".activity.HubGoodsActivity" /> <!-- HUB倉物品 簽收界面 -->
-        <activity android:name=".activity.HubSignActivity" /> <!-- 移動上網設備 提交界面 -->
-        <activity android:name=".activity.MobilecontrolInputActivity" /> <!-- 移動上網設備 顯示界面 -->
-        <activity android:name=".activity.MobilecontrolMessageActivity" /> <!-- 叉車點檢 進入界面 -->
-        <activity android:name=".activity.ForkliftEntranceActivity" /> <!-- 叉車點檢 車輛信息巡檢界面 -->
-        <activity android:name=".activity.ForkliftMessageToCheckActivity" /> <!-- 叉車點檢 車輛信息報修界面 -->
-        <activity android:name=".activity.ForkliftMessageToRepairActivity" /> <!-- 叉車點檢 點檢信息界面 -->
-        <activity android:name=".activity.ForkliftCheckActivity" /> <!-- 叉車點檢 維修界面 -->
-        <activity android:name=".activity.ForkliftMaintenanceActivity" /> <!-- 叉車點檢 維修列表界面 -->
-        <activity android:name=".activity.ForkliftMaintenanceListActivity" /> <!-- 叉車點檢 報修界面 -->
-        <activity android:name=".activity.ForkliftRepairActivity" /> <!-- 產品處 點檢界面 -->
-        <activity android:name=".activity.ProductDivisionActivity" /> <!-- 車輛跨區 -->
-        <activity android:name=".activity.CrossCarActivity" /> <!-- 廢料出廠 -->
-        <activity android:name=".activity.ScrapLeaveActivity" /> <!-- 廢料出廠輸入 -->
-        <activity android:name=".activity.ScrapInputActivity" /> <!-- HUB倉查詢簽收信息提交 -->
-        <activity android:name=".activity.HubSelectInputActivity" /> <!-- HUB倉查詢簽收信息 -->
-        <activity android:name=".activity.HubSelectActivity" /> <!-- 智慧物品放行 -->
-        <activity android:name=".activity.GoodsIntelligenceActivity" /> <!-- 工安巡檢專案 巡檢單位列表 -->
-        <activity android:name=".activity.IndustrialSafetyActivity" /> <!-- 工安巡檢新增巡檢單位 -->
-        <activity android:name=".activity.IndustrialAddActivity" /> <!-- 工安巡檢新增隱患 -->
-        <activity android:name=".activity.IndustrialAddDangerActivity" /> <!-- 工安巡檢添加巡查人陪查人 -->
-        <activity android:name=".activity.IndustrialPersonActivity" /> <!-- 工安巡檢添加優缺建議 -->
-        <activity android:name=".activity.IndustrialSuggestActivity" /> <!-- 安全部值班科長 -->
+        <activity android:name=".activity.OutKeepFirstActivity" />
+        <!-- 營建 維保巡檢 -->
+        <activity android:name=".activity.OutKeepSecondActivity" />
+        <!-- 宿舍 二級 -->
+        <activity android:name=".activity.DimemsionMenuActivity" />
+        <!-- 跨區無紙化作業 主界面 -->
+        <activity android:name=".activity.CrossScanMainActivity" />
+        <!-- 跨區無紙化作業 -->
+        <activity android:name=".activity.CrossScanActivity" />
+        <!-- 碼頭車輛放行 列表界面 -->
+        <activity android:name=".activity.CarListActivity" />
+        <!-- 碼頭車輛放行 圖片上傳 -->
+        <activity android:name=".activity.CarListUpActivity" />
+        <!-- 手動輸入銷單號 -->
+        <activity android:name=".activity.CarWriteIdActivity" />
+        <!-- 活動列表 -->
+        <activity android:name=".activity.EventListActivity" />
+        <!-- 活動生成 -->
+        <activity android:name=".activity.EventBuildActivity" />
+        <!-- 活動二維碼 -->
+        <activity android:name=".activity.EventShowActivity" />
+        <!-- 活動簽到 -->
+        <activity android:name=".activity.EventCheckInActivity" />
+        <!-- 活動簽到時間 -->
+        <activity android:name=".activity.EventTimeLvActivity" />
+        <!-- 圖像文字識別測試 -->
+        <activity android:name=".activity.OCRMainActivity" />
+        <!-- 安全部 常用表單 -->
+        <activity android:name=".activity.CommonformsActivity" />
+        <!-- 常用表單 員工進出異常 -->
+        <activity android:name=".activity.EmpTurnoverActivity" />
+        <!-- 常用表單 員工違規 -->
+        <activity android:name=".activity.EmpWrongActivity" />
+        <!-- 常用表單 二輪車違規 -->
+        <activity android:name=".activity.TwoWheelVehicleActivity" />
+        <!-- 普通物品放行 提交界面 -->
+        <activity android:name=".activity.GoodsGeneralActivity" />
+        <!-- 普通物品放行 輸入界面 -->
+        <activity android:name=".activity.GoodsReleaseInputActivity" />
+        <!-- HUB倉物品 輸入區域界面 -->
+        <activity android:name=".activity.HubAreaActivity" />
+        <!-- HUB倉物品 輸入界面 -->
+        <activity android:name=".activity.HubInputActivity" />
+        <!-- HUB倉物品 提交界面 -->
+        <activity android:name=".activity.HubGoodsActivity" />
+        <!-- HUB倉物品 簽收界面 -->
+        <activity android:name=".activity.HubSignActivity" />
+        <!-- 移動上網設備 提交界面 -->
+        <activity android:name=".activity.MobilecontrolInputActivity" />
+        <!-- 移動上網設備 顯示界面 -->
+        <activity android:name=".activity.MobilecontrolMessageActivity" />
+        <!-- 叉車點檢 進入界面 -->
+        <activity android:name=".activity.ForkliftEntranceActivity" />
+        <!-- 叉車點檢 車輛信息巡檢界面 -->
+        <activity android:name=".activity.ForkliftMessageToCheckActivity" />
+        <!-- 叉車點檢 車輛信息報修界面 -->
+        <activity android:name=".activity.ForkliftMessageToRepairActivity" />
+        <!-- 叉車點檢 點檢信息界面 -->
+        <activity android:name=".activity.ForkliftCheckActivity" />
+        <!-- 叉車點檢 維修界面 -->
+        <activity android:name=".activity.ForkliftMaintenanceActivity" />
+        <!-- 叉車點檢 維修列表界面 -->
+        <activity android:name=".activity.ForkliftMaintenanceListActivity" />
+        <!-- 叉車點檢 報修界面 -->
+        <activity android:name=".activity.ForkliftRepairActivity" />
+        <!-- 產品處 點檢界面 -->
+        <activity android:name=".activity.ProductDivisionActivity" />
+        <!-- 車輛跨區 -->
+        <activity android:name=".activity.CrossCarActivity" />
+        <!-- 廢料出廠 -->
+        <activity android:name=".activity.ScrapLeaveActivity" />
+        <!-- 廢料出廠輸入 -->
+        <activity android:name=".activity.ScrapInputActivity" />
+        <!-- HUB倉查詢簽收信息提交 -->
+        <activity android:name=".activity.HubSelectInputActivity" />
+        <!-- HUB倉查詢簽收信息 -->
+        <activity android:name=".activity.HubSelectActivity" />
+        <!-- 智慧物品放行 -->
+        <activity android:name=".activity.GoodsIntelligenceActivity" />
+        <!-- 工安巡檢專案 巡檢單位列表 -->
+        <activity android:name=".activity.IndustrialSafetyActivity" />
+        <!-- 工安巡檢新增巡檢單位 -->
+        <activity android:name=".activity.IndustrialAddActivity" />
+        <!-- 工安巡檢新增隱患 -->
+        <activity android:name=".activity.IndustrialAddDangerActivity" />
+        <!-- 工安巡檢添加巡查人陪查人 -->
+        <activity android:name=".activity.IndustrialPersonActivity" />
+        <!-- 工安巡檢添加優缺建議 -->
+        <activity android:name=".activity.IndustrialSuggestActivity" />
+        <!-- 安全部值班科長 -->
         <activity android:name=".activity.DutySectionChiefActivity" />
         <activity android:name=".activity.DutyChiefMainActivity" />
         <activity android:name=".activity.DutyChiefProblemActivity" />
         <activity android:name=".activity.DutyChiefProblemSeeActivity" />
         <activity android:name=".activity.IndustrialDangerSeeActivity" />
+
         <activity android:name=".activity.CyKillActivity" /> <!-- 消殺點檢提交界面 -->
         <activity android:name=".activity.CyCarListActivity" /> <!-- 未消殺車輛列表 -->
         <activity android:name=".activity.CyKillCheckActivity" /> <!-- 消殺查驗和刪除 -->
@@ -341,7 +409,9 @@
         <activity android:name=".activity.AbnormalCantCheckActivity"/><!-- 無法點檢上傳原因界面 -->
         <activity android:name=".activity.CarCheckProgressTypeListActivity"/><!-- 車輛點檢進度類別界面 -->
 
-
+        <activity android:name=".activity.CommonFormsJqtbActivity"/><!-- 110接處警 警情通報 -->
+        <activity android:name=".activity.CommonFormsCjfkActivity"/><!-- 110接處警 處警反饋 -->
+        <activity android:name=".activity.CommonFormsCjfkListActivity"/><!-- 110接處警 處警反饋列表 -->
     </application>
 
 </manifest>

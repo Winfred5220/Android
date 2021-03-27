@@ -246,4 +246,22 @@
         <item name="android:textSize">@dimen/text_size_18</item>
         <item name="android:paddingLeft">@dimen/dimen_4</item>
     </style>
+
+    <style name="TextView110">
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">@dimen/dimen_40</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:textColor">@color/color_7edbf4</item>
+        <item name="android:inputType">text</item>
+    </style>
+    <style name="TextView110List">
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">@dimen/dimen_60</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:textColor">@color/color_303030</item>
+    </style>
 </resources>

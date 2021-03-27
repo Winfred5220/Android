@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?><!--普通物品列表適配器-->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/rl_goods"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/dimen_2">
 
     <TextView
@@ -39,15 +38,23 @@
         android:text="规格型号"
         />
 
+    <EditText
+        android:id="@+id/et_list_num"
+        android:layout_height="@dimen/dimen_40"
+        android:layout_width="wrap_content"
+        android:textSize="@dimen/dimen_18"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/dimen_40"
+        style="@style/crossTextName"
+        android:text="数量" />
     <TextView
-        android:id="@+id/tv_list_num"
+        android:id="@+id/tv_list_unit"
         android:layout_height="@dimen/dimen_40"
         android:layout_width="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_marginRight="@dimen/dimen_10"
         style="@style/crossTextName"
-        android:text="数量/單位" />
-
+        android:text="/單位" />
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"

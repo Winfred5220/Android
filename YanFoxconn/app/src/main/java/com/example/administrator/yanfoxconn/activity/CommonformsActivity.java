@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.administrator.yanfoxconn.R;
@@ -32,19 +33,24 @@ public class CommonformsActivity extends BaseActivity implements View.OnClickLis
     Button btnVehicle;//二輪車
     @BindView(R.id.btn_self)
     Button btnSelf;//私家車
-
-
+    @BindView(R.id.ll_110)
+    LinearLayout ll110;//110接處警
+    @BindView(R.id.btn_jqtb)
+    Button btnJQTB;//警情通報
+    @BindView(R.id.btn_cjfk)
+    Button btnCJFK;//處警反饋
     @Override
     protected void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cross_mian);
-
         ButterKnife.bind(this);
+
         btnViolation.setText(getString(R.string.emp_wrong));
         btnTurnover.setText(getString(R.string.emp_turnover));
         btnVehicle.setText(getString(R.string.two_wheel_vehicle));
         btnSelf.setText("私家車違規登記表");
         btnSelf.setVisibility(View.VISIBLE);
+        ll110.setVisibility(View.VISIBLE);
         btnViolation.setBackgroundColor(getResources().getColor(R.color.color_009adb));
         btnViolation.setTextColor(getResources().getColor(R.color.color_eeeeee));
         btnTurnover.setBackgroundColor(getResources().getColor(R.color.color_009adb));
@@ -53,6 +59,10 @@ public class CommonformsActivity extends BaseActivity implements View.OnClickLis
         btnVehicle.setTextColor(getResources().getColor(R.color.color_eeeeee));
         btnSelf.setBackgroundColor(getResources().getColor(R.color.color_009adb));
         btnSelf.setTextColor(getResources().getColor(R.color.color_eeeeee));
+        btnJQTB.setBackgroundColor(getResources().getColor(R.color.color_009adb));
+        btnJQTB.setTextColor(getResources().getColor(R.color.color_eeeeee));
+        btnCJFK.setBackgroundColor(getResources().getColor(R.color.color_009adb));
+        btnCJFK.setTextColor(getResources().getColor(R.color.color_eeeeee));
         tvTitle.setText("常用表單");
 
         btnBack.setOnClickListener(this);
@@ -60,7 +70,8 @@ public class CommonformsActivity extends BaseActivity implements View.OnClickLis
         btnTurnover.setOnClickListener(this);
         btnVehicle.setOnClickListener(this);
         btnSelf.setOnClickListener(this);
-
+        btnJQTB.setOnClickListener(this);
+        btnCJFK.setOnClickListener(this);
     }
 
     @Override
@@ -91,7 +102,14 @@ public class CommonformsActivity extends BaseActivity implements View.OnClickLis
             case R.id.btn_title_left:
                 finish();
                 break;
-
+            case R.id.btn_jqtb:
+                Intent intent5 = new Intent(CommonformsActivity.this,CommonFormsJqtbActivity.class);
+                startActivity(intent5);
+                break;
+            case R.id.btn_cjfk:
+                Intent intent6 = new Intent(CommonformsActivity.this, CommonFormsCjfkListActivity.class);
+                startActivity(intent6);
+                break;
         }
     }
 

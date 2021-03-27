@@ -16,6 +16,7 @@ public class GoodsMessage {
     private String OUT06B;//攜帶人
     private String OUTLOCK;//當值警衛
 
+    private String OUTDNO;//物品編號
     private String OUTD01;//品名
     private String OUTD02;//型號
     private String OUTD03;//數量
@@ -279,5 +280,13 @@ public class GoodsMessage {
 
     public void setOUT06A(String OUT06A) {
         this.OUT06A = OUT06A;
+    }
+
+    public String getOUTDNO() {
+        return OUTDNO;
+    }
+
+    public void setOUTDNO(String OUTDNO) {
+        this.OUTDNO = OUTDNO;
     }
 }

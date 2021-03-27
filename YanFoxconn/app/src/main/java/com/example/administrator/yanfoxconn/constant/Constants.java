@@ -50,7 +50,12 @@ public class Constants {
     public static String HTTP_BARCODE_MOIDY_SERVLET = BASE_URL + "BarcodeMoidyServlet";//人資活動取消
     public static String HTTP_BARCODE_SCAN_SERVLET = BASE_URL + "BarcodeScanServlet";//人資活動掃描
     public static String HTTP_BARCODE_JBVIEW_SERVLET = BASE_URL + "BarcodeJbviewServlet";//人資查看加班時數
-    public static String HTTP_COMMON_FORMS_UPDATE_SERVLET = EMP_BASE + "CommonFormsupdateServlet";//員工違規表單,員工進出異常表單 提交用
+    public static String HTTP_COMMON_FORMS_UPDATE_SERVLET = EMP_BASE + "CommonFormsupdateServlet";//員工違規表單,員工進出異常表單 提交
+    public static String HTTP_COMMON_FORMS_110JQTB_UP_SERVLET = EMP_BASE + "CommonForms110JQTBUpServlet";//110接處警警情通報提交
+    public static String HTTP_COMMON_FORMS_110CJFK_LIST_SERVLET = EMP_BASE + "CommonForms110CJFKListServlet";//110接處警處警反饋列表獲取
+    public static String HTTP_COMMON_FORMS_110CJFK_SERVLET = EMP_BASE + "CommonForms110CJFKServlet";//110接處警處警基本信息獲取
+    public static String HTTP_COMMON_FORMS_110CJFK_UP_SERVLET = EMP_BASE + "CommonForms110CJFKUpServlet";//110接處警處警提交
+
     public static String HTTP_COMMON_FORMS_PHOTOS_SERVLET = EMP_BASE + "CommonFormsupload_photoservlet";//二輪車違規帶圖片上傳
     public static String HTTP_COMMON_FORMS_TWO_WHEEL_SERVLET = EMP_BASE + "CommonFormsTwoWheelServlet";//二輪車違規工號查詢,並獲取門崗列表
     public static String HTTP_COMMON_FORMS_DAY_RECORD_SERVLET = EMP_BASE + "CommonFormsDayRecordServlet";//二輪車違規查詢當日記錄

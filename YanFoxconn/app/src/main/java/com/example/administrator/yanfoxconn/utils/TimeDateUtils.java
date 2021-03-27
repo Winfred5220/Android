@@ -1,7 +1,5 @@
 package com.example.administrator.yanfoxconn.utils;
 
-import com.example.administrator.yanfoxconn.activity.ExListViewActivity;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -10,14 +8,14 @@ public class TimeDateUtils {
     private static SimpleDateFormat formatters = new SimpleDateFormat("yyyy-MM-dd HH:mm");
     private static int day;//相差天數
     private static int hour;//相差小時數
-
-    public static int daysDeviation(String dateStart, String dateEnd) {//相差天數
+    //相差天數
+    public static int daysDeviation(String dateStart, String dateEnd) {
 
         try {
             Date startDate = formatters.parse(dateStart);
             Date endDate = formatters.parse(dateEnd);
-
-            long diff = endDate.getTime() - startDate.getTime();//这样得到的差值是微秒级别
+            //这样得到的差值是微秒级别
+            long diff = endDate.getTime() - startDate.getTime();
 
             long days = diff / (1000 * 60 * 60 * 24);
 
@@ -34,8 +32,8 @@ public class TimeDateUtils {
             return day;
         }
     }
-
-    public static int hoursDeviation(String dateStart, String dateEnd) {//相差小時數
+    //相差小時數
+    public static int hoursDeviation(String dateStart, String dateEnd) {
 
         try {
             Date startDate = formatters.parse(dateStart);
@@ -58,9 +56,54 @@ public class TimeDateUtils {
             return hour;
         }
     }
+    //相差分鐘數
+    public static int minutesDeviation(String dateStart, String dateEnd) {
+
+        try {
+            Date startDate = formatters.parse(dateStart);
+            Date endDate = formatters.parse(dateEnd);
+
+            long diff = endDate.getTime() - startDate.getTime();//这样得到的差值是微秒级别
+
+//            long days = diff / (1000 * 60 * 60 * 24);
+//
+//            long hours = (diff-days*(1000 * 60 * 60 * 24))/(1000* 60 * 60);
+//
+//            long minutes = (diff-days*(1000 * 60 * 60 * 24)-hours*(1000* 60 * 60))/(1000* 60);
+//
+//            System.out.println(""+days+"天"+hours+"小时"+minutes+"分");
+            long hours = diff / (1000 * 60 );
+            hour = (int) hours;
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            return hour;
+        }
+    }
+    //相差秒數
+    public static int secondDeviation(String dateStart, String dateEnd) {
+
+        try {
+            Date startDate = formatters.parse(dateStart);
+            Date endDate = formatters.parse(dateEnd);
+
+            long diff = endDate.getTime() - startDate.getTime();//这样得到的差值是微秒级别
+
+//          long days = diff / (1000 * 60 * 60 * 24);
+//          long hours = (diff-days*(1000 * 60 * 60 * 24))/(1000* 60 * 60);
+//          long minutes = (diff-days*(1000 * 60 * 60 * 24)-hours*(1000* 60 * 60))/(1000* 60);
+//          System.out.println(""+days+"天"+hours+"小时"+minutes+"分");
+
+            long hours = diff / (1000);
+            hour = (int) hours;
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            return hour;
+        }
+    }
 
     /**
-     *
      * @param strH   開始時間的 小時
      * @param strM   開始時間的 分鐘
      * @param endH   結束時間的 小時
@@ -102,4 +145,5 @@ public class TimeDateUtils {
 
         return timeRight;
     }
+
 }

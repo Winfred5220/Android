@@ -23,6 +23,9 @@ public class EmpMessage {
     private String CODE;//工號
     private String NAME;//姓名
     private String WJ_ADDRESS;//稽核地點
+
+    private String KEDUI;//指揮中心處置
+
     private List<EmpFile>  file;
 
     public String getCODE() {
@@ -143,6 +146,14 @@ public class EmpMessage {
 
     public void setNAME(String NAME) {
         this.NAME = NAME;
+    }
+
+    public String getKEDUI() {
+        return KEDUI;
+    }
+
+    public void setKEDUI(String KEDUI) {
+        this.KEDUI = KEDUI;
     }
 }
 
