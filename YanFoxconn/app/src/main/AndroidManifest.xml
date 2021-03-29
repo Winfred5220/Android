@@ -412,6 +412,8 @@
         <activity android:name=".activity.CommonFormsJqtbActivity"/><!-- 110接處警 警情通報 -->
         <activity android:name=".activity.CommonFormsCjfkActivity"/><!-- 110接處警 處警反饋 -->
         <activity android:name=".activity.CommonFormsCjfkListActivity"/><!-- 110接處警 處警反饋列表 -->
+        <activity android:name=".activity.AQ110MenuActivity"/><!-- 110菜單 -->
+
     </application>
 
 </manifest>

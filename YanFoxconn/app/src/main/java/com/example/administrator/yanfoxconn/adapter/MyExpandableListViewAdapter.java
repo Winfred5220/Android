@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.administrator.yanfoxconn.R;
+import com.example.administrator.yanfoxconn.activity.AQ110MenuActivity;
 import com.example.administrator.yanfoxconn.activity.BandaoInputActivity;
 import com.example.administrator.yanfoxconn.activity.CarListActivity;
 import com.example.administrator.yanfoxconn.activity.CommonformsActivity;
@@ -881,6 +882,11 @@ public class MyExpandableListViewAdapter extends BaseExpandableListAdapter {
                 Intent intent = new Intent(mContext.getActivity(), QrCodeActivity.class);
                 intent.putExtra("title", "掃描二維碼");
                 intent.putExtra("num", "cz");
+                mContext.getActivity().startActivity(intent);
+            }
+            @Override//110接處警
+            public void OnClickIH() {
+                Intent intent = new Intent(mContext.getActivity(), AQ110MenuActivity.class);
                 mContext.getActivity().startActivity(intent);
             }
         });

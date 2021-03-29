@@ -77,8 +77,8 @@
                             style="@style/carTextName"
                             android:text="入廠時間：" />
 
-                        <EditText
-                            android:id="@+id/et_join_date"
+                        <TextView
+                            android:id="@+id/tv_join_date"
                             android:background="@drawable/login_input"
                             style="@style/carTextBKG"
                             android:layout_weight="1" />

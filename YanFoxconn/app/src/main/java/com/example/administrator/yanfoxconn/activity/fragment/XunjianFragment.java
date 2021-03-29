@@ -96,7 +96,7 @@ public class XunjianFragment extends Fragment implements View.OnClickListener{
     public String[][] gridViewType = {
             {"CY"},//物流防疫
             {"A0", "T0", "H0", "K0", "I0", "L0", "J0", "M0", "R0", "S0", "CD", "CE", "CL", "CR",
-                    "CU", "CX","GC"},//安保部
+                     "CX","GC","IH"},//安保部 "CU",
             {"CT","FE","FF","FG","FV","FX","FZ","GE","GX","ID"},//工業安全部
             {"BG", "BP", "ZXS", "DN","DQ","DT","FH","GA","HL","HX"},//總務
             {"N0", "O0", "P0", "Q0","IB","IC", "V0","FS","FW","GD","GCGL"},//營建 GCGL工程管理，開放權限，掃碼後會根據登錄帳號權限進行判斷
@@ -116,7 +116,7 @@ public class XunjianFragment extends Fragment implements View.OnClickListener{
             {"消殺點檢"},//物流防疫
             {"值班室", "春安值星", "一大隊固定崗", "一大隊巡邏崗", "二大隊固定崗", "二大隊巡邏崗",
                     "三大隊固定崗", "三大隊巡邏崗", "機動隊巡邏崗", "機動隊固定崗", "常用表單", "物品放行",
-                    "移動設備管控", "廢料出廠", "值班課長", "三防隱患通報","異常處置區"},//安全保障服務部
+                    "移動設備管控", "廢料出廠","三防隱患通報","異常處置區","110接處警"},//安全保障服務部"值班課長",
             {"消防巡檢","洗眼器點檢","危化品暫存柜","危化品暫存倉","吸煙區","鋰電池防火","有限空間","室外堆場",
                     "設備借用","會議室點檢"},//工業安全部
             {"宿舍巡檢", "餐飲巡檢", "消殺巡檢", "宿舍查驗","直飲水","生活垃圾清運","餐廳巡檢","臨時工簽到","倉庫巡檢","餐廳及多媒體"},//總務
@@ -138,8 +138,8 @@ public class XunjianFragment extends Fragment implements View.OnClickListener{
             {R.mipmap.icon_anquan, R.mipmap.icon_lianluo, R.mipmap.icon_yidadui1, R.mipmap.icon_yidadui_1,
                     R.mipmap.icon_yidadui2, R.mipmap.icon_yidadui_2, R.mipmap.icon_yidadui3, R.mipmap.icon_yidadui_3,
                     R.mipmap.icon_jidongx, R.mipmap.icon_jidongg, R.mipmap.icon_biaodan, R.mipmap.icon_wupin,
-                    R.mipmap.icon_mobile, R.mipmap.icon_scrap_leave, R.mipmap.icon_duty, R.mipmap.icon_sanfang,
-                    R.mipmap.icon_chuzhiqu},//安保部
+                    R.mipmap.icon_mobile, R.mipmap.icon_scrap_leave, R.mipmap.icon_sanfang,
+                    R.mipmap.icon_chuzhiqu,R.mipmap.icon_duty},//安保部 R.mipmap.icon_duty,
             {R.mipmap.icon_gongan, R.mipmap.icon_control_room, R.mipmap.icon_gui, R.mipmap.icon_cang,
                     R.mipmap.icon_xiyanqu, R.mipmap.icon_battery, R.mipmap.icon_kongjian, R.mipmap.icon_dui,
                     R.mipmap.icon_borrow,R.mipmap.icon_huiyishi},//工業安全部

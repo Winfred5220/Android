@@ -91,8 +91,8 @@ public class CommonFormsCjfkActivity extends BaseActivity implements View.OnClic
     EditText etDep;
     @BindView(R.id.et_level)
     EditText etLevel;//資位
-    @BindView(R.id.et_join_date)
-    EditText etJoinDate;//入廠時間
+    @BindView(R.id.tv_join_date)
+    TextView tvJoinDate;//入廠時間
     @BindView(R.id.sp_team)
     Spinner spTeam;//警情類別
     @BindView(R.id.tv_team)
@@ -125,6 +125,7 @@ public class CommonFormsCjfkActivity extends BaseActivity implements View.OnClic
         btnUp.setVisibility(View.VISIBLE);
         btnUp.setOnClickListener(this);
         btnBack.setOnClickListener(this);
+        tvJoinDate.setOnClickListener(this);
 
         formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         SimpleDateFormat formatterUse = new SimpleDateFormat("yyyy年MM月dd日 HH:mm");
@@ -232,14 +233,14 @@ public class CommonFormsCjfkActivity extends BaseActivity implements View.OnClic
             etName.setText(aqMessageList.get(0).getNAME());
             etDep.setText(aqMessageList.get(0).getWJ_ADDRESS());
             etLevel.setText(aqMessageList.get(0).getJC_TYPE());
-            etJoinDate.setText(aqMessageList.get(0).getINTO_DATE());
+            tvJoinDate.setText(aqMessageList.get(0).getINTO_DATE());
             spTeam.setVisibility(View.GONE);tvTeam.setText(aqMessageList.get(0).getZZ_TYPE());
             tvTeam.setVisibility(View.VISIBLE);
             etCode.setEnabled(false);
             etName.setEnabled(false);
             etDep.setEnabled(false);
             etLevel.setEnabled(false);
-            etJoinDate.setEnabled(false);
+            tvJoinDate.setEnabled(false);
             flag=flag1+"2";
         }else {
             flag=flag1+"1";
@@ -251,7 +252,8 @@ public class CommonFormsCjfkActivity extends BaseActivity implements View.OnClic
                         etName.setEnabled(true);
                         etDep.setEnabled(true);
                         etLevel.setEnabled(true);
-                        etJoinDate.setEnabled(true);
+                        tvJoinDate.setEnabled(true);
+                        tvJoinDate.setText(formatter.format(curDate));
                     } else {
                         // 此处为失去焦点时的处理内容
                         getPeopleMessage(etCode.getText().toString().replaceAll(" ","").toUpperCase());
@@ -314,13 +316,13 @@ public class CommonFormsCjfkActivity extends BaseActivity implements View.OnClic
         etName.setText(empMessagesList.get(0).getCHINESENAME());
         etDep.setText(empMessagesList.get(0).getCZC03());
         etLevel.setText(empMessagesList.get(0).getEMPLOYEELEVEL()+empMessagesList.get(0).getMANAGER());
-        etJoinDate.setText(empMessagesList.get(0).getJOINGROUPDATE());
+        tvJoinDate.setText(empMessagesList.get(0).getJOINGROUPDATE());
 
         //etCode.setEnabled(false);
         etName.setEnabled(false);
         etDep.setEnabled(false);
         etLevel.setEnabled(false);
-        etJoinDate.setEnabled(false);
+        tvJoinDate.setEnabled(false);
     }
     private void check(){
         if(FoxContext.getInstance().getLoginId().equals("")){
@@ -333,6 +335,15 @@ public class CommonFormsCjfkActivity extends BaseActivity implements View.OnClic
         }
         if(etName.getText().toString().equals("")){
             ToastUtils.showShort(CommonFormsCjfkActivity.this,"請填寫姓名!");
+            return;
+        }
+        try {
+            selectTime = formatter.parse(tvJoinDate.getText().toString());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        if (selectTime.getTime()-curDate.getTime()>0){
+            ToastUtils.showShort(CommonFormsCjfkActivity.this,"請检查時間是否在當前時間之前");
             return;
         }
         if(etDescribe.getText().toString().equals("")){
@@ -360,7 +371,7 @@ public class CommonFormsCjfkActivity extends BaseActivity implements View.OnClic
         paramMap.put("name1", etName.getText().toString());
         paramMap.put("wj_address", etDep.getText().toString());
         paramMap.put("jc_type", etLevel.getText().toString());
-        paramMap.put("into_date", etJoinDate.getText().toString());
+        paramMap.put("into_date", tvJoinDate.getText().toString());
         paramMap.put("zz_type",teamSp);
         paramMap.put("b_desc", etDescribe.getText().toString());
         paramMap.put("b_redeem", etRedeem.getText().toString());
@@ -452,7 +463,13 @@ public class CommonFormsCjfkActivity extends BaseActivity implements View.OnClic
             case R.id.btn_title_right://提交
                 check();
                 break;
+            case R.id.tv_join_date:
 
+                DateTimePickDialogUtil dateTimePicKDialog = new DateTimePickDialogUtil(
+                        CommonFormsCjfkActivity.this, initStartDateTime);
+
+                dateTimePicKDialog.dateTimePicKDialog(tvJoinDate,"","");
+                break;
         }
     }
 }
