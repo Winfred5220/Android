@@ -31,6 +31,7 @@ public class EmpListAdapter extends BaseAdapter {
     private List<String> list;
     private OnClickSetText onClickSetText;
     private List<String> getId;
+    private String from="";
 
     /**
      * 构造函数
@@ -39,6 +40,12 @@ public class EmpListAdapter extends BaseAdapter {
         this.mInflater = LayoutInflater.from(context);
         this.list = teamList;
         this.olist = list;
+    }
+    public EmpListAdapter(Context context, List<String> teamList,String from) {
+        this.mInflater = LayoutInflater.from(context);
+        this.list = teamList;
+        this.olist = list;
+        this.from = from;
     }
 
 
@@ -100,7 +107,8 @@ public class EmpListAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();//取出ViewHolder对象
         }
         /**设置TextView显示的内容，即我们存放在动态数组中的数据*/
-        holder.title.setText(list.get(position).split(",")[1]);
+        if (from.equals("doctor")){holder.title.setText(list.get(position));}else{
+        holder.title.setText(list.get(position).split(",")[1]);}
         holder.title.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

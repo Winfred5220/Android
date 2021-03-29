@@ -128,6 +128,14 @@ public class GCUpOrDoneActivity extends BaseActivity implements View.OnClickList
     TableRow trOutTime;//離開時間
     @BindView(R.id.tv_out_time)
     TextView tvOutTime;//離開時間
+    @BindView(R.id.tr_conclusion)
+    TableRow trConclusion;//診斷結論
+    @BindView(R.id.et_conclusion)
+    EditText etConclusion;//診斷結論
+    @BindView(R.id.lv_conclusion)
+    MyListView lvConclusion;//診斷結論列表
+    @BindView(R.id.tr_list_conclusion)
+    TableRow trLIstConclusion;//診斷結論列表
     @BindView(R.id.tr_time)
     TableRow trTime;//時間
     @BindView(R.id.tv_time_date)
@@ -154,14 +162,13 @@ public class GCUpOrDoneActivity extends BaseActivity implements View.OnClickList
     private static final int REQUEST_CAMERA_CODE = 11;
     private static final int REQUEST_PREVIEW_CODE = 22;
 
-    private String area,room;
-    private List<GEMenLiu> geDoctor,geArea,geRoom;
+    private String area="",room="";
+    private List<GEMenLiu> geDoctor,geArea,geRoom,geConclusion;
     private List<String> doctorList;
     private List<String> areaList;
     private List<String> roomList;
-    private EmpListAdapter doctorAdapter;//
-    private EmpListAdapter areaAdapter;//
-    private EmpListAdapter roomAdapter;//
+    private List<String> conclusionList;
+    private EmpListAdapter doctorAdapter,conclusionAdapter;//
     private GCHead gcHeads ;
     private ArrayList<String> imagePaths = null;//圖片未壓縮地址
     private ArrayList<String> imgZipPaths = new ArrayList<String>();//圖片壓縮后地址
@@ -228,6 +235,8 @@ public class GCUpOrDoneActivity extends BaseActivity implements View.OnClickList
             //获取当前时间
              initStartDateTime = formatterUse.format(curDate);
             tvTimeDate.setText(formatter.format(curDate));
+            tvInTime.setText(formatter.format(curDate));
+            tvOutTime.setText(formatter.format(curDate));
             tvTitle.setText("補錄上傳");
             ivEmpty.setVisibility(View.GONE);
             lvPeople.setVisibility(View.VISIBLE);
@@ -312,7 +321,6 @@ public class GCUpOrDoneActivity extends BaseActivity implements View.OnClickList
             }
         });
         etDoctor.setTag("0");
-
         //搜索关键字
         etDoctor.addTextChangedListener(new TextWatcher() {
             @Override
@@ -324,6 +332,24 @@ public class GCUpOrDoneActivity extends BaseActivity implements View.OnClickList
                 String a = etDoctor.getText().toString();
                 //调用适配器里面的搜索方法
                 doctorAdapter.SearchCity(a);
+            }
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+        });
+
+        etConclusion.setTag("0");
+        //搜索关键字
+        etConclusion.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                trLIstConclusion.setVisibility(View.VISIBLE);
+                String a = etConclusion.getText().toString();
+                //调用适配器里面的搜索方法
+                conclusionAdapter.SearchCity(a);
             }
             @Override
             public void afterTextChanged(Editable editable) {
@@ -400,8 +426,12 @@ public class GCUpOrDoneActivity extends BaseActivity implements View.OnClickList
                     ToastUtils.showShort(GCUpOrDoneActivity.this,"請注意體溫與追蹤紀錄的填寫！");
                 }else if(etTemp.getText().toString().equals("")||etDescription.getText().toString().equals("")){
                     upAlert("請注意體溫與追蹤紀錄的填寫,确认提交嗎？", MESSAGE_TOAST);
+                }else if (from.equals("end")){
+                    upAlert("确认提交嗎？", MESSAGE_TOAST);
                 }else if (etDoctor.getTag().equals("0") && bodys.size()==0){
                     ToastUtils.showShort(GCUpOrDoneActivity.this,"請選值班醫生!");
+                }else if (etConclusion.getTag().equals("0") && bodys.size()==1){
+                    ToastUtils.showShort(GCUpOrDoneActivity.this,"請選診斷結論!");
                 }else{
                     upAlert("确认提交嗎？", MESSAGE_TOAST);}
                 break;
@@ -421,7 +451,22 @@ public class GCUpOrDoneActivity extends BaseActivity implements View.OnClickList
                 SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
                 dateTimePicKDialog.dateTimePicKDialog(tvTimeDate, formatter.format(new Date(System.currentTimeMillis()))
                 );
+                break;
+            case R.id.tv_in_time:
 
+                DateTimePickDialogUtil dateInTimePicKDialog = new DateTimePickDialogUtil(
+                        GCUpOrDoneActivity.this, initStartDateTime);
+                SimpleDateFormat formatterIn = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                dateInTimePicKDialog.dateTimePicKDialog(tvInTime, formatterIn.format(new Date(System.currentTimeMillis()))
+                );
+                break;
+            case R.id.tv_out_time:
+
+                DateTimePickDialogUtil dateOutTimePicKDialog = new DateTimePickDialogUtil(
+                        GCUpOrDoneActivity.this, initStartDateTime);
+                SimpleDateFormat formatterOut = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                dateOutTimePicKDialog.dateTimePicKDialog(tvOutTime, formatterOut.format(new Date(System.currentTimeMillis()))
+                );
                 break;
         }
     }
@@ -438,6 +483,7 @@ public class GCUpOrDoneActivity extends BaseActivity implements View.OnClickList
                     healthAdapter = new GCHealthAdapter(GCUpOrDoneActivity.this,bodys);
                     lvPeople.setAdapter(healthAdapter);
                     setSpinner();
+                    setDoctor();
                     healthAdapter.setOnClickListenerSeeOrAdd(new GCHealthAdapter.OnClickListenerSeeOrAdd() {
                         @Override
                         public void OnClickListenerDel(int position) {
@@ -448,6 +494,15 @@ public class GCUpOrDoneActivity extends BaseActivity implements View.OnClickList
                             }
                         }
                     });
+                    if (bodys.size()==0){
+                        trInTime.setVisibility(View.VISIBLE);
+                        trArea.setVisibility(View.VISIBLE);
+                        trDoctor.setVisibility(View.VISIBLE);
+                    }else if (bodys.size()==1){
+                        trConclusion.setVisibility(View.VISIBLE);
+                        trRoom.setVisibility(View.VISIBLE);
+                        trOutTime.setVisibility(View.VISIBLE);
+                    }
                     break;
 
                 case MESSAGE_NOT_NET:
@@ -503,7 +558,7 @@ public class GCUpOrDoneActivity extends BaseActivity implements View.OnClickList
                             geArea.add(humi);
                         }
                         //觀察地點地點
-                        JsonArray array2 = jsonObject.get("result3").getAsJsonArray();
+                        JsonArray array2 = jsonObject.get("result2").getAsJsonArray();
                         geRoom = new ArrayList<GEMenLiu>();
 
                         for (JsonElement type : array2) {
@@ -511,12 +566,20 @@ public class GCUpOrDoneActivity extends BaseActivity implements View.OnClickList
                             geRoom.add(humi);
                         }
                         //值班醫生
-                        JsonArray array4 = jsonObject.get("result3").getAsJsonArray();
+                        JsonArray array4 = jsonObject.get("result4").getAsJsonArray();
                         geDoctor = new ArrayList<GEMenLiu>();
 
                         for (JsonElement type : array4) {
                             GEMenLiu humi = gson.fromJson(type, GEMenLiu.class);
                             geDoctor.add(humi);
+                        }
+                        //診斷結論
+                        JsonArray array5 = jsonObject.get("result5").getAsJsonArray();
+                        geConclusion = new ArrayList<GEMenLiu>();
+
+                        for (JsonElement type : array5) {
+                            GEMenLiu humi = gson.fromJson(type, GEMenLiu.class);
+                            geConclusion.add(humi);
                         }
 
                         Message message = new Message();
@@ -555,7 +618,8 @@ public class GCUpOrDoneActivity extends BaseActivity implements View.OnClickList
         object.addProperty("In_Place_Watch", room);
         object.addProperty("In_Into_Time", tvInTime.getText().toString());
         object.addProperty("In_Out_Time", tvOutTime.getText().toString());
-        object.addProperty("In_Doctor", doctor);
+        object.addProperty("In_Docter", doctor);
+        object.addProperty("In_Conclusion", conclusion);
         //開啟一個新執行緒，向伺服器上傳資料
         new Thread() {
             public void run() {
@@ -710,7 +774,7 @@ public class GCUpOrDoneActivity extends BaseActivity implements View.OnClickList
                             message.what = MESSAGE_TOAST;
                             message.obj = jsonObject.get("errMessage").getAsString();
                             mHandler.sendMessage(message);
-                        } if(errCode.equals("500")){
+                        }else if(errCode.equals("500")){
                             Log.e("-----------", "result==" + result);
                             Message message = new Message();
                             message.what = MESSAGE_DONE_FAIL;
@@ -817,20 +881,25 @@ public class GCUpOrDoneActivity extends BaseActivity implements View.OnClickList
                     public void onClick(DialogInterface dialog, int id) {
                         // TODO Auto-generated method stub
 
-                            if (from.equals("end")){
+                            if (from.equals("end")){//結案
                                  if (imagePaths==null||imagePaths.size()==0){
                                     ToastUtils.showLong(GCUpOrDoneActivity.this,"请上传結案照片！");
                                 }else {
                                 end();}
-                            }else if (from.equals("add")){
+                            }else if (from.equals("add")){//追蹤
+                                if (tvInTime.getText().toString().equals("")&&bodys.size()==0){
+                                    ToastUtils.showShort(GCUpOrDoneActivity.this, "請選擇進入時間！");
+                                }else if (tvOutTime.getText().toString().equals("")&&bodys.size()==1){
+                                    ToastUtils.showShort(GCUpOrDoneActivity.this, "請選擇離開時間！");
 
-                                add();
+                                }else{
+                                add();}
                             }else{
                                 if (etTemp.getText().toString().equals("")||etDescription.getText().toString().equals("")){
 
                                     ToastUtils.showShort(GCUpOrDoneActivity.this,"請注意體溫與追蹤紀錄的填寫！");
                                 }else  if (tvTimeDate.getText().toString().equals("")) {
-                                    ToastUtils.showShort(GCUpOrDoneActivity.this, "請選擇時間");
+                                    ToastUtils.showShort(GCUpOrDoneActivity.this, "請選擇時間！");
                                 }else{
                                     addTime();}
                             }
@@ -931,28 +1000,51 @@ public class GCUpOrDoneActivity extends BaseActivity implements View.OnClickList
         alert.show();
     }
 
-    private String doctor;
+    private String doctor,conclusion;
     private ChangeTextUtils changeTextUtils = new ChangeTextUtils();
-    private void setMen(){
+    private void setDoctor(){
         doctorList = new ArrayList<>();
-//        for (int i = 0;i<empFileList.size();i++){
-//
-//            doctorList.add(change1(""));
-//
-//        }
-        doctorAdapter = new EmpListAdapter(GCUpOrDoneActivity.this,doctorList);
+        for (int i = 0;i<geDoctor.size();i++){
+
+            doctorList.add(change1(geDoctor.get(i).getIn_Door()));
+            Log.e("--------","geDoctor.get(i).getIn_Door()==="+geDoctor.get(i).getIn_Door());
+        }
+
+        doctorAdapter = new EmpListAdapter(GCUpOrDoneActivity.this,doctorList,"doctor");
         lvDoctor.setAdapter(doctorAdapter);
 
         //醫生列表,選中后1:tit賦值,2:列表隱藏
         doctorAdapter.OnClickSetText(new EmpListAdapter.OnClickSetText() {
             @Override
             public void OnClickxt(String tit) {
-                etDoctor.setText(tit.split(",")[1]);
-                etDoctor.setTag(tit.split(",")[0]);
-                doctor= changeTextUtils.simToTra(tit.split(",")[1]);
+                etDoctor.setText(tit);
+                etDoctor.setTag(tit);
+                doctor= changeTextUtils.simToTra(tit);
 
                 doctorAdapter.SearchCity("");
                 trLIstDoctor.setVisibility(View.GONE);
+            }
+        });
+        conclusionList = new ArrayList<>();
+        for (int i = 0;i<geConclusion.size();i++){
+
+            conclusionList.add(change1(geConclusion.get(i).getIn_Door()));
+            Log.e("--------","geConclusion.get(i).getIn_Door()==="+geConclusion.get(i).getIn_Door());
+        }
+
+        conclusionAdapter = new EmpListAdapter(GCUpOrDoneActivity.this,conclusionList,"doctor");
+        lvConclusion.setAdapter(conclusionAdapter);
+
+        //醫生列表,選中后1:tit賦值,2:列表隱藏
+        conclusionAdapter.OnClickSetText(new EmpListAdapter.OnClickSetText() {
+            @Override
+            public void OnClickxt(String tit) {
+                etConclusion.setText(tit);
+                etConclusion.setTag(tit);
+                conclusion= changeTextUtils.simToTra(tit);
+
+                conclusionAdapter.SearchCity("");
+                trLIstConclusion.setVisibility(View.GONE);
             }
         });
 
@@ -969,6 +1061,8 @@ public class GCUpOrDoneActivity extends BaseActivity implements View.OnClickList
         return changeText;
     }
   public void setSpinner(){
+        areaList = new ArrayList<>();
+        roomList = new ArrayList<>();
         for (int i = 0;i<geArea.size();i++){
             areaList.add(geArea.get(i).getIn_Door());
         }

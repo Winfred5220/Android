@@ -94,7 +94,6 @@ public class GCCheckIDActivity extends BaseActivity implements View.OnClickListe
 
     private String id,flag;
     List<GEPeopleMsg>  gePeopleMsgs;
-    List<GEMenLiu> geMens,geLius;
     private List<String> teamList;
     private EmpListAdapter mAdapter;
     private List<EmpMessage> empMessagesList;
@@ -173,8 +172,6 @@ public class GCCheckIDActivity extends BaseActivity implements View.OnClickListe
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 //實時紀錄輸入的字數
                 wordNum = charSequence;
-
-
             }
 
             @Override
@@ -195,7 +192,6 @@ public class GCCheckIDActivity extends BaseActivity implements View.OnClickListe
                 }
             }
         });
-
     }
 
     /**
@@ -231,13 +227,13 @@ public class GCCheckIDActivity extends BaseActivity implements View.OnClickListe
                             gePeopleMsgs.add(humi);
                         }
                         //門崗
-                        JsonArray array2 = jsonObject.get("result2").getAsJsonArray();
-                        geMens = new ArrayList<GEMenLiu>();
-
-                        for (JsonElement type : array2) {
-                            GEMenLiu humi = gson.fromJson(type, GEMenLiu.class);
-                            geMens.add(humi);
-                        }
+//                        JsonArray array2 = jsonObject.get("result2").getAsJsonArray();
+//                        geMens = new ArrayList<GEMenLiu>();
+//
+//                        for (JsonElement type : array2) {
+//                            GEMenLiu humi = gson.fromJson(type, GEMenLiu.class);
+//                            geMens.add(humi);
+//                        }
 //                        //留觀地點
 //                        JsonArray array3 = jsonObject.get("result3").getAsJsonArray();
 //                        geLius = new ArrayList<GEMenLiu>();
@@ -306,14 +302,14 @@ public class GCCheckIDActivity extends BaseActivity implements View.OnClickListe
             tvDep.setText(gePeopleMsgs.get(0).getDANWEI());
             tvBuCode.setText(gePeopleMsgs.get(0).getDANWEI());
         }
-        List<String> men=new ArrayList<>();
-        List<String> liu=new ArrayList<>();
-        for (int i=0;i<geMens.size();i++){
-            men.add(geMens.get(i).getIn_Door());
-        }
-        for (int i=0;i<geLius.size();i++){
-            liu.add(geLius.get(i).getIn_Door());
-        }
+//        List<String> men=new ArrayList<>();
+//        List<String> liu=new ArrayList<>();
+//        for (int i=0;i<geMens.size();i++){
+//            men.add(geMens.get(i).getIn_Door());
+//        }
+//        for (int i=0;i<geLius.size();i++){
+//            liu.add(geLius.get(i).getIn_Door());
+//        }
         getMen();
   }
 

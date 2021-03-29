@@ -134,7 +134,7 @@
                 <!--進入時間-->
                 <TableRow style="@style/tableRow"
                     android:id="@+id/tr_in_time"
-                    android:visibility="visible">
+                    android:visibility="gone">
 
                     <TextView
                         style="@style/carTextName"
@@ -154,7 +154,7 @@
                 <!--值班醫生-->
                 <TableRow style="@style/tableRow"
                     android:id="@+id/tr_doctor"
-                    android:visibility="visible">
+                    android:visibility="gone">
 
                     <TextView
                         style="@style/carTextName"
@@ -184,7 +184,7 @@
                 <!--留觀地點-->
                 <TableRow style="@style/tableRow"
                     android:id="@+id/tr_area"
-                    android:visibility="visible">
+                    android:visibility="gone">
 
                     <TextView
                         style="@style/carTextName"
@@ -199,7 +199,7 @@
                 <!--觀察地點-->
                 <TableRow style="@style/tableRow"
                     android:id="@+id/tr_room"
-                    android:visibility="visible">
+                    android:visibility="gone">
                     <TextView
                         style="@style/carTextName"
                         android:text="觀察地點："
@@ -214,7 +214,7 @@
                 <!--離開時間-->
                 <TableRow style="@style/tableRow"
                     android:id="@+id/tr_out_time"
-                    android:visibility="visible">
+                    android:visibility="gone">
 
                     <TextView
                         style="@style/carTextName"
@@ -231,10 +231,40 @@
                         android:layout_marginLeft="@dimen/dimen_3"
                         android:layout_weight="1"/>
                 </TableRow>
+                <!--診斷結論-->
+                <TableRow style="@style/tableRow"
+                    android:id="@+id/tr_conclusion"
+                    android:visibility="gone">
+
+                    <TextView
+                        style="@style/carTextName"
+                        android:text="診斷結論："
+                        android:focusable="true"
+                        android:focusableInTouchMode="true" />
+
+                    <EditText
+                        android:id="@+id/et_conclusion"
+                        style="@style/carEditTextBKG"
+                        android:layout_weight="1" />
+
+                </TableRow>
+                <!--診斷結論列表-->
+                <TableRow
+                    android:id="@+id/tr_list_conclusion"
+                    style="@style/tableRow"
+                    android:visibility="gone">
+
+                    <TextView style="@style/carTextName" />
+
+                    <com.example.administrator.yanfoxconn.widget.MyListView
+                        android:id="@+id/lv_conclusion"
+                        style="@style/carTextBKG"
+                        android:layout_weight="1" />
+                </TableRow>
                 <!--日期時間-->
                 <TableRow style="@style/tableRow"
                     android:id="@+id/tr_time"
-                    android:visibility="visible">
+                    android:visibility="gone">
 
                     <TextView
                         style="@style/carTextName"
@@ -258,7 +288,7 @@
                 android:id="@+id/rg_done"
                 style="@style/btn_input"
                 android:orientation="horizontal"
-                android:visibility="visible"
+                android:visibility="gone"
                 >
                 <RadioButton
                     android:id="@+id/rtb_yes"
