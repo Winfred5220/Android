@@ -85,8 +85,6 @@ public class GCCheckIDActivity extends BaseActivity implements View.OnClickListe
     MyListView lvGate;//稽核門崗列表
     @BindView(R.id.tr_list_gate)
     TableRow trLIstGate;//稽核課隊門崗列表
-    @BindView(R.id.sp_area)
-    Spinner spArea;//留觀地點
     @BindView(R.id.et_temp)
     EditText etTemp;//體溫
     @BindView(R.id.et_description)
@@ -96,12 +94,10 @@ public class GCCheckIDActivity extends BaseActivity implements View.OnClickListe
 
     private String id,flag;
     List<GEPeopleMsg>  gePeopleMsgs;
-    List<GEMenLiu> geMens,geLius;
     private List<String> teamList;
     private EmpListAdapter mAdapter;
     private List<EmpMessage> empMessagesList;
     private List<EmpFile> empFileList;
-    private String Sliu;
     private int num = 0;//輸入框初始值
     private int mMaxNum =250;//輸入框最大值
     @Override
@@ -176,8 +172,6 @@ public class GCCheckIDActivity extends BaseActivity implements View.OnClickListe
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 //實時紀錄輸入的字數
                 wordNum = charSequence;
-
-
             }
 
             @Override
@@ -198,7 +192,6 @@ public class GCCheckIDActivity extends BaseActivity implements View.OnClickListe
                 }
             }
         });
-
     }
 
     /**
@@ -234,21 +227,21 @@ public class GCCheckIDActivity extends BaseActivity implements View.OnClickListe
                             gePeopleMsgs.add(humi);
                         }
                         //門崗
-                        JsonArray array2 = jsonObject.get("result2").getAsJsonArray();
-                        geMens = new ArrayList<GEMenLiu>();
-
-                        for (JsonElement type : array2) {
-                            GEMenLiu humi = gson.fromJson(type, GEMenLiu.class);
-                            geMens.add(humi);
-                        }
-                        //留觀地點
-                        JsonArray array3 = jsonObject.get("result3").getAsJsonArray();
-                        geLius = new ArrayList<GEMenLiu>();
-
-                        for (JsonElement type : array3) {
-                            GEMenLiu humi = gson.fromJson(type, GEMenLiu.class);
-                            geLius.add(humi);
-                        }
+//                        JsonArray array2 = jsonObject.get("result2").getAsJsonArray();
+//                        geMens = new ArrayList<GEMenLiu>();
+//
+//                        for (JsonElement type : array2) {
+//                            GEMenLiu humi = gson.fromJson(type, GEMenLiu.class);
+//                            geMens.add(humi);
+//                        }
+//                        //留觀地點
+//                        JsonArray array3 = jsonObject.get("result3").getAsJsonArray();
+//                        geLius = new ArrayList<GEMenLiu>();
+//
+//                        for (JsonElement type : array3) {
+//                            GEMenLiu humi = gson.fromJson(type, GEMenLiu.class);
+//                            geLius.add(humi);
+//                        }
 
                         Message message = new Message();
                         message.what = MESSAGE_SET_TEXT;
@@ -309,30 +302,16 @@ public class GCCheckIDActivity extends BaseActivity implements View.OnClickListe
             tvDep.setText(gePeopleMsgs.get(0).getDANWEI());
             tvBuCode.setText(gePeopleMsgs.get(0).getDANWEI());
         }
-        List<String> men=new ArrayList<>();
-        List<String> liu=new ArrayList<>();
-        for (int i=0;i<geMens.size();i++){
-            men.add(geMens.get(i).getIn_Door());
-        }
-        for (int i=0;i<geLius.size();i++){
-            liu.add(geLius.get(i).getIn_Door());
-        }
+//        List<String> men=new ArrayList<>();
+//        List<String> liu=new ArrayList<>();
+//        for (int i=0;i<geMens.size();i++){
+//            men.add(geMens.get(i).getIn_Door());
+//        }
+//        for (int i=0;i<geLius.size();i++){
+//            liu.add(geLius.get(i).getIn_Door());
+//        }
         getMen();
-        //稽核課隊下拉列表選擇
-        spArea.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, liu));
-        spArea.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Sliu = liu.get(position);
-
-//                Log.e("---------", "最喜欢的水果是：" + str);
-//                paramMap.put("kedui",str);
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
-    }
+  }
 
     @Override
     public void onClick(View view) {
@@ -363,7 +342,6 @@ if (etDescription.getText().toString().equals("")||etTemp.getText().toString().e
         object.addProperty("In_Tempature", etTemp.getText().toString());
         object.addProperty("In_Others", etDescription.getText().toString());
         object.addProperty("In_Door", men);
-        object.addProperty("In_Observation", Sliu);
         object.addProperty("flag", flag);
         object.addProperty("In_Createor",FoxContext.getInstance().getName());
         object.addProperty("In_Createor_id",FoxContext.getInstance().getLoginId());

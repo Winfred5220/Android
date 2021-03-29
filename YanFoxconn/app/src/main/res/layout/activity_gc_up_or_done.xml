@@ -130,23 +130,11 @@
                         android:layout_weight="1"
                         android:inputType="numberDecimal"/>
                 </TableRow>
-                <!--留觀地點-->
-                <TableRow style="@style/tableRow">
 
-                    <TextView
-                        style="@style/carTextName"
-                        android:text="留觀地點：" />
-
-                    <TextView
-                        android:id="@+id/tv_area"
-                        style="@style/carEditTextBKG"
-                        android:layout_weight="1"
-                        android:inputType="numberDecimal"/>
-                </TableRow>
                 <!--進入時間-->
                 <TableRow style="@style/tableRow"
-                    android:visibility="gone"
-                    android:layout_marginTop="@dimen/dimen_40">
+                    android:id="@+id/tr_in_time"
+                    android:visibility="gone">
 
                     <TextView
                         style="@style/carTextName"
@@ -154,14 +142,78 @@
                         android:focusable="true"
                         android:focusableInTouchMode="true" />
 
+                    <TextView
+                        android:id="@+id/tv_in_time"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/text_size_16"
+                        android:hint="選擇時間"
+                        android:layout_marginLeft="@dimen/dimen_3"
+                        android:layout_weight="1"/>
+                </TableRow>
+                <!--值班醫生-->
+                <TableRow style="@style/tableRow"
+                    android:id="@+id/tr_doctor"
+                    android:visibility="gone">
+
+                    <TextView
+                        style="@style/carTextName"
+                        android:text="值班醫生："
+                        android:focusable="true"
+                        android:focusableInTouchMode="true" />
+
                     <EditText
-                        android:id="@+id/et_in_time"
+                        android:id="@+id/et_doctor"
                         style="@style/carEditTextBKG"
-                        android:layout_weight="1"
-                        android:inputType="numberDecimal"/>
+                        android:layout_weight="1" />
+
+                </TableRow>
+                <!--值班醫生列表-->
+                <TableRow
+                    android:id="@+id/tr_list_doctor"
+                    style="@style/tableRow"
+                    android:visibility="gone">
+
+                    <TextView style="@style/carTextName" />
+
+                    <com.example.administrator.yanfoxconn.widget.MyListView
+                        android:id="@+id/lv_doctor"
+                        style="@style/carTextBKG"
+                        android:layout_weight="1" />
+                </TableRow>
+                <!--留觀地點-->
+                <TableRow style="@style/tableRow"
+                    android:id="@+id/tr_area"
+                    android:visibility="gone">
+
+                    <TextView
+                        style="@style/carTextName"
+                        android:text="留觀地點：" />
+
+                    <Spinner
+                        android:id="@+id/sp_area"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+                </TableRow>
+                <!--觀察地點-->
+                <TableRow style="@style/tableRow"
+                    android:id="@+id/tr_room"
+                    android:visibility="gone">
+                    <TextView
+                        style="@style/carTextName"
+                        android:text="觀察地點："
+                        android:focusable="true"
+                        android:focusableInTouchMode="true" />
+                    <Spinner
+                        android:id="@+id/sp_room"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
                 </TableRow>
                 <!--離開時間-->
                 <TableRow style="@style/tableRow"
+                    android:id="@+id/tr_out_time"
                     android:visibility="gone">
 
                     <TextView
@@ -170,11 +222,44 @@
                         android:focusable="true"
                         android:focusableInTouchMode="true" />
 
+                    <TextView
+                        android:id="@+id/tv_out_time"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/text_size_16"
+                        android:hint="選擇時間"
+                        android:layout_marginLeft="@dimen/dimen_3"
+                        android:layout_weight="1"/>
+                </TableRow>
+                <!--診斷結論-->
+                <TableRow style="@style/tableRow"
+                    android:id="@+id/tr_conclusion"
+                    android:visibility="gone">
+
+                    <TextView
+                        style="@style/carTextName"
+                        android:text="診斷結論："
+                        android:focusable="true"
+                        android:focusableInTouchMode="true" />
+
                     <EditText
-                        android:id="@+id/et_out_time"
+                        android:id="@+id/et_conclusion"
                         style="@style/carEditTextBKG"
-                        android:layout_weight="1"
-                        android:inputType="numberDecimal"/>
+                        android:layout_weight="1" />
+
+                </TableRow>
+                <!--診斷結論列表-->
+                <TableRow
+                    android:id="@+id/tr_list_conclusion"
+                    style="@style/tableRow"
+                    android:visibility="gone">
+
+                    <TextView style="@style/carTextName" />
+
+                    <com.example.administrator.yanfoxconn.widget.MyListView
+                        android:id="@+id/lv_conclusion"
+                        style="@style/carTextBKG"
+                        android:layout_weight="1" />
                 </TableRow>
                 <!--日期時間-->
                 <TableRow style="@style/tableRow"
@@ -197,44 +282,11 @@
                         android:layout_weight="1"/>
                 </TableRow>
 
-                <!--值班醫生-->
-                <TableRow style="@style/tableRow"
-                    android:visibility="gone">
-
-                    <TextView
-                        style="@style/carTextName"
-                        android:text="值班醫生："
-                        android:focusable="true"
-                        android:focusableInTouchMode="true" />
-
-                    <EditText
-                        android:id="@+id/et_doctor"
-                        style="@style/carEditTextBKG"
-                        android:layout_weight="1"
-                        android:inputType="numberDecimal"/>
-                </TableRow>
-                <!--觀察地點-->
-                <TableRow style="@style/tableRow"
-                    android:visibility="gone"
-                    android:layout_marginTop="@dimen/dimen_40">
-                    <TextView
-                        style="@style/carTextName"
-                        android:text="觀察地點："
-                        android:focusable="true"
-                        android:focusableInTouchMode="true" />
-                    <EditText
-                        android:id="@+id/et_room"
-                        style="@style/carEditTextBKG"
-                        android:layout_weight="1"
-                        android:inputType="numberDecimal"/>
-                </TableRow>
-
             </TableLayout>
             <!--    結案時顯示-->
             <RadioGroup
                 android:id="@+id/rg_done"
                 style="@style/btn_input"
-                android:layout_marginBottom="@dimen/dimen_50"
                 android:orientation="horizontal"
                 android:visibility="gone"
                 >

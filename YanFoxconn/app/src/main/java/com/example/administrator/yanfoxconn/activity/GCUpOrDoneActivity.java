@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,15 +23,18 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.administrator.yanfoxconn.R;
+import com.example.administrator.yanfoxconn.adapter.EmpListAdapter;
 import com.example.administrator.yanfoxconn.adapter.GCHealthAdapter;
 import com.example.administrator.yanfoxconn.bean.ComScanViewMessage;
 import com.example.administrator.yanfoxconn.bean.GCBody;
 import com.example.administrator.yanfoxconn.bean.GCHead;
+import com.example.administrator.yanfoxconn.bean.GEMenLiu;
 import com.example.administrator.yanfoxconn.bean.SelectModel;
 import com.example.administrator.yanfoxconn.constant.Constants;
 import com.example.administrator.yanfoxconn.constant.FoxContext;
@@ -38,6 +42,7 @@ import com.example.administrator.yanfoxconn.constant.ImageCaptureManager;
 import com.example.administrator.yanfoxconn.intent.PhotoPickerIntent;
 import com.example.administrator.yanfoxconn.intent.PhotoPreviewIntent;
 import com.example.administrator.yanfoxconn.utils.BaseActivity;
+import com.example.administrator.yanfoxconn.utils.ChangeTextUtils;
 import com.example.administrator.yanfoxconn.utils.DateTimePickDialogUtil;
 import com.example.administrator.yanfoxconn.utils.FileUtil;
 import com.example.administrator.yanfoxconn.utils.HttpConnectionUtil;
@@ -45,6 +50,7 @@ import com.example.administrator.yanfoxconn.utils.HttpUtils;
 import com.example.administrator.yanfoxconn.utils.ImageZipUtils;
 import com.example.administrator.yanfoxconn.utils.ToastUtils;
 import com.example.administrator.yanfoxconn.widget.MyGridView;
+import com.example.administrator.yanfoxconn.widget.MyListView;
 import com.example.administrator.yanfoxconn.widget.SwipeListView;
 import com.example.administrator.yanfoxconn.widget.SwipeListViewOne;
 import com.google.gson.Gson;
@@ -56,6 +62,7 @@ import com.google.gson.JsonParser;
 import org.json.JSONArray;
 
 import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -63,6 +70,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import taobe.tec.jcc.JChineseConvertor;
 
 /**
  * 安保部 健康追蹤 追蹤或結案共用介界面
@@ -96,8 +104,38 @@ public class GCUpOrDoneActivity extends BaseActivity implements View.OnClickList
     TextView tvFirstTemp;//初始體溫
     @BindView(R.id.tv_men)
     TextView tvMen;//初始門崗
-    @BindView(R.id.tv_area)
-    TextView tvArea;//留觀地點
+    @BindView(R.id.tr_doctor)
+    TableRow trDoctor;//值班醫生
+    @BindView(R.id.et_doctor)
+    EditText etDoctor;//值班醫生
+    @BindView(R.id.lv_doctor)
+    MyListView lvDoctor;//值班醫生列表
+    @BindView(R.id.tr_list_doctor)
+    TableRow trLIstDoctor;//值班醫生列表
+    @BindView(R.id.tr_area)
+    TableRow trArea;//留觀地點
+    @BindView(R.id.sp_area)
+    Spinner spArea;//留觀地點
+    @BindView(R.id.tr_room)
+    TableRow trRoom;//觀察地點
+    @BindView(R.id.sp_room)
+    Spinner spRoom;//觀察地點
+    @BindView(R.id.tr_in_time)
+    TableRow trInTime;//進入時間
+    @BindView(R.id.tv_in_time)
+    TextView tvInTime;//進入時間
+    @BindView(R.id.tr_out_time)
+    TableRow trOutTime;//離開時間
+    @BindView(R.id.tv_out_time)
+    TextView tvOutTime;//離開時間
+    @BindView(R.id.tr_conclusion)
+    TableRow trConclusion;//診斷結論
+    @BindView(R.id.et_conclusion)
+    EditText etConclusion;//診斷結論
+    @BindView(R.id.lv_conclusion)
+    MyListView lvConclusion;//診斷結論列表
+    @BindView(R.id.tr_list_conclusion)
+    TableRow trLIstConclusion;//診斷結論列表
     @BindView(R.id.tr_time)
     TableRow trTime;//時間
     @BindView(R.id.tv_time_date)
@@ -124,6 +162,13 @@ public class GCUpOrDoneActivity extends BaseActivity implements View.OnClickList
     private static final int REQUEST_CAMERA_CODE = 11;
     private static final int REQUEST_PREVIEW_CODE = 22;
 
+    private String area="",room="";
+    private List<GEMenLiu> geDoctor,geArea,geRoom,geConclusion;
+    private List<String> doctorList;
+    private List<String> areaList;
+    private List<String> roomList;
+    private List<String> conclusionList;
+    private EmpListAdapter doctorAdapter,conclusionAdapter;//
     private GCHead gcHeads ;
     private ArrayList<String> imagePaths = null;//圖片未壓縮地址
     private ArrayList<String> imgZipPaths = new ArrayList<String>();//圖片壓縮后地址
@@ -147,7 +192,6 @@ public class GCUpOrDoneActivity extends BaseActivity implements View.OnClickList
         setContentView(R.layout.activity_gc_up_or_done);
         ButterKnife.bind(this);
 
-
         btnBack.setText("返回");
         btnUp.setText("提交");
         btnBack.setOnClickListener(this);
@@ -158,6 +202,8 @@ public class GCUpOrDoneActivity extends BaseActivity implements View.OnClickList
         rtbNo.setOnClickListener(this::onClick);
         rtbYes.setChecked(true);
         tvTimeDate.setOnClickListener(this);
+        tvInTime.setOnClickListener(this);
+        tvOutTime.setOnClickListener(this);
 
         from = getIntent().getStringExtra("from");
         gcHeads = (GCHead) getIntent().getSerializableExtra("people");
@@ -168,7 +214,6 @@ public class GCUpOrDoneActivity extends BaseActivity implements View.OnClickList
         tvPro.setText(gcHeads.getIn_Department());
         tvFirstTemp.setText(gcHeads.getIn_Tempature());
         tvMen.setText(gcHeads.getIn_Door());
-        tvArea.setText(gcHeads.getIn_Observation());
         ivEmpty.setOnClickListener(this);
 
         if (from.equals("end")){
@@ -190,6 +235,8 @@ public class GCUpOrDoneActivity extends BaseActivity implements View.OnClickList
             //获取当前时间
              initStartDateTime = formatterUse.format(curDate);
             tvTimeDate.setText(formatter.format(curDate));
+            tvInTime.setText(formatter.format(curDate));
+            tvOutTime.setText(formatter.format(curDate));
             tvTitle.setText("補錄上傳");
             ivEmpty.setVisibility(View.GONE);
             lvPeople.setVisibility(View.VISIBLE);
@@ -240,7 +287,6 @@ public class GCUpOrDoneActivity extends BaseActivity implements View.OnClickList
 
             }
         });
-
         etDescription.addTextChangedListener(new TextWatcher() {
             //紀錄存入的字數
             private CharSequence wordNum;
@@ -250,13 +296,10 @@ public class GCUpOrDoneActivity extends BaseActivity implements View.OnClickList
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
             }
-
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 //實時紀錄輸入的字數
                 wordNum = charSequence;
-
-
             }
 
             @Override
@@ -275,6 +318,41 @@ public class GCUpOrDoneActivity extends BaseActivity implements View.OnClickList
                     etDescription.setSelection(tempSelection);//設置光標在最後
                     ToastUtils.showLong(GCUpOrDoneActivity.this,"最多輸入250字！ ");
                 }
+            }
+        });
+        etDoctor.setTag("0");
+        //搜索关键字
+        etDoctor.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                trLIstDoctor.setVisibility(View.VISIBLE);
+                String a = etDoctor.getText().toString();
+                //调用适配器里面的搜索方法
+                doctorAdapter.SearchCity(a);
+            }
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+        });
+
+        etConclusion.setTag("0");
+        //搜索关键字
+        etConclusion.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                trLIstConclusion.setVisibility(View.VISIBLE);
+                String a = etConclusion.getText().toString();
+                //调用适配器里面的搜索方法
+                conclusionAdapter.SearchCity(a);
+            }
+            @Override
+            public void afterTextChanged(Editable editable) {
             }
         });
     }
@@ -337,7 +415,6 @@ public class GCUpOrDoneActivity extends BaseActivity implements View.OnClickList
         }
     }
 
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -346,11 +423,15 @@ public class GCUpOrDoneActivity extends BaseActivity implements View.OnClickList
                 break;
             case R.id.btn_title_right://提交
                 if (etTemp.getText().toString().equals("")||etDescription.getText().toString().equals("")){
-
                     ToastUtils.showShort(GCUpOrDoneActivity.this,"請注意體溫與追蹤紀錄的填寫！");
                 }else if(etTemp.getText().toString().equals("")||etDescription.getText().toString().equals("")){
-
                     upAlert("請注意體溫與追蹤紀錄的填寫,确认提交嗎？", MESSAGE_TOAST);
+                }else if (from.equals("end")){
+                    upAlert("确认提交嗎？", MESSAGE_TOAST);
+                }else if (etDoctor.getTag().equals("0") && bodys.size()==0){
+                    ToastUtils.showShort(GCUpOrDoneActivity.this,"請選值班醫生!");
+                }else if (etConclusion.getTag().equals("0") && bodys.size()==1){
+                    ToastUtils.showShort(GCUpOrDoneActivity.this,"請選診斷結論!");
                 }else{
                     upAlert("确认提交嗎？", MESSAGE_TOAST);}
                 break;
@@ -370,7 +451,22 @@ public class GCUpOrDoneActivity extends BaseActivity implements View.OnClickList
                 SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
                 dateTimePicKDialog.dateTimePicKDialog(tvTimeDate, formatter.format(new Date(System.currentTimeMillis()))
                 );
+                break;
+            case R.id.tv_in_time:
 
+                DateTimePickDialogUtil dateInTimePicKDialog = new DateTimePickDialogUtil(
+                        GCUpOrDoneActivity.this, initStartDateTime);
+                SimpleDateFormat formatterIn = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                dateInTimePicKDialog.dateTimePicKDialog(tvInTime, formatterIn.format(new Date(System.currentTimeMillis()))
+                );
+                break;
+            case R.id.tv_out_time:
+
+                DateTimePickDialogUtil dateOutTimePicKDialog = new DateTimePickDialogUtil(
+                        GCUpOrDoneActivity.this, initStartDateTime);
+                SimpleDateFormat formatterOut = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                dateOutTimePicKDialog.dateTimePicKDialog(tvOutTime, formatterOut.format(new Date(System.currentTimeMillis()))
+                );
                 break;
         }
     }
@@ -386,6 +482,8 @@ public class GCUpOrDoneActivity extends BaseActivity implements View.OnClickList
                 case MESSAGE_SET_LIST://List賦值
                     healthAdapter = new GCHealthAdapter(GCUpOrDoneActivity.this,bodys);
                     lvPeople.setAdapter(healthAdapter);
+                    setSpinner();
+                    setDoctor();
                     healthAdapter.setOnClickListenerSeeOrAdd(new GCHealthAdapter.OnClickListenerSeeOrAdd() {
                         @Override
                         public void OnClickListenerDel(int position) {
@@ -394,9 +492,17 @@ public class GCUpOrDoneActivity extends BaseActivity implements View.OnClickList
                             }else{
                                 ToastUtils.showShort(GCUpOrDoneActivity.this,"非當天數據，不予刪除！");
                             }
-
                         }
                     });
+                    if (bodys.size()==0){
+                        trInTime.setVisibility(View.VISIBLE);
+                        trArea.setVisibility(View.VISIBLE);
+                        trDoctor.setVisibility(View.VISIBLE);
+                    }else if (bodys.size()==1){
+                        trConclusion.setVisibility(View.VISIBLE);
+                        trRoom.setVisibility(View.VISIBLE);
+                        trOutTime.setVisibility(View.VISIBLE);
+                    }
                     break;
 
                 case MESSAGE_NOT_NET:
@@ -443,6 +549,39 @@ public class GCUpOrDoneActivity extends BaseActivity implements View.OnClickList
                             bodys.add(humi);
                         }
 
+                        //留觀地點
+                        JsonArray array3 = jsonObject.get("result3").getAsJsonArray();
+                        geArea = new ArrayList<GEMenLiu>();
+
+                        for (JsonElement type : array3) {
+                            GEMenLiu humi = gson.fromJson(type, GEMenLiu.class);
+                            geArea.add(humi);
+                        }
+                        //觀察地點地點
+                        JsonArray array2 = jsonObject.get("result2").getAsJsonArray();
+                        geRoom = new ArrayList<GEMenLiu>();
+
+                        for (JsonElement type : array2) {
+                            GEMenLiu humi = gson.fromJson(type, GEMenLiu.class);
+                            geRoom.add(humi);
+                        }
+                        //值班醫生
+                        JsonArray array4 = jsonObject.get("result4").getAsJsonArray();
+                        geDoctor = new ArrayList<GEMenLiu>();
+
+                        for (JsonElement type : array4) {
+                            GEMenLiu humi = gson.fromJson(type, GEMenLiu.class);
+                            geDoctor.add(humi);
+                        }
+                        //診斷結論
+                        JsonArray array5 = jsonObject.get("result5").getAsJsonArray();
+                        geConclusion = new ArrayList<GEMenLiu>();
+
+                        for (JsonElement type : array5) {
+                            GEMenLiu humi = gson.fromJson(type, GEMenLiu.class);
+                            geConclusion.add(humi);
+                        }
+
                         Message message = new Message();
                         message.what = MESSAGE_SET_LIST;
                         message.obj = jsonObject.get("errMessage").getAsString();
@@ -475,7 +614,12 @@ public class GCUpOrDoneActivity extends BaseActivity implements View.OnClickList
         object.addProperty("T_Createor", FoxContext.getInstance().getName());
         object.addProperty("T_Createor_id" +
                 "", FoxContext.getInstance().getLoginId());
-
+        object.addProperty("In_Observation", area);
+        object.addProperty("In_Place_Watch", room);
+        object.addProperty("In_Into_Time", tvInTime.getText().toString());
+        object.addProperty("In_Out_Time", tvOutTime.getText().toString());
+        object.addProperty("In_Docter", doctor);
+        object.addProperty("In_Conclusion", conclusion);
         //開啟一個新執行緒，向伺服器上傳資料
         new Thread() {
             public void run() {
@@ -536,7 +680,7 @@ public class GCUpOrDoneActivity extends BaseActivity implements View.OnClickList
                 "", FoxContext.getInstance().getLoginId());
         object.addProperty("T_Createor_time" +
                 "", tvTimeDate.getText().toString());
-Log.e("-------------","ddddd==="+tvTimeDate.getText().toString());
+        Log.e("-------------","ddddd==="+tvTimeDate.getText().toString());
         //開啟一個新執行緒，向伺服器上傳資料
         new Thread() {
             public void run() {
@@ -591,7 +735,6 @@ Log.e("-------------","ddddd==="+tvTimeDate.getText().toString());
         object.addProperty("In_Department", gcHeads.getIn_Department());
         object.addProperty("In_C_description", etDescription.getText().toString());
         object.addProperty("In_C_result", done);
-
         object.addProperty("In_C_Name", FoxContext.getInstance().getName());
         object.addProperty("In_C_Number", FoxContext.getInstance().getLoginId());
 
@@ -631,8 +774,7 @@ Log.e("-------------","ddddd==="+tvTimeDate.getText().toString());
                             message.what = MESSAGE_TOAST;
                             message.obj = jsonObject.get("errMessage").getAsString();
                             mHandler.sendMessage(message);
-
-                        } if(errCode.equals("500")){
+                        }else if(errCode.equals("500")){
                             Log.e("-----------", "result==" + result);
                             Message message = new Message();
                             message.what = MESSAGE_DONE_FAIL;
@@ -686,7 +828,6 @@ Log.e("-------------","ddddd==="+tvTimeDate.getText().toString());
             } else {
                 return listUrls.size() + 1;
             }
-
         }
 
         @Override
@@ -740,20 +881,25 @@ Log.e("-------------","ddddd==="+tvTimeDate.getText().toString());
                     public void onClick(DialogInterface dialog, int id) {
                         // TODO Auto-generated method stub
 
-                            if (from.equals("end")){
+                            if (from.equals("end")){//結案
                                  if (imagePaths==null||imagePaths.size()==0){
                                     ToastUtils.showLong(GCUpOrDoneActivity.this,"请上传結案照片！");
                                 }else {
                                 end();}
-                            }else if (from.equals("add")){
+                            }else if (from.equals("add")){//追蹤
+                                if (tvInTime.getText().toString().equals("")&&bodys.size()==0){
+                                    ToastUtils.showShort(GCUpOrDoneActivity.this, "請選擇進入時間！");
+                                }else if (tvOutTime.getText().toString().equals("")&&bodys.size()==1){
+                                    ToastUtils.showShort(GCUpOrDoneActivity.this, "請選擇離開時間！");
 
-                                add();
+                                }else{
+                                add();}
                             }else{
                                 if (etTemp.getText().toString().equals("")||etDescription.getText().toString().equals("")){
 
                                     ToastUtils.showShort(GCUpOrDoneActivity.this,"請注意體溫與追蹤紀錄的填寫！");
                                 }else  if (tvTimeDate.getText().toString().equals("")) {
-                                    ToastUtils.showShort(GCUpOrDoneActivity.this, "請選擇時間");
+                                    ToastUtils.showShort(GCUpOrDoneActivity.this, "請選擇時間！");
                                 }else{
                                     addTime();}
                             }
@@ -853,4 +999,102 @@ Log.e("-------------","ddddd==="+tvTimeDate.getText().toString());
         AlertDialog alert = builder.create();
         alert.show();
     }
+
+    private String doctor,conclusion;
+    private ChangeTextUtils changeTextUtils = new ChangeTextUtils();
+    private void setDoctor(){
+        doctorList = new ArrayList<>();
+        for (int i = 0;i<geDoctor.size();i++){
+
+            doctorList.add(change1(geDoctor.get(i).getIn_Door()));
+            Log.e("--------","geDoctor.get(i).getIn_Door()==="+geDoctor.get(i).getIn_Door());
+        }
+
+        doctorAdapter = new EmpListAdapter(GCUpOrDoneActivity.this,doctorList,"doctor");
+        lvDoctor.setAdapter(doctorAdapter);
+
+        //醫生列表,選中后1:tit賦值,2:列表隱藏
+        doctorAdapter.OnClickSetText(new EmpListAdapter.OnClickSetText() {
+            @Override
+            public void OnClickxt(String tit) {
+                etDoctor.setText(tit);
+                etDoctor.setTag(tit);
+                doctor= changeTextUtils.simToTra(tit);
+
+                doctorAdapter.SearchCity("");
+                trLIstDoctor.setVisibility(View.GONE);
+            }
+        });
+        conclusionList = new ArrayList<>();
+        for (int i = 0;i<geConclusion.size();i++){
+
+            conclusionList.add(change1(geConclusion.get(i).getIn_Door()));
+            Log.e("--------","geConclusion.get(i).getIn_Door()==="+geConclusion.get(i).getIn_Door());
+        }
+
+        conclusionAdapter = new EmpListAdapter(GCUpOrDoneActivity.this,conclusionList,"doctor");
+        lvConclusion.setAdapter(conclusionAdapter);
+
+        //醫生列表,選中后1:tit賦值,2:列表隱藏
+        conclusionAdapter.OnClickSetText(new EmpListAdapter.OnClickSetText() {
+            @Override
+            public void OnClickxt(String tit) {
+                etConclusion.setText(tit);
+                etConclusion.setTag(tit);
+                conclusion= changeTextUtils.simToTra(tit);
+
+                conclusionAdapter.SearchCity("");
+                trLIstConclusion.setVisibility(View.GONE);
+            }
+        });
+
+    }
+    //繁体转成简体
+    public String change1(String changeText) {
+        try {
+            JChineseConvertor jChineseConvertor = JChineseConvertor.getInstance();
+            changeText = jChineseConvertor.t2s(changeText);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return changeText;
+    }
+  public void setSpinner(){
+        areaList = new ArrayList<>();
+        roomList = new ArrayList<>();
+        for (int i = 0;i<geArea.size();i++){
+            areaList.add(geArea.get(i).getIn_Door());
+        }
+      for (int i = 0;i<geRoom.size();i++){
+          roomList.add(geRoom.get(i).getIn_Door());
+      }
+
+      spArea.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, areaList));
+      spArea.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+          @Override
+          public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+              area = areaList.get(position);
+
+//                Log.e("---------", "最喜欢的水果是：" + str);
+//                paramMap.put("kedui",str);
+          }
+          @Override
+          public void onNothingSelected(AdapterView<?> parent) {
+          }
+      });
+      spRoom.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, roomList));
+      spRoom.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+          @Override
+          public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+              room = roomList.get(position);
+
+//                Log.e("---------", "最喜欢的水果是：" + str);
+//                paramMap.put("kedui",str);
+          }
+          @Override
+          public void onNothingSelected(AdapterView<?> parent) {
+          }
+      });
+  }
 }
