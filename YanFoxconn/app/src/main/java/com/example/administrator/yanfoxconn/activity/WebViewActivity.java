@@ -81,12 +81,12 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
             ToastUtils.showShort(this, "登錄超時,請重新登陸");
         }
         if (role.equals("F0")) {//碼頭出貨信息表
-            mWebview.loadUrl("http://60.212.41.39/forward/matou/mt.jsp");
+            mWebview.loadUrl(Constants.HTTP_WEBVIEW +"forward/matou/mt.jsp");
         }else if (role.equals("FX")) {//鋰電池報表
-            mWebview.loadUrl(Constants.BASE_URL+"baobiao/SafeCheck_last_week.jsp");
+            mWebview.loadUrl(Constants.HTTP_WEBVIEW+"baobiao/SafeCheck_last_week.jsp");
         }else if (role.equals("FW")) {//營建設備報表
             //mWebview.loadUrl(Constants.SafeServer+"baobiao/SafeCheck_datetime_yingjian.jsp");
-            mWebview.loadUrl(Constants.BASE_URL+"baobiao/SafeCheck_datetime_yingjian.jsp");
+            mWebview.loadUrl(Constants.HTTP_WEBVIEW+"baobiao/SafeCheck_datetime_yingjian.jsp");
 
         }else{//跨區申請單
             mWebview.loadUrl("http://60.212.41.39/exportio/people/info_view.jsp?login_code="+ FoxContext.getInstance().getLoginId());

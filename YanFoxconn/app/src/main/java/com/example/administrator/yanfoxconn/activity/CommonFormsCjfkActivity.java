@@ -265,6 +265,8 @@ public class CommonFormsCjfkActivity extends BaseActivity implements View.OnClic
         if (zzMessageList!=null&&zzMessageList.size()>0){
             mzzAdapter = new CommonFormsCjfkzzAdapter(CommonFormsCjfkActivity.this,zzMessageList);
             lvZZ.setAdapter(mzzAdapter);
+
+            etDescribe.setText(zzMessageList.get(0).getB_DESC());
         }
 
     }

@@ -122,6 +122,7 @@ public class GoodsGeneralActivity extends BaseActivity implements View.OnClickLi
     private String url;//地址
     private String result;//网络获取结果
     private List<GoodsMessage> goodsMessage;//物品信息
+    private List<GoodsMessage> goodsListsj;//物品列表實際放行數量
     private List<GoodsMessage> goodsList;//物品列表
     private GoodsListAdapter goodsListAdapter;//物品列表适配器
     private String xcode,xname;//攜帶人工號，姓名
@@ -221,7 +222,7 @@ public class GoodsGeneralActivity extends BaseActivity implements View.OnClickLi
                     JsonObject jsonObject = new JsonParser().parse(result).getAsJsonObject();
                     String errCode = jsonObject.get("errCode").getAsString();
                     if (errCode.equals("200")) {
-                        Log.e("--fff---------", "result==" + result);
+                        //Log.e("--fff---------", "result==" + result);
                         JsonArray array = jsonObject.get("data").getAsJsonArray();
                         goodsMessage = new ArrayList<GoodsMessage>();
                         for (JsonElement type : array) {
@@ -259,6 +260,13 @@ public class GoodsGeneralActivity extends BaseActivity implements View.OnClickLi
                             goodsMessage.add(humi);
                         }
 
+                        JsonArray array3 = jsonObject.get("data2").getAsJsonArray();
+                        goodsListsj = new ArrayList<GoodsMessage>();
+                        for (JsonElement type : array3) {
+                            GoodsMessage humi = gson.fromJson(type, GoodsMessage.class);
+                            goodsListsj.add(humi);
+                        }
+
                         JsonObject jsonObject1 = new JsonParser().parse(String.valueOf(array.get(0))).getAsJsonObject();
                         JsonArray array1 = jsonObject1.get("file").getAsJsonArray();
                         empFileList = new ArrayList<EmpFile>();
@@ -285,7 +293,7 @@ public class GoodsGeneralActivity extends BaseActivity implements View.OnClickLi
                         JSONArray array = null;
                         try {
                             array = new JSONArray(ss);
-                            Log.e("----array.length()----",array.length()+"");
+                           // Log.e("----array.length()----",array.length()+"");
                             dandan=new String[array.length()];
                             for (int i=0;i<array.length();i++) {
                                 JSONObject dan = array.getJSONObject(i);// 遍历 jsonarray 数组，把每一个对象转成 json 对象
@@ -515,7 +523,7 @@ public class GoodsGeneralActivity extends BaseActivity implements View.OnClickLi
             LinearLayoutManager layoutManager = new LinearLayoutManager(GoodsGeneralActivity.this);
             rvGoods.setLayoutManager(layoutManager);
             rvGoods.setItemViewCacheSize(500);
-            goodsListAdapter = new GoodsListAdapter(GoodsGeneralActivity.this, goodsList);
+            goodsListAdapter = new GoodsListAdapter(GoodsGeneralActivity.this, goodsList,goodsListsj);
             rvGoods.setAdapter(goodsListAdapter);
         } else {
             ToastUtils.showShort(GoodsGeneralActivity.this, "沒有物品數據!");

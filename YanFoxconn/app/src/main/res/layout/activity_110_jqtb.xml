@@ -55,7 +55,7 @@
                 android:id="@+id/tr_position"
                 style="@style/tableRow">
                 <TextView style="@style/carTextName"
-                    android:text="警情位置:"/>
+                    android:text="警情位置："/>
                 <Spinner
                     android:id="@+id/sp_area"
                     android:layout_width="0dp"
@@ -80,7 +80,7 @@
                 android:id="@+id/tr_phone"
                 style="@style/tableRow">
                 <TextView style="@style/carTextName"
-                    android:text="聯繫方式:"/>
+                    android:text="聯繫方式："/>
 
                 <EditText
                     android:id="@+id/et_phone"
@@ -95,7 +95,7 @@
                 android:id="@+id/tr_content"
                 style="@style/tableRow">
                 <TextView style="@style/carTextName"
-                    android:text="報警內容:"/>
+                    android:text="報警內容："/>
 
                 <EditText
                     android:id="@+id/et_content"
@@ -111,7 +111,7 @@
                     style="@style/carTextName"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
-                    android:text="中心處置：" />
+                    android:text="警情处置：" />
 
                 <EditText
                     android:id="@+id/et_gate_post"

@@ -218,7 +218,6 @@ public class GCCheckIDActivity extends BaseActivity implements View.OnClickListe
                     JsonObject jsonObject = new JsonParser().parse(result).getAsJsonObject();
                     String errCode = jsonObject.get("errCode").getAsString();
                     if (errCode.equals("200")) {
-                        Log.e("--fff---------", "result==" + result);
                         JsonArray array = jsonObject.get("result1").getAsJsonArray();
                         gePeopleMsgs = new ArrayList<GEPeopleMsg>();
 
@@ -249,7 +248,6 @@ public class GCCheckIDActivity extends BaseActivity implements View.OnClickListe
                         mHandler.sendMessage(message);
 
                     } else{
-                        Log.e("-----------", "result==" + result);
                         Message message = new Message();
                         message.what = MESSAGE_TOAST;
                         message.obj = jsonObject.get("errMessage").getAsString();

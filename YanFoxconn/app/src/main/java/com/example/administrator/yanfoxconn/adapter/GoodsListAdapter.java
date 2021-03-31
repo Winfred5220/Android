@@ -25,6 +25,7 @@ public class GoodsListAdapter extends RecyclerView.Adapter<GoodsListAdapter.View
 
     private GoodsGeneralActivity activity;
     private List<GoodsMessage> lists;
+    private List<GoodsMessage> listsj;//上次放行實際數量
     private static HashMap<String,String> goodsMap = new HashMap<>();
 
     static class ViewHolder extends RecyclerView.ViewHolder{
@@ -53,10 +54,11 @@ public class GoodsListAdapter extends RecyclerView.Adapter<GoodsListAdapter.View
         return goodsMap;
     }
 
-    public GoodsListAdapter(GoodsGeneralActivity activity, List<GoodsMessage> lists) {
+    public GoodsListAdapter(GoodsGeneralActivity activity, List<GoodsMessage> lists,List<GoodsMessage> listsj) {
 
         this.activity = activity;
         this.lists = lists;
+        this.listsj = listsj;
     }
 
     /**
@@ -103,7 +105,11 @@ public class GoodsListAdapter extends RecyclerView.Adapter<GoodsListAdapter.View
         holder.tvNo.setText(lists.get(position).getOUTDNO());
         holder.tvName.setText(lists.get(position).getOUTD01());
         holder.tvSpec.setText(lists.get(position).getOUTD02());
-        holder.etNum.setText(lists.get(position).getOUTD03());
+        if (listsj!=null&&listsj.size()!=0){
+            holder.etNum.setText(listsj.get(position).getOUTD03());
+        }else {
+            holder.etNum.setText(lists.get(position).getOUTD03());
+        }
         holder.tvUnit.setText(lists.get(position).getOUTD04());
         goodsMap.put(lists.get(position).getOUTDNO(),lists.get(position).getOUTD03());
     }
