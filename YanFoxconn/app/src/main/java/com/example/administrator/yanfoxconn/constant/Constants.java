@@ -17,7 +17,7 @@ public class Constants {
 //本地测试服务器
     public static String SafeServerlocal = "http://192.168.1.124:8080/SafeServer/";//SafeServer接口測試
     public static String Serverlocal = "http://192.168.1.138:8080/Server/";//Server接口測試
-
+    public static String L4 = "http://10.193.22.189:8080/SafeServer/";//玲
     public static final String HTTP_LOGIN = SAFE_SERVER + "LoginServlet";//登錄
     public static String HTTP_DIMEMSION_SERVLET = SAFE_SERVER + "safeCheck/DimemsionServlet";//巡檢進度列表
     public static String HTTP_DIMEMSION_STATE_SERVLET = SAFE_SERVER + "safeCheck/DimemsionStateServlet";//掃描二維碼交互
@@ -57,16 +57,11 @@ public class Constants {
     public static String HTTP_COMMON_FORMS_110CJFK_SERVLET = SERVER + "CommonForms110CJFKServlet";//110接處警處警基本信息獲取
     public static String HTTP_COMMON_FORMS_110CJFK_UP_SERVLET = SERVER + "CommonForms110CJFKUpServlet";//110接處警處警提交
 
-    public static String SafeServer = "http://192.168.1.124:8080/SafeServer/";//SafeServer接口測試
-    public static String Server = "http://192.168.1.124:8080/Server/";//Server接口測試
-    public static String L4 = "http://10.193.22.189:8080/SafeServer/";//玲
     public static String HTTP_COMMON_FORMS_PHOTOS_SERVLET = SERVER + "CommonFormsupload_photoservlet";//二輪車違規帶圖片上傳
     public static String HTTP_COMMON_FORMS_TWO_WHEEL_SERVLET = SERVER + "CommonFormsTwoWheelServlet";//二輪車違規工號查詢,並獲取門崗列表
     public static String HTTP_COMMON_FORMS_DAY_RECORD_SERVLET = SERVER + "CommonFormsDayRecordServlet";//二輪車違規查詢當日記錄
     public static String HTTP_COMMON_FORMS_PRIVATE_CAR_SERVLET = SERVER + "CommonFormsPrivateCarUpServlet";//私家車違規稽核提交接口
     public static String HTTP_COMMON_FORMS_PRIVATE_CAR_PARKING = SERVER + "CommonFormsPrivateCarParkingServlet";//私家車違規帶出停車場接口
-//    public static String L4 = "http://10.193.22.189:8080/SafeServer/";//玲
-    public static String L4 = "http://10.201.130.127:8080/SafeServer/";//玲
 
     public static String HTTP_COMMON_FORMS_SERVLET = SERVER + "CommonFormsServlet";//工號查詢,並獲取門崗列表
     public static String HTTP_COMMON_GOODS_SERVLET = SERVER + "CommongoodsServlet";//普通物品 工號查詢,並獲取門崗列表，提交信息

@@ -6,7 +6,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dimen_80"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <LinearLayout
@@ -63,11 +63,13 @@
             android:layout_centerVertical="true"
             android:textSize="@dimen/text_size_18"
             android:text="中央關務"
+            android:layout_marginBottom="@dimen/dimen_5"
             />
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/dimen_1"
             android:layout_marginTop="@dimen/dimen_5"
-            android:background="@color/color_858585" />
+            android:background="@color/color_858585"
+            android:visibility="gone"/>
     </LinearLayout>
 </LinearLayout>
