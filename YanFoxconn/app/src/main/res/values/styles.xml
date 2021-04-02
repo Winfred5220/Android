@@ -90,6 +90,13 @@
         <item name="android:gravity">center</item>
         <item name="android:layout_marginTop">@dimen/dimen_2</item>
     </style>
+    <style name="tableRow1">
+        <item name="android:paddingLeft">@dimen/dimen_10</item>
+        <item name="android:paddingRight">@dimen/dimen_10</item>
+        <item name="android:layout_height">@dimen/dimen_200</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_marginTop">@dimen/dimen_2</item>
+    </style>
     <style name="push_style">
         <item name="android:hint">@string/style_hint</item>
         <item name="android:inputType">number</item>

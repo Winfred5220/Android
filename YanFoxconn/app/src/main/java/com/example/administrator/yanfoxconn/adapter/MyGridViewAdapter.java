@@ -267,6 +267,8 @@ public class MyGridViewAdapter extends BaseAdapter {
                     tvGridView.setTag("if");
                 } else if (rolesList.get(i).equals("IH")) {//110接處警
                     tvGridView.setTag("ih");
+                } else if (rolesList.get(i).equals("IG")) {//宿舍 寄存
+                    tvGridView.setTag("ig");
                 } else {
                     tvGridView.setTag("true");
                 }
@@ -475,6 +477,8 @@ public class MyGridViewAdapter extends BaseAdapter {
                     onClickListener.OnClickIF();
                 } else if (view.getTag().equals("ih")) {//110接處警
                     onClickListener.OnClickIH();
+                } else if (view.getTag().equals("ig")) {//宿舍寄存
+                    onClickListener.OnClickIG();
                 } else {
                     onClickListener.OnClickListenerFalse(position);
                 }
@@ -581,6 +585,7 @@ public class MyGridViewAdapter extends BaseAdapter {
         void OnClickIE();//工會空間點檢
         void OnClickIF();//關愛中心其他工作室
         void OnClickIH();//110接處警
+        void OnClickIG();//宿舍寄存
     }
 
     public void setOnClickListener(OnClickListener onClickListener) {

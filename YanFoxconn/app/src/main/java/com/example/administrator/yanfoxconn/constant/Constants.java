@@ -57,6 +57,9 @@ public class Constants {
     public static String HTTP_COMMON_FORMS_110CJFK_SERVLET = SERVER + "CommonForms110CJFKServlet";//110接處警處警基本信息獲取
     public static String HTTP_COMMON_FORMS_110CJFK_UP_SERVLET = SERVER + "CommonForms110CJFKUpServlet";//110接處警處警提交
 
+    public static String SafeServer = "http://192.168.1.124:8080/SafeServer/";//SafeServer接口測試
+    public static String Server = "http://192.168.1.124:8080/Server/";//Server接口測試
+    public static String L4 = "http://10.193.22.189:8080/SafeServer/";//玲
     public static String HTTP_COMMON_FORMS_PHOTOS_SERVLET = SERVER + "CommonFormsupload_photoservlet";//二輪車違規帶圖片上傳
     public static String HTTP_COMMON_FORMS_TWO_WHEEL_SERVLET = SERVER + "CommonFormsTwoWheelServlet";//二輪車違規工號查詢,並獲取門崗列表
     public static String HTTP_COMMON_FORMS_DAY_RECORD_SERVLET = SERVER + "CommonFormsDayRecordServlet";//二輪車違規查詢當日記錄
@@ -142,6 +145,17 @@ public class Constants {
     public static String HTTP_WATER_MAINTAIN_OK_SERVLET = SAFE_SERVER + "Water/MaintainOKServlet";//維保提交
     public static String HTTP_WATER_EXCE_DELETE = SAFE_SERVER + "Water/ExceDeleteServlet";//異常刪除
     public static String HTTP_MAINTAIN_INFO_DELETE = SAFE_SERVER + "Water/MaintainInfoViewServlet";//維保列表
+
+    public static String HTTP_STORE_OERSION_INFO = L4+"Store/PersonInfoServlet";//寄存獲取人員住宿信息 userid=
+    public static String HTTP_STORE_TYPE_INFO = L4+"Store/TypeInfoServlet";//寄存獲取物品類型
+    public static String HTTP_STORE_APPLY_OK = L4+"Store/ApplyOKServlet";//寄存 提交
+    public static String HTTP_STORE_DEPOSIT_LIST = L4+"Store/DepositListServlet";//列表
+    public static String HTTP_VIEW_BY_ID = L4+"Store/ViewByIdServlet";//寄存信息產看並排配 sid
+    public static String HTTP_STORE_INFO = L4+"Store/StoreInfoServlet";//寄存信息產看並排配 獲取倉庫sid+zwuser
+    public static String HTTP_LOCATION_INFO = L4+"Store/LocationInfoServlet";//寄存信息產看並排配 獲取儲位sid+zwuser
+    public static String HTTP_DEPOSIT_OK = L4+"Store/DepositOKServlet";//寄存信息產看並排配 提交
+    public static String HTTP_ISSUE_OK = L4+"Store/IssueOKServlet";//領取確認
+    public static String HTTP_STORE_DELETE_BY_ID = L4+"Store/DeleteByIdServlet";//刪除申請  sid
 
     public static String HTTP_RZ_SCAN_STATUS = SAFE_SERVER+"RZ/ScanStatusServlet";//人資監餐 狀態查詢
     public static String HTTP_RZ_SCAN_SIGNIN = SAFE_SERVER+"RZ/ScanSignInServlet";//人資監餐 簽到

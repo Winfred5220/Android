@@ -333,6 +333,12 @@ public class QrCodeActivity extends BaseActivity implements Callback, View.OnCli
                 intent.putExtra("result", resultString);
                 startActivity(intent);
                 finish();
+            }else if (num.equals("storeQr")){
+                Intent resultIntent = new Intent(QrCodeActivity.this, IGMainActivity.class);
+                resultIntent.putExtra("result", resultString);
+                resultIntent.putExtra("from", "storeQr");
+                startActivity(resultIntent);
+                finish();
             }
         }
     }

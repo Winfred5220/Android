@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--宿舍寄存 申請和拍配列表介面-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/common_title"/>
+    <com.example.administrator.yanfoxconn.widget.MyScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+<!--            搜索框-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginLeft="@dimen/dimen_20"
+                android:layout_marginRight="@dimen/dimen_20"
+                android:layout_marginTop="25dp"
+                android:background="@drawable/login_input"
+                android:visibility="gone">
+                <EditText
+                    android:id="@+id/et_search"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerVertical="true"
+                    android:background="@null"
+                    android:focusable="true"
+                    android:hint="用户名"
+                    android:inputType="text"
+                    android:paddingLeft="10dp"
+                    android:textColor="@color/color_ffdedede"
+                    android:textColorHint="@color/action_sheet_curr_point"
+                    android:textSize="16sp"
+                    />
+
+                <!--清空用户名按钮-->
+                <Button
+                    android:id="@+id/btn_search"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@mipmap/icon_search"
+                    android:gravity="center"/>
+
+            </RelativeLayout>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_marginLeft="@dimen/dimen_20"
+    android:layout_marginRight="@dimen/dimen_20">
+    <Button
+        android:id="@+id/btn_qr"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="在職掃碼領取"
+        android:background="@color/color_00CCFF"/>
+    <Button
+    android:id="@+id/btn_leave"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:text="離職工號領取"
+    android:background="@color/color_f5a306"/>
+</LinearLayout>
+            <com.example.administrator.yanfoxconn.widget.SwipterMenuTest
+                android:id="@+id/lv_people"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </LinearLayout>
+    </com.example.administrator.yanfoxconn.widget.MyScrollView>
+</LinearLayout>

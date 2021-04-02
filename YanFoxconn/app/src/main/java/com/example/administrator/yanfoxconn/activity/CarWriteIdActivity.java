@@ -63,6 +63,7 @@ public class CarWriteIdActivity extends BaseActivity implements View.OnClickList
 
         alertDialog = new AlertDialog.Builder(this);
         from = getIntent().getStringExtra("from");
+
         if (from.equals("healthScan") || from.equals("healthOCR")) {
             check = getIntent().getStringExtra("check");
         }
@@ -117,7 +118,13 @@ public class CarWriteIdActivity extends BaseActivity implements View.OnClickList
                             }
                         }
                     });
-        } else {
+        } else if (from.equals("IG")){
+
+            tvTitle.setText("手動輸入工號");
+        }else if (from.equals("leave")){
+
+            tvTitle.setText("手動輸入工號");
+        }else{
             tvTitle.setText("手動輸入銷單號");
         }
 
@@ -184,6 +191,20 @@ public class CarWriteIdActivity extends BaseActivity implements View.OnClickList
                         startActivity(resultIntent);
                         finish();
                     }
+                }else if (from.equals("IG")){
+                    Intent resultIntent = new Intent(CarWriteIdActivity.this, IGMainActivity.class);
+//                    resultIntent.putExtra("id", etWriteId.getText().toString());
+                    resultIntent.putExtra("id", etWriteId.getText().toString());
+                    resultIntent.putExtra("from", "add");
+                    startActivity(resultIntent);
+                    finish();
+                }else if (from.equals("leave")){
+                    Intent resultIntent = new Intent(CarWriteIdActivity.this, IGMainActivity.class);
+//                    resultIntent.putExtra("id", etWriteId.getText().toString());
+                    resultIntent.putExtra("id", "S1008368");
+                    resultIntent.putExtra("from", "leave");
+                    startActivity(resultIntent);
+                    finish();
                 }
                 break;
         }

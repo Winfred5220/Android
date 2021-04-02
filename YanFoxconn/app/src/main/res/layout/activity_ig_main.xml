@@ -1,16 +1,291 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--宿舍寄存 主界面-->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
-
+    <!--標題-->
     <include layout="@layout/common_title"/>
-    <TextView
-        android:text="寄存信息"
-        android:background="@color/color_00CCFF"
-        android:gravity="center"
-        android:textColor="@color/color_303030"
-        android:textSize="@dimen/text_size_18"
-        android:layout_margin="@dimen/dimen_8"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_margin="@dimen/dimen_10">
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <!--工號-->
+                    <TableRow style="@style/tableRow">
+
+                        <TextView
+                            style="@style/carTextName"
+                            android:text="工號：" />
+                        <TextView
+                            android:id="@+id/tv_id"
+                            style="@style/carTextBKG"
+                            android:layout_weight="1"
+                            android:text="F3416918" />
+                    </TableRow>
+                    <!--姓名-->
+                    <TableRow style="@style/tableRow">
+
+                        <TextView
+                            style="@style/carTextName"
+                            android:text="姓名：" />
+
+                        <TextView
+                            android:id="@+id/tv_name"
+                            style="@style/carTextBKG"
+                            android:layout_weight="1"
+                            android:text="黃建超"  />
+                    </TableRow>
+                    <!--性別-->
+                    <TableRow style="@style/tableRow">
+
+                        <TextView
+                            style="@style/carTextName"
+                            android:text="性別：" />
+
+                        <TextView
+                            android:id="@+id/tv_identity"
+                            style="@style/carTextBKG"
+                            android:layout_weight="1"
+                            android:text="男" />
+                    </TableRow>
+                    <!--部門-->
+                    <TableRow style="@style/tableRow">
+
+                        <TextView
+                            style="@style/carTextName"
+                            android:text="部門：" />
+
+                        <TextView
+                            android:id="@+id/tv_cpc"
+                            style="@style/carTextBKG"
+                            android:layout_weight="1"
+                            android:text="營運中心"  />
+                    </TableRow>
+                    <!--房間-->
+                    <TableRow style="@style/tableRow">
+
+                        <TextView
+                            style="@style/carTextName"
+                            android:text="房間：" />
+
+                        <TextView
+                            android:id="@+id/tv_room"
+                            style="@style/carTextBKG"
+                            android:layout_weight="1"
+                            android:text="營運中心"  />
+                    </TableRow>
+                    <!--電話-->
+                    <TableRow style="@style/tableRow">
+
+                        <TextView
+                            style="@style/carTextName"
+                            android:text="電話：" />
+
+                        <TextView
+                            android:id="@+id/tv_phone"
+                            style="@style/carTextBKG"
+                            android:layout_weight="1"
+                            android:text="營運中心"  />
+                    </TableRow>
+                   <!--日期時間-->
+                    <TableRow style="@style/tableRow"
+                        android:id="@+id/tr_time">
+
+                        <TextView
+                            style="@style/carTextName"
+                            android:text="補錄時間："
+                            android:focusable="true"
+                            android:focusableInTouchMode="true" />
+
+                        <TextView
+                            android:id="@+id/tv_time_date"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/text_size_16"
+                            android:hint="選擇時間"
+                            android:layout_marginLeft="@dimen/dimen_3"
+                            android:layout_weight="1"/>
+                    </TableRow>
+                    <!--物品種類/數量按鈕 申請時顯示-->
+                    <TableRow style="@style/tableRow"
+                        android:id="@+id/tr_btn_show">
+
+                        <TextView
+                            style="@style/carTextName"
+                            android:text="物品種類/數量：" />
+
+                       <Button
+                           android:id="@+id/btn_show"
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           android:layout_weight="1"
+                           android:text="點擊添加"
+                           android:background="@color/color_00CCFF"/>
+
+                    </TableRow>
+                    <!--物品種類/數量列表 申請時顯示-->
+                    <TableRow style="@style/tableRow"
+                        android:id="@+id/edt">
+                        <TextView
+                            style="@style/carTextName"/>
+                        <LinearLayout
+                            android:id="@+id/ll_actual"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                        </LinearLayout>
+                    </TableRow>
+                    <!--下拉選擇倉庫-->
+                    <TableRow style="@style/tableRow"
+                        android:id="@+id/tr_store"
+                        android:visibility="visible">
+
+                        <TextView
+                            style="@style/carTextName"
+                            android:text="選擇倉庫：" />
+
+                        <Spinner
+                            android:id="@+id/sp_store"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1" />
+                    </TableRow>
+                    <!--物品種類/數量 排配時 選擇倉庫後顯示 或 領取時顯示-->
+                    <TableRow
+                        android:id="@+id/tr_store_lv"
+                        style="@style/tableRow"
+                        android:layout_height="match_parent"
+                        android:visibility="visible">
+
+                        <TextView style="@style/carTextName" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/lv_store"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:layout_weight="1"/>
+
+                    </TableRow>
+                    <!--    本人領取-->
+                    <TableRow
+                        android:id="@+id/tr_done"
+                        style="@style/tableRow"
+                        android:visibility="gone">
+
+                        <TextView style="@style/carTextName"
+                            android:text="是否本人:"/>
+                        <RadioGroup
+                            android:id="@+id/rg_done"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_weight="1">
+                            <RadioButton
+                                android:id="@+id/rtb_yes"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="本人領取"/>
+                            <RadioButton
+                                android:id="@+id/rtb_no"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="代領"/>
+
+                        </RadioGroup>
+                    </TableRow>
+                    <!--代領人工號-->
+                    <TableRow style="@style/tableRow"
+                        android:id="@+id/tr_d_id"
+                        android:visibility="gone">
+
+                        <TextView
+                            style="@style/carTextName"
+                            android:text="代領工號："
+                            android:focusable="true"
+                            android:focusableInTouchMode="true" />
+
+                        <EditText
+                            android:id="@+id/et_d_id"
+                            style="@style/carEditTextBKG"
+                            android:layout_weight="1"
+                            android:inputType="numberDecimal"/>
+                    </TableRow>
+                    <!--代領人姓名-->
+                    <TableRow style="@style/tableRow"
+                        android:id="@+id/tr_d_name"
+                        android:visibility="gone">
+
+                        <TextView
+                            style="@style/carTextName"
+                            android:text="代領姓名："
+                            android:focusable="true"
+                            android:focusableInTouchMode="true" />
+
+                        <EditText
+                            android:id="@+id/et_d_name"
+                            style="@style/carEditTextBKG"
+                            android:layout_weight="1"
+                            android:inputType="numberDecimal"/>
+                    </TableRow>
+                    <!--發放人姓名-->
+                    <TableRow style="@style/tableRow"
+                        android:id="@+id/tr_zw_name"
+                        android:visibility="gone">
+
+                        <TextView
+                            style="@style/carTextName"
+                            android:text="發放人："
+                            android:focusable="true"
+                            android:focusableInTouchMode="true" />
+
+                        <EditText
+                            android:id="@+id/et_zw_name"
+                            style="@style/carEditTextBKG"
+                            android:layout_weight="1"
+                            android:inputType="numberDecimal"/>
+                    </TableRow>
+                </TableLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <com.example.administrator.yanfoxconn.widget.MyGridView
+                        android:id="@+id/gv_photo"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="@dimen/dimen_10"
+                        android:horizontalSpacing="@dimen/dimen_2"
+                        android:numColumns="4"
+                        android:scrollbars="none"
+                        android:verticalSpacing="@dimen/dimen_2" />
+
+                    <!--空白圖片佔位-->
+                    <ImageView
+                        android:id="@+id/iv_empty"
+                        android:layout_width="75dp"
+                        android:layout_height="75dp"
+                        android:layout_marginLeft="14dp"
+                        android:layout_marginTop="@dimen/dimen_10"
+                        android:scaleType="centerCrop"
+                        android:src="@mipmap/icon_addpic_unfocused" />
+
+                </RelativeLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

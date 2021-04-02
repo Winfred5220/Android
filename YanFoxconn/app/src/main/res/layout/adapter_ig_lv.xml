@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?><!--健康追蹤列表 item-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/ll_people"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_60"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+            <!--狀態-->
+            <TextView
+                android:id="@+id/tv_statue"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dimen_20"
+                android:layout_marginLeft="@dimen/dimen_10"
+                android:paddingLeft="@dimen/dimen_4"
+                android:layout_centerVertical="true"
+                android:text="已申請"
+                />
+            <!--工號-->
+            <TextView
+                android:id="@+id/tv_id"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_35"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:paddingLeft="@dimen/dimen_15"
+                android:text="S9999999"
+                android:layout_centerVertical="true"
+                android:textSize="@dimen/text_size_18"
+                android:layout_weight="1"
+                />
+            <!--姓名-->
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/dimen_5"
+                android:gravity="center_vertical"
+                android:layout_weight="1"
+                android:text="歐央大事"
+                android:textSize="@dimen/text_size_18"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"/>
+
+        </LinearLayout>
+        <!--性別-->
+        <TextView
+            android:id="@+id/tv_cpc"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dimen_20"
+            android:layout_marginLeft="@dimen/dimen_65"
+            android:paddingLeft="@dimen/dimen_4"
+            android:layout_centerVertical="true"
+            android:textSize="@dimen/text_size_18"
+            android:text="中央關務"
+            />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_1"
+            android:background="@color/color_858585" />
+    </LinearLayout>
+</LinearLayout>
