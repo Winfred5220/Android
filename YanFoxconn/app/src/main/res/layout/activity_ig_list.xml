@@ -47,27 +47,27 @@
                     android:gravity="center"/>
 
             </RelativeLayout>
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:layout_marginLeft="@dimen/dimen_20"
-    android:layout_marginRight="@dimen/dimen_20">
-    <Button
-        android:id="@+id/btn_qr"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="在職掃碼領取"
-        android:background="@color/color_00CCFF"/>
-    <Button
-    android:id="@+id/btn_leave"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_weight="1"
-    android:text="離職工號領取"
-    android:background="@color/color_f5a306"/>
-</LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="@dimen/dimen_20"
+                android:layout_marginRight="@dimen/dimen_20">
+                <Button
+                    android:id="@+id/btn_qr"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="在職掃碼"
+                    android:background="@color/color_00CCFF"/>
+                <Button
+                android:id="@+id/btn_leave"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="工號查詢"
+                android:background="@color/color_f5a306"/>
+            </LinearLayout>
             <com.example.administrator.yanfoxconn.widget.SwipterMenuTest
                 android:id="@+id/lv_people"
                 android:layout_width="match_parent"

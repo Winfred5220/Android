@@ -6,15 +6,14 @@
     <Spinner
         android:id="@+id/sp_type"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_weight="1"
-
-        android:background="@color/color_42D42B"/>
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
     <EditText
         android:id="@+id/et_num"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_weight="1"/>
+        android:layout_weight="1"
+        android:inputType="numberDecimal"/>
         <Button
             android:id="@+id/btn"
             android:layout_width="40dp"

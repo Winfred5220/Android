@@ -45,19 +45,6 @@
                             android:layout_weight="1"
                             android:text="黃建超"  />
                     </TableRow>
-                    <!--性別-->
-                    <TableRow style="@style/tableRow">
-
-                        <TextView
-                            style="@style/carTextName"
-                            android:text="性別：" />
-
-                        <TextView
-                            android:id="@+id/tv_identity"
-                            style="@style/carTextBKG"
-                            android:layout_weight="1"
-                            android:text="男" />
-                    </TableRow>
                     <!--部門-->
                     <TableRow style="@style/tableRow">
 
@@ -103,7 +90,7 @@
 
                         <TextView
                             style="@style/carTextName"
-                            android:text="補錄時間："
+                            android:text="領取時間："
                             android:focusable="true"
                             android:focusableInTouchMode="true" />
 
@@ -122,7 +109,8 @@
 
                         <TextView
                             style="@style/carTextName"
-                            android:text="物品種類/數量：" />
+                            android:text="物品種類/數量："
+                            android:layout_height="wrap_content"/>
 
                        <Button
                            android:id="@+id/btn_show"
@@ -137,13 +125,15 @@
                     <TableRow style="@style/tableRow"
                         android:id="@+id/edt">
                         <TextView
-                            style="@style/carTextName"/>
+                            style="@style/carTextName"
+                            android:visibility="gone"/>
                         <LinearLayout
                             android:id="@+id/ll_actual"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:orientation="vertical">
+                            android:orientation="vertical"
+                            android:layout_marginLeft="@dimen/dimen_50">
 
                         </LinearLayout>
                     </TableRow>
@@ -166,19 +156,41 @@
                     <TableRow
                         android:id="@+id/tr_store_lv"
                         style="@style/tableRow"
-                        android:layout_height="match_parent"
                         android:visibility="visible">
 
-                        <TextView style="@style/carTextName" />
-
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/lv_store"
+                        <TextView style="@style/carTextName"
+                            android:layout_height="wrap_content"
+                            android:text="物品信息："/>
+                        <LinearLayout
+                            android:orientation="horizontal"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="vertical"
-                            android:layout_weight="1"/>
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+                            <!--    物品類型-->
+                            <TextView
+                                android:id="@+id/tv_type"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="物品類型"/>
+                            <!--    物品數量-->
+                            <TextView
+                                android:id="@+id/tv_num"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="數量"/>
+                        </LinearLayout>
+
 
                     </TableRow>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/lv_store"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="@dimen/dimen_90"/>
                     <!--    本人領取-->
                     <TableRow
                         android:id="@+id/tr_done"
@@ -220,8 +232,7 @@
                         <EditText
                             android:id="@+id/et_d_id"
                             style="@style/carEditTextBKG"
-                            android:layout_weight="1"
-                            android:inputType="numberDecimal"/>
+                            android:layout_weight="1"/>
                     </TableRow>
                     <!--代領人姓名-->
                     <TableRow style="@style/tableRow"
@@ -237,26 +248,9 @@
                         <EditText
                             android:id="@+id/et_d_name"
                             style="@style/carEditTextBKG"
-                            android:layout_weight="1"
-                            android:inputType="numberDecimal"/>
+                            android:layout_weight="1"/>
                     </TableRow>
-                    <!--發放人姓名-->
-                    <TableRow style="@style/tableRow"
-                        android:id="@+id/tr_zw_name"
-                        android:visibility="gone">
 
-                        <TextView
-                            style="@style/carTextName"
-                            android:text="發放人："
-                            android:focusable="true"
-                            android:focusableInTouchMode="true" />
-
-                        <EditText
-                            android:id="@+id/et_zw_name"
-                            style="@style/carEditTextBKG"
-                            android:layout_weight="1"
-                            android:inputType="numberDecimal"/>
-                    </TableRow>
                 </TableLayout>
 
                 <RelativeLayout

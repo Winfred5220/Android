@@ -46,7 +46,7 @@ public class CarWriteIdActivity extends BaseActivity implements View.OnClickList
     @BindView(R.id.btn_up)
     Button btnUp;//提交
     @BindView(R.id.et_write_id)
-    EditText etWriteId;//銷單號 或 工號 或 車牌號
+    EditText etWriteId;//銷單號 或 工號 或 車牌號F
 
     private String from;//來自
 
@@ -199,9 +199,9 @@ public class CarWriteIdActivity extends BaseActivity implements View.OnClickList
                     startActivity(resultIntent);
                     finish();
                 }else if (from.equals("leave")){
-                    Intent resultIntent = new Intent(CarWriteIdActivity.this, IGMainActivity.class);
+                    Intent resultIntent = new Intent(CarWriteIdActivity.this, IGListActivity.class);
 //                    resultIntent.putExtra("id", etWriteId.getText().toString());
-                    resultIntent.putExtra("id", "S1008368");
+                    resultIntent.putExtra("id", etWriteId.getText().toString());
                     resultIntent.putExtra("from", "leave");
                     startActivity(resultIntent);
                     finish();
