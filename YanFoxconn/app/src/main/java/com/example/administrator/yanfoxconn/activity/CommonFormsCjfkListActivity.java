@@ -1,5 +1,7 @@
 package com.example.administrator.yanfoxconn.activity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -7,9 +9,15 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.ContextMenu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
@@ -60,13 +68,17 @@ public class CommonFormsCjfkListActivity extends BaseActivity implements View.On
     private List<AQ110Message> gcHeads;
     private CommonFormsCjfkListAdapter gcPeopleAdapter;
     private SwipeMenuCreator creator;
+    private int width,height;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_110_list);
         ButterKnife.bind(this);
+        WindowManager wm = this.getWindowManager();
 
+        width = wm.getDefaultDisplay().getWidth();
+        height = wm.getDefaultDisplay().getHeight();
         btnBack.setOnClickListener(this);
         tvTitle.setText("處警反饋列表");
 
@@ -99,7 +111,124 @@ public class CommonFormsCjfkListActivity extends BaseActivity implements View.On
             }
         };
 
+        ItemOnLongClick1();
+
     }
+
+
+    private void ItemOnLongClick1() {
+//注：setOnCreateContextMenuListener是与下面onContextItemSelected配套使用的
+        lvPeople.setOnCreateContextMenuListener(new View.OnCreateContextMenuListener() {
+                    @Override
+                    public void onCreateContextMenu(ContextMenu menu, View v,
+                                                    ContextMenu.ContextMenuInfo menuInfo) {
+
+                        //1.通过手动添加来配置上下文菜单选项
+                        //menu.add(0, 1, 0, "修改");
+                        //menu.add(0, 2, 0, "删除");
+
+                        //2.通过xml文件来配置上下文菜单选项
+                        MenuInflater mInflater = getMenuInflater();
+                        mInflater.inflate(R.menu.menu_cpc, menu);
+
+                        //super.onCreateContextMenu(menu, v, menuInfo);
+
+                    }
+                });
+    }
+
+    // 长按菜单响应函数
+    public boolean onContextItemSelected(MenuItem item) {
+
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item
+                .getMenuInfo();
+        //MID = (int) info.id;// 这里的info.id对应的就是数据库中_id的值
+        int posi = info.position;
+        switch (item.getItemId()) {
+//            case 0:
+//                // 添加操作
+//                Toast.makeText(CommonFormsCjfkListActivity.this,
+//                        gcHeads.get(posi).getWJ_REMARK(),
+//                        Toast.LENGTH_SHORT).show();
+//                break;
+//
+//            case 1:
+//                // 删除操作
+//                Toast.makeText(CommonFormsCjfkListActivity.this,
+//                        gcHeads.get(posi).getOTHER(),
+//                        Toast.LENGTH_SHORT).show();
+//                break;
+//
+//            case 2:
+//                // 删除ALL操作
+//                Toast.makeText(CommonFormsCjfkListActivity.this,
+//                        gcHeads.get(posi).getJC_TYPE(),
+//                        Toast.LENGTH_SHORT).show();
+//                break;
+            case R.id.add:
+                // 添加操作
+                Toast.makeText(CommonFormsCjfkListActivity.this,
+                        gcHeads.get(posi).getWJ_REMARK(),
+                        Toast.LENGTH_SHORT).show();
+                break;
+
+            case R.id.update:
+                // 删除操作
+                Toast.makeText(CommonFormsCjfkListActivity.this,
+                        gcHeads.get(posi).getOTHER(),
+                        Toast.LENGTH_SHORT).show();
+                break;
+
+            case R.id.delete:
+                // 删除ALL操作
+                Toast.makeText(CommonFormsCjfkListActivity.this,
+                        gcHeads.get(posi).getJC_TYPE(),
+                        Toast.LENGTH_SHORT).show();
+                break;
+            default:
+                break;
+        }
+
+        return super.onContextItemSelected(item);
+
+    }
+
+private void ItemOnLongClick2() {
+    lvPeople.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        @Override
+        public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
+                                       final int position, long id) {
+            //list.remove(arg2);
+            new AlertDialog.Builder(CommonFormsCjfkListActivity.this)
+                    .setTitle("对Item进行操作")
+                    .setItems(R.array.thread_menu,
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog,
+                                                    int which) {
+                                    String[] PK = getResources()
+                                            .getStringArray(
+                                                    R.array.thread_menu);
+                                    Toast.makeText(
+                                            CommonFormsCjfkListActivity.this,
+                                            PK[which], Toast.LENGTH_LONG)
+                                            .show();
+                                    if (PK[which].equals("删除")) {
+                                        // 按照这种方式做删除操作，这个if内的代码有bug，实际代码中按需操作
+//
+                                    }
+                                }
+                            })
+                    .setNegativeButton("取消",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog,
+                                                    int which) {
+                                    // TODO Auto-generated method stub
+                                }
+                            }).show();
+            return true;
+        }
+    });
+}
 
     public int dp2px(float dipValue) {
         final float scale = this.getResources().getDisplayMetrics().density;

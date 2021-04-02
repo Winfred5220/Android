@@ -132,12 +132,13 @@
           android:layout_height="1dp"
           android:background="#D3D3D3"
           android:layout_marginTop="@dimen/dimen_5"/>
-      <androidx.recyclerview.widget.RecyclerView
-          android:id="@+id/rv_goods"
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"/>
 
-    <TableLayout
+          <androidx.recyclerview.widget.RecyclerView
+              android:id="@+id/rv_goods"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent" />
+
+      <TableLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <!--攜帶人-->

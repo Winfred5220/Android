@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="thread_menu">
+        <item >Call</item>
+        <item >Edit And Call</item>
+        <item >Remove</item>
+    </string-array>
+</resources>
