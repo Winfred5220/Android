@@ -67,12 +67,18 @@ public class IGListAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
+if (from.equals("leave")){
 
-            holder.tvStatue.setText(igLists.get(position).getS_STATUS());
-            holder.tvCpc.setText(igLists.get(position).getS_USER_DEP());
-            holder.tvName.setText(igLists.get(position).getS_USER_NAME());
-            holder.tvId.setText(igLists.get(position).getS_USER_ID());
-
+    holder.tvStatue.setText(igLists.get(position).getS_STATUS());
+    holder.tvCpc.setText(igLists.get(position).getS_CREATE_DATE());
+    holder.tvName.setText(igLists.get(position).getS_USER_NAME());
+    holder.tvId.setText(igLists.get(position).getS_USER_ID());
+}else {
+    holder.tvStatue.setText(igLists.get(position).getS_STATUS());
+    holder.tvCpc.setText(igLists.get(position).getS_USER_DEP());
+    holder.tvName.setText(igLists.get(position).getS_USER_NAME());
+    holder.tvId.setText(igLists.get(position).getS_USER_ID());
+}
         return convertView;
         }
 

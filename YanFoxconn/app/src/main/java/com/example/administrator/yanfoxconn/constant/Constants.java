@@ -16,7 +16,8 @@ public class Constants {
 
     public static String SafeServer = "http://192.168.1.124:8080/SafeServer/";//SafeServer接口測試
     public static String Server = "http://192.168.1.124:8080/Server/";//Server接口測試
-    public static String L4 = "http://10.193.22.189:8080/SafeServer/";//玲
+//    public static String L4 = "http://10.193.22.189:8080/SafeServer/";//玲
+    public static String L4 = "http://10.201.130.127:8080/SafeServer/";//玲
 
     public static final String HTTP_LOGIN = BASE_URL + "LoginServlet";//登錄
     public static String HTTP_DIMEMSION_SERVLET = BASE_URL + "safeCheck/DimemsionServlet";//巡檢進度列表
@@ -115,16 +116,16 @@ public class Constants {
     public static String HTTP_SUSHE_ROOM = BASE_URL+"SuShe/RoomByFloorServlet";//     jc_area jc_builing  jc_floor  区栋层-房间
     public static String HTTP_SUSHE_photp = BASE_URL+"SuShe/";
 
-    public static String HTTP_STORE_OERSION_INFO = L4+"Store/PersonInfoServlet";//寄存獲取人員住宿信息 userid=
-    public static String HTTP_STORE_TYPE_INFO = L4+"Store/TypeInfoServlet";//寄存獲取物品類型
-    public static String HTTP_STORE_APPLY_OK = L4+"Store/ApplyOKServlet";//寄存 提交
-    public static String HTTP_STORE_DEPOSIT_LIST = L4+"Store/DepositListServlet";//列表
-    public static String HTTP_VIEW_BY_ID = L4+"Store/ViewByIdServlet";//寄存信息產看並排配 sid
-    public static String HTTP_STORE_INFO = L4+"Store/StoreInfoServlet";//寄存信息產看並排配 獲取倉庫sid+zwuser
-    public static String HTTP_LOCATION_INFO = L4+"Store/LocationInfoServlet";//寄存信息產看並排配 獲取儲位sid+zwuser
-    public static String HTTP_DEPOSIT_OK = L4+"Store/DepositOKServlet";//寄存信息產看並排配 提交
-    public static String HTTP_ISSUE_OK = L4+"Store/IssueOKServlet";//領取確認
-    public static String HTTP_STORE_DELETE_BY_ID = L4+"Store/DeleteByIdServlet";//刪除申請  sid
+    public static String HTTP_STORE_OERSION_INFO = BASE_URL+"Store/PersonInfoServlet";//寄存獲取人員住宿信息 userid=
+    public static String HTTP_STORE_TYPE_INFO = BASE_URL+"Store/TypeInfoServlet";//寄存獲取物品類型
+    public static String HTTP_STORE_APPLY_OK = BASE_URL+"Store/ApplyOKServlet";//寄存 提交
+    public static String HTTP_STORE_DEPOSIT_LIST = BASE_URL+"Store/DepositListServlet";//列表
+    public static String HTTP_VIEW_BY_ID = BASE_URL+"Store/ViewByIdServlet";//寄存信息產看並排配 sid
+    public static String HTTP_STORE_INFO = BASE_URL+"Store/StoreInfoServlet";//寄存信息產看並排配 獲取倉庫sid+zwuser
+    public static String HTTP_LOCATION_INFO = BASE_URL+"Store/LocationInfoServlet";//寄存信息產看並排配 獲取儲位sid+zwuser
+    public static String HTTP_DEPOSIT_OK = BASE_URL+"Store/DepositOKServlet";//寄存信息產看並排配 提交
+    public static String HTTP_ISSUE_OK = BASE_URL+"Store/IssueOKServlet";//領取確認
+    public static String HTTP_STORE_DELETE_BY_ID = BASE_URL+"Store/DeleteByIdServlet";//刪除申請  sid
 
 
     public static String HTTP_RZTX_SERVLET =EMP_BASE+"RZTX_Servlet";//人資退訓信息

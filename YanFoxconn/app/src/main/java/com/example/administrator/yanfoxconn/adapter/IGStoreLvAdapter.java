@@ -101,14 +101,12 @@ public class IGStoreLvAdapter extends RecyclerView.Adapter<IGStoreLvAdapter.View
         holder.tvNum.setText(abList.get(position).getS_DEPOSIT_COUNT());
 
         Log.e("-----getS_DEPOSIT_COUNT-----",abList.get(position).getS_DEPOSIT_NAME()+"");
-        if (from.equals("deposit")){
+         if (from.equals("deposit")){
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT);
             for (int i = 0; i < Integer.parseInt(abList.get(position).getS_DEPOSIT_COUNT()); i++) {
 
-                Log.e("----------",abList.get(position).getS_DEPOSIT_COUNT()+"");
-                Log.e("----------",count+"");
-                Log.e("----------",deposit.get(count));
+
                 TextView textView = new TextView(igMainActivity);
                 textView.setTextSize(12);
                 //textView.setBackgroundResource(R.drawable.label_style); //设置背景
@@ -121,6 +119,7 @@ public class IGStoreLvAdapter extends RecyclerView.Adapter<IGStoreLvAdapter.View
             if (abList.get(position).getBody2().size() == 0) {
 
             } else {
+                Log.e("----------","getSL_CODE");
                 List<BodyTWO> bodyTWOS = new ArrayList<>();
                 LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
                         LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -128,7 +127,7 @@ public class IGStoreLvAdapter extends RecyclerView.Adapter<IGStoreLvAdapter.View
                     TextView textView = new TextView(igMainActivity);
                     textView.setTextSize(12);
                     //textView.setBackgroundResource(R.drawable.label_style); //设置背景
-                    textView.setText(abList.get(position).getBody2().get(i) + "");
+                    textView.setText(abList.get(position).getBody2().get(i).getSL_CODE() + "");
                     textView.setLayoutParams(layoutParams);
 
                     holder.llList.addView(textView);

@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -67,7 +68,7 @@ public class IGListActivity extends BaseActivity implements View.OnClickListener
     Button btnQR;//在職掃碼查詢
     @BindView(R.id.btn_leave)
     Button btnLeave;//離職輸入工號
-//    @BindView(R.id.btn_search)
+    //    @BindView(R.id.btn_search)
 //    Button btnSearch;//搜索
 //    @BindView(R.id.et_search)
 //    EditText etSearch;//搜索文字s
@@ -78,13 +79,17 @@ public class IGListActivity extends BaseActivity implements View.OnClickListener
     private IGListAdapter igListAdapter;
     private SwipeMenuCreator creator;
 
+    private String from;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ig_list);
         ButterKnife.bind(this);
 
-        btnAdd.setVisibility(View.VISIBLE);
+        from = getIntent().getStringExtra("from");
+
+
         btnAdd.setText("新增");
         btnBack.setOnClickListener(this);
 //        btnSearch.setOnClickListener(this::onClick);
@@ -92,41 +97,69 @@ public class IGListActivity extends BaseActivity implements View.OnClickListener
         btnQR.setOnClickListener(this);
         btnLeave.setOnClickListener(this);
         tvTitle.setText("排配列表");
-        //初始化
-        creator = new SwipeMenuCreator() {
-            @Override
-            public void create(SwipeMenu menu) {
-                SwipeMenuItem openItem = new SwipeMenuItem(IGListActivity.this);
-                //设置背景
-                openItem.setBackground(new ColorDrawable(getResources().getColor(R.color.color_f5a306)));
-                //设置宽，一定要设置不然显示不出来
-                openItem.setWidth(dp2px(90));
-                //设置标题
-                openItem.setTitle("排配");
-                //设置文字大小
-                openItem.setTitleSize(18);
-                //设置文字颜色
-                openItem.setTitleColor(Color.WHITE);
-                //添加到listview中
-                menu.addMenuItem(openItem);
+        if (from.equals("leave")) {
+            btnLeave.setVisibility(View.GONE);
+            btnQR.setVisibility(View.GONE);
+            //初始化
+            creator = new SwipeMenuCreator() {
+                @Override
+                public void create(SwipeMenu menu) {
+                    SwipeMenuItem openItem = new SwipeMenuItem(IGListActivity.this);
+                    //设置背景
+                    openItem.setBackground(new ColorDrawable(getResources().getColor(R.color.color_f5a306)));
+                    //设置宽，一定要设置不然显示不出来
+                    openItem.setWidth(dp2px(90));
+                    //设置标题
+                    openItem.setTitle("排配");
+                    //设置文字大小
+                    openItem.setTitleSize(18);
+                    //设置文字颜色
+                    openItem.setTitleColor(Color.WHITE);
+                    //添加到listview中
+                    menu.addMenuItem(openItem);
 
-                SwipeMenuItem doneItem = new SwipeMenuItem(IGListActivity.this);
-                doneItem.setBackground(new ColorDrawable(getResources().getColor(R.color.color_42D42B)));
-                doneItem.setWidth(dp2px(90));
-                doneItem.setTitle("領取");
-                doneItem.setTitleSize(18);
-                doneItem.setTitleColor(Color.WHITE);
-                menu.addMenuItem(doneItem);
+                    SwipeMenuItem doneItem = new SwipeMenuItem(IGListActivity.this);
+                    doneItem.setBackground(new ColorDrawable(getResources().getColor(R.color.color_42D42B)));
+                    doneItem.setWidth(dp2px(90));
+                    doneItem.setTitle("領取");
+                    doneItem.setTitleSize(18);
+                    doneItem.setTitleColor(Color.WHITE);
+                    menu.addMenuItem(doneItem);
+                }
+            };
+            getLeave(getIntent().getStringExtra("id"), "user");
+        } else {
+            btnAdd.setVisibility(View.VISIBLE);
 
-                SwipeMenuItem addItem = new SwipeMenuItem(IGListActivity.this);
-                addItem.setWidth(dp2px(90));
-                addItem .setBackground(new ColorDrawable(getResources().getColor(R.color.color_74afdb)));
-                addItem.setTitle("刪除");
-                addItem.setTitleSize(18);
-                addItem.setTitleColor(Color.WHITE);
-                menu.addMenuItem(addItem);
-            }
-        };
+            //初始化
+            creator = new SwipeMenuCreator() {
+                @Override
+                public void create(SwipeMenu menu) {
+                    SwipeMenuItem openItem = new SwipeMenuItem(IGListActivity.this);
+                    //设置背景
+                    openItem.setBackground(new ColorDrawable(getResources().getColor(R.color.color_f5a306)));
+                    //设置宽，一定要设置不然显示不出来
+                    openItem.setWidth(dp2px(90));
+                    //设置标题
+                    openItem.setTitle("排配");
+                    //设置文字大小
+                    openItem.setTitleSize(18);
+                    //设置文字颜色
+                    openItem.setTitleColor(Color.WHITE);
+                    //添加到listview中
+                    menu.addMenuItem(openItem);
+
+
+                    SwipeMenuItem addItem = new SwipeMenuItem(IGListActivity.this);
+                    addItem.setWidth(dp2px(90));
+                    addItem.setBackground(new ColorDrawable(getResources().getColor(R.color.color_74afdb)));
+                    addItem.setTitle("刪除");
+                    addItem.setTitleSize(18);
+                    addItem.setTitleColor(Color.WHITE);
+                    menu.addMenuItem(addItem);
+                }
+            };
+        }
 
     }
 
@@ -145,25 +178,17 @@ public class IGListActivity extends BaseActivity implements View.OnClickListener
 //                search(etSearch.getText().toString());
                 break;
             case R.id.btn_title_right:
-                FoxContext.getInstance().setType("add");
                 Intent intent = new Intent(IGListActivity.this, CarWriteIdActivity.class);
-                intent.putExtra("from", "add");
+                intent.putExtra("from", "IG");
                 startActivity(intent);
                 break;
             case R.id.btn_qr:
-//                FoxContext.getInstance().setType("add");
-//                Intent intent2 = new Intent(IGListActivity.this, QrCodeActivity.class);
-//                intent2.putExtra("title", "二維碼掃描");
-//                intent2.putExtra("num", "storeQr");
-//                startActivity(intent2);
-                Intent resultIntent = new Intent(IGListActivity.this, IGMainActivity.class);
-                resultIntent.putExtra("result", "resultString");
-                resultIntent.putExtra("from", "storeQr");
-                startActivity(resultIntent);
-                finish();
+                Intent intent2 = new Intent(IGListActivity.this, QrCodeActivity.class);
+                intent2.putExtra("title", "二維碼掃描");
+                intent2.putExtra("num", "storeQr");
+                startActivity(intent2);
                 break;
             case R.id.btn_leave:
-                FoxContext.getInstance().setType("add");
                 Intent intent1 = new Intent(IGListActivity.this, CarWriteIdActivity.class);
                 intent1.putExtra("from", "leave");
                 startActivity(intent1);
@@ -228,67 +253,113 @@ public class IGListActivity extends BaseActivity implements View.OnClickListener
 //                    finish();
                     break;
                 case MESSAGE_SET_TEXT://text賦值
+                    if (from.equals("leave")) {
+                        // 监测用户在ListView的SwipeMenu侧滑事件。
+                        lvPeople.setOnSwipeListener(new SwipeMenuListView.OnSwipeListener() {
+                            @Override
+                            public void onSwipeStart(int pos) {
+                                Log.d("位置:" + pos, "开始侧滑...");
 
-
-                    // 监测用户在ListView的SwipeMenu侧滑事件。
-                    lvPeople.setOnSwipeListener(new SwipeMenuListView.OnSwipeListener() {
-                        @Override
-                        public void onSwipeStart(int pos) {
-                            Log.d("位置:" + pos, "开始侧滑...");
-
-                        }
-
-                        @Override
-                        public void onSwipeEnd(int pos) {
-                            Log.d("位置:" + pos, "侧滑结束.");
-                        }
-                    });
-                    lvPeople.setMenuCreator(creator);
-                    lvPeople.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
-                        @Override
-                        public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
-                            //index的值就是在SwipeMenu依次添加SwipeMenuItem顺序值，类似数组的下标。
-                            //从0开始，依次是：0、1、2、3...
-                            switch (index) {
-                                case 0:
-                                    if(igMessages.get(position).getS_STATUS().equals("已申請")){
-                                    Intent intent = new Intent(IGListActivity.this, IGMainActivity.class);
-                                    intent.putExtra("people", (Serializable) igMessages.get(position));
-                                    intent.putExtra("from", "store");
-                                    startActivity(intent);
-                                    }else{
-                                        ToastUtils.showShort(IGListActivity.this,"已排配數據，請勿重複操作！");
-                                    }
-//                                    Toast.makeText(GCSerchActivityTest.this, "打开:"+position,Toast.LENGTH_SHORT).show();
-                                    break;
-
-                                case 1:
-                                    if(igMessages.get(position).getS_LEAVE_FLAG().equals("N")){
-                                        ToastUtils.showShort(IGListActivity.this,"未離職人員，不予領取！");
-                                    }else{
-                                    Intent intent2 = new Intent(IGListActivity.this, IGMainActivity.class);
-                                    intent2.putExtra("people", (Serializable) igMessages.get(position));
-                                    intent2.putExtra("from", "leave");
-                                    startActivity(intent2);}
-//                                    Toast.makeText(GCSerchActivityTest.this, "结案:"+position,Toast.LENGTH_SHORT).show();
-                                    break;
-                                case 2:
-                                    if (igMessages.get(position).getS_STATUS().equals("已申請")){
-                                        delAlert("確認是否刪除！",position);}else{
-                                        ToastUtils.showShort(IGListActivity.this,"已排配數據，不予刪除！");
-                                    }
-                                    break;
                             }
-                            // false : 当用户触发其他地方的屏幕时候，自动收起菜单。
-                            // true : 不改变已经打开菜单的样式，保持原样不收起。
-                            return false;
-                        }
-                    });
-                    igListAdapter = new IGListAdapter(IGListActivity.this, igMessages,"IG");
-                    lvPeople.setAdapter(igListAdapter);
+
+                            @Override
+                            public void onSwipeEnd(int pos) {
+                                Log.d("位置:" + pos, "侧滑结束.");
+                            }
+                        });
+                        lvPeople.setMenuCreator(creator);
+                        lvPeople.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
+                            @Override
+                            public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
+                                //index的值就是在SwipeMenu依次添加SwipeMenuItem顺序值，类似数组的下标。
+                                //从0开始，依次是：0、1、2、3...
+                                switch (index) {
+                                    case 0:
+                                        if (igMessages.get(position).getS_STATUS().equals("已申請")) {
+                                            Intent intent = new Intent(IGListActivity.this, IGMainActivity.class);
+                                            intent.putExtra("people", (Serializable) igMessages.get(position));
+                                            intent.putExtra("from", "store");
+                                            startActivity(intent);
+                                        } else {
+                                            ToastUtils.showShort(IGListActivity.this, igMessages.get(position).getS_STATUS()+"數據，請勿重複操作！");
+                                        }
+//                                    Toast.makeText(GCSerchActivityTest.this, "打开:"+position,Toast.LENGTH_SHORT).show();
+                                        break;
+
+                                    case 1:
+                                        if (igMessages.get(position).getS_LEAVE_FLAG().equals("N")) {
+                                            ToastUtils.showShort(IGListActivity.this, "未離職人員，請掃碼領取！");
+                                        } else if (igMessages.get(position).getS_STATUS().equals("已排配")){
+                                            Intent intent2 = new Intent(IGListActivity.this, IGMainActivity.class);
+                                            intent2.putExtra("people", (Serializable) igMessages.get(position));
+                                            intent2.putExtra("from", "leave");
+                                            startActivity(intent2);
+                                        }else{
+                                            ToastUtils.showShort(IGListActivity.this, igMessages.get(position).getS_STATUS()+"數據，請勿重複操作！");
+
+                                        }
+//                                    Toast.makeText(GCSerchActivityTest.this, "结案:"+position,Toast.LENGTH_SHORT).show();
+                                        break;
+
+                                }
+                                // false : 当用户触发其他地方的屏幕时候，自动收起菜单。
+                                // true : 不改变已经打开菜单的样式，保持原样不收起。
+                                return false;
+                            }
+                        });
+                        igListAdapter = new IGListAdapter(IGListActivity.this, igMessages, "leave");
+                        lvPeople.setAdapter(igListAdapter);
+                    } else {
+
+                        // 监测用户在ListView的SwipeMenu侧滑事件。
+                        lvPeople.setOnSwipeListener(new SwipeMenuListView.OnSwipeListener() {
+                            @Override
+                            public void onSwipeStart(int pos) {
+                                Log.d("位置:" + pos, "开始侧滑...");
+                            }
+                            @Override
+                            public void onSwipeEnd(int pos) {
+                                Log.d("位置:" + pos, "侧滑结束.");
+                            }
+                        });
+                        lvPeople.setMenuCreator(creator);
+                        lvPeople.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
+                            @Override
+                            public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
+                                //index的值就是在SwipeMenu依次添加SwipeMenuItem顺序值，类似数组的下标。
+                                //从0开始，依次是：0、1、2、3...
+                                switch (index) {
+                                    case 0:
+                                        if (igMessages.get(position).getS_STATUS().equals("已申請")) {
+                                            Intent intent = new Intent(IGListActivity.this, IGMainActivity.class);
+                                            intent.putExtra("people", (Serializable) igMessages.get(position));
+                                            intent.putExtra("from", "store");
+                                            startActivity(intent);
+                                        } else {
+                                            ToastUtils.showShort(IGListActivity.this, igMessages.get(position).getS_STATUS()+"數據，請勿重複操作！");
+                                        }
+//                                    Toast.makeText(GCSerchActivityTest.this, "打开:"+position,Toast.LENGTH_SHORT).show();
+                                        break;
+
+                                    case 1:
+                                        if (igMessages.get(position).getS_STATUS().equals("已申請")) {
+                                            delAlert("確認是否刪除！", position);
+                                        } else {
+                                            ToastUtils.showShort(IGListActivity.this, igMessages.get(position).getS_STATUS()+"數據，不予刪除！");
+                                        }
+                                        break;
+                                }
+                                // false : 当用户触发其他地方的屏幕时候，自动收起菜单。
+                                // true : 不改变已经打开菜单的样式，保持原样不收起。
+                                return false;
+                            }
+                        });
+                        igListAdapter = new IGListAdapter(IGListActivity.this, igMessages, "IG");
+                        lvPeople.setAdapter(igListAdapter);
+                    }
                     break;
                 case MESSAGE_DELETE_SUCCESS://提交響應
-                    getStore(FoxContext.getInstance().getName(),"zw");
+                    getStore(FoxContext.getInstance().getName(), "zw");
 //                    search(etSearch.getText().toString());
                     break;
                 case MESSAGE_NOT_NET:
@@ -347,18 +418,19 @@ public class IGListActivity extends BaseActivity implements View.OnClickListener
 
     /**
      * 獲取列表
+     *
      * @param id
      * @param type
      */
-    private void getStore(String id,String type) {
+    private void getStore(String id, String type) {
         showDialog();
-        String name=null;
+        String name = null;
         try {
-            name =  URLEncoder.encode(URLEncoder.encode(id, "UTF-8"), "UTF-8");
+            name = URLEncoder.encode(URLEncoder.encode(id, "UTF-8"), "UTF-8");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        final String url = Constants.HTTP_STORE_DEPOSIT_LIST + "?id=" + name+"&type="+type;
+        final String url = Constants.HTTP_STORE_DEPOSIT_LIST + "?id=" + name + "&type=" + type;
 
         new Thread() {
             @Override
@@ -402,6 +474,65 @@ public class IGListActivity extends BaseActivity implements View.OnClickListener
         }.start();
     }
 
+    /**
+     * 獲取離職領取列表信息
+     *
+     * @param id
+     * @param type
+     */
+    private void getLeave(String id, String type) {
+        showDialog();
+        String name = null;
+        try {
+            name = URLEncoder.encode(URLEncoder.encode(id, "UTF-8"), "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        final String url = Constants.HTTP_STORE_DEPOSIT_LIST + "?id=" + name + "&type=" + type;
+
+        new Thread() {
+            @Override
+            public void run() {
+                //把网络访问的代码放在这里
+                String result = HttpUtils.queryStringForGet(url);
+
+                dismissDialog();
+                Log.e("---------", "==fff===" + url);
+                Gson gson = new Gson();
+                if (result != null) {
+                    Log.e("---------", "result==fff===" + result);
+
+                    JsonObject jsonObject = new JsonParser().parse(result).getAsJsonObject();
+                    String errCode = jsonObject.get("errCode").getAsString();
+                    if (errCode.equals("200")) {
+                        Log.e("--fff---------", "result==" + result);
+                        JsonArray array = jsonObject.get("data").getAsJsonArray();
+
+                        igMessages = new ArrayList<IGMessage>();
+
+                        for (JsonElement type : array) {
+                            IGMessage humi = gson.fromJson(type, IGMessage.class);
+                            igMessages.add(humi);
+                        }
+
+                        Message message = new Message();
+                        message.what = MESSAGE_SET_TEXT;
+                        message.obj = jsonObject.get("errMessage").getAsString();
+                        mHandler.sendMessage(message);
+
+                    } else {
+                        Log.e("-----------", "result==" + result);
+                        Message message = new Message();
+                        message.what = MESSAGE_TOAST;
+                        message.obj = jsonObject.get("errMessage").getAsString();
+                        mHandler.sendMessage(message);
+                    }
+                }
+            }
+        }.start();
+    }
+
+
     private void delAlert(String msg, final int position) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("提示信息")
@@ -428,9 +559,10 @@ public class IGListActivity extends BaseActivity implements View.OnClickListener
     @Override
     protected void onStart() {
         super.onStart();
-
-        getStore(FoxContext.getInstance().getName(),"zw");
+        if (from.equals("leave")) {
+            getLeave(getIntent().getStringExtra("id"), "user");
+        } else {
+            getStore(FoxContext.getInstance().getName(), "zw");
+        }
     }
-
-
 }

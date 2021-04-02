@@ -6,13 +6,13 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/dimen_80"
         android:orientation="vertical">
 
         <LinearLayout
             android:id="@+id/ll_people"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dimen_60"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical">
             <!--狀態-->
@@ -53,7 +53,7 @@
                 android:layout_alignParentRight="true"/>
 
         </LinearLayout>
-        <!--性別-->
+        <!--cpc 或者 time-->
         <TextView
             android:id="@+id/tv_cpc"
             android:layout_width="wrap_content"
@@ -67,6 +67,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/dimen_1"
+            android:layout_marginTop="@dimen/dimen_5"
             android:background="@color/color_858585" />
     </LinearLayout>
 </LinearLayout>
