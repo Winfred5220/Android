@@ -87,6 +87,7 @@ public class IGMainActivity extends BaseActivity implements View.OnClickListener
     private final int MESSAGE_SET_GOOD_LIST = 4;//物品信息
     private final int MESSAGE_SET_STORE_LIST = 3;//倉位信息
     private final int MESSAGE_SET_STORE_QR = 7;//掃碼判斷是排配還是領取
+    private final int MESSAGE_SET_NAME = 8;//代領人根據工號帶出姓名
 
     private static final int REQUEST_CAMERA_CODE = 11;
     private static final int REQUEST_PREVIEW_CODE = 22;
@@ -138,6 +139,8 @@ public class IGMainActivity extends BaseActivity implements View.OnClickListener
     RadioButton rtbNo;//本人領取異常
     @BindView(R.id.tr_d_id)
     TableRow trDId;//代領人工號行
+    @BindView(R.id.btn_search)
+    Button btnSearch;//工號搜索
     @BindView(R.id.et_d_id)
     EditText etDId;//代領人工號
     @BindView(R.id.tr_d_name)
@@ -165,6 +168,7 @@ public class IGMainActivity extends BaseActivity implements View.OnClickListener
     private IGMessage peopleMsg;
 
     private String done = "";//是否是本人領取，為空則是未選擇，不能確認
+    private List<EmpMessage> empMessagesList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -222,6 +226,7 @@ public class IGMainActivity extends BaseActivity implements View.OnClickListener
         btnUp.setVisibility(View.VISIBLE);
         btnBack.setOnClickListener(this);
         btnUp.setOnClickListener(this);
+        btnSearch.setOnClickListener(this);
         btnShow.setOnClickListener(this);
         ivEmpty.setOnClickListener(this);
         tvTimeDate.setOnClickListener(this);
@@ -261,6 +266,9 @@ public class IGMainActivity extends BaseActivity implements View.OnClickListener
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.btn_search:
+                getNameByID(etDId.getText().toString());
+                break;
             case R.id.btn:
                 // 根据tag区分是新增view还是删除view
                 String tag = (String) view.getTag();
@@ -567,9 +575,16 @@ public class IGMainActivity extends BaseActivity implements View.OnClickListener
     Handler mHandler = new Handler() {
         public void handleMessage(Message msg) {
             switch (msg.what) {
+                case MESSAGE_SET_NAME://帶出姓名
+                    etDName.setText(empMessagesList.get(0).getCHINESENAME());
+                    break;
                 case MESSAGE_TOAST://Toast彈出
+                    if (!etDId.getText().toString().equals("")){
+                        ToastUtils.showShort(IGMainActivity.this, msg.obj.toString());
+                        etDName.setText("");
+                    }else{
                     ToastUtils.showShort(IGMainActivity.this, msg.obj.toString());
-                    finish();
+                    finish();}
                     break;
                 case MESSAGE_SET_LIST://設置信息
                     JsonObject mes = (JsonObject) msg.obj;
@@ -802,6 +817,8 @@ public class IGMainActivity extends BaseActivity implements View.OnClickListener
                         }
 
                         if (from.equals("storeQr")) {
+
+                            dismissDialog();
                             Message message = new Message();
                             message.what = MESSAGE_SET_STORE_QR;
                             message.obj = object;
@@ -1305,5 +1322,50 @@ public class IGMainActivity extends BaseActivity implements View.OnClickListener
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
+    }
+    //根據工號獲取代領人姓名
+    private void getNameByID(String id){
+        showDialog();
+        final String url = Constants.HTTP_COMMON_FORMS_TWO_WHEEL_SERVLET+"?code="+id;
+
+        new Thread() {
+            @Override
+            public void run() {
+                //把网络访问的代码放在这里
+                String result = HttpUtils.queryStringForPost(url);
+
+                dismissDialog();
+                Log.e("---------", "==fff===" + url);
+                Gson gson = new Gson();
+                if (result != null) {
+                    Log.e("---------", "result==fff===" + result);
+
+                    JsonObject jsonObject = new JsonParser().parse(result).getAsJsonObject();
+                    String errCode = jsonObject.get("errCode").getAsString();
+                    if (errCode.equals("200")) {
+                        Log.e("--fff---------", "result==" + result);
+                        JsonArray array = jsonObject.get("data").getAsJsonArray();
+                        empMessagesList = new ArrayList<EmpMessage>();
+
+                        for (JsonElement type : array) {
+                            EmpMessage humi = gson.fromJson(type, EmpMessage.class);
+                            empMessagesList.add(humi);
+
+                        }
+
+                        Message message = new Message();
+                        message.what = MESSAGE_SET_NAME;
+                        message.obj = jsonObject.get("errMessage").getAsString();
+                        mHandler.sendMessage(message);
+
+                    }else{
+                        Log.e("-----------", "result==" + result);
+                        Message message = new Message();
+                        message.what = MESSAGE_TOAST;
+                        message.obj = jsonObject.get("errMessage").getAsString();
+                        mHandler.sendMessage(message);
+                    }
+                }
+            } }.start();
     }
 }

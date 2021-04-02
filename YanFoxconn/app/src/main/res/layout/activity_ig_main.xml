@@ -233,6 +233,11 @@
                             android:id="@+id/et_d_id"
                             style="@style/carEditTextBKG"
                             android:layout_weight="1"/>
+                        <Button
+                            android:id="@+id/btn_search"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="搜索"/>
                     </TableRow>
                     <!--代領人姓名-->
                     <TableRow style="@style/tableRow"
