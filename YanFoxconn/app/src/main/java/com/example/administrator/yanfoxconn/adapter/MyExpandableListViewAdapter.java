@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.example.administrator.yanfoxconn.R;
 import com.example.administrator.yanfoxconn.activity.BandaoInputActivity;
 import com.example.administrator.yanfoxconn.activity.CarListActivity;
+import com.example.administrator.yanfoxconn.activity.CarWriteIdActivity;
 import com.example.administrator.yanfoxconn.activity.CommonformsActivity;
 import com.example.administrator.yanfoxconn.activity.CrossScanMainActivity;
 import com.example.administrator.yanfoxconn.activity.CyCarListActivity;
@@ -23,6 +24,7 @@ import com.example.administrator.yanfoxconn.activity.GAWorkerSingInActivity;
 import com.example.administrator.yanfoxconn.activity.GCMainActivity;
 import com.example.administrator.yanfoxconn.activity.GoodsReleaseInputActivity;
 import com.example.administrator.yanfoxconn.activity.HubAreaActivity;
+import com.example.administrator.yanfoxconn.activity.IGListActivity;
 import com.example.administrator.yanfoxconn.activity.MobilecontrolInputActivity;
 import com.example.administrator.yanfoxconn.activity.OutKeepFirstActivity;
 import com.example.administrator.yanfoxconn.activity.ProductDivisionActivity;
@@ -882,6 +884,17 @@ public class MyExpandableListViewAdapter extends BaseExpandableListAdapter {
                 intent.putExtra("title", "掃描二維碼");
                 intent.putExtra("num", "cz");
                 mContext.getActivity().startActivity(intent);
+            }
+
+            @Override
+            public void OnClickIG() {
+                FoxContext.getInstance().setType("IG");
+//                Intent intent = new Intent(mContext.getActivity(), CarWriteIdActivity.class);
+//                intent.putExtra("from", "IG");
+                Intent intent = new Intent(mContext.getActivity(), IGListActivity.class);
+                intent.putExtra("from", "IG");
+                mContext.getActivity().startActivity(intent);
+
             }
         });
         return convertView;

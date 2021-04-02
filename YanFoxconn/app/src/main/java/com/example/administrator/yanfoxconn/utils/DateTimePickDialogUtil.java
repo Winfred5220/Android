@@ -42,6 +42,7 @@ public class DateTimePickDialogUtil implements DatePicker.OnDateChangedListener,
     }
 
 
+
     public void init(DatePicker datePicker, TimePicker timePicker) {
         Calendar calendar = Calendar.getInstance();
         if (!(null == initDateTime || "".equals(initDateTime))) {
@@ -64,6 +65,22 @@ public class DateTimePickDialogUtil implements DatePicker.OnDateChangedListener,
             timePicker.setCurrentMinute(calendar.get(Calendar.MINUTE));
             timePicker.setCurrentHour(calendar.get(Calendar.HOUR_OF_DAY));
         }
+
+    }
+    public void initNoTime(DatePicker datePicker) {
+        Calendar calendar = Calendar.getInstance();
+        if (!(null == initDateTime || "".equals(initDateTime))) {
+            calendar = this.getCalendarNoTimeByInintData(initDateTime);
+        } else {
+            initDateTime = calendar.get(Calendar.YEAR) + "年"
+                    + calendar.get(Calendar.MONTH) + "月"
+                    + calendar.get(Calendar.DAY_OF_MONTH) + "日 "
+                   ;
+        }
+
+        datePicker.init(calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH), this);
 
     }
 
@@ -216,6 +233,47 @@ public class DateTimePickDialogUtil implements DatePicker.OnDateChangedListener,
         return ad;
     }
 
+    public AlertDialog dateTimePicKNoTimeDialog(final TextView inputDate, final String maxDate) {
+        LinearLayout dateTimeLayout = (LinearLayout) activity
+                .getLayoutInflater().inflate(R.layout.dialog_date_picker, null);
+        datePicker = (DatePicker) dateTimeLayout.findViewById(R.id.datePicker);
+
+
+        if (!maxDate.equals("")) {
+//            Log.e("-----------","maxDate====="+maxDate);
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            try {
+                Date dateMax = sdf.parse(maxDate);
+
+                datePicker.setMaxDate(dateMax.getTime());
+                Log.e("-----------","dateMax.getTime()=="+dateMax.getTime());
+//                }
+
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }else{
+            Log.e("-----------","dateMin.getTime()=="+maxDate);
+        }
+        initNoTime(datePicker);
+
+        ad = new AlertDialog.Builder(activity)
+                .setTitle(initDateTime)
+                .setView(dateTimeLayout)
+                .setPositiveButton("確認", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        inputDate.setText(dateTime);
+                    }
+                })
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+//                        inputDate.setText("");
+                    }
+                }).show();
+
+        onDateNoTimeChanged(null, 0, 0, 0);
+        return ad;
+    }
 
     public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
         onDateChanged(null, 0, 0, 0);
@@ -237,6 +295,25 @@ public class DateTimePickDialogUtil implements DatePicker.OnDateChangedListener,
                     timePicker.getCurrentMinute());
         }
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+
+        dateTime = sdf.format(calendar.getTime());
+        ad.setTitle(dateTime);
+    }
+
+    public void onDateNoTimeChanged(DatePicker view, int year, int monthOfYear,
+                              int dayOfMonth) {
+        // 获得日历实例
+        Calendar calendar = Calendar.getInstance();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            calendar.set(datePicker.getYear(), datePicker.getMonth(),
+                    datePicker.getDayOfMonth(), timePicker.getHour(),
+                    timePicker.getMinute());
+        } else {
+            calendar.set(datePicker.getYear(), datePicker.getMonth(),
+                    datePicker.getDayOfMonth());
+        }
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
         dateTime = sdf.format(calendar.getTime());
         ad.setTitle(dateTime);
@@ -274,6 +351,34 @@ public class DateTimePickDialogUtil implements DatePicker.OnDateChangedListener,
                 currentMinute);
         return calendar;
     }
+
+    /**
+     * 实现将初始日期时间2012年07月02日 16:45 拆分成年 月 日 时 分 秒,并赋值给calendar
+     *
+     * @param initDateTime 初始日期时间值 字符串型
+     * @return Calendar
+     */
+    private Calendar getCalendarNoTimeByInintData(String initDateTime) {
+        Calendar calendar = Calendar.getInstance();
+
+        // 将初始日期时间2012年07月02日 16:45 拆分成年 月 日 时 分 秒
+        String date = spliteString(initDateTime, "日", "index", "front"); // 日期
+
+        String yearStr = spliteString(date, "年", "index", "front"); // 年份
+        String monthAndDay = spliteString(date, "年", "index", "back"); // 月日
+
+        String monthStr = spliteString(monthAndDay, "月", "index", "front"); // 月
+        String dayStr = spliteString(monthAndDay, "月", "index", "back"); // 日
+
+
+        int currentYear = Integer.valueOf(yearStr.trim()).intValue();
+        int currentMonth = Integer.valueOf(monthStr.trim()).intValue() - 1;
+        int currentDay = Integer.valueOf(dayStr.trim()).intValue();
+
+        calendar.set(currentYear, currentMonth, currentDay);
+        return calendar;
+    }
+
 
     /**
      * 截取子串
