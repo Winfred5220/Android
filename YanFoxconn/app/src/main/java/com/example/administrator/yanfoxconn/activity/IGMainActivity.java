@@ -331,7 +331,10 @@ public class IGMainActivity extends BaseActivity implements View.OnClickListener
             case R.id.btn_title_right:
                 if (from.equals("storeQr")) {
                     if (statue.equals("已申請")) {
-                        upStoreView();
+                        if (imagePaths != null && imagePaths.size() != 0){
+                        upStoreView();}else{
+                            ToastUtils.showShort(IGMainActivity.this, "請上傳照片！");
+                        }
                     } else {
                         if (done.equals("")) {
                             ToastUtils.showShort(IGMainActivity.this, "請選擇領取狀體");
@@ -358,7 +361,10 @@ public class IGMainActivity extends BaseActivity implements View.OnClickListener
                         upLeaveView();
                     }
                 } else if (from.equals("store")) {
-                    upStoreView();
+                    if (imagePaths != null && imagePaths.size() != 0){
+                        upStoreView();}else{
+                        ToastUtils.showShort(IGMainActivity.this, "請上傳照片！");
+                    }
                 } else {
                     List<String> type = new ArrayList<>();
                     List<String> num = new ArrayList<>();
@@ -387,7 +393,11 @@ public class IGMainActivity extends BaseActivity implements View.OnClickListener
                     if (num.size() == 0 || num.equals(null) || type.size() == 0 || type.equals(null)) {
                         ToastUtils.showShort(this, "不能有空數據,請確認!!!!");
                     } else {
-                        upName(num, type);
+                        if (imagePaths != null && imagePaths.size() != 0){
+
+                            upName(num, type);}else{
+                            ToastUtils.showShort(IGMainActivity.this, "請上傳照片！");
+                        }
                     }
                 }
                 break;

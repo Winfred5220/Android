@@ -127,7 +127,6 @@ public class IGListActivity extends BaseActivity implements View.OnClickListener
                     menu.addMenuItem(doneItem);
                 }
             };
-            getLeave(getIntent().getStringExtra("id"), "user");
         } else {
             btnAdd.setVisibility(View.VISIBLE);
 
