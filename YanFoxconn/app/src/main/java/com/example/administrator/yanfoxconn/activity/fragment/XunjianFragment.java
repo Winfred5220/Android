@@ -98,7 +98,7 @@ public class  XunjianFragment extends Fragment implements View.OnClickListener{
             {"A0", "T0", "H0", "K0", "I0", "L0", "J0", "M0", "R0", "S0", "CD", "CE", "CL", "CR",
                      "CX","GC","IH"},//安保部 "CU",
             {"CT","FE","FF","FG","FV","FX","FZ","GE","GX","ID"},//工業安全部
-            {"BG", "BP", "ZXS", "DN","DQ","DT","FH","GA","HL","HX","IG"},//總務
+            {"BG", "BP", "ZXS", "DN","DQ","DT","FH","GA","HL","HX","IG","LMNOP"},//總務 LMNOP商鋪物業巡檢
             {"N0", "O0", "P0", "Q0","IB","IC", "V0","FS","FW","GD","GCGL"},//營建 GCGL工程管理，開放權限，掃碼後會根據登錄帳號權限進行判斷
             {"NME", "VIP", "PME", "EBL", "PWB","HEC","MDI","MUJ","HAN"},//產品處
             {"F0", "E0", "CI", "EC","HR","HQ","HS"},//運籌物流
@@ -119,7 +119,7 @@ public class  XunjianFragment extends Fragment implements View.OnClickListener{
                     "移動設備管控", "廢料出廠","三防隱患通報","異常處置區","110接處警"},//安全保障服務部"值班課長",
             {"消防巡檢","洗眼器點檢","危化品暫存柜","危化品暫存倉","吸煙區","鋰電池防火","有限空間","室外堆場",
                     "設備借用","會議室點檢"},//工業安全部
-            {"宿舍巡檢", "餐飲巡檢", "消殺巡檢", "宿舍查驗","直飲水","生活垃圾清運","餐廳巡檢","臨時工簽到","倉庫巡檢","餐廳及多媒體","宿舍寄存"},//總務
+            {"宿舍巡檢", "餐飲巡檢", "消殺巡檢", "宿舍查驗","直飲水","生活垃圾清運","餐廳巡檢","臨時工簽到","倉庫巡檢","餐廳及多媒體","宿舍寄存","商鋪物業"},//總務
             {"A區巡檢", "E區巡檢", "C區巡檢", "D區巡檢", "G區巡檢","A-5區巡檢","維保巡檢","空調防疫點檢","配電箱點檢","路燈射燈點檢","工程管理"},//營建
             {"NME", "VIP", "PME", "EBL", "PWB","HEC","MDI","模具加工","環境安全"},//產品處
             {"碼頭網站", "出口碼頭", "HUB倉", "碼頭點檢", "會議室點檢", "值班室點檢", "資料室點檢"},//運籌物流
@@ -145,7 +145,7 @@ public class  XunjianFragment extends Fragment implements View.OnClickListener{
                     R.mipmap.icon_borrow,R.mipmap.icon_huiyishi},//工業安全部
             {R.mipmap.icon_sushe, R.mipmap.icon_canyin, R.mipmap.icon_xiaosha, R.mipmap.icon_sushe2,
                     R.mipmap.icon_zhiyinshui,R.mipmap.icon_laji, R.mipmap.icon_canting, R.mipmap.icon_linshi,
-                    R.mipmap.icon_ziliaoshi, R.mipmap.icon_huiyishi, R.mipmap.icon_huiyishi},//總務
+                    R.mipmap.icon_ziliaoshi, R.mipmap.icon_huiyishi, R.mipmap.icon_huiyishi, R.mipmap.icon_huiyishi},//總務
             {R.mipmap.icon_yingjian, R.mipmap.icon_yingjian, R.mipmap.icon_yingjian, R.mipmap.icon_yingjian,
                     R.mipmap.icon_yingjian,R.mipmap.icon_yingjian,R.mipmap.icon_yingjian, R.mipmap.icon_kongtiao, R.mipmap.icon_peidianxiang,
                     R.mipmap.icon_ludeng, R.mipmap.icon_gongcheng},//營建
@@ -271,7 +271,7 @@ public class  XunjianFragment extends Fragment implements View.OnClickListener{
      */
     private void setExListView() {
 
-        roles = FoxContext.getInstance().getRoles() + ",GCGL,NME,VIP,PME,EBL,PWB,ZXS,GAN,HEC,QAQ,SMT,MEM,MDI,MUJ,HAN";//ZXS:總務消殺巡檢 GAN:工安巡檢
+        roles = FoxContext.getInstance().getRoles() + ",LMNOP,GCGL,NME,VIP,PME,EBL,PWB,ZXS,GAN,HEC,QAQ,SMT,MEM,MDI,MUJ,HAN";//ZXS:總務消殺巡檢 GAN:工安巡檢
         rolesList = new ArrayList<String>();
         String spStr[] = roles.split(",");
         for (int i = 0; i < spStr.length; i++) {

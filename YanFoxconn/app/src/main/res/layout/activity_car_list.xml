@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
             <!--放行單列表-->
-            <com.example.administrator.yanfoxconn.widget.SwipeListView
+            <com.example.administrator.yanfoxconn.widget.SwipeListViewThree
                 android:id="@+id/lv_car_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />

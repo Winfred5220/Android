@@ -58,6 +58,8 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
             tvTitle.setText("鋰電池防火報表");
         }else if (role.equals("FW")) {
             tvTitle.setText("營建設備報表");
+        }else if (role.equals("LMNOP")) {
+            tvTitle.setText("商鋪物業巡檢");
         }else{
             tvTitle.setText("跨區申請單");
         }
@@ -87,6 +89,9 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
         }else if (role.equals("FW")) {//營建設備報表
             //mWebview.loadUrl(Constants.SafeServer+"baobiao/SafeCheck_datetime_yingjian.jsp");
             mWebview.loadUrl(Constants.HTTP_WEBVIEW+"baobiao/SafeCheck_datetime_yingjian.jsp");
+
+        }else if (role.equals("LMNOP")){
+            mWebview.loadUrl(Constants.HTTP_WEBVIEW+"forward/matou/mt_report.jsp?packing_no="+getIntent().getStringExtra("num"));
 
         }else{//跨區申請單
             mWebview.loadUrl("http://60.212.41.39/exportio/people/info_view.jsp?login_code="+ FoxContext.getInstance().getLoginId());
