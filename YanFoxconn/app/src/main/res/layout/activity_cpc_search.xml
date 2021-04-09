@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--成品倉出貨 無紙化-->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+    <include layout="@layout/common_title"/>
+
+    <com.example.administrator.yanfoxconn.widget.MyScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="@dimen/dimen_20"
+            android:layout_marginRight="@dimen/dimen_20"
+            android:layout_marginTop="25dp"
+            android:background="@drawable/login_input">
+            <EditText
+                android:id="@+id/et_search"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:background="@null"
+                android:focusable="true"
+                android:hint="請輸入銷單號"
+                android:inputType="text"
+                android:paddingLeft="10dp"
+                android:textColor="@color/color_ffdedede"
+                android:textColorHint="@color/action_sheet_curr_point"
+                android:textSize="16sp"
+                />
+
+            <!--清空用户名按钮-->
+            <Button
+                android:id="@+id/btn_search"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginRight="@dimen/dimen_8"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@mipmap/icon_search"
+                android:gravity="center"/>
+
+        </RelativeLayout>
+
+            <com.example.administrator.yanfoxconn.widget.MyListView
+                android:id="@+id/lv_single"
+                android:layout_marginTop="@dimen/dimen_8"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </LinearLayout>
+    </com.example.administrator.yanfoxconn.widget.MyScrollView>
+</LinearLayout>

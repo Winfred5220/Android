@@ -124,15 +124,14 @@ public class CommonFormsCjfkListActivity extends BaseActivity implements View.On
                                                     ContextMenu.ContextMenuInfo menuInfo) {
 
                         //1.通过手动添加来配置上下文菜单选项
-                        //menu.add(0, 1, 0, "修改");
-                        //menu.add(0, 2, 0, "删除");
+                        menu.add(0, 0, 0, "曾加");
+                        menu.add(0, 1, 0, "修改");
+                        menu.add(0, 2, 0, "删除");
 
                         //2.通过xml文件来配置上下文菜单选项
-                        MenuInflater mInflater = getMenuInflater();
-                        mInflater.inflate(R.menu.menu_cpc, menu);
-
+//                        MenuInflater mInflater = getMenuInflater();
+//                        mInflater.inflate(R.menu.menu_cpc, menu);
                         //super.onCreateContextMenu(menu, v, menuInfo);
-
                     }
                 });
     }
@@ -145,46 +144,46 @@ public class CommonFormsCjfkListActivity extends BaseActivity implements View.On
         //MID = (int) info.id;// 这里的info.id对应的就是数据库中_id的值
         int posi = info.position;
         switch (item.getItemId()) {
-//            case 0:
-//                // 添加操作
-//                Toast.makeText(CommonFormsCjfkListActivity.this,
-//                        gcHeads.get(posi).getWJ_REMARK(),
-//                        Toast.LENGTH_SHORT).show();
-//                break;
-//
-//            case 1:
-//                // 删除操作
-//                Toast.makeText(CommonFormsCjfkListActivity.this,
-//                        gcHeads.get(posi).getOTHER(),
-//                        Toast.LENGTH_SHORT).show();
-//                break;
-//
-//            case 2:
-//                // 删除ALL操作
-//                Toast.makeText(CommonFormsCjfkListActivity.this,
-//                        gcHeads.get(posi).getJC_TYPE(),
-//                        Toast.LENGTH_SHORT).show();
-//                break;
-            case R.id.add:
+            case 0:
                 // 添加操作
                 Toast.makeText(CommonFormsCjfkListActivity.this,
                         gcHeads.get(posi).getWJ_REMARK(),
                         Toast.LENGTH_SHORT).show();
                 break;
 
-            case R.id.update:
+            case 1:
                 // 删除操作
                 Toast.makeText(CommonFormsCjfkListActivity.this,
                         gcHeads.get(posi).getOTHER(),
                         Toast.LENGTH_SHORT).show();
                 break;
 
-            case R.id.delete:
+            case 2:
                 // 删除ALL操作
                 Toast.makeText(CommonFormsCjfkListActivity.this,
                         gcHeads.get(posi).getJC_TYPE(),
                         Toast.LENGTH_SHORT).show();
                 break;
+//            case R.id.add:
+//                // 添加操作
+//                Toast.makeText(CommonFormsCjfkListActivity.this,
+//                        gcHeads.get(posi).getWJ_REMARK(),
+//                        Toast.LENGTH_SHORT).show();
+//                break;
+//
+//            case R.id.update:
+//                // 删除操作
+//                Toast.makeText(CommonFormsCjfkListActivity.this,
+//                        gcHeads.get(posi).getOTHER(),
+//                        Toast.LENGTH_SHORT).show();
+//                break;
+//
+//            case R.id.delete:
+//                // 删除ALL操作
+//                Toast.makeText(CommonFormsCjfkListActivity.this,
+//                        gcHeads.get(posi).getJC_TYPE(),
+//                        Toast.LENGTH_SHORT).show();
+//                break;
             default:
                 break;
         }

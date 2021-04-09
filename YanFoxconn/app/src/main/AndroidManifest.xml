@@ -416,6 +416,8 @@
         <activity android:name=".activity.CommonFormsCjfkListActivity"/><!-- 110接處警 處警反饋列表 -->
         <activity android:name=".activity.AQ110MenuActivity"/><!-- 110菜單 -->
 
+        <activity android:name=".activity.CPCSerchActivity"/><!-- 成品倉無紙化 銷單模糊查詢界面 -->
+
     </application>
 
 </manifest>

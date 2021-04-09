@@ -7,6 +7,11 @@ package com.example.administrator.yanfoxconn.constant;
  */
 
 public class Constants {
+    public static final int MESSAGE_SET_TEXT = 1;//掃描成功賦值
+    public static final int MESSAGE_TOAST = 2;//掃描失敗彈出框
+    public static final int MESSAGE_DELETE_SUCCESS = 3;//刪除成功，刷新列表
+    public static final int MESSAGE_NOT_NET = 4;//顯示提醒
+
 //14.19服务器
 //    public static final String SAFE_SERVER = "http://ytlogisticgps.foxconn.com/SafeServer/";//玲姐
 //    public static final String SERVER = "http://ytlogisticgps.foxconn.com/Server/";    //杰哥

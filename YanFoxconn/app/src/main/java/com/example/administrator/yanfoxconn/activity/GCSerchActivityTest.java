@@ -164,7 +164,6 @@ public class GCSerchActivityTest extends BaseActivity implements View.OnClickLis
                     JsonObject jsonObject = new JsonParser().parse(result).getAsJsonObject();
                     String errCode = jsonObject.get("errCode").getAsString();
                     if (errCode.equals("200")) {
-                        Log.e("--fff---------", "result==" + result);
                         JsonArray array = jsonObject.get("result").getAsJsonArray();
                         gcHeads = new ArrayList<GCHead>();
 
@@ -179,7 +178,6 @@ public class GCSerchActivityTest extends BaseActivity implements View.OnClickLis
                         mHandler.sendMessage(message);
 
                     } else {
-                        Log.e("-----------", "result==" + result);
                         Message message = new Message();
                         message.what = MESSAGE_TOAST;
                         message.obj = jsonObject.get("errMessage").getAsString();
@@ -297,7 +295,6 @@ public class GCSerchActivityTest extends BaseActivity implements View.OnClickLis
                     JsonObject jsonObject = new JsonParser().parse(result).getAsJsonObject();
                     String errCode = jsonObject.get("errCode").getAsString();
                     if (errCode.equals("200")) {
-                        Log.e("--fff---------", "result==" + result);
 //                        JsonArray array = jsonObject.get("result").getAsJsonArray();
 
 
@@ -307,7 +304,6 @@ public class GCSerchActivityTest extends BaseActivity implements View.OnClickLis
                         mHandler.sendMessage(message);
 
                     } else {
-                        Log.e("-----------", "result==" + result);
                         Message message = new Message();
                         message.what = MESSAGE_TOAST;
                         message.obj = jsonObject.get("errMessage").getAsString();
