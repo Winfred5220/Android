@@ -88,6 +88,7 @@ public class IGMainActivity extends BaseActivity implements View.OnClickListener
     private final int MESSAGE_SET_STORE_LIST = 3;//倉位信息
     private final int MESSAGE_SET_STORE_QR = 7;//掃碼判斷是排配還是領取
     private final int MESSAGE_SET_NAME = 8;//代領人根據工號帶出姓名
+    private final int MESSAGE_SET_NAME_FAIL = 9;//代領人根據工號帶出失敗
 
     private static final int REQUEST_CAMERA_CODE = 11;
     private static final int REQUEST_PREVIEW_CODE = 22;
@@ -575,16 +576,16 @@ public class IGMainActivity extends BaseActivity implements View.OnClickListener
     Handler mHandler = new Handler() {
         public void handleMessage(Message msg) {
             switch (msg.what) {
+                case MESSAGE_SET_NAME_FAIL:
+                    etDName.setText("");
+                    ToastUtils.showShort(IGMainActivity.this, msg.obj.toString());
+                    break;
                 case MESSAGE_SET_NAME://帶出姓名
                     etDName.setText(empMessagesList.get(0).getCHINESENAME());
                     break;
                 case MESSAGE_TOAST://Toast彈出
-                    if (!etDId.getText().toString().equals("")){
-                        ToastUtils.showShort(IGMainActivity.this, msg.obj.toString());
-                        etDName.setText("");
-                    }else{
                     ToastUtils.showShort(IGMainActivity.this, msg.obj.toString());
-                    finish();}
+                    finish();
                     break;
                 case MESSAGE_SET_LIST://設置信息
                     JsonObject mes = (JsonObject) msg.obj;
@@ -1361,7 +1362,7 @@ public class IGMainActivity extends BaseActivity implements View.OnClickListener
                     }else{
                         Log.e("-----------", "result==" + result);
                         Message message = new Message();
-                        message.what = MESSAGE_TOAST;
+                        message.what = MESSAGE_SET_NAME_FAIL;
                         message.obj = jsonObject.get("errMessage").getAsString();
                         mHandler.sendMessage(message);
                     }
