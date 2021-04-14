@@ -111,14 +111,14 @@ public class EmpTurnoverActivity extends BaseActivity implements View.OnClickLis
     RadioButton rbOut;
     @BindView(R.id.et_gate_post)
     EditText etGatePost;//稽核門崗
-    @BindView(R.id.tv_gate_date)
-    TextView tvGateDate;//稽核時間
     @BindView(R.id.lv_gate)
     MyListView lvGate;//稽核門崗列表
-    @BindView(R.id.sp_team)
-    Spinner spTeam;//稽核課隊
     @BindView(R.id.tr_list_gate)
     TableRow trLIstGate;//稽核課隊門崗列表
+    @BindView(R.id.tv_gate_date)
+    TextView tvGateDate;//稽核時間
+    @BindView(R.id.sp_team)
+    Spinner spTeam;//稽核課隊
     @BindView(R.id.tr_other)
     TableRow trOther;//異常描述其他
 
@@ -346,7 +346,6 @@ public class EmpTurnoverActivity extends BaseActivity implements View.OnClickLis
                     JsonObject jsonObject = new JsonParser().parse(result).getAsJsonObject();
                     String errCode = jsonObject.get("errCode").getAsString();
                     if (errCode.equals("200")) {
-                        Log.e("--fff---------", "result==" + result);
                         JsonArray array = jsonObject.get("data").getAsJsonArray();
                         empMessagesList = new ArrayList<EmpMessage>();
 
@@ -370,7 +369,6 @@ public class EmpTurnoverActivity extends BaseActivity implements View.OnClickLis
                         mHandler.sendMessage(message);
 
                     } else{
-                        Log.e("-----------", "result==" + result);
                         Message message = new Message();
                         message.what = MESSAGE_TOAST;
                         message.obj = jsonObject.get("errMessage").getAsString();
@@ -417,7 +415,7 @@ public class EmpTurnoverActivity extends BaseActivity implements View.OnClickLis
                             mHandler.sendMessage(message);
                         }
                     }
-                    Log.e("---","ddddelete");
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -460,6 +458,7 @@ public class EmpTurnoverActivity extends BaseActivity implements View.OnClickLis
         tvDep.setText(empMessagesList.get(0).getCZC03());
         tvIsWork.setText(empMessagesList.get(0).getINCUMBENCYSTATE());
         tvIdentity.setText(empMessagesList.get(0).getIDENTITYNO());
+
         teamList = new ArrayList<>();
         for (int i = 0;i<empFileList.size();i++){
 

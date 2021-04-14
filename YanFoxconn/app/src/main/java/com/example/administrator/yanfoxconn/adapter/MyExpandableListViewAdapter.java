@@ -12,8 +12,8 @@ import android.widget.TextView;
 import com.example.administrator.yanfoxconn.R;
 import com.example.administrator.yanfoxconn.activity.AQ110MenuActivity;
 import com.example.administrator.yanfoxconn.activity.BandaoInputActivity;
+import com.example.administrator.yanfoxconn.activity.CPCSearchActivity;
 import com.example.administrator.yanfoxconn.activity.CarListActivity;
-import com.example.administrator.yanfoxconn.activity.CarWriteIdActivity;
 import com.example.administrator.yanfoxconn.activity.CommonformsActivity;
 import com.example.administrator.yanfoxconn.activity.CrossScanMainActivity;
 import com.example.administrator.yanfoxconn.activity.CyCarListActivity;
@@ -901,6 +901,12 @@ public class MyExpandableListViewAdapter extends BaseExpandableListAdapter {
                 intent.putExtra("from", "IG");
                 mContext.getActivity().startActivity(intent);
 
+            }
+
+            @Override
+            public void OnClickII() {
+                Intent intent = new Intent(mContext.getActivity(), CPCSearchActivity.class);
+                mContext.getActivity().startActivity(intent);
             }
         });
         return convertView;

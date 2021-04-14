@@ -111,7 +111,7 @@ public class CommonFormsCjfkListActivity extends BaseActivity implements View.On
             }
         };
 
-        ItemOnLongClick1();
+        //ItemOnLongClick1();
 
     }
 

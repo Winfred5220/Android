@@ -3,39 +3,34 @@ package com.example.administrator.yanfoxconn.activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
-import com.baoyz.swipemenulistview.SwipeMenu;
-import com.baoyz.swipemenulistview.SwipeMenuCreator;
-import com.baoyz.swipemenulistview.SwipeMenuItem;
-import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.example.administrator.yanfoxconn.R;
+import com.example.administrator.yanfoxconn.adapter.CPCSearchAdapter;
 import com.example.administrator.yanfoxconn.adapter.GCPeopleAdapter;
+import com.example.administrator.yanfoxconn.bean.CPCMessage;
 import com.example.administrator.yanfoxconn.bean.GCHead;
 import com.example.administrator.yanfoxconn.constant.Constants;
 import com.example.administrator.yanfoxconn.utils.BaseActivity;
 import com.example.administrator.yanfoxconn.utils.HttpUtils;
 import com.example.administrator.yanfoxconn.utils.ToastUtils;
 import com.example.administrator.yanfoxconn.widget.MyListView;
-import com.example.administrator.yanfoxconn.widget.SwipterMenuTest;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,7 +41,7 @@ import butterknife.ButterKnife;
  * wang 2021/4/8
  * 成品倉無紙化 銷單模糊查詢界面
  */
-public class CPCSerchActivity extends BaseActivity implements View.OnClickListener {
+public class CPCSearchActivity extends BaseActivity implements View.OnClickListener {
     @BindView(R.id.btn_title_left)
     Button btnBack;//返回
     @BindView(R.id.tv_title)
@@ -59,13 +54,13 @@ public class CPCSerchActivity extends BaseActivity implements View.OnClickListen
     @BindView(R.id.lv_single)
     MyListView lvSingle;
 
-    private List<GCHead> gcHeads;
-    private GCPeopleAdapter gcPeopleAdapter;
+    private List<CPCMessage> cpcHead;
+    private CPCSearchAdapter cpcSearchAdapter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_gc_search);
+        setContentView(R.layout.activity_cpc_search);
         ButterKnife.bind(this);
 
         btnBack.setOnClickListener(this);
@@ -73,7 +68,6 @@ public class CPCSerchActivity extends BaseActivity implements View.OnClickListen
         tvTitle.setText("銷單查詢");
 
     }
-
 
     @Override
     public void onClick(View view) {
@@ -90,7 +84,7 @@ public class CPCSerchActivity extends BaseActivity implements View.OnClickListen
     private void search(String id) {
 
         showDialog();
-        final String url = Constants.HTTP_BODY_SELECT + "?id=" + id;
+        final String url = Constants.HTTP_CPC_SEARCH_SERVLET + "?id=" + id;
 
         new Thread() {
             @Override
@@ -108,11 +102,11 @@ public class CPCSerchActivity extends BaseActivity implements View.OnClickListen
                     String errCode = jsonObject.get("errCode").getAsString();
                     if (errCode.equals("200")) {
                         JsonArray array = jsonObject.get("result").getAsJsonArray();
-                        gcHeads = new ArrayList<GCHead>();
+                        cpcHead = new ArrayList<CPCMessage>();
 
                         for (JsonElement type : array) {
-                            GCHead humi = gson.fromJson(type, GCHead.class);
-                            gcHeads.add(humi);
+                            CPCMessage humi = gson.fromJson(type, CPCMessage.class);
+                            cpcHead.add(humi);
                         }
 
                         Message message = new Message();
@@ -121,8 +115,9 @@ public class CPCSerchActivity extends BaseActivity implements View.OnClickListen
                         mHandler.sendMessage(message);
 
                     } else {
+                        cpcHead = new ArrayList<CPCMessage>();
                         Message message = new Message();
-                        message.what = Constants.MESSAGE_TOAST;
+                        message.what = Constants.MESSAGE_SET_TEXT;
                         message.obj = jsonObject.get("errMessage").getAsString();
                         mHandler.sendMessage(message);
                     }
@@ -137,18 +132,28 @@ public class CPCSerchActivity extends BaseActivity implements View.OnClickListen
 
                 case Constants.MESSAGE_TOAST://Toast彈出
 //                    aboutAlert(msg.obj.toString(),MESSAGE_TOAST);
-                    ToastUtils.showLong(CPCSerchActivity.this, msg.obj.toString());
+                    ToastUtils.showLong(CPCSearchActivity.this, msg.obj.toString());
 //                    finish();
                     break;
                 case Constants.MESSAGE_SET_TEXT://text賦值
-                    gcPeopleAdapter = new GCPeopleAdapter(CPCSerchActivity.this, gcHeads);
-                    lvSingle.setAdapter(gcPeopleAdapter);
+                    cpcSearchAdapter = new CPCSearchAdapter(CPCSearchActivity.this, cpcHead);
+                    lvSingle.setAdapter(cpcSearchAdapter);
+                    lvSingle.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            Intent intent = new Intent(CPCSearchActivity.this,CPCReleaseActivity.class);
+                            intent.putExtra("ex_no",cpcHead.get(position).getEx_no());
+                            startActivity(intent);
+//                            lvSingle.setAdapter(null);
+                        }
+                    });
+
                     break;
                 case Constants.MESSAGE_DELETE_SUCCESS://提交響應
                     search(etSearch.getText().toString());
                     break;
                 case Constants.MESSAGE_NOT_NET:
-                    ToastUtils.showLong(CPCSerchActivity.this, "網絡錯誤，請稍後重試！");
+                    ToastUtils.showLong(CPCSearchActivity.this, "網絡錯誤，請稍後重試！");
                     break;
             }
             super.handleMessage(msg);
@@ -206,7 +211,7 @@ public class CPCSerchActivity extends BaseActivity implements View.OnClickListen
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                    
-                        delPeople(gcHeads.get(position).getIn_Random_Id());
+                        delPeople(cpcHead.get(position).getEx_no());
                     }
 
                 })
@@ -223,8 +228,8 @@ public class CPCSerchActivity extends BaseActivity implements View.OnClickListen
     @Override
     protected void onStart() {
         super.onStart();
+        search(etSearch.getText().toString());
     }
-
 
 
 }

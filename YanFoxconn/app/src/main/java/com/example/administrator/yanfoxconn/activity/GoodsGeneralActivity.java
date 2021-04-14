@@ -60,6 +60,7 @@ import butterknife.ButterKnife;
 import taobe.tec.jcc.JChineseConvertor;
 
 /**
+ * 普通物品放行
  * Created by wangqian on 2018/12/20.
  */
 
@@ -106,7 +107,9 @@ public class GoodsGeneralActivity extends BaseActivity implements View.OnClickLi
     @BindView(R.id.tr_jc)
     TableRow trJc;//進出
     @BindView(R.id.rb_j)
-    RadioButton rb_j;//進
+    RadioButton rbJ;//進
+    @BindView(R.id.rb_c)
+    RadioButton rbC;//進
     @BindView(R.id.tr_list_gate)
     TableRow trListGate;
     @BindView(R.id.lv_gate)
@@ -118,7 +121,7 @@ public class GoodsGeneralActivity extends BaseActivity implements View.OnClickLi
     @BindView(R.id.et_name)
     EditText etName;//姓名
 
-    private String code;//工號或車牌
+    private String code,id;//工號或車牌 銷單號
     private String url;//地址
     private String result;//网络获取结果
     private List<GoodsMessage> goodsMessage;//物品信息
@@ -140,6 +143,7 @@ public class GoodsGeneralActivity extends BaseActivity implements View.OnClickLi
         ButterKnife.bind(this);
 
         code = getIntent().getStringExtra("code");
+        id = getIntent().getStringExtra("id");
 
         tvTitle.setText("普通物品放行");
         btnBack.setOnClickListener(this);
@@ -157,7 +161,7 @@ public class GoodsGeneralActivity extends BaseActivity implements View.OnClickLi
         tvReleaseDate.setText(formatter.format(curDate));
         curDates = formatter.format(curDate);
 
-        getMessage(code,"");
+        getMessage(code,id);
 
         //搜索关键字
         etRelGate.addTextChangedListener(new TextWatcher() {
@@ -199,11 +203,13 @@ public class GoodsGeneralActivity extends BaseActivity implements View.OnClickLi
         }
     }
 
-
     private void getMessage(String code, String id) {
         showDialog();
         try {
-            String code1 =  URLEncoder.encode(URLEncoder.encode(code.toString(), "UTF-8"), "UTF-8");
+            String code1="";
+            if (code!=null) {
+                code1 = URLEncoder.encode(URLEncoder.encode(code.toString(), "UTF-8"), "UTF-8");
+            }
             url = Constants.HTTP_COMMON_GOODS_SERVLET + "?flag=CC" + "&code=" + code1 + "&id=" + id;
             } catch (UnsupportedEncodingException e) {
               e.printStackTrace();
@@ -310,7 +316,6 @@ public class GoodsGeneralActivity extends BaseActivity implements View.OnClickLi
                         mHandler.sendMessage(message);
 
                     } else{
-                        Log.e("-----------", "result==" + result);
                         Message message = new Message();
                         message.what = MESSAGE_TOAST;
                         message.obj = jsonObject.get("errMessage").getAsString();
@@ -382,7 +387,7 @@ public class GoodsGeneralActivity extends BaseActivity implements View.OnClickLi
         }
 
         String jc_type="";
-        if (rb_j.isChecked()){
+        if (rbJ.isChecked()){
             jc_type="進";
         }else {
             jc_type="出";
@@ -425,15 +430,12 @@ public class GoodsGeneralActivity extends BaseActivity implements View.OnClickLi
                     JsonObject jsonObject = new JsonParser().parse(result).getAsJsonObject();
                     String errCode = jsonObject.get("errCode").getAsString();
                     if (errCode.equals("200")) {
-                        Log.e("--fff---------", "result==" + result);
-
                         Message message = new Message();
                         message.what = MESSAGE_TOAST;
                         message.obj = jsonObject.get("errMessage").getAsString();
                         mHandler.sendMessage(message);
 
                     } else{
-                        Log.e("-----------", "result==" + result);
                         Message message = new Message();
                         message.what = MESSAGE_UP;
                         message.obj = jsonObject.get("errMessage").getAsString();
@@ -459,6 +461,7 @@ public class GoodsGeneralActivity extends BaseActivity implements View.OnClickLi
                     break;
                 case MESSAGE_SET_TEXT://text賦值
                     setText();
+                    rbJ.setEnabled(false);
 //                    aboutAlert(msg.obj.toString(),MESSAGE_SET_TEXT);
                     break;
                 case MESSAGE_UP://提交響應
@@ -514,7 +517,7 @@ public class GoodsGeneralActivity extends BaseActivity implements View.OnClickLi
 
         if(goodsMessage.get(0).getOUT11A().equals("跨廠區")){
             trJc.setVisibility(View.VISIBLE);
-            rb_j.setChecked(true);
+            rbC.setChecked(true);
         }
         tvDutyGuard.setText(FoxContext.getInstance().getName());
 

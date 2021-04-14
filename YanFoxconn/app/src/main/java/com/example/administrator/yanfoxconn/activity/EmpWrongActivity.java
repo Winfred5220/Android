@@ -185,7 +185,6 @@ public class EmpWrongActivity extends BaseActivity implements View.OnClickListen
                     JsonObject jsonObject = new JsonParser().parse(result).getAsJsonObject();
                     String errCode = jsonObject.get("errCode").getAsString();
                     if (errCode.equals("200")) {
-                        Log.e("--fff---------", "result==" + result);
                         JsonArray array = jsonObject.get("data").getAsJsonArray();
                         empMessagesList = new ArrayList<EmpMessage>();
 
@@ -210,7 +209,6 @@ public class EmpWrongActivity extends BaseActivity implements View.OnClickListen
                         mHandler.sendMessage(message);
 
                     } else{
-                        Log.e("-----------", "result==" + result);
                         Message message = new Message();
                         message.what = MESSAGE_TOAST;
                         message.obj = jsonObject.get("errMessage").getAsString();
@@ -267,7 +265,7 @@ public class EmpWrongActivity extends BaseActivity implements View.OnClickListen
                             mHandler.sendMessage(message);
                         }
                     }
-                    Log.e("---","ddddelete");
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

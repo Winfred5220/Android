@@ -523,7 +523,6 @@ public class ZhiyinshuiCheckActivity extends BaseActivity implements View.OnClic
                                 mHandler.sendMessage(message);
 
                             } else{
-                                Log.e("-----------", "result==" + result);
                                 Message message = new Message();
                                 message.what = MESSAGE_TOAST;
                                 message.obj = jsonObject.get("errMessage").getAsString();

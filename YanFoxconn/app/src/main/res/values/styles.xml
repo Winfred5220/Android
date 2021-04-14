@@ -271,4 +271,28 @@
         <item name="android:textSize">@dimen/text_size_14</item>
         <item name="android:textColor">@color/color_303030</item>
     </style>
+
+    <!--   +++++++++++++++++++++++     CPCReleaseActivity的style    ++++++++++++++++++++++++++++++ -->
+    <style name="mainStyle" parent="AppTheme">
+        <item name="android:popupMenuStyle">@style/popmenuStyle</item>
+        <item name="android:dropDownListViewStyle">@style/popmenuDivier</item>
+        <item name="android:textAppearanceSmallPopupMenu">@style/popmeuText</item>
+        <item name="android:textAppearanceLargePopupMenu">@style/popmeuText</item>
+    </style>
+    <!--popMenu的Style-->
+    <style name="popmenuStyle" parent="@android:style/Widget.PopupMenu">
+        <item name="android:popupBackground">@color/blank</item><!-- popMenu的背景色-->
+    </style>
+    <!--popmenu的字体颜色-->
+    <style name="popmeuText">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:gravity">center</item>
+    </style>
+    <!--popMenu分割线的颜色-->
+    <style name="popmenuDivier">
+        <item name="android:divider">@color/color_zhuse</item>
+        <item name="android:dividerHeight">1sp</item>
+    </style>
+
 </resources>

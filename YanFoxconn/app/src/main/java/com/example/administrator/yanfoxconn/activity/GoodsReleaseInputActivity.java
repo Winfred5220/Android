@@ -1,5 +1,6 @@
 package com.example.administrator.yanfoxconn.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ import com.baidu.ocr.ui.camera.CameraActivity;
 import com.example.administrator.yanfoxconn.R;
 
 import com.example.administrator.yanfoxconn.bean.OCRMessage;
+import com.example.administrator.yanfoxconn.constant.FoxContext;
 import com.example.administrator.yanfoxconn.utils.BaseActivity;
 
 import com.example.administrator.yanfoxconn.utils.FileUtil;
@@ -43,8 +45,8 @@ import butterknife.ButterKnife;
 
 /**
  * 物品放行
- * 手動輸入工號/车牌号、放行单号后四位
- * Created by wangqian on 2018/12/20.
+ * 手動輸入工號/车牌号
+ * Created by S1007989 on 2018/12/20.
  */
 
 public class GoodsReleaseInputActivity extends BaseActivity implements View.OnClickListener{
@@ -55,6 +57,8 @@ public class GoodsReleaseInputActivity extends BaseActivity implements View.OnCl
     TextView tvTitle;//標題
     @BindView(R.id.btn_title_left)
     Button btnBack;//返回
+    @BindView(R.id.btn_title_right)
+    Button btnBlue;//補錄
 
     @BindView(R.id.btn_up)
     Button btnUp;//普通物品提交
@@ -83,6 +87,12 @@ public class GoodsReleaseInputActivity extends BaseActivity implements View.OnCl
         btnUp.setOnClickListener(this);
         btnUpZ.setOnClickListener(this);
         ibScan.setOnClickListener(this);
+        //張欽然賬號顯示補錄
+        if (FoxContext.getInstance().getLoginId().equals("F2722195")){
+            btnBlue.setOnClickListener(this);
+            btnBlue.setText("補錄");
+            btnBlue.setVisibility(View.VISIBLE);
+        }
 
         initAccessTokenWithAkSk();
     }
@@ -93,6 +103,9 @@ public class GoodsReleaseInputActivity extends BaseActivity implements View.OnCl
             case R.id.btn_title_left:
                 finish();
                 break;
+            case R.id.btn_title_right:
+                inputAlert();
+                break;
             case R.id.btn_up:
                 if (etWorkId.getText().toString().equals("")){
                     ToastUtils.showShort(this,"工號或車牌號不能為空!");
@@ -102,7 +115,7 @@ public class GoodsReleaseInputActivity extends BaseActivity implements View.OnCl
                     resultIntent.putExtra("code", etWorkId.getText().toString().toUpperCase());
                     startActivity(resultIntent);
 //                    Log.e("----------", "ddd4dddddddd===" + etWorkId.getText().toString());
-                    finish();
+                   // finish();
                 }
                 break;
             case R.id.btn_up_z:
@@ -114,7 +127,7 @@ public class GoodsReleaseInputActivity extends BaseActivity implements View.OnCl
                     resultIntent2.putExtra("code", etWorkId.getText().toString().toUpperCase());
                     startActivity(resultIntent2);
 //                    Log.e("----------", "ddddddddddd===" + etWorkId.getText().toString());
-                    finish();
+                   // finish();
                 }
                 break;
             case R.id.btn_scan_brand://OCR識別
@@ -127,9 +140,37 @@ public class GoodsReleaseInputActivity extends BaseActivity implements View.OnCl
                 intent.putExtra(CameraActivity.KEY_CONTENT_TYPE,
                         CameraActivity.CONTENT_TYPE_GENERAL);
                 startActivityForResult(intent, REQUEST_CODE_ACCURATE_BASIC);
-
                 break;
+
         }
+    }
+
+    private void inputAlert() {
+        final EditText inputServer = new EditText(GoodsReleaseInputActivity.this);
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(GoodsReleaseInputActivity.this);
+        builder.setTitle("請输入放行單號").setView(inputServer)
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .setPositiveButton("確認", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        // TODO Auto-generated method stub
+                        String text = inputServer.getText().toString();
+                        if (text.replaceAll(" ","").equals("")) {
+                            ToastUtils.showShort(GoodsReleaseInputActivity.this, "單號不能為空");
+                            return;
+                        }else{
+                            Intent resultIntent = new Intent(GoodsReleaseInputActivity.this, GoodsGeneralActivity.class);
+                            resultIntent.putExtra("id", text.toUpperCase());
+                            startActivity(resultIntent);
+                        }
+                    }
+                });
+        builder.show();
     }
     private boolean checkTokenStatus() {
         if (!hasGotToken) {
@@ -151,7 +192,8 @@ public class GoodsReleaseInputActivity extends BaseActivity implements View.OnCl
             @Override
             public void onError(OCRError error) {
                 error.printStackTrace();
-                alertText("licence方式获取token失败", error.getMessage());
+                //alertText("licence方式获取token失败", error.getMessage());
+                //Toast.makeText(getApplicationContext(), "licence方式获取token失败", Toast.LENGTH_LONG).show();
             }
         }, getApplicationContext());
     }
@@ -169,7 +211,8 @@ public class GoodsReleaseInputActivity extends BaseActivity implements View.OnCl
             @Override
             public void onError(OCRError error) {
                 error.printStackTrace();
-                alertText("AK，SK方式获取token失败", error.getMessage());
+                //Toast.makeText(getApplicationContext(), "AK，SK方式获取token失败", Toast.LENGTH_LONG).show();
+                //alertText("AK，SK方式获取token失败", error.getMessage());
             }
         }, getApplicationContext(),  "d6PEEyy6O8WHXGHnmA4vApQo", "3h2BO8M1Kv4IGhXuRg4ylshPt6mNBeWw");
     }
@@ -231,7 +274,7 @@ public class GoodsReleaseInputActivity extends BaseActivity implements View.OnCl
     private void infoPopText(final String result) {
 //        alertText("", result);
         etWorkId.setText(result);
-        Log.e("-------------","ocr==="+result);
+        Log.e("------","ocr==="+result);
     }
 
     @Override

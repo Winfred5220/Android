@@ -197,6 +197,20 @@
                     style="@style/carEditTextBKG"
                     android:layout_weight="1" />
             </TableRow>
+            <!--稽核門崗列表-->
+            <TableRow style="@style/tableRow"
+                android:id="@+id/tr_list_gate"
+                android:visibility="gone">
+
+                <TextView
+                    style="@style/carTextName"
+                    />
+
+                <com.example.administrator.yanfoxconn.widget.MyListView
+                    android:id="@+id/lv_gate"
+                    style="@style/carTextBKG"
+                    android:layout_weight="1" />
+            </TableRow>
             <!--稽核時間-->
             <TableRow style="@style/tableRow">
                 <TextView
@@ -212,20 +226,6 @@
                     android:layout_weight="1"
                     android:background="@drawable/login_input"
                     android:hint="選擇時間"/>
-            </TableRow>
-            <!--稽核門崗列表-->
-            <TableRow style="@style/tableRow"
-                android:id="@+id/tr_list_gate"
-                android:visibility="gone">
-
-                <TextView
-                    style="@style/carTextName"
-                    />
-
-                <com.example.administrator.yanfoxconn.widget.MyListView
-                    android:id="@+id/lv_gate"
-                    style="@style/carTextBKG"
-                    android:layout_weight="1" />
             </TableRow>
             <!--稽核課隊-->
             <TableRow style="@style/tableRow">
