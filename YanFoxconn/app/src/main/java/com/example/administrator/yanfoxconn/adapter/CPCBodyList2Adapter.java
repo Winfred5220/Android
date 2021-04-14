@@ -41,7 +41,9 @@ public class CPCBodyList2Adapter extends RecyclerView.Adapter<CPCBodyList2Adapte
     public static Context mContext;
     public boolean isChange;
     private int zbNum=0,xNum=0;//棧板數和箱數
+    private double pcsNum=0;//PCS數
     private int releaseCount=0;//已放行數量
+    private double releasePCSCount=0;//已放行數量
     private String releaseUnit="";//已放行單位
 
     static class ViewHolder extends RecyclerView.ViewHolder{
@@ -75,7 +77,6 @@ public class CPCBodyList2Adapter extends RecyclerView.Adapter<CPCBodyList2Adapte
         selectData.add("棧板");
         selectData.add("箱");
         selectData.add("PCS");
-        selectData.add("KPCS");
     }
     public CPCBodyList2Adapter(Context context, List<CPCMessage> lists){
         this.lists=lists;
@@ -129,6 +130,10 @@ public class CPCBodyList2Adapter extends RecyclerView.Adapter<CPCBodyList2Adapte
         if (cpcBodyMessage.getEx_end_carton()!=null && !cpcBodyMessage.getEx_end_carton().equals("")&&cpcBodyMessage.getEx_start_carton()!=null && !cpcBodyMessage.getEx_start_carton().equals("")){
             xNum =Integer.parseInt(cpcBodyMessage.getEx_end_carton())-Integer.parseInt(cpcBodyMessage.getEx_start_carton())+1;
         }
+        if (cpcBodyMessage.getEx_count()!=null && !cpcBodyMessage.getEx_count().equals("")){
+            pcsNum =Double.parseDouble(cpcBodyMessage.getEx_count());
+        }
+
         if (cpcBodyMessage.getEx_release_unit()!=null && !cpcBodyMessage.getEx_release_unit().equals("")){
             releaseUnit = cpcBodyMessage.getEx_release_unit();
             selectData.clear();
@@ -136,9 +141,9 @@ public class CPCBodyList2Adapter extends RecyclerView.Adapter<CPCBodyList2Adapte
             unitMap.put(position,releaseUnit);
         }
         if (cpcBodyMessage.getEx_release_count()!=null && !cpcBodyMessage.getEx_release_count().equals("")){
-            releaseCount = Integer.parseInt(cpcBodyMessage.getEx_release_count());
             isChange = true;
             if (releaseUnit.equals("棧板")){
+                releaseCount = Integer.parseInt(cpcBodyMessage.getEx_release_count());
                 holder.etGetNum.setText((zbNum-releaseCount)+"");
                 numMap.put(position,(zbNum-releaseCount)+"");
                 if (zbNum-releaseCount==0){
@@ -151,6 +156,7 @@ public class CPCBodyList2Adapter extends RecyclerView.Adapter<CPCBodyList2Adapte
                     isConfirmOkMap.put(position,"Y");
                 }
             }else if (releaseUnit.equals("箱")){
+                releaseCount = Integer.parseInt(cpcBodyMessage.getEx_release_count());
                 holder.etGetNum.setText((xNum-releaseCount)+"");
                 numMap.put(position,(xNum-releaseCount)+"");
                 if (xNum-releaseCount==0){
@@ -162,7 +168,19 @@ public class CPCBodyList2Adapter extends RecyclerView.Adapter<CPCBodyList2Adapte
                     holder.spSelect.setEnabled(false);
                     isConfirmOkMap.put(position,"Y");
                 }
-            }else{
+            }else if (releaseUnit.equals("PCS")){
+                releasePCSCount = Double.parseDouble(cpcBodyMessage.getEx_release_count());
+                holder.etGetNum.setText((pcsNum-releasePCSCount)+"");
+                numMap.put(position,(pcsNum-releasePCSCount)+"");
+                if (pcsNum-releasePCSCount==0){
+                    holder.btnconfirm.setText("確認OK");
+                    holder.btnconfirm.setEnabled(false);
+                    holder.etGetNum.setEnabled(false);
+                    holder.tvAdd.setEnabled(false);
+                    holder.tvSub.setEnabled(false);
+                    holder.spSelect.setEnabled(false);
+                    isConfirmOkMap.put(position,"Y");
+                }
 
             }
             isChange = false;
@@ -215,11 +233,20 @@ public class CPCBodyList2Adapter extends RecyclerView.Adapter<CPCBodyList2Adapte
             public void onClick(View v) {
                 holder.etGetNum.setFocusable(false);
                 if (!holder.etGetNum.getText().toString().equals("")){
-                    int i = toInt(holder.etGetNum.getText().toString());
-                    if (i>0){
-                        holder.etGetNum.setText("" + (i - 1));
+                    if (unitMap.get(position).equals("PCS")){
+                        double i = toDouble(holder.etGetNum.getText().toString());
+                        if (i>0){
+                            holder.etGetNum.setText("" + (i - 1));
+                        }else {
+                            holder.etGetNum.setText("0");
+                        }
                     }else {
-                        holder.etGetNum.setText("0");
+                        int i = toInt(holder.etGetNum.getText().toString());
+                        if (i>0){
+                            holder.etGetNum.setText("" + (i - 1));
+                        }else {
+                            holder.etGetNum.setText("0");
+                        }
                     }
                 } else {
                     holder.etGetNum.setText("0");
@@ -231,17 +258,19 @@ public class CPCBodyList2Adapter extends RecyclerView.Adapter<CPCBodyList2Adapte
             public void onClick(View v) {
                 holder.etGetNum.setFocusable(false);
                 if (!holder.etGetNum.getText().toString().equals("")){
-                    int i = toInt(holder.etGetNum.getText().toString());
                     if (zbNum!=0 && unitMap.get(position).equals("棧板")){
-                        if (i>=0&&i<zbNum-releaseCount){
+                        int i = toInt(holder.etGetNum.getText().toString());
+                        if (i>=0 && i<zbNum-releaseCount){
                             holder.etGetNum.setText("" + (i + 1));
                         }
                     }else if (xNum!=0 && unitMap.get(position).equals("箱")){
-                        if (i>=0&&i<xNum-releaseCount){
+                        int i = toInt(holder.etGetNum.getText().toString());
+                        if (i>=0 && i<xNum-releaseCount){
                             holder.etGetNum.setText("" + (i + 1));
                         }
-                    }else {
-                        if (i>=0&&i<toDouble(lists.get(position).getEx_count())-releaseCount){
+                    }else if(pcsNum!=0 && unitMap.get(position).equals("PCS")){
+                        double i = toDouble(holder.etGetNum.getText().toString());
+                        if (i>=0 && i<pcsNum-releasePCSCount){
                             holder.etGetNum.setText("" + (i + 1));
                         }
                     }
@@ -282,7 +311,6 @@ public class CPCBodyList2Adapter extends RecyclerView.Adapter<CPCBodyList2Adapte
                                 numMap.put(position,s.toString());
                             }
                         }else if (xNum!=0 && unitMap.get(position).equals("箱")){
-
                             if (toInt(s.toString()) > xNum-releaseCount) {
                                 //Log.e("-----position#-----", ""+ position +' '+ s.toString());
                                 Toast.makeText(mContext, "序號"+ num + "數量過大，不能超過最大箱數", Toast.LENGTH_SHORT).show();
@@ -293,8 +321,8 @@ public class CPCBodyList2Adapter extends RecyclerView.Adapter<CPCBodyList2Adapte
                                 //Log.e("-----position-----", ""+ position +' '+ s.toString());
                                 numMap.put(position,s.toString());
                             }
-                        }else{
-                            if (toInt(s.toString()) > toDouble(lists.get(position).getEx_count())-releaseCount) {
+                        }else if(pcsNum!=0 && unitMap.get(position).equals("PCS")){
+                            if (toDouble(s.toString()) > pcsNum-releasePCSCount) {
                                 //Log.e("-----position#-----", ""+ position +' '+ s.toString());
                                 Toast.makeText(mContext, "序號"+num+ "數量過大，不能超過最大數量", Toast.LENGTH_SHORT).show();
                                 holder.etGetNum.setTextColor(Color.RED);

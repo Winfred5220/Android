@@ -49,8 +49,7 @@
                 android:layout_marginRight="@dimen/dimen_5"
                 android:gravity="center_vertical"
                 android:layout_weight="1"
-                android:text="歐央大事"
-                android:textSize="@dimen/text_size_18"
+                android:text="date"
                 android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"/>
             <!--姓名-->
@@ -61,8 +60,7 @@
                 android:layout_marginRight="@dimen/dimen_5"
                 android:gravity="center_vertical"
                 android:layout_weight="1"
-                android:text="歐央大事"
-                android:textSize="@dimen/text_size_18"
+                android:text="name"
                 android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"/>
             <!--狀態-->
@@ -72,8 +70,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="@dimen/dimen_10"
                 android:layout_centerVertical="true"
-                android:text="女"
-                />
+                android:text="statue"
+                android:textSize="@dimen/text_size_18"/>
         </LinearLayout>
 
         <View

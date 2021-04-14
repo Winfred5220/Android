@@ -16,73 +16,77 @@
         android:layout_height="match_parent">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dimen_40"
-        android:background="@color/color_fee123"
+        android:layout_height="wrap_content"
         android:layout_margin="@dimen/dimen_8"
         android:gravity="center"
         android:orientation="horizontal">
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/dimen_10"
             android:text="銷單："
+            android:background="@color/color_fee123"
             android:textColor="@color/color_303030"
             android:textSize="@dimen/text_size_18" />
         <TextView
             android:id="@+id/tv_no"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingRight="@dimen/dimen_10"
             android:text="銷單號"
+            android:background="@color/color_fee123"
             android:textStyle="bold"
             android:textColor="@color/color_303030"
             android:textSize="@dimen/text_size_18" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal">
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dimen_8"
-            android:text="請選擇門崗"
-            android:textStyle="bold"
-            android:layout_weight="9"
-            android:textColor="@color/color_303030"
-            android:textSize="@dimen/text_size_16" />
-        <EditText
-            android:id="@+id/et_gate_post"
-            style="@style/carEditTextBKG"
-            android:hint="手動輸入帶出"
-            android:layout_marginLeft="@dimen/dimen_8"
-            android:layout_marginRight="@dimen/dimen_8"
-            android:background="@drawable/login_input"
-            android:layout_weight="1" />
-    </LinearLayout>
-    <LinearLayout
-        android:id="@+id/ll_list_gate"
-        android:visibility="gone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal">
-        <TextView
+            android:gravity="center"
+            android:orientation="vertical">
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dimen_8"
-            android:layout_weight="9"
-            android:textColor="@color/color_303030"
-            android:textSize="@dimen/text_size_18" />
-        <com.example.administrator.yanfoxconn.widget.MyListView
-            android:id="@+id/lv_gate"
-            android:layout_marginLeft="@dimen/dimen_8"
-            android:layout_marginRight="@dimen/dimen_8"
-            style="@style/carTextBKG"
-            android:layout_weight="1" />
+            android:gravity="center"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dimen_20"
+                android:text="放行門崗"
+                android:layout_weight="8"
+                android:textColor="@color/color_303030"
+                android:textSize="@dimen/text_size_16" />
+            <EditText
+                android:id="@+id/et_gate_post"
+                style="@style/carEditTextBKG"
+                android:hint="手動輸入帶出"
+                android:layout_marginLeft="@dimen/dimen_8"
+                android:background="@drawable/login_input"
+                android:layout_weight="1" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/ll_list_gate"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dimen_20"
+                android:layout_weight="8"
+                android:textColor="@color/color_303030"
+                android:textSize="@dimen/text_size_18" />
+            <com.example.administrator.yanfoxconn.widget.MyListView
+                android:id="@+id/lv_gate"
+                android:layout_marginLeft="@dimen/dimen_8"
+                style="@style/carTextBKG"
+                android:layout_weight="1" />
+        </LinearLayout>
+        </LinearLayout>
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

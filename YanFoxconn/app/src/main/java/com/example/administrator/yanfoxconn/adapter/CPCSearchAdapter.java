@@ -67,8 +67,8 @@ public class CPCSearchAdapter extends BaseAdapter {
         }else {
             holder.tvSex.setTextColor(convertView.getResources().getColor(R.color.color_pink));
         }
-        holder.tvDate.setText("出貨日期"+lists.get(position).getEx_date().substring(0,10));
-        holder.tvName.setText(lists.get(position).getEx_sender()+"發送");
+        holder.tvDate.setText("出貨日期 "+lists.get(position).getEx_date().substring(0,10));
+        holder.tvName.setText(lists.get(position).getEx_sender()+" 發送");
         holder.tvId.setText(lists.get(position).getEx_no());
 
         return convertView;

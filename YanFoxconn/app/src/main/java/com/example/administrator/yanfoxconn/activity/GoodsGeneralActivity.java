@@ -114,8 +114,11 @@ public class GoodsGeneralActivity extends BaseActivity implements View.OnClickLi
     TableRow trListGate;
     @BindView(R.id.lv_gate)
     MyListView lvGate;//放行門崗列表
-    @BindView(R.id.tv_duty_guard)
-    TextView tvDutyGuard;//当值警卫
+    @BindView(R.id.et_duty_guard)
+    EditText etDutyGuard;//当值警卫
+    @BindView(R.id.et_duty_code)
+    EditText etDutyCode;//当值警卫工號
+
     @BindView(R.id.et_code)
     EditText etCode;//工號
     @BindView(R.id.et_name)
@@ -144,7 +147,9 @@ public class GoodsGeneralActivity extends BaseActivity implements View.OnClickLi
 
         code = getIntent().getStringExtra("code");
         id = getIntent().getStringExtra("id");
-
+        if (id==null){
+            id = "";
+        }
         tvTitle.setText("普通物品放行");
         btnBack.setOnClickListener(this);
         btnUp.setText("提交");
@@ -376,6 +381,14 @@ public class GoodsGeneralActivity extends BaseActivity implements View.OnClickLi
         }else{
             xname=etName.getText().toString().replaceAll(" ","");
         }
+        if (etDutyCode.getText().toString().replaceAll(" ","").equals("")){
+            ToastUtils.showShort(GoodsGeneralActivity.this,"請輸入警衛工號!");
+            return;
+        }
+        if (etDutyGuard.getText().toString().replaceAll(" ","").equals("")){
+            ToastUtils.showShort(GoodsGeneralActivity.this,"請輸入警衛姓名!");
+            return;
+        }
         if (selectTime.getTime()-curDate.getTime()>0){
             ToastUtils.showShort(GoodsGeneralActivity.this,"放行時間不能超過當前時間");
             return;
@@ -393,10 +406,8 @@ public class GoodsGeneralActivity extends BaseActivity implements View.OnClickLi
             jc_type="出";
         }
 
-
-        upMsessage(code,tvEffNum.getText().toString(),change(etRelGate.getText().toString()),
-                FoxContext.getInstance().getLoginId().toString(),FoxContext.getInstance().getName().toString(),
-                tvCirMode.getText().toString(),tvReleaseDate.getText().toString(),jc_type,xcode,xname,goodsMsg);
+upMsessage(etCode.getText().toString(),tvEffNum.getText().toString(),change(etRelGate.getText().toString()), etDutyCode.getText().toString(),
+        etDutyGuard.getText().toString(),tvCirMode.getText().toString(),tvReleaseDate.getText().toString(),jc_type,xcode,xname,goodsMsg);
     }
 //提交数据
     private void upMsessage(String code, String id,String mengang,String scode,String sname,String type,
@@ -519,8 +530,12 @@ public class GoodsGeneralActivity extends BaseActivity implements View.OnClickLi
             trJc.setVisibility(View.VISIBLE);
             rbC.setChecked(true);
         }
-        tvDutyGuard.setText(FoxContext.getInstance().getName());
-
+        if (id==null || id.equals("")){
+            etDutyGuard.setText(FoxContext.getInstance().getName());
+            etDutyGuard.setEnabled(false);
+            etDutyCode.setText(FoxContext.getInstance().getLoginId());
+            etDutyCode.setEnabled(false);
+        }
 
         if (goodsList != null) {
             LinearLayoutManager layoutManager = new LinearLayoutManager(GoodsGeneralActivity.this);

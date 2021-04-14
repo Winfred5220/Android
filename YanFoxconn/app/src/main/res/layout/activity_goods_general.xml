@@ -162,17 +162,26 @@
                 android:layout_marginLeft="@dimen/dimen_2"
                 android:layout_weight="1" />
         </TableRow>
-        <!--当值警卫-->
-        <TableRow
-            android:id="@+id/tr_duty_guard"
-            style="@style/tableRow">
-            <TextView style="@style/carTextName"
-                android:text="當值警衛："/>
-            <TextView
-                android:id="@+id/tv_duty_guard"
-                style="@style/mobile_message"
-                android:layout_weight="1" />
-        </TableRow>
+          <!--当值警卫-->
+          <TableRow
+              style="@style/tableRow">
+              <TextView style="@style/carTextName"
+                  android:text="當值警衛："/>
+              <EditText
+                  style="@style/mobile_message"
+                  android:digits="0123456789qwertyuioplkjhgfdsazxcvbnmQWETYUIOPASDFGHJKLZXCVBNM"
+                  android:id="@+id/et_duty_code"
+                  android:hint="工號"
+                  android:layout_width="0dp"
+                  android:layout_weight="1" />
+              <EditText
+                  android:id="@+id/et_duty_guard"
+                  style="@style/mobile_message"
+                  android:hint="姓名"
+                  android:layout_width="0dp"
+                  android:layout_marginLeft="@dimen/dimen_2"
+                  android:layout_weight="1" />
+          </TableRow>
         <!--放行時間-->
         <TableRow style="@style/tableRow">
 

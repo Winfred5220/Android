@@ -24,8 +24,8 @@ public class Constants {
     public static final String SERVER = "http://ytsafeserver.foxconn.com/Server/";    //杰哥
     public static String HTTP_WEBVIEW = "http://ytlogisticgps.foxconn.com/" ;//WEBVIEW
 //本地测试服务器
-    public static String safeServerlocal = "http://10.201.131.20:8080/SafeServer/";//SafeServer接口測試
-    public static String serverlocal = "http://10.201.131.20:8080/Server/";//Server接口測試
+    public static String safeServerlocal = "http://192.168.1.133:8080/SafeServer/";//SafeServer接口測試
+    public static String serverlocal = "http://192.168.1.133:8080/Server/";//Server接口測試
     public static String L4 = "http://10.193.22.189:8080/SafeServer/";//玲
     public static final String HTTP_LOGIN = SAFE_SERVER + "LoginServlet";//登錄
     public static String HTTP_DIMEMSION_SERVLET = SAFE_SERVER + "safeCheck/DimemsionServlet";//巡檢進度列表
