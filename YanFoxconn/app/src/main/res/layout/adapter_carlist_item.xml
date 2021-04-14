@@ -114,4 +114,20 @@
         android:paddingRight="20dp"
         android:text="上傳"
         android:textColor="@android:color/white" />
+    <!--分割線-->
+    <View
+        android:layout_width="@dimen/dimen_1"
+        android:layout_height="match_parent"
+        android:background="@color/result_view" />
+    <!--查看-->
+    <TextView
+        android:id="@+id/tv_look"
+        android:layout_width="80dp"
+        android:layout_height="match_parent"
+        android:background="@color/color_009adb"
+        android:gravity="center"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:text="查看"
+        android:textColor="@android:color/white" />
 </LinearLayout>

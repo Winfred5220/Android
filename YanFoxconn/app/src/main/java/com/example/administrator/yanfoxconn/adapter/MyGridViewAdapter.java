@@ -271,6 +271,8 @@ public class MyGridViewAdapter extends BaseAdapter {
                     tvGridView.setTag("ig");
                 } else if (rolesList.get(i).equals("II")) {//成品倉出貨
                     tvGridView.setTag("ii");
+                } else  if (rolesList.get(i).equals("LMNOP")) {//總務 商鋪物業
+                    tvGridView.setTag("lmnop");
                 } else {
                     tvGridView.setTag("true");
                 }
@@ -481,6 +483,8 @@ public class MyGridViewAdapter extends BaseAdapter {
                     onClickListener.OnClickIH();
                 } else if (view.getTag().equals("ig")) {//宿舍寄存
                     onClickListener.OnClickIG();
+                } else if (view.getTag().equals("lmnop")) {//總務 商鋪物業
+                    onClickListener.OnClickLMNOP();
                 } else if (view.getTag().equals("ii")) {//成品倉出貨
                     onClickListener.OnClickII();
                 } else {
@@ -578,6 +582,7 @@ public class MyGridViewAdapter extends BaseAdapter {
         void OnClickHW();//人資文康場館
         void OnClickHZ();//華北商貿倉庫
         void OnClickIA();//關愛中心倉庫
+        void OnClickLMNOP();//總務 商鋪物業
 
         void OnClickN0();//A
         void OnClickP0();//C

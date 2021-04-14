@@ -900,7 +900,14 @@ public class MyExpandableListViewAdapter extends BaseExpandableListAdapter {
                 Intent intent = new Intent(mContext.getActivity(), IGListActivity.class);
                 intent.putExtra("from", "IG");
                 mContext.getActivity().startActivity(intent);
+            }
 
+            @Override//總務 商鋪物業
+            public void OnClickLMNOP() {
+                Intent intent = new Intent(mContext.getActivity(), ProductDivisionActivity.class);
+                intent.putExtra("title", "商鋪物業巡檢");
+                intent.putExtra("type", "LMNOP");
+                mContext.getActivity().startActivity(intent);
             }
 
             @Override

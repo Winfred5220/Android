@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -26,6 +27,7 @@ import com.example.administrator.yanfoxconn.utils.HttpUtils;
 import com.example.administrator.yanfoxconn.utils.ToastUtils;
 import com.example.administrator.yanfoxconn.widget.CarPopupWindow;
 import com.example.administrator.yanfoxconn.widget.SwipeListView;
+import com.example.administrator.yanfoxconn.widget.SwipeListViewThree;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -46,7 +48,7 @@ import butterknife.ButterKnife;
  * Created by song on 2018/5/14.
  */
 
-public class CarListActivity extends BaseActivity implements View.OnClickListener {
+public class CarListActivity extends BaseActivity implements View.OnClickListener{
     private final int MESSAGE_UPLOAD = 1;
     private final int MESSAGE_TOAST = 2;
     private final int MESSAGE_DILOG = 3;
@@ -59,7 +61,7 @@ public class CarListActivity extends BaseActivity implements View.OnClickListene
     @BindView(R.id.ib_title_right)
     ImageButton ibRight;//右側彈出菜單
     @BindView(R.id.lv_car_list)
-    SwipeListView slvCar;//車輛列表
+    SwipeListViewThree slvCar;//車輛列表
 
 
     private CarPopupWindow CarPopupWindow;
@@ -91,7 +93,6 @@ public class CarListActivity extends BaseActivity implements View.OnClickListene
 
         btnBack.setOnClickListener(this);
         ibRight.setOnClickListener(this);
-
         ibRight.setBackgroundResource(R.mipmap.title_more_icon);
 
 //        carListMessages = (List<CarListMessage>) getIntent().getSerializableExtra("list");
@@ -123,6 +124,15 @@ public class CarListActivity extends BaseActivity implements View.OnClickListene
                 String[] b = carListMessages.get(position).getPacking_no().split(" ");
 
                 getCarPhoto(b[0]);
+            }
+
+            @Override
+            public void OnClickListenerLook(int position) {
+                Log.e("-------","position=="+position);
+                Intent intent = new Intent(CarListActivity.this,WebViewActivity.class);
+                intent.putExtra("role","LMNOP");
+                intent.putExtra("num",carListMessages.get(position).getPacking_no());
+                startActivity(intent);
             }
         });
     }
@@ -184,6 +194,9 @@ public class CarListActivity extends BaseActivity implements View.OnClickListene
                 break;
         }
     }
+
+
+
 
     //右上角菜單點擊事件
     class OnClickLintener implements View.OnClickListener {

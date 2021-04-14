@@ -99,6 +99,7 @@ public class CarListAdapter extends BaseAdapter{
             holder.state = (TextView) convertView.findViewById(R.id.tv_state);
             holder.tvGo = convertView.findViewById(R.id.tv_let_go);//放行
             holder.tvAdd = convertView.findViewById(R.id.tv_up_photo);//上傳
+            holder.tvLook = convertView.findViewById(R.id.tv_look);//查看
 holder.time = convertView.findViewById(R.id.tv_time);//時間
             convertView.setTag(holder);
         } else {
@@ -137,14 +138,22 @@ holder.time = convertView.findViewById(R.id.tv_time);//時間
                 }
             }
         });
-        holder.tvAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (onClickListenerGoOrAdd != null) {
-                    onClickListenerGoOrAdd.OnClickListenerAdd(position);
+            holder.tvAdd.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (onClickListenerGoOrAdd != null) {
+                        onClickListenerGoOrAdd.OnClickListenerAdd(position);
+                    }
                 }
-            }
-        });
+            });
+            holder.tvLook.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (onClickListenerGoOrAdd != null) {
+                        onClickListenerGoOrAdd.OnClickListenerLook(position);
+                    }
+                }
+            });
         } else {
             if (role.equals("two")) {
                 holder.time.setVisibility(View.VISIBLE);
@@ -171,13 +180,14 @@ holder.time = convertView.findViewById(R.id.tv_time);//時間
     private class ViewHolder {
         public TextView carId,dock,container,state;//車牌號,碼頭,櫃號,狀態 或 單號,公司名稱,司機姓名,車牌號
         public TextView time;//時間
-        public TextView  tvGo, tvAdd;//放行,提交
+        public TextView  tvGo, tvAdd,tvLook;//放行,提交,查看
     }
 
     public interface OnClickListenerGoOrAdd {
         void OnClickListenerGo(int position);
 
         void OnClickListenerAdd(int position);
+        void OnClickListenerLook(int position);
     }
 
     public void setOnClickListenerGoOrAdd(OnClickListenerGoOrAdd onClickListenerGoOrAdd) {

@@ -60,7 +60,8 @@ public class ProductDivisionActivity extends BaseActivity implements View.OnClic
             { "X光檢測機", "研磨機", "電特性檢測設備", "溫度測定儀","電子顯微鏡"},//品質保證處SMT
             { "光譜儀", "卡尺校正儀", "多功能校準器", "三次元","臺式色差儀器","數字萬用表"},//品質保證處ME
             { "放電加工機", "線割加工機", "工安巡檢"},//模具
-            { "廢料點檢", "污水及廢氣點檢", "危廢倉點檢","棧板廠點檢"}//環境安全
+            { "廢料點檢", "污水及廢氣點檢", "危廢倉點檢","棧板廠點檢"},//環境安全
+            {"非餐飲商鋪運營","餐飲商鋪運營","非餐飲商鋪安全","餐飲商鋪安全","中建房產"}//總務 商鋪物業
     };
     public String[][] proRole = {
             {"U0", "BD","BE","CH","HJ","HH","HI","HF"
@@ -77,7 +78,8 @@ public class ProductDivisionActivity extends BaseActivity implements View.OnClic
             {"EG","EJ","EL","EW","EX"},//品質保證處SMT
             {"EH","EK","EN","EU","FA","FB"},//品質保證處ME
             {"GY","GZ","HG"},//模具
-            {"HM","HO","HN","HP"}//環境安全
+            {"HM","HO","HN","HP"},//環境安全
+            {"IO","IN","IM","IL","IP"}//總務 商鋪物業
     };
     public int[][] proIcon = {
             {R.mipmap.icon_chejian, R.mipmap.icon_tiantai, R.mipmap.icon_anquanchu,
@@ -102,7 +104,8 @@ public class ProductDivisionActivity extends BaseActivity implements View.OnClic
             {R.mipmap.icon_a,R.mipmap.icon_b,R.mipmap.icon_c,R.mipmap.icon_e,R.mipmap.icon_d,
                     R.mipmap.icon_df},//品質保證處ME
             {R.mipmap.icon_a,R.mipmap.icon_b,R.mipmap.icon_c},//模具
-            {R.mipmap.icon_a,R.mipmap.icon_b,R.mipmap.icon_c,R.mipmap.icon_d}//環境安全
+            {R.mipmap.icon_a,R.mipmap.icon_b,R.mipmap.icon_c,R.mipmap.icon_d},//環境安全
+            {R.mipmap.icon_a,R.mipmap.icon_b,R.mipmap.icon_c,R.mipmap.icon_d,R.mipmap.icon_d}//環境安全
     };
 
     private List<ProductDivisionMessage> mProductDivisionMessagelist;
@@ -151,7 +154,8 @@ public class ProductDivisionActivity extends BaseActivity implements View.OnClic
                     startActivity(intent);
                 }else if(FoxContext.getInstance().getRoles().contains(role)&&(role.equals("CZ")||role.equals("DU")||role.equals("DV")
                         ||role.equals("DW")||role.equals("DX")||role.equals("EB")||role.equals("DY")||role.equals("GP")||role.equals("GO")
-                        ||role.equals("HG")||role.equals("HM")||role.equals("HO")||role.equals("HP")||role.equals("HN")||role.equals("CF"))){
+                        ||role.equals("HG")||role.equals("HM")||role.equals("HO")||role.equals("HP")||role.equals("HN")||role.equals("CF")
+                        ||role.equals("IL")||role.equals("IM")||role.equals("IN")||role.equals("IO")||role.equals("IP"))){
                     FoxContext.getInstance().setType(role);
                     Intent intent = new Intent(ProductDivisionActivity.this, QrCodeActivity.class);
                     intent.putExtra("title", "掃描二維碼");
@@ -300,6 +304,15 @@ public class ProductDivisionActivity extends BaseActivity implements View.OnClic
                 ProductDivisionMessage productDivisionMessage = new ProductDivisionMessage(proNameList.get(i),proRoleList.get(i),proIconList.get(i));
                 mProductDivisionMessagelist.add(productDivisionMessage);
             }
+        }else if (type.equals("LMNOP")){
+            for (int i = 0; i < proName[14].length; i++) {
+                proNameList.add(proName[14][i]);
+                proRoleList.add(proRole[14][i]);
+                proIconList.add(proIcon[14][i]);
+                ProductDivisionMessage productDivisionMessage = new ProductDivisionMessage(proNameList.get(i),proRoleList.get(i),proIconList.get(i));
+                mProductDivisionMessagelist.add(productDivisionMessage);
+            }
+
         }else {
             ToastUtils.showShort(ProductDivisionActivity.this,"選擇產品處出錯");
         }
