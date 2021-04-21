@@ -63,7 +63,7 @@ import java.util.List;
  * Created by wang on 2019/11/9.
  */
 
-public class  XunjianFragment extends Fragment implements View.OnClickListener{
+public class   XunjianFragment extends Fragment implements View.OnClickListener{
 
     private final int MESSAGE_GPS = 1;//判斷GPS
     private final int MESSAGE_TOAST = 2;//showToast
@@ -92,7 +92,7 @@ public class  XunjianFragment extends Fragment implements View.OnClickListener{
 //    private AMapLocationClient locationClient = null;
 
     public String[] group = {"物流防疫", "安全保障服務部", "工業安全部", "總務", "營建", "產品處", "運籌物流",
-            "車輛服務", "海關協管", "人力資源部","華北商務","關愛中心","工會","品規發展服務處","南寧廠區"}; //"NME安全部", "VIP安全部", "PME安全部",
+            "車輛服務", "海關協管", "人力資源部","華北商務","關愛中心","工會","品規發展服務處","南寧廠區","Sharp研究院"}; //"NME安全部", "VIP安全部", "PME安全部",
     public String[][] gridViewType = {
             {"CY"},//物流防疫
             {"A0", "T0", "H0", "K0", "I0", "L0", "J0", "M0", "R0", "S0", "CD", "CE", "CL", "CR",
@@ -110,7 +110,8 @@ public class  XunjianFragment extends Fragment implements View.OnClickListener{
             {"IA","IF"},//關愛中心
             {"IE"},//工會
             {"QAQ","SMT","MEM"},//品質保證處
-            {"GQ","GR","GS"}//南寧
+            {"GQ","GR","GS"},//南寧
+            {"IQ"}//夏普研究院
     };
     public String[][] gridViewChild = {
             {"消殺點檢"},//物流防疫
@@ -131,7 +132,8 @@ public class  XunjianFragment extends Fragment implements View.OnClickListener{
             {"屋室點檢","其他工作區"},//關愛中心
             {"空間點檢"},//工會
             {"QA","SMT","ME"},//品質保證處
-            {"總務直飲水","機電巡檢","警衛巡邏"}//南寧
+            {"總務直飲水","機電巡檢","警衛巡邏"},//南寧
+            {"參觀前巡檢"}//sharp
     };
     public int[][] img = {
             {R.mipmap.icon_xiaosha},//物流防疫
@@ -164,6 +166,7 @@ public class  XunjianFragment extends Fragment implements View.OnClickListener{
             {R.mipmap.icon_ziliaoshi},//工會
             {R.mipmap.icon_pzbzc,R.mipmap.icon_pzbzc,R.mipmap.icon_pzbzc},//品質保證處
             {R.mipmap.icon_zhiyinshui,R.mipmap.icon_jidongx,R.mipmap.icon_yidadui_1},//南寧
+            {R.mipmap.ic_sharp_logo}//夏普
     };
 
     /**

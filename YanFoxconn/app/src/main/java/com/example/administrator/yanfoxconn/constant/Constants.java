@@ -26,6 +26,9 @@ public class Constants {
 //本地测试服务器
     public static String safeServerlocal = "http://192.168.1.133:8080/SafeServer/";//SafeServer接口測試
     public static String serverlocal = "http://192.168.1.133:8080/Server/";//Server接口測試
+
+    public static final String LING_SERVER = "http://ytsafeserver.foxconn.com/SafeServer/";//玲姐
+
     public static String L4 = "http://10.193.22.189:8080/SafeServer/";//玲
     public static final String HTTP_LOGIN = SAFE_SERVER + "LoginServlet";//登錄
     public static String HTTP_DIMEMSION_SERVLET = SAFE_SERVER + "safeCheck/DimemsionServlet";//巡檢進度列表
@@ -162,6 +165,9 @@ public class Constants {
     public static String HTTP_DEPOSIT_OK = SAFE_SERVER+"Store/DepositOKServlet";//寄存信息產看並排配 提交
     public static String HTTP_ISSUE_OK = SAFE_SERVER+"Store/IssueOKServlet";//領取確認
     public static String HTTP_STORE_DELETE_BY_ID = SAFE_SERVER+"Store/DeleteByIdServlet";//刪除申請  sid
+    public static String HTTP_LOCATION_BY_ID = LING_SERVER+"Store/LocationByIdServlet";//更換儲位 sl_code+zwuser
+    public static String HTTP_LOCATION_FIND = LING_SERVER+"Store/LocationFindServlet";//更換儲位 sh_code
+    public static String HTTP_LOCATION_UPDATE = LING_SERVER+"Store/LocationUpdateServlet";//更換儲位 更新提交
 
     public static String HTTP_RZ_SCAN_STATUS = SAFE_SERVER+"RZ/ScanStatusServlet";//人資監餐 狀態查詢
     public static String HTTP_RZ_SCAN_SIGNIN = SAFE_SERVER+"RZ/ScanSignInServlet";//人資監餐 簽到

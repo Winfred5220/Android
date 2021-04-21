@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--宿舍寄存 儲位變更-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <!--標題-->
+    <include layout="@layout/common_title"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_margin="@dimen/dimen_10">
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <!--物品種類/數量 標題-->
+                    <TableRow
+                        style="@style/tableRow"
+                        android:visibility="visible">
+
+                        <TextView style="@style/carTextName"
+                            android:layout_height="wrap_content"
+                            android:text="物品信息："/>
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+                            <!--    物品類型-->
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="物品類型"/>
+                            <!--    物品數量-->
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="數量"/>
+                        </LinearLayout>
+
+
+                    </TableRow>
+                    <!--物品種類/數量 數據-->
+                    <TableRow
+                        style="@style/tableRow"
+                        android:visibility="visible">
+
+                        <TextView style="@style/carTextName"
+                            android:layout_height="wrap_content"
+                            android:text=""/>
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+                            <!--    物品類型-->
+                            <TextView
+                                android:id="@+id/tv_type"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="物品類型"/>
+                            <!--    物品數量-->
+                            <TextView
+                                android:id="@+id/tv_num"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="數量"/>
+                        </LinearLayout>
+                    </TableRow>
+                    <TableRow
+                        style="@style/tableRow"
+                        android:visibility="visible">
+
+                        <TextView style="@style/carTextName"
+                            android:layout_height="wrap_content"
+                            android:text=""/>
+                            <!--    物品類型-->
+                            <TextView
+                                android:id="@+id/tv_store"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="儲位名稱"/>
+                    </TableRow>
+                    <!--下拉選擇倉庫-->
+                    <TableRow style="@style/tableRow"
+                        android:id="@+id/tr_store"
+                        android:visibility="visible">
+
+                        <TextView
+                            style="@style/carTextName"
+                            android:text="選擇倉庫：" />
+
+                        <Spinner
+                            android:id="@+id/sp_store"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1" />
+                    </TableRow>
+<!--                    更新後儲位-->
+                    <TableRow
+                        android:id="@+id/tr_new_store"
+                        style="@style/tableRow"
+                        android:visibility="gone">
+
+                        <TextView style="@style/carTextName"
+                            android:layout_height="wrap_content"
+                            android:text="更新儲位："/>
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+                            <!--    儲位名稱-->
+                            <TextView
+                                android:id="@+id/tv_new_store"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="儲位名稱"/>
+
+                        </LinearLayout>
+
+
+                    </TableRow>
+                </TableLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

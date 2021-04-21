@@ -915,6 +915,16 @@ public class MyExpandableListViewAdapter extends BaseExpandableListAdapter {
                 Intent intent = new Intent(mContext.getActivity(), CPCSearchActivity.class);
                 mContext.getActivity().startActivity(intent);
             }
+
+            @Override//sharp 巡檢
+            public void OnClickIQ() {
+
+                FoxContext.getInstance().setType("IQ");
+                Intent intent = new Intent(mContext.getActivity(), QrCodeActivity.class);
+                intent.putExtra("title", "掃描二維碼");
+                intent.putExtra("num", "cz");
+                mContext.getActivity().startActivity(intent);
+            }
         });
         return convertView;
     }
