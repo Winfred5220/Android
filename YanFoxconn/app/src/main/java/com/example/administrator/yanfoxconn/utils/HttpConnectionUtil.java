@@ -6,9 +6,7 @@ package com.example.administrator.yanfoxconn.utils;
  */
 
 import android.util.Log;
-
 import com.google.gson.JsonObject;
-
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.File;
@@ -84,7 +82,7 @@ public class HttpConnectionUtil {
                 os.write(LINEND.getBytes());
             }
         }
-        Log.i("======", text.toString());
+        //Log.i("======", text.toString());
         // 請求結束標誌
         byte[] end_data = (PREFIX + BOUNDARY + PREFIX + LINEND).getBytes();
         os.write(end_data);
@@ -106,13 +104,13 @@ public class HttpConnectionUtil {
             b.append(readLine);
         }
         in.close();
-        Log.e("--oo-----------",b.toString());
+        //Log.e("--oo-----------",b.toString());
 
 //         得到回應碼
         int res = conn.getResponseCode();
-        Log.e("oo----------oo",res+"");
-        Log.e("oo----------oo",conn.getResponseMessage()+"");
-        Log.e("oo----------oo","asdf " + conn.getResponseMessage());
+        //Log.e("oo----------oo",res+"");
+        //Log.e("oo----------oo",conn.getResponseMessage()+"");
+        //Log.e("oo----------oo","asdf " + conn.getResponseMessage());
 
         conn.disconnect();
         return b.toString();
@@ -162,13 +160,13 @@ public class HttpConnectionUtil {
             result.append(new String(readLine.getBytes(),"utf-8"));
         }
         in.close();
-        Log.e("--oo-----------",result.toString());
+        //Log.e("--oo-----------",result.toString());
 
 //         得到回應碼
         int res = conn.getResponseCode();
-        Log.e("oo----------oo",res+"");
-        Log.e("oo----------oo","conn.getResponseMessage()=="+conn.getResponseMessage()+"");
-        Log.e("oo----------oo","asdf==result.toString()==" + result.toString());
+        //Log.e("oo----------oo",res+"");
+        //Log.e("oo----------oo","conn.getResponseMessage()=="+conn.getResponseMessage()+"");
+        //Log.e("oo----------oo","asdf==result.toString()==" + result.toString());
 
         conn.disconnect();
         return result.toString();
@@ -230,7 +228,7 @@ public class HttpConnectionUtil {
                 os.write(LINEND.getBytes());
             }
         }
-        Log.i("======", text.toString());
+        //Log.i("======", text.toString());
         // 請求結束標誌
         byte[] end_data = (PREFIX + BOUNDARY + PREFIX + LINEND).getBytes();
         os.write(end_data);
@@ -254,17 +252,14 @@ public class HttpConnectionUtil {
             b.append(readLine);
         }
         in.close();
-        Log.e("--oo-----------",b.toString());
+        //Log.e("--oo-----------",b.toString());
 
 
 //         得到回應碼
         int res = conn.getResponseCode();
-        Log.e("oo----------oo",res+"");
-        Log.e("oo----------oo",conn.getResponseMessage()+"");
-        Log.e("oo----------oo","asdf " + conn.getResponseMessage());
-//ToastUtils.showShort(this,"上傳成功");
-//        System.out.println("asdf code "+ res);
-//        System.out.println("asdf " + conn.getResponseMessage());
+        //Log.e("oo----------oo",res+"");
+        //Log.e("oo----------oo",conn.getResponseMessage()+"");
+        //Log.e("oo----------oo","asdf " + conn.getResponseMessage());
 
         conn.disconnect();
         return conn;

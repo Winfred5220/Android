@@ -14,19 +14,20 @@ public class Constants {
     public static final int MESSAGE_NETMISTAKE = 5;//網絡錯誤
     public static final int MESSAGE_DELETE_SUCCESS = 6;//刪除成功，刷新列表
     public static final int MESSAGE_NOT_NET = 7;//網絡錯誤
-
+    public static final int MESSAGE_SET_MATOU = 8;//網絡錯誤
 
 //14.19服务器
 //    public static final String SAFE_SERVER = "http://ytlogisticgps.foxconn.com/SafeServer/";//玲姐
 //    public static final String SERVER = "http://ytlogisticgps.foxconn.com/Server/";    //杰哥
 //14.40服务器
     public static final String SAFE_SERVER = "http://ytsafeserver.foxconn.com/SafeServer/";//玲姐
-    public static final String SERVER = "http://ytsafeserver.foxconn.com/Server/";    //杰哥
+    public static final String SERVER = "http://ytsafeserver.foxconn.com/Server/";//杰哥
     public static String HTTP_WEBVIEW = "http://ytlogisticgps.foxconn.com/" ;//WEBVIEW
 //本地测试服务器
-    public static String safeServerlocal = "http://192.168.1.133:8080/SafeServer/";//SafeServer接口測試
+    public static String safeServerlocal = "http://192.168.1.138:8080/SafeServer/";//SafeServer接口測試
     public static String serverlocal = "http://192.168.1.133:8080/Server/";//Server接口測試
     public static String L4 = "http://10.193.22.189:8080/SafeServer/";//玲
+
     public static final String HTTP_LOGIN = SAFE_SERVER + "LoginServlet";//登錄
     public static String HTTP_DIMEMSION_SERVLET = SAFE_SERVER + "safeCheck/DimemsionServlet";//巡檢進度列表
     public static String HTTP_DIMEMSION_STATE_SERVLET = SAFE_SERVER + "safeCheck/DimemsionStateServlet";//掃描二維碼交互
@@ -103,14 +104,14 @@ public class Constants {
     public static String HTTP_DUTY_CHIEF_PROBLEM_SEE_SERVLET = SERVER + "DutyChiefProblemSeeServlet";//值班科長稽核問題查看接口
     public static String HTTP_DUTY_CHIEF_PROBLEM_DEL_SERVLET = SERVER + "DutyChiefProblemDeleteServlet";//值班科長稽核問題刪除接口
 
-    public static String HTTP_TUNGANDPRODUCT_SERVLET = serverlocal + "TungAndProductServlet";//獲取樓棟產品處接口
-    public static String HTTP_INDUSSAFE_DEPARTUPDATE_SERVLET = serverlocal + "IndusSafe_departUpdateServlet";//部門基本信息提交接口
-    public static String HTTP_INDUSSAFE_DEPARTLISTVIEW_SERVLET = serverlocal + "IndusSafe_departListViewServlet";//獲取部門基本信息列表接口
-    public static String HTTP_INDUSSAFE_PERSONUPDATE_SERVLET = serverlocal + "IndusSafe_personUpdateServlet";//巡查人陪查人上傳接口
-    public static String HTTP_INDUSSAFE_SUGGESTUPDATE_SERVLET = serverlocal + "IndusSafe_suggestUpdateServlet";//優缺建議上傳接口
-    public static String HTTP_INDUSSAFE_DANGER_UPDATE_SERVLET = serverlocal + "IndustrySafetyDangerPhotoServlet";//隱患上傳接口
-    public static String HTTP_INDUSSAFE_DANGER_VIEW_SERVLET = serverlocal + "IndusSafe_dangerListViewServlet";//隱患查看接口
-    public static String HTTP_INDUSSAFE_DANGER_DELETE_SERVLET = serverlocal + "IndusSafe_dangerDeleteServlet";//隱患刪除接口
+    public static String HTTP_TUNGANDPRODUCT_SERVLET = L4 + "TungAndProductServlet";//獲取樓棟產品處接口
+    public static String HTTP_INDUSSAFE_DEPARTUPDATE_SERVLET = L4 + "IndusSafe_departUpdateServlet";//部門基本信息提交接口
+    public static String HTTP_INDUSSAFE_DEPARTLISTVIEW_SERVLET = L4 + "IndusSafe_departListViewServlet";//獲取部門基本信息列表接口
+    public static String HTTP_INDUSSAFE_PERSONUPDATE_SERVLET = L4 + "IndusSafe_personUpdateServlet";//巡查人陪查人上傳接口
+    public static String HTTP_INDUSSAFE_SUGGESTUPDATE_SERVLET = L4 + "IndusSafe_suggestUpdateServlet";//優缺建議上傳接口
+    public static String HTTP_INDUSSAFE_DANGER_UPDATE_SERVLET = L4 + "IndustrySafetyDangerPhotoServlet";//隱患上傳接口
+    public static String HTTP_INDUSSAFE_DANGER_VIEW_SERVLET = L4 + "IndusSafe_dangerListViewServlet";//隱患查看接口
+    public static String HTTP_INDUSSAFE_DANGER_DELETE_SERVLET = L4 + "IndusSafe_dangerDeleteServlet";//隱患刪除接口
 
     public static String HTTP_CY_SAFEVIEW_SERVLET = SERVER + "SafeViewServlet";//消殺車輛獲取列表
     public static String HTTP_XS_CY_SAFEDATASAVE_SERVLET = SERVER+"XSUploadFileServlet";//消殺點檢提交接口
@@ -217,12 +218,6 @@ public class Constants {
     public static String HTTP_CANT_CHECK_UP = SAFE_SERVER +"ExceCantCheckUpServlet";//  無法點檢上傳異常
     public static String HTTP_CAR_TYPE = SAFE_SERVER +"CarProgressTypeServlet";//  車輛點檢進度-車輛類別
 
-    public static String HTTP_CPC_SEARCH_SERVLET = safeServerlocal +"CPCSearchServlet";//成品倉無紙化 銷單查詢
-    public static String HTTP_CPC_BODY_LIST_SERVLET = safeServerlocal +"CPCGetBodyListServlet";//成品倉無紙化 銷單貨物信息
-    public static String HTTP_CPC_CONFIRM_SERVLET = safeServerlocal +"CPCConfirmServlet";//成品倉無紙化 單筆確認
-    public static String HTTP_CPC_CONFIRM_ALL_SERVLET = safeServerlocal +"CPCConfirmAllUpServlet";//成品倉無紙化 最終確認
-    public static String HTTP_CPC_NG_UP_SERVLET = safeServerlocal +"CPCNGUPServlet";//成品倉無紙化 NG提交
-    public static String HTTP_CPC_NG_DELETE_SERVLET = safeServerlocal +"CPCNGDeleteServlet";//成品倉無紙化 取消NG
-
+    public static String HTTP_CPC_JSON_SERVLET = SAFE_SERVER +"CPCJsonUpServlet";//成品倉無紙化
 
 }

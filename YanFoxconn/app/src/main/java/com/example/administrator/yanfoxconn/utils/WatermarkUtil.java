@@ -28,6 +28,7 @@ public class WatermarkUtil {
      * 水印文本
      */
     private String mText;
+    private String mText2;
     /**
      * 字体颜色，十六进制形式，例如：0xAEAEAEAE
      */
@@ -44,6 +45,7 @@ public class WatermarkUtil {
 
     private WatermarkUtil() {
         mText = "";
+        mText2 = "";
         mTextColor = 0xAEAEAEAE;
         mTextSize = 14;
         mRotation = -25;
@@ -63,8 +65,9 @@ public class WatermarkUtil {
      * @param text 文本
      * @return Watermark实例
      */
-    public WatermarkUtil setText(String text) {
+    public WatermarkUtil setText(String text, String text2) {
         mText = text;
+        mText2 = text2;
         return sInstance;
     }
 
@@ -103,7 +106,7 @@ public class WatermarkUtil {
      * @param activity 活动
      */
     public void show(Activity activity) {
-        show(activity, mText);
+        show(activity, mText,mText2);
     }
 
     /**
@@ -111,9 +114,10 @@ public class WatermarkUtil {
      * @param activity 活动
      * @param text     水印
      */
-    public void show(Activity activity, String text) {
+    public void show(Activity activity, String text,String text2) {
         WatermarkDrawable drawable = new WatermarkDrawable();
         drawable.mText = text;
+        drawable.mText2 = text2;
         drawable.mTextColor = mTextColor;
         drawable.mTextSize = mTextSize;
         drawable.mRotation = mRotation;
@@ -130,6 +134,7 @@ public class WatermarkUtil {
          * 水印文本
          */
         private String mText;
+        private String mText2;
         /**
          * 字体颜色，十六进制形式，例如：0xAEAEAEAE
          */
@@ -165,6 +170,7 @@ public class WatermarkUtil {
                 fromX = -width + (index++ % 2) * textWidth; // 上下两行的X轴起始点不一样，错开显示
                 for (float positionX = fromX; positionX < width; positionX += textWidth * 2) {
                     canvas.drawText(mText, positionX, positionY, mPaint);
+                    canvas.drawText(mText2, positionX, positionY+30, mPaint);
                 }
             }
             canvas.save();

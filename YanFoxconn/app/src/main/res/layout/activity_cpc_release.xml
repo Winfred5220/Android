@@ -86,7 +86,13 @@
         </LinearLayout>
         </LinearLayout>
     </LinearLayout>
-
+    <TextView
+        android:layout_marginLeft="@dimen/dimen_10"
+        android:textColor="@color/color_zhuse"
+        android:textSize="@dimen/text_size_16"
+        android:text="溫馨提示：如果是多個碼頭放行，由最後放行碼頭人員進行提交"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

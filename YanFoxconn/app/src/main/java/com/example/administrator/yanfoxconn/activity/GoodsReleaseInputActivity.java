@@ -88,7 +88,7 @@ public class GoodsReleaseInputActivity extends BaseActivity implements View.OnCl
         btnUpZ.setOnClickListener(this);
         ibScan.setOnClickListener(this);
         //張欽然賬號顯示補錄
-        if (FoxContext.getInstance().getLoginId().equals("F2722195")){
+        if (FoxContext.getInstance().getLoginId().equals("F2722195")||FoxContext.getInstance().getLoginId().equals("F3416918")){
             btnBlue.setOnClickListener(this);
             btnBlue.setText("補錄");
             btnBlue.setVisibility(View.VISIBLE);

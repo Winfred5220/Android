@@ -4,29 +4,29 @@ import java.io.Serializable;
 
 public class CPCMessage implements Serializable {
     //export_head
-    private String ex_no;//單號
-    private String ex_date;//人員類別
-    private String ex_status;//姓名
-    private String ex_dep;//性別
-    private String ex_start_pallet;//產品處
-    private String ex_end_pallet;//部門
-    private String ex_start_carton;//工號
-    private String ex_end_carton;//初始體溫
-    private String ex_release_door;//初始門崗
-    private String ex_releaser;//留觀地點
-    private String ex_release_date;//是否刪除
-    private String ex_sender;//是否刪除
+    private String ex_no;//
+    private String ex_date;//
+    private String ex_status;//
+    private String ex_dep;//
+    private String ex_start_pallet;//
+    private String ex_end_pallet;//
+    private String ex_start_carton;//
+    private String ex_end_carton;//
+    private String ex_release_door;//
+    private String ex_releaser;//
+    private String ex_release_date;//
+    private String ex_sender;//
     //export_body
-    private String ex_item;//單號
-    private String ex_lh;//人員類別
-    private String ex_count;//姓名
-    private String ex_carton_count;//性別
-    private String ex_nw;//產品處
-    private String ex_gw;//部門
-    private String ex_release_count;//工號
-    private String ex_release_unit;//初始體溫
+    private String ex_item;//
+    private String ex_lh;//
+    private String ex_count;//
+    private String ex_carton_count;//
+    private String ex_nw;//
+    private String ex_gw;//
+    private String ex_release_count;//
+    private String ex_release_unit;//
     //export_release
-    private String ex_id;//初始門崗
+    private String ex_id;//
 
     public String getEx_no() {
         return ex_no;
@@ -195,4 +195,6 @@ public class CPCMessage implements Serializable {
     public void setEx_id(String ex_id) {
         this.ex_id = ex_id;
     }
+
+
 }

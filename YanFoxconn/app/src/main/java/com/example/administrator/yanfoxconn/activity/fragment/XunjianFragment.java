@@ -139,7 +139,7 @@ public class  XunjianFragment extends Fragment implements View.OnClickListener{
                     R.mipmap.icon_yidadui2, R.mipmap.icon_yidadui_2, R.mipmap.icon_yidadui3, R.mipmap.icon_yidadui_3,
                     R.mipmap.icon_jidongx, R.mipmap.icon_jidongg, R.mipmap.icon_biaodan, R.mipmap.icon_wupin,
                     R.mipmap.icon_mobile, R.mipmap.icon_scrap_leave, R.mipmap.icon_sanfang,
-                    R.mipmap.icon_chuzhiqu,R.mipmap.icon_duty, R.mipmap.icon_scrap_leave},//安保部 R.mipmap.icon_duty,
+                    R.mipmap.icon_chuzhiqu,R.mipmap.icon_duty, R.mipmap.icon_cpc_leave},//安保部 R.mipmap.icon_duty,
             {R.mipmap.icon_gongan, R.mipmap.icon_control_room, R.mipmap.icon_gui, R.mipmap.icon_cang,
                     R.mipmap.icon_xiyanqu, R.mipmap.icon_battery, R.mipmap.icon_kongjian, R.mipmap.icon_dui,
                     R.mipmap.icon_borrow,R.mipmap.icon_huiyishi},//工業安全部

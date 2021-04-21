@@ -44,6 +44,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -91,7 +93,7 @@ public class ComAbnormalUpActivity extends BaseActivity implements View.OnClickL
     private String result;//請求返回結果
     private String type;//類型
     private List<ZhiyinshuiCheckMsg> mCheckMsgList;
-
+    private boolean isClicked = true;//判斷是否點擊
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -235,9 +237,32 @@ public class ComAbnormalUpActivity extends BaseActivity implements View.OnClickL
             case R.id.btn_title_right:
                 if (mCheckMsgList != null) {
                     if (FoxContext.getInstance().getType().equals("GB")){
-                        GBCheck();
+                        if (isClicked){
+                            GBCheck();
+                            isClicked = false;
+                            new Timer().schedule(new TimerTask() {
+                                @Override
+                                public void run() {
+                                    isClicked = true;
+                                }
+                            }, 2000);
+                        }else{
+                            ToastUtils.showShort(ComAbnormalUpActivity.this,R.string.multiple_click);
+                        }
                     }else{
-                    check();}
+                        if (isClicked){
+                            check();
+                            isClicked = false;
+                            new Timer().schedule(new TimerTask() {
+                                @Override
+                                public void run() {
+                                    isClicked = true;
+                                }
+                            }, 2000);
+                        }else{
+                            ToastUtils.showShort(ComAbnormalUpActivity.this,R.string.multiple_click);
+                        }
+                    }
                 } else {
                     ToastUtils.showLong(ComAbnormalUpActivity.this, "無點檢項,提交無效!");
                 }
@@ -291,7 +316,7 @@ public class ComAbnormalUpActivity extends BaseActivity implements View.OnClickL
         selectFalseList.clear();//下拉異常
         //遍历map集合
         for (int key : isSelected.keySet()) {
-            Log.e("-----------", "isSelected.get(key)===" + isSelected.get(key));
+            //Log.e("-----------", "isSelected.get(key)===" + isSelected.get(key));
             //判断是否已选择，如果已选择，则添加进selectList
             if (isSelected.get(key).equals("true")) {
                 selectList.add(key);
@@ -337,7 +362,7 @@ public class ComAbnormalUpActivity extends BaseActivity implements View.OnClickL
             int j = noselectList.get(i);
             if (etMap.get(j) == null || etMap.get(j).equals("")) {
                 key1++;
-                Log.e("-----------", "key1-----" + key1);
+                //Log.e("-----------", "key1-----" + key1);
             }
             JsonObject jsonObject = new JsonObject();
             jsonObject.addProperty("id", mCheckMsgList.get(j).getId());
@@ -353,21 +378,21 @@ public class ComAbnormalUpActivity extends BaseActivity implements View.OnClickL
             if (imagePathsMap.get(j) != null && imagePathsMap.get(j).size()!=0) {
                 for (int k = 0; k < imagePathsMap.get(j).size(); k++) {
                     final String pic_path = imagePathsMap.get(j).get(k);
-                    Log.e("------pic_path-------", pic_path);
+                    //Log.e("------pic_path-------", pic_path);
                     String sign_dir = Environment.getExternalStorageDirectory() + File.separator + "YanFoxconn" + File.separator + "Photos";
                     String _path =  sign_dir + File.separator  + System.currentTimeMillis() +j+k+ ".jpg";
-                    Log.e("------_path-------", _path);
+                    //Log.e("------_path-------", _path);
                     final String compressImage = ImageZipUtils.compressImage(pic_path, _path, 50);
-                    Log.e("-------compressImage------", compressImage);
+                    //Log.e("----compressImage---", compressImage);
                     String picBase64Code = ImageZipUtils.imageToBase64(compressImage);
-                    Log.e("-------picBase64Code-------", "===="+ picBase64Code);
+                    //Log.e("----picBase64Code----", "===="+ picBase64Code);
                     JsonObject jsonObject1 = new JsonObject();
                     jsonObject1.addProperty("file", picBase64Code);
                     photoArray.add(jsonObject1);
                 }
             }else {
                 key2++;
-                Log.e("-----------", "key2-----" + key2);
+                //Log.e("-----------", "key2-----" + key2);
             }
             jsonObject.add("photo", photoArray);
             array.add(jsonObject);
@@ -377,7 +402,7 @@ public class ComAbnormalUpActivity extends BaseActivity implements View.OnClickL
             int j = inputTureList.get(i);
             if (etCheckMap.get(j) == null || etCheckMap.get(j).equals("")) {
                 key3++;
-                Log.e("-----------", "key3-----" + key3);
+                //Log.e("-----------", "key3-----" + key3);
             }
             JsonObject jsonObject = new JsonObject();
             jsonObject.addProperty("id", mCheckMsgList.get(j).getId());
@@ -393,7 +418,7 @@ public class ComAbnormalUpActivity extends BaseActivity implements View.OnClickL
             int j = inputFalseList.get(i);
             if (etCheckMap.get(j) == null || etCheckMap.get(j).equals("")) {
                 key3++;
-                Log.e("-----------", "key3-----" + key3);
+                //Log.e("-----------", "key3-----" + key3);
             }
             JsonObject jsonObject = new JsonObject();
             jsonObject.addProperty("id", mCheckMsgList.get(j).getId());
@@ -430,14 +455,14 @@ public class ComAbnormalUpActivity extends BaseActivity implements View.OnClickL
             if (imagePathsMap.get(j) != null && imagePathsMap.get(j).size()!=0) {
                 for (int k = 0; k < imagePathsMap.get(j).size(); k++) {
                     final String pic_path = imagePathsMap.get(j).get(k);
-                    Log.e("------pic_path-------", pic_path);
+                    //Log.e("------pic_path-------", pic_path);
                     String sign_dir = Environment.getExternalStorageDirectory() + File.separator + "YanFoxconn" + File.separator + "Photos";
                     String _path =  sign_dir + File.separator  + System.currentTimeMillis() +j+k+ ".jpg";
-                    Log.e("------_path-------", _path);
+                    //Log.e("------_path-------", _path);
                     final String compressImage = ImageZipUtils.compressImage(pic_path, _path, 50);
-                    Log.e("-------compressImage------", compressImage);
+                    //Log.e("----compressImage---", compressImage);
                     String picBase64Code = ImageZipUtils.imageToBase64(compressImage);
-                    Log.e("-------picBase64Code-------", "===="+ picBase64Code);
+                    //Log.e("----picBase64Code----", "===="+ picBase64Code);
                     JsonObject jsonObject1 = new JsonObject();
                     jsonObject1.addProperty("file", picBase64Code);
                     photoArray.add(jsonObject1);
@@ -450,7 +475,7 @@ public class ComAbnormalUpActivity extends BaseActivity implements View.OnClickL
 
         object.add("info", array);
 
-        Log.e("-----object------", object.toString());
+        //Log.e("-----object------", object.toString());
 
 
         if (key1 > 0) {
@@ -492,7 +517,7 @@ public class ComAbnormalUpActivity extends BaseActivity implements View.OnClickL
                             mHandler.sendMessage(message);
 
                         } else {
-                            Log.e("-----------", "result==" + result);
+                            //Log.e("-----------", "result==" + result);
                             Message message = new Message();
                             message.what = MESSAGE_TOAST;
                             message.obj = jsonObject.get("errMessage").getAsString();
@@ -563,7 +588,7 @@ public class ComAbnormalUpActivity extends BaseActivity implements View.OnClickL
         selectFalseList.clear();//下拉異常
         //遍历map集合
         for (int key : isSelected.keySet()) {
-            Log.e("-----------", "isSelected.get(key)===" + isSelected.get(key));
+            //Log.e("-----------", "isSelected.get(key)===" + isSelected.get(key));
             //判断是否已选择，如果已选择，则添加进selectList
             if (isSelected.get(key).equals("true")) {
                 selectList.add(key);
@@ -609,7 +634,7 @@ public class ComAbnormalUpActivity extends BaseActivity implements View.OnClickL
             int j = noselectList.get(i);
             if (etMap.get(j) == null || etMap.get(j).equals("")||etWorkerMap.get(j) == null || etWorkerMap.get(j).equals("")||etPerMap.get(j) == null || etPerMap.get(j).equals("")) {
                 key1++;
-                Log.e("-----------", "key1-----" + key1);
+                //Log.e("-----------", "key1-----" + key1);
             }
             JsonObject jsonObject = new JsonObject();
             jsonObject.addProperty("id", mCheckMsgList.get(j).getId());
@@ -625,21 +650,21 @@ public class ComAbnormalUpActivity extends BaseActivity implements View.OnClickL
             if (imagePathsMap.get(j) != null && imagePathsMap.get(j).size()!=0) {
                 for (int k = 0; k < imagePathsMap.get(j).size(); k++) {
                     final String pic_path = imagePathsMap.get(j).get(k);
-                    Log.e("------pic_path-------", pic_path);
+                    //Log.e("------pic_path-------", pic_path);
                     String sign_dir = Environment.getExternalStorageDirectory() + File.separator + "YanFoxconn" + File.separator + "Photos";
                     String _path =  sign_dir + File.separator  + System.currentTimeMillis() +j+k+ ".jpg";
-                    Log.e("------_path-------", _path);
+                    //Log.e("------_path-------", _path);
                     final String compressImage = ImageZipUtils.compressImage(pic_path, _path, 50);
-                    Log.e("-------compressImage------", compressImage);
+                   // Log.e("----compressImage---", compressImage);
                     String picBase64Code = ImageZipUtils.imageToBase64(compressImage);
-                    Log.e("-------picBase64Code-------", "===="+ picBase64Code);
+                    //Log.e("----picBase64Code----", "===="+ picBase64Code);
                     JsonObject jsonObject1 = new JsonObject();
                     jsonObject1.addProperty("file", picBase64Code);
                     photoArray.add(jsonObject1);
                 }
             }else {
                 key2++;
-                Log.e("-----------", "key2-----" + key2);
+               // Log.e("-----------", "key2-----" + key2);
             }
             jsonObject.add("photo", photoArray);
             array.add(jsonObject);
@@ -649,7 +674,7 @@ public class ComAbnormalUpActivity extends BaseActivity implements View.OnClickL
             int j = inputTureList.get(i);
             if (etCheckMap.get(j) == null || etCheckMap.get(j).equals("")) {
                 key3++;
-                Log.e("-----------", "key3-----" + key3);
+                //Log.e("-----------", "key3-----" + key3);
             }
             JsonObject jsonObject = new JsonObject();
             jsonObject.addProperty("id", mCheckMsgList.get(j).getId());
@@ -665,7 +690,7 @@ public class ComAbnormalUpActivity extends BaseActivity implements View.OnClickL
             int j = inputFalseList.get(i);
             if (etCheckMap.get(j) == null || etCheckMap.get(j).equals("")) {
                 key3++;
-                Log.e("-----------", "key3-----" + key3);
+                //Log.e("-----------", "key3-----" + key3);
             }
             JsonObject jsonObject = new JsonObject();
             jsonObject.addProperty("id", mCheckMsgList.get(j).getId());
@@ -702,14 +727,14 @@ public class ComAbnormalUpActivity extends BaseActivity implements View.OnClickL
             if (imagePathsMap.get(j) != null && imagePathsMap.get(j).size()!=0) {
                 for (int k = 0; k < imagePathsMap.get(j).size(); k++) {
                     final String pic_path = imagePathsMap.get(j).get(k);
-                    Log.e("------pic_path-------", pic_path);
+                    //Log.e("------pic_path-------", pic_path);
                     String sign_dir = Environment.getExternalStorageDirectory() + File.separator + "YanFoxconn" + File.separator + "Photos";
                     String _path =  sign_dir + File.separator  + System.currentTimeMillis() +j+k+ ".jpg";
-                    Log.e("------_path-------", _path);
+                    //Log.e("------_path-------", _path);
                     final String compressImage = ImageZipUtils.compressImage(pic_path, _path, 50);
-                    Log.e("-------compressImage------", compressImage);
+                    //Log.e("----compressImage---", compressImage);
                     String picBase64Code = ImageZipUtils.imageToBase64(compressImage);
-                    Log.e("-------picBase64Code-------", "===="+ picBase64Code);
+                    //Log.e("----picBase64Code----", "===="+ picBase64Code);
                     JsonObject jsonObject1 = new JsonObject();
                     jsonObject1.addProperty("file", picBase64Code);
                     photoArray.add(jsonObject1);
@@ -722,7 +747,7 @@ public class ComAbnormalUpActivity extends BaseActivity implements View.OnClickL
 
         object.add("info", array);
 
-        Log.e("-----object------", object.toString());
+        //Log.e("-----object------", object.toString());
 
 
         if (key1 > 0) {
@@ -752,7 +777,7 @@ public class ComAbnormalUpActivity extends BaseActivity implements View.OnClickL
                     showDialog();
                     Log.e("---------", "==fff===" + url);
                     String result = HttpConnectionUtil.doPostJsonObject(url, object);
-                    Log.e("----------","obj==="+object.toString());
+                    //Log.e("----------","obj==="+object.toString());
                     if (result != null) {
                         dismissDialog();
                         Log.e("---------", "result==fff===" + result);
@@ -765,7 +790,7 @@ public class ComAbnormalUpActivity extends BaseActivity implements View.OnClickL
                             mHandler.sendMessage(message);
 
                         } else {
-                            Log.e("-----------", "result==" + result);
+                            //Log.e("-----------", "result==" + result);
                             Message message = new Message();
                             message.what = MESSAGE_TOAST;
                             message.obj = jsonObject.get("errMessage").getAsString();

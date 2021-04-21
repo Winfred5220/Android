@@ -7,6 +7,7 @@
     <string name="forbid_userPsd_empty">用户名或密碼不能有空格</string>
     <string name="version_update">有版本需要更新</string>
     <string name="net_mistake">網絡錯誤,請檢查</string>
+    <string name="multiple_click">不可連續點擊提交按鈕</string>
     <string name="update_confirm">確定要提交嗎</string>
 
     <string name="route_list">進入巡檢進度表</string>
