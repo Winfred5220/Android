@@ -410,6 +410,8 @@
         <activity android:name=".activity.CarCheckProgressTypeListActivity"/><!-- 車輛點檢進度類別界面 -->
         <activity android:name=".activity.IGMainActivity"/><!-- 宿舍 寄存主界面 -->
         <activity android:name=".activity.IGListActivity"/><!-- 宿舍 寄存列表界面 -->
+        <activity android:name=".activity.IGChangeActivity"/><!-- 宿舍 儲位變更界面 -->
+<!--        <activity android:name=".activity.IG"/>&lt;!&ndash; 宿舍 寄存列表界面 &ndash;&gt;寄存列表界面-->
 
         <activity android:name=".activity.CommonFormsJqtbActivity"/><!-- 110接處警 警情通報 -->
         <activity android:name=".activity.CommonFormsCjfkActivity"/><!-- 110接處警 處警反饋 -->

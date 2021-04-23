@@ -203,8 +203,8 @@ public class IGMainActivity extends BaseActivity implements View.OnClickListener
             btnUp.setText("確認");
             ivEmpty.setVisibility(View.GONE);
             trStore.setVisibility(View.GONE);
-
-            getPersonInfo(getIntent().getStringExtra("id"));
+            peopleMsg = (IGMessage) getIntent().getSerializableExtra("people");
+            getPersonInfo(peopleMsg.getS_ID());
         } else if (from.equals("storeQr")) {
 //            trTime.setVisibility(View.GONE);
 //            trBtnShow.setVisibility(View.GONE);

@@ -106,6 +106,8 @@ public class IGListActivity extends BaseActivity implements View.OnClickListener
         if (from.equals("leave")) {
             btnLeave.setVisibility(View.GONE);
             btnQR.setVisibility(View.GONE);
+            btnCheck.setVisibility(View.GONE);
+            btnChange.setVisibility(View.GONE);
             //初始化
             creator = new SwipeMenuCreator() {
                 @Override
@@ -202,6 +204,7 @@ public class IGListActivity extends BaseActivity implements View.OnClickListener
 
                 break;
             case R.id.btn_change:
+                Log.e("-------","btn_change");
                 Intent intent3 = new Intent(IGListActivity.this, QrCodeActivity.class);
                 intent3.putExtra("title", "二維碼掃描");
                 intent3.putExtra("num", "IGChange");
@@ -304,6 +307,7 @@ public class IGListActivity extends BaseActivity implements View.OnClickListener
                                         if (igMessages.get(position).getS_LEAVE_FLAG().equals("N")) {
                                             ToastUtils.showShort(IGListActivity.this, "未離職人員，請掃碼領取！");
                                         } else if (igMessages.get(position).getS_STATUS().equals("已排配")){
+                                            Log.e("--------------","yipaifeiweilingqu==="+igMessages.get(position).getS_ID());
                                             Intent intent2 = new Intent(IGListActivity.this, IGMainActivity.class);
                                             intent2.putExtra("people", (Serializable) igMessages.get(position));
                                             intent2.putExtra("from", "leave");

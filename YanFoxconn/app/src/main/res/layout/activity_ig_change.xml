@@ -118,20 +118,11 @@
                         <TextView style="@style/carTextName"
                             android:layout_height="wrap_content"
                             android:text="更新儲位："/>
-                        <LinearLayout
-                            android:orientation="horizontal"
+                        <Spinner
+                            android:id="@+id/sp_sl"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1">
-                            <!--    儲位名稱-->
-                            <TextView
-                                android:id="@+id/tv_new_store"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="儲位名稱"/>
-
-                        </LinearLayout>
+                            android:layout_weight="1" />
 
 
                     </TableRow>

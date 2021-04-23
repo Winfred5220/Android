@@ -746,6 +746,7 @@ public class DZSignInOutActivity extends BaseActivity implements View.OnClickLis
                         finish();
                     }else if (msg.obj.toString().equals("success")) {
                         ToastUtils.showLong(DZSignInOutActivity.this, "成功");
+                        finish();
                     } else {
                         ToastUtils.showLong(DZSignInOutActivity.this, msg.obj.toString());
                         finish();
