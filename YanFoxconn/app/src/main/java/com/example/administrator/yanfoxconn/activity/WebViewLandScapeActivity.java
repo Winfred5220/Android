@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
-
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -27,7 +26,7 @@ import butterknife.ButterKnife;
  * Created by song on 2017/10/27.
  */
 
-public class WebViewActivity extends BaseActivity implements View.OnClickListener{
+public class WebViewLandScapeActivity extends BaseActivity implements View.OnClickListener{
 
     @BindView(R.id.tv_title)
     TextView tvTitle;//標題
@@ -60,6 +59,8 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
             tvTitle.setText("營建設備報表");
         }else if (role.equals("LMNOP")) {
             tvTitle.setText("商鋪物業巡檢");
+        }else if (role.equals("IR")) {
+            tvTitle.setText("已放行銷單查詢");
         }else{
             tvTitle.setText("跨區申請單");
         }
@@ -89,9 +90,12 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
         }else if (role.equals("FW")) {//營建設備報表
             //mWebview.loadUrl(Constants.SafeServer+"baobiao/SafeCheck_datetime_yingjian.jsp");
             mWebview.loadUrl(Constants.SAFE_SERVER+"baobiao/SafeCheck_datetime_yingjian.jsp");
-
         }else if (role.equals("LMNOP")){
             mWebview.loadUrl(Constants.HTTP_WEBVIEW+"forward/matou/mt_report.jsp?packing_no="+getIntent().getStringExtra("num"));
+
+        }else if (role.equals("IR")){
+            String code = getIntent().getStringExtra("code");
+            mWebview.loadUrl(Constants.safeServerlocal+"baobiao/cpc_view.jsp?code="+code);
 
         }else{//跨區申請單
             mWebview.loadUrl("http://60.212.41.39/exportio/people/info_view.jsp?login_code="+ FoxContext.getInstance().getLoginId());

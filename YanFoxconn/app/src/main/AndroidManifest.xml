@@ -226,6 +226,9 @@
         <activity android:name=".activity.CheckVersionActivity" />
         <!-- 網頁跳轉 -->
         <activity android:name=".activity.WebViewActivity" />
+        <!-- 網頁跳轉橫屏 -->
+        <activity android:name=".activity.WebViewLandScapeActivity"
+            android:screenOrientation="landscape"/>
         <!-- 二級菜單主界面 -->
         <activity android:name=".activity.ExListViewActivity" />
         <!-- 實際巡檢人維護 -->

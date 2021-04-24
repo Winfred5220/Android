@@ -34,34 +34,30 @@ import java.util.List;
 public class CPCBodyListAdapter extends RecyclerView.Adapter<CPCBodyListAdapter.ViewHolder> {
     private List<CPCMessage> lists;
     private static HashMap<Integer, String> isConfirmOkMap = new HashMap<>();//存放箱數值的map
-    private static HashMap<Integer, CPCAdapterMessage> adapterMessageMap = new HashMap<>();//
-    private static HashMap<Integer, List<String>> selectDataMap = new HashMap<>();//下拉選擇單位數據
-    private List<String> selectData = new ArrayList<>();
+    private static HashMap<Integer, CPCAdapterMessage> adapterMessageMap = new HashMap<>();
 
     public static Context mContext;
     public boolean isChange;
-    private int zbNum=0,xNum=0,pcsNum=0;//棧板數和箱數PCS數
+    private int pcsNum=0;//總PCS數
     private int releaseCount=0;//已放行數量
-    private String releaseUnit="";//已放行單位
 
     static class ViewHolder extends RecyclerView.ViewHolder{
         //序號 部位 檢查項目
-        TextView tvListNo,tvAdd,tvSub,tvNo,tvAllNum,tvLastNum,tvXiangNum,tvJing,tvMao,tvXiang,tvZhanban;
+        TextView tvListNo,tvAdd,tvSub,tvNo,tvAllNum,tvLastNum,tvSurplusNum,tvXiangNum,tvJing,tvMao,tvXiang,tvZhanban;
         EditText etGetNum;// 填寫信息
-        Spinner spSelect;//下拉選擇
-        Button btnconfirm;//確認按鈕
+        Button btnConfirm;//確認按鈕
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvListNo = itemView.findViewById(R.id.tv_list_no);
-            tvAdd = itemView.findViewById(R.id.tv_add);
-            tvSub= itemView.findViewById(R.id.tv_sub);
+//            tvAdd = itemView.findViewById(R.id.tv_add);
+//            tvSub= itemView.findViewById(R.id.tv_sub);
             tvNo= itemView.findViewById(R.id.tv_no);
             tvAllNum = itemView.findViewById(R.id.tv_all_num);
             tvLastNum = itemView.findViewById(R.id.tv_last_num);
+            tvSurplusNum = itemView.findViewById(R.id.tv_surplus_num);
             etGetNum = itemView.findViewById(R.id.et_get_num);
-            spSelect = itemView.findViewById(R.id.sp_unit);
-            btnconfirm = itemView.findViewById(R.id.btn_confirm);
+            btnConfirm = itemView.findViewById(R.id.btn_confirm);
             tvXiangNum = itemView.findViewById(R.id.tv_xiang_num);
             tvJing = itemView.findViewById(R.id.tv_jing);
             tvMao = itemView.findViewById(R.id.tv_mao);
@@ -70,16 +66,10 @@ public class CPCBodyListAdapter extends RecyclerView.Adapter<CPCBodyListAdapter.
         }
 
     }
-    //初始化數據
-    private void init(){
-        selectData.add("棧板");
-        selectData.add("箱");
-        selectData.add("PCS");
-    }
+
     public CPCBodyListAdapter(Context context, List<CPCMessage> lists){
         this.lists=lists;
         this.mContext = context;
-        init();
     }
 
     /**
@@ -111,105 +101,46 @@ public class CPCBodyListAdapter extends RecyclerView.Adapter<CPCBodyListAdapter.
 
         holder.tvListNo.setText(num+"");
         holder.tvNo.setText(cpcBodyMessage.getEx_lh());
-        holder.tvAllNum.setText(cpcBodyMessage.getEx_count());
-        holder.tvLastNum.setText(cpcBodyMessage.getEx_release_count()+"/"+cpcBodyMessage.getEx_release_unit());
+        holder.tvLastNum.setText(cpcBodyMessage.getEx_release_count());
         holder.tvXiangNum.setText(cpcBodyMessage.getEx_carton_count());
         holder.tvJing.setText(cpcBodyMessage.getEx_nw());
         holder.tvMao.setText(cpcBodyMessage.getEx_gw());
         holder.tvXiang.setText(cpcBodyMessage.getEx_start_carton()+"-"+cpcBodyMessage.getEx_end_carton());
         holder.tvZhanban.setText(cpcBodyMessage.getEx_start_pallet()+"-"+cpcBodyMessage.getEx_end_pallet());
-        isChange = true;
-        holder.etGetNum.setText("1");
-        isChange = false;
 
-        adapterMessageMap.get(position).setUnit("棧板");
-        adapterMessageMap.get(position).setNum("1");
-        selectDataMap.put(position,selectData);
-
+        adapterMessageMap.get(position).setNum("0");
         isConfirmOkMap.put(position,"N");
 
-        if (cpcBodyMessage.getEx_end_pallet()!=null && !cpcBodyMessage.getEx_end_pallet().equals("")&&cpcBodyMessage.getEx_start_pallet()!=null && !cpcBodyMessage.getEx_start_pallet().equals("")){
-            zbNum =Integer.parseInt(cpcBodyMessage.getEx_end_pallet())-Integer.parseInt(cpcBodyMessage.getEx_start_pallet())+1;
-            adapterMessageMap.get(position).setZbNum(zbNum);
-        }
-        if (cpcBodyMessage.getEx_end_carton()!=null && !cpcBodyMessage.getEx_end_carton().equals("")&&cpcBodyMessage.getEx_start_carton()!=null && !cpcBodyMessage.getEx_start_carton().equals("")){
-            xNum =Integer.parseInt(cpcBodyMessage.getEx_end_carton())-Integer.parseInt(cpcBodyMessage.getEx_start_carton())+1;
-            adapterMessageMap.get(position).setxNum(xNum);
-        }
         if (cpcBodyMessage.getEx_count()!=null && !cpcBodyMessage.getEx_count().equals("")){
             pcsNum =(int)Double.parseDouble(cpcBodyMessage.getEx_count());
             adapterMessageMap.get(position).setPcsNum(pcsNum);
+            holder.tvAllNum.setText(pcsNum+"");
+            holder.tvSurplusNum.setText(pcsNum+"");
         }
 
-        if (cpcBodyMessage.getEx_release_unit()!=null && !cpcBodyMessage.getEx_release_unit().equals("")){
-            adapterMessageMap.get(position).setReleaseUnit(cpcBodyMessage.getEx_release_unit());
-            releaseUnit = cpcBodyMessage.getEx_release_unit();
-            List<String> selectData = new ArrayList<>();
-            selectData.add(releaseUnit);
-            adapterMessageMap.get(position).setUnit(releaseUnit);
-            selectDataMap.put(position,selectData);
-        }
         if (cpcBodyMessage.getEx_release_count()!=null && !cpcBodyMessage.getEx_release_count().equals("")){
             isChange = true;
-            if (adapterMessageMap.get(position).getUnit().equals("棧板")){
-                releaseCount = Integer.parseInt(cpcBodyMessage.getEx_release_count());
-                adapterMessageMap.get(position).setReleaseCount(releaseCount);
-                int temp=adapterMessageMap.get(position).getZbNum()-adapterMessageMap.get(position).getReleaseCount();
-                //holder.etGetNum.setText(temp+"");
-                //adapterMessageMap.get(position).setNum(temp+"");
-                if (temp==0){
-                    holder.btnconfirm.setText("確認OK");
-                    holder.btnconfirm.setEnabled(false);
-                    holder.etGetNum.setText("0");
-                    adapterMessageMap.get(position).setNum("0");
-                    holder.etGetNum.setEnabled(false);
-                    holder.tvAdd.setEnabled(false);
-                    holder.tvSub.setEnabled(false);
-                    holder.spSelect.setEnabled(false);
-                    //adapterMessageMap.get(position).setIsConfirmOk("Y");
-                    isConfirmOkMap.put(position,"Y");
-                }
-            }else if (adapterMessageMap.get(position).getUnit().equals("箱")){
-                releaseCount = Integer.parseInt(cpcBodyMessage.getEx_release_count());
-                adapterMessageMap.get(position).setReleaseCount(releaseCount);
-                int temp=adapterMessageMap.get(position).getxNum()-adapterMessageMap.get(position).getReleaseCount();
-               // holder.etGetNum.setText(temp+"");
-               // adapterMessageMap.get(position).setNum(temp+"");
-                if (temp==0){
-                    holder.btnconfirm.setText("確認OK");
-                    holder.btnconfirm.setEnabled(false);
-                    holder.etGetNum.setText("0");
-                    adapterMessageMap.get(position).setNum("0");
-                    holder.etGetNum.setEnabled(false);
-                    holder.tvAdd.setEnabled(false);
-                    holder.tvSub.setEnabled(false);
-                    holder.spSelect.setEnabled(false);
-                    isConfirmOkMap.put(position,"Y");
-                }
-            }else if (adapterMessageMap.get(position).getUnit().equals("PCS")){
-                releaseCount = (int) Double.parseDouble(cpcBodyMessage.getEx_release_count());
-                adapterMessageMap.get(position).setReleaseCount(releaseCount);
-                int temp = adapterMessageMap.get(position).getPcsNum()-adapterMessageMap.get(position).getReleaseCount();
-                //holder.etGetNum.setText(temp+"");
-                //adapterMessageMap.get(position).setNum(temp);
-                if (temp==0){
-                    holder.btnconfirm.setText("確認OK");
-                    holder.btnconfirm.setEnabled(false);
-                    holder.etGetNum.setText("0");
-                    adapterMessageMap.get(position).setNum("0");
-                    holder.etGetNum.setEnabled(false);
-                    holder.tvAdd.setEnabled(false);
-                    holder.tvSub.setEnabled(false);
-                    holder.spSelect.setEnabled(false);
-                    isConfirmOkMap.put(position,"Y");
-                }
-
+            releaseCount = Integer.parseInt(cpcBodyMessage.getEx_release_count());
+            adapterMessageMap.get(position).setReleaseCount(releaseCount);
+            int temp = adapterMessageMap.get(position).getPcsNum()-adapterMessageMap.get(position).getReleaseCount();
+            holder.tvSurplusNum.setText(""+temp);
+            //holder.etGetNum.setText(temp+"");
+            //adapterMessageMap.get(position).setNum(temp);
+            if (temp==0){
+                holder.btnConfirm.setText("確認OK");
+                holder.btnConfirm.setEnabled(false);
+                holder.etGetNum.setText("0");
+                adapterMessageMap.get(position).setNum("0");
+                holder.etGetNum.setEnabled(false);
+                holder.tvAdd.setEnabled(false);
+                holder.tvSub.setEnabled(false);
+                isConfirmOkMap.put(position,"Y");
             }
             isChange = false;
         }
         //单击接口的回调
         if(onConfirmClickListener!=null){
-            holder.btnconfirm.setOnClickListener(new View.OnClickListener() {
+            holder.btnConfirm.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     onConfirmClickListener.onConfirmclick(position);
@@ -236,59 +167,40 @@ public class CPCBodyListAdapter extends RecyclerView.Adapter<CPCBodyListAdapter.
                 }
             });
         }
-       //下拉列表選擇
-       holder.spSelect.setAdapter(new ArrayAdapter<String>(mContext, android.R.layout.simple_list_item_1, selectDataMap.get(position)));
-       holder.spSelect.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-           @Override
-           public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-               adapterMessageMap.get(position).setUnit(selectDataMap.get(position).get(pos));
-               holder.etGetNum.setText(adapterMessageMap.get(position).getNum()+"");
-           }
-           @Override
-           public void onNothingSelected(AdapterView<?> parent) {
-           }
-       });
 
-        //点击减按钮的事件
-        holder.tvSub.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                holder.etGetNum.setFocusable(false);
-                if (!holder.etGetNum.getText().toString().equals("")){
-                    int i = toInt(holder.etGetNum.getText().toString());
-                    if (i>0){
-                        holder.etGetNum.setText("" + (i - 1));
-                    }else {
-                        holder.etGetNum.setText("0");
-                    }
-                } else {
-                    holder.etGetNum.setText("0");
-                }
-            }});
-        //点击加按钮的事件
-        holder.tvAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                holder.etGetNum.setFocusable(false);
-                if (!holder.etGetNum.getText().toString().equals("")){
-                    int i = toInt(holder.etGetNum.getText().toString());
-                    if (adapterMessageMap.get(position).getZbNum()!=0 && adapterMessageMap.get(position).getUnit().equals("棧板")){
-                        if (i>=0 && i<adapterMessageMap.get(position).getZbNum()-adapterMessageMap.get(position).getReleaseCount()){
-                            holder.etGetNum.setText("" + (i + 1));
-                        }
-                    }else if (adapterMessageMap.get(position).getxNum()!=0 && adapterMessageMap.get(position).getUnit().equals("箱")){
-                        if (i>=0 && i<adapterMessageMap.get(position).getxNum()-adapterMessageMap.get(position).getReleaseCount()){
-                            holder.etGetNum.setText("" + (i + 1));
-                        }
-                    }else if(adapterMessageMap.get(position).getPcsNum()!=0 && adapterMessageMap.get(position).getUnit().equals("PCS")){
-                        if (i>=0 && i<adapterMessageMap.get(position).getPcsNum()-adapterMessageMap.get(position).getReleaseCount()){
-                            holder.etGetNum.setText("" + (i + 1));
-                        }
-                    }
-                } else {
-                    holder.etGetNum.setText("0");
-                }
-            }});
+//        //点击减按钮的事件
+//        holder.tvSub.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                holder.etGetNum.setFocusable(false);
+//                if (!holder.etGetNum.getText().toString().equals("")){
+//                    int i = toInt(holder.etGetNum.getText().toString());
+//                    if (i>0){
+//                        holder.etGetNum.setText("" + (i - 1));
+//                    }else {
+//                        holder.etGetNum.setText("0");
+//                    }
+//                } else {
+//                    holder.etGetNum.setText("0");
+//                }
+//            }});
+//        //点击加按钮的事件
+//        holder.tvAdd.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                holder.etGetNum.setFocusable(false);
+//                if (!holder.etGetNum.getText().toString().equals("")){
+//                    int i = toInt(holder.etGetNum.getText().toString());
+//                    if(adapterMessageMap.get(position).getPcsNum()!=0){
+//                        if (i>=0 && i<adapterMessageMap.get(position).getPcsNum()-adapterMessageMap.get(position).getReleaseCount()){
+//                            holder.etGetNum.setText("" + (i + 1));
+//                        }
+//                    }
+//                } else {
+//                    holder.etGetNum.setText("0");
+//                }
+//            }});
+
         // EditText点击监听
         holder.etGetNum.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -310,36 +222,14 @@ public class CPCBodyListAdapter extends RecyclerView.Adapter<CPCBodyListAdapter.
                 if (!isChange){
                     if (!s.toString().equals("")){
 
-                        if (adapterMessageMap.get(position).getZbNum()!=0 && adapterMessageMap.get(position).getUnit().equals("棧板")) {
-                            if (toInt(s.toString()) > adapterMessageMap.get(position).getZbNum()-adapterMessageMap.get(position).getReleaseCount()) {
+                        if(adapterMessageMap.get(position).getPcsNum()!=0){
+                            int temp = adapterMessageMap.get(position).getPcsNum()-adapterMessageMap.get(position).getReleaseCount();
+                            if (toInt(s.toString()) > temp) {
                                 //Log.e("-----position#-----", ""+ position +' '+ s.toString());
-                                Toast.makeText(mContext, "序號"+num+ "數量過大，不能超過最大棧板數", Toast.LENGTH_SHORT).show();
-                                holder.etGetNum.setTextColor(Color.RED);
-                                adapterMessageMap.get(position).setNum("0");
+                                Toast.makeText(mContext, "序號"+num+ "數量過大，不能超過最大數量", Toast.LENGTH_SHORT).show();
+                                holder.etGetNum.setText(temp+"");
+                                adapterMessageMap.get(position).setNum(temp+"");
                             } else {
-                                holder.etGetNum.setTextColor(Color.BLACK);
-                                //Log.e("-----position-----", ""+ position +' '+ s.toString());
-                                adapterMessageMap.get(position).setNum(s.toString());
-                            }
-                        }else if (adapterMessageMap.get(position).getxNum()!=0 && adapterMessageMap.get(position).getUnit().equals("箱")){
-                            if (toInt(s.toString()) > adapterMessageMap.get(position).getxNum()-adapterMessageMap.get(position).getReleaseCount()) {
-                                //Log.e("-----position#-----", ""+ position +' '+ s.toString());
-                                Toast.makeText(mContext, "序號"+ num + "數量過大，不能超過最大箱數", Toast.LENGTH_SHORT).show();
-                                holder.etGetNum.setTextColor(Color.RED);
-                                adapterMessageMap.get(position).setNum("0");
-                            } else {
-                                holder.etGetNum.setTextColor(Color.BLACK);
-                                //Log.e("-----position-----", ""+ position +' '+ s.toString());
-                                adapterMessageMap.get(position).setNum(s.toString());
-                            }
-                        }else if(adapterMessageMap.get(position).getPcsNum()!=0 && adapterMessageMap.get(position).getUnit().equals("PCS")){
-                            if (toInt(s.toString()) > adapterMessageMap.get(position).getPcsNum()-adapterMessageMap.get(position).getReleaseCount()) {
-                                //Log.e("-----position#-----", ""+ position +' '+ s.toString());
-                                Toast.makeText(mContext, "序號"+num+ "數量過大，不能超過最大PCS數量", Toast.LENGTH_SHORT).show();
-                                holder.etGetNum.setTextColor(Color.RED);
-                                adapterMessageMap.get(position).setNum("0");
-                            } else {
-                                holder.etGetNum.setTextColor(Color.BLACK);
                                 //Log.e("-----position-----", ""+ position +' '+ s.toString());
                                 adapterMessageMap.get(position).setNum(s.toString());
                             }
@@ -357,8 +247,6 @@ public class CPCBodyListAdapter extends RecyclerView.Adapter<CPCBodyListAdapter.
 
             }
         });
-
-
 
     }
 

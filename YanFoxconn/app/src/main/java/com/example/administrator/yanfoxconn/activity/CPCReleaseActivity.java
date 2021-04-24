@@ -21,12 +21,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
@@ -73,7 +76,7 @@ import butterknife.ButterKnife;
 import taobe.tec.jcc.JChineseConvertor;
 
 /**
- * Created by wangqian on 2021/4/10.成品倉放行貨物確認界面
+ * Created by S1007989 on 2021/4/10.成品倉放行貨物確認界面
  */
 public  class CPCReleaseActivity extends BaseActivity implements OnClickListener {
     @BindView(R.id.btn_title_left)
@@ -83,12 +86,9 @@ public  class CPCReleaseActivity extends BaseActivity implements OnClickListener
     @BindView(R.id.btn_title_right)
     Button btnUp;//提交
 
-    @BindView(R.id.et_gate_post)
-    EditText etGatePost;//放行門崗
-    @BindView(R.id.lv_gate)
-    MyListView lvGate;//放行門崗列表
-    @BindView(R.id.ll_list_gate)
-    LinearLayout llLIstGate;//放行門崗列表
+    @BindView(R.id.sp_gate)
+    Spinner spGate;//放行門崗
+
     @BindView(R.id.tv_no)
     TextView tvNo;//銷單號
     @BindView(R.id.rv_option)
@@ -107,10 +107,9 @@ public  class CPCReleaseActivity extends BaseActivity implements OnClickListener
     private CPCBodyListAdapter cpcBodyListAdapter;//物品列表适配器
     private GridAdapter gridAdapter;
     private String url;//地址
-    private String result;//网络获取结果
+    private String gate = "請選擇";//門崗
     private String mac = "";//Mac地址
     private boolean isClicked = true;//判斷是否點擊
-    private JqtbListAdapter mAdapter;
     private ArrayList<String> teamList;
     HashMap<Integer, String> isConfirmOkMap;//存放editText值的map
     @Override
@@ -140,26 +139,18 @@ public  class CPCReleaseActivity extends BaseActivity implements OnClickListener
         }
         //ivEmpty.setOnClickListener(this);
         mcontext=this.getApplicationContext();
-
-        getMessage();
-
-        //搜索关键字
-        etGatePost.addTextChangedListener(new TextWatcher() {
+        //門崗下拉列表選擇
+        spGate.setAdapter(new ArrayAdapter<String>(CPCReleaseActivity.this, android.R.layout.simple_list_item_1, teamList));
+        spGate.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+                gate=teamList.get(pos);
             }
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                llLIstGate.setVisibility(View.VISIBLE);
-                String a = etGatePost.getText().toString().toUpperCase();
-                //调用适配器里面的搜索方法
-                mAdapter.SearchCity(a);
+            public void onNothingSelected(AdapterView<?> parent) {
             }
-            @Override
-            public void afterTextChanged(Editable editable) {
-            }
-
         });
+        getMessage();
 
 //        int cols = getResources().getDisplayMetrics().widthPixels / getResources().getDisplayMetrics().densityDpi;
 //        cols = cols < 4 ? 4 : cols;
@@ -373,7 +364,7 @@ public  class CPCReleaseActivity extends BaseActivity implements OnClickListener
         object.addProperty("ex_item",cpcBody.get(position).getEx_item());
         object.addProperty("ex_release_count", num);
         object.addProperty("ex_release_unit", unit);
-        object.addProperty("ex_release_door", etGatePost.getText().toString());
+        object.addProperty("ex_release_door", gate);
         object.addProperty("ex_releaser", FoxContext.getInstance().getName());
 
         //object.add("info", array);
@@ -384,7 +375,7 @@ public  class CPCReleaseActivity extends BaseActivity implements OnClickListener
             ToastUtils.showShort(this, "登錄超時,請重新登陸");
             return;
         }
-        if (etGatePost.getText().toString().replaceAll(" ","").equals("")) {
+        if (gate.equals("請選擇")) {
             ToastUtils.showShort(this, "請選擇門崗");
             return;
         }
@@ -452,7 +443,7 @@ public  class CPCReleaseActivity extends BaseActivity implements OnClickListener
         }
         object.addProperty("flag","cpcConfirmAll");
         object.addProperty("ex_no",ex_no);
-        object.addProperty("ex_release_door", etGatePost.getText().toString());
+        object.addProperty("ex_release_door", gate);
         object.addProperty("ex_releaser", FoxContext.getInstance().getName());
 
         Log.e("-----object------",  object.toString());
@@ -461,7 +452,7 @@ public  class CPCReleaseActivity extends BaseActivity implements OnClickListener
             ToastUtils.showShort(this, "登錄超時,請重新登陸");
             return;
         }
-        if (etGatePost.getText().toString().replaceAll(" ","").equals("")) {
+        if (gate.equals("請選擇")) {
             ToastUtils.showShort(this, "請選擇門崗");
             return;
         }
@@ -514,7 +505,7 @@ public  class CPCReleaseActivity extends BaseActivity implements OnClickListener
         JsonObject object = new JsonObject();
         object.addProperty("flag","cpcNGUP");
         object.addProperty("REC_SN",ex_no);
-        object.addProperty("REC_MARK", etGatePost.getText().toString());
+        object.addProperty("REC_MARK", gate);
         object.addProperty("REC_NAME", FoxContext.getInstance().getName());
         object.addProperty("REC_STATUE", ex_lh);
         object.addProperty("REC_REMARK", text);
@@ -525,7 +516,7 @@ public  class CPCReleaseActivity extends BaseActivity implements OnClickListener
             ToastUtils.showShort(this, "登錄超時,請重新登陸");
             return;
         }
-        if (etGatePost.getText().toString().replaceAll(" ","").equals("")) {
+        if (gate.equals("請選擇")) {
             ToastUtils.showShort(this, "請選擇門崗");
             return;
         }
@@ -784,19 +775,6 @@ public  class CPCReleaseActivity extends BaseActivity implements OnClickListener
         });
         rvOption.setAdapter(cpcBodyListAdapter);
 
-        //門崗列表賦值
-        mAdapter = new JqtbListAdapter(CPCReleaseActivity.this,teamList);
-        lvGate.setAdapter(mAdapter);
-
-        //稽核門崗列表,選中后1:tit賦值,2:列表隱藏
-        mAdapter.OnClickSetText(new JqtbListAdapter.OnClickSetText() {
-            @Override
-            public void OnClickxt(String tit) {
-                etGatePost.setText(tit);
-                mAdapter.SearchCity("");
-                llLIstGate.setVisibility(View.GONE);
-            }
-        });
     }
     //繁体转成简体
     public String change1(String changeText) {
@@ -955,6 +933,7 @@ public  class CPCReleaseActivity extends BaseActivity implements OnClickListener
                         // TODO Auto-generated method stub
                         if (type==Constants.MESSAGE_TOAST){
                            // finish();
+                            dismissDialog();
                             getMessage();
                         }
                     }

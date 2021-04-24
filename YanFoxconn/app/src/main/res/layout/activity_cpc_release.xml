@@ -42,57 +42,35 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:orientation="vertical">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
             android:orientation="horizontal">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dimen_20"
-                android:text="放行門崗"
-                android:layout_weight="8"
+                android:gravity="right"
+                android:text="放行門崗:"
+                android:textStyle="bold"
+                android:layout_weight="2.2"
                 android:textColor="@color/color_303030"
                 android:textSize="@dimen/text_size_16" />
-            <EditText
-                android:id="@+id/et_gate_post"
-                style="@style/carEditTextBKG"
-                android:hint="手動輸入帶出"
-                android:layout_marginLeft="@dimen/dimen_8"
-                android:background="@drawable/login_input"
-                android:layout_weight="1" />
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/ll_list_gate"
-            android:visibility="gone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
-            <TextView
+            <Spinner
+                android:id="@+id/sp_gate"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dimen_20"
-                android:layout_weight="8"
-                android:textColor="@color/color_303030"
-                android:textSize="@dimen/text_size_18" />
-            <com.example.administrator.yanfoxconn.widget.MyListView
-                android:id="@+id/lv_gate"
+                android:layout_height="30dp"
                 android:layout_marginLeft="@dimen/dimen_8"
-                style="@style/carTextBKG"
-                android:layout_weight="1" />
+                android:layout_marginRight="@dimen/dimen_8"
+                android:background="@drawable/shape_spinner"
+                android:layout_weight="2.2" />
+            <TextView
+                android:layout_marginLeft="@dimen/dimen_10"
+                android:textColor="@color/color_zhuse"
+                android:textSize="@dimen/text_size_16"
+                android:text="溫馨提示：如果是多個碼頭放行，由最後放行碼頭人員進行提交"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
         </LinearLayout>
-        </LinearLayout>
+
     </LinearLayout>
-    <TextView
-        android:layout_marginLeft="@dimen/dimen_10"
-        android:textColor="@color/color_zhuse"
-        android:textSize="@dimen/text_size_16"
-        android:text="溫馨提示：如果是多個碼頭放行，由最後放行碼頭人員進行提交"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -159,16 +137,23 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1.5"
+                android:layout_weight="1"
                 android:gravity="center"
                 android:text="已放行"
                 android:textColor="@color/color_303030"
                 android:textSize="@dimen/text_size_16" />
-
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="2"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="剩餘"
+                android:textColor="@color/color_303030"
+                android:textSize="@dimen/text_size_16" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:gravity="center"
                 android:text="放行數量"
                 android:textColor="@color/color_303030"
@@ -177,7 +162,7 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="2"
+                android:layout_weight="1"
                 android:gravity="center"
                 android:text="單位"
                 android:textColor="@color/color_303030"

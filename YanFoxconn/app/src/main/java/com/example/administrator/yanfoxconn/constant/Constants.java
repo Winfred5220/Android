@@ -24,7 +24,7 @@ public class Constants {
     public static final String SERVER = "http://ytsafeserver.foxconn.com/Server/";//杰哥
     public static String HTTP_WEBVIEW = "http://ytlogisticgps.foxconn.com/" ;//WEBVIEW
 //本地测试服务器
-    public static String safeServerlocal = "http://192.168.1.138:8080/SafeServer/";//SafeServer接口測試
+    public static String safeServerlocal = "http://192.168.1.127:8080/SafeServer/";//SafeServer接口測試
     public static String serverlocal = "http://192.168.1.133:8080/Server/";//Server接口測試
     public static String L4 = "http://10.193.22.189:8080/SafeServer/";//玲
 
@@ -218,6 +218,6 @@ public class Constants {
     public static String HTTP_CANT_CHECK_UP = SAFE_SERVER +"ExceCantCheckUpServlet";//  無法點檢上傳異常
     public static String HTTP_CAR_TYPE = SAFE_SERVER +"CarProgressTypeServlet";//  車輛點檢進度-車輛類別
 
-    public static String HTTP_CPC_JSON_SERVLET = SAFE_SERVER +"CPCJsonUpServlet";//成品倉無紙化
+    public static String HTTP_CPC_JSON_SERVLET = safeServerlocal +"CPCJsonUpServlet";//成品倉無紙化
 
 }

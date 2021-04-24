@@ -55,6 +55,7 @@ import static android.widget.Toast.LENGTH_SHORT;
  * wang 2021/4/8
  * 成品倉無紙化 銷單模糊查詢界面
  */
+
 public class CPCSearchActivity extends BaseActivity implements View.OnClickListener {
     @BindView(R.id.btn_title_left)
     Button btnBack;//返回
@@ -95,24 +96,29 @@ public class CPCSearchActivity extends BaseActivity implements View.OnClickListe
                 finish();
                 break;
             case R.id.btn_search:
-                statue="N";
-                search(statue);//未放行
+                search();
                 break;
             case R.id.btn_title_right:
-                statue="Y";
-                search(statue);//已放行
+
+                if (FoxContext.getInstance().getLoginId().equals("")) {
+                    ToastUtils.showShort(this, "登錄超時,請重新登陸");
+                    return;
+                }
+                Intent intent = new Intent(CPCSearchActivity.this, WebViewLandScapeActivity.class);
+                intent.putExtra("role","IR");
+                intent.putExtra("code",FoxContext.getInstance().getLoginId());
+                startActivity(intent);
                 break;
         }
     }
 
     //查詢銷單號
-    private void search(String statue) {
+    private void search() {
 
         final String url = Constants.HTTP_CPC_JSON_SERVLET; //此處寫上自己的URL
 
         JsonObject object = new JsonObject();
         object.addProperty("flag","cpcSearch");
-        object.addProperty("statue",statue);
         object.addProperty("id",etSearch.getText().toString().replaceAll(" ",""));
         object.addProperty("ex_dep",ex_dep);
 
@@ -205,6 +211,7 @@ public class CPCSearchActivity extends BaseActivity implements View.OnClickListe
                         if (errCode.equals("200")) {
                             JsonArray array = jsonObject.get("result2").getAsJsonArray();
                             teamList = new ArrayList<>();
+                            teamList.add("請選擇");
                             for (int i=0;i<array.size();i++){
                                String temp = array.get(i).getAsJsonObject().get("name").getAsString();
                                teamList.add(temp);
@@ -284,8 +291,7 @@ public class CPCSearchActivity extends BaseActivity implements View.OnClickListe
 
                     break;
                 case Constants.MESSAGE_SET_MATOU://
-                    statue="N";
-                    search(statue);
+                    search();
                     break;
                 case Constants.MESSAGE_NOT_NET:
                     ToastUtils.showLong(CPCSearchActivity.this, "網絡錯誤，請稍後重試！");
