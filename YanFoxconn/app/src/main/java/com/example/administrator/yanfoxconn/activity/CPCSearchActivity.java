@@ -72,7 +72,7 @@ public class CPCSearchActivity extends BaseActivity implements View.OnClickListe
 
     private List<CPCMessage> cpcHead;
     private CPCSearchAdapter cpcSearchAdapter;
-    private String mac = "",ex_dep="",statue="";//Mac地址
+    private String mac = "",ex_dep="";//Mac地址
     private ArrayList<String> teamList;
 
     @Override
@@ -262,30 +262,17 @@ public class CPCSearchActivity extends BaseActivity implements View.OnClickListe
                 case Constants.MESSAGE_SET_TEXT://text賦值
                     cpcSearchAdapter = new CPCSearchAdapter(CPCSearchActivity.this, cpcHead);
                     lvSingle.setAdapter(cpcSearchAdapter);
-                    if (statue.equals("N")) {
-                        lvSingle.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                Intent intent = new Intent(CPCSearchActivity.this, CPCReleaseActivity.class);
-                                intent.putExtra("ex_no", cpcHead.get(position).getEx_no());
-                                intent.putStringArrayListExtra("teamList", teamList);
-                                startActivity(intent);
+                    lvSingle.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            Intent intent = new Intent(CPCSearchActivity.this, CPCReleaseActivity.class);
+                            intent.putExtra("ex_no", cpcHead.get(position).getEx_no());
+                            intent.putStringArrayListExtra("teamList", teamList);
+                            startActivity(intent);
 //                            lvSingle.setAdapter(null);
-                            }
-                        });
-                    }else {
-                        lvSingle.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                Intent intent = new Intent(CPCSearchActivity.this, CPCReleaseActivity.class);
-                                intent.putExtra("ex_no", cpcHead.get(position).getEx_no());
-                                intent.putStringArrayListExtra("teamList", teamList);
-                                intent.putExtra("statue", "Y");
-                                startActivity(intent);
-//                            lvSingle.setAdapter(null);
-                            }
-                        });
-                    }
+                        }
+                    });
+
                     break;
                 case Constants.MESSAGE_DELETE_SUCCESS://提交響應
 

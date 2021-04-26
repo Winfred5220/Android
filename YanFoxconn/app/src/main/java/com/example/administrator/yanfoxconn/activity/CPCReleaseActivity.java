@@ -102,7 +102,7 @@ public  class CPCReleaseActivity extends BaseActivity implements OnClickListener
     private ArrayList<String> imagePaths = null;//圖片未壓縮地址
     private ArrayList<String> imgZipPaths = new ArrayList<String>();//圖片壓縮后地址
     private ImageCaptureManager captureManager; // 相机拍照处理类
-    private String ex_no,statue;//銷單號
+    private String ex_no;//銷單號
     private List<CPCMessage> cpcBody;//物品列表
     private CPCBodyListAdapter cpcBodyListAdapter;//物品列表适配器
     private GridAdapter gridAdapter;
@@ -125,18 +125,17 @@ public  class CPCReleaseActivity extends BaseActivity implements OnClickListener
         WatermarkUtil.getInstance().show(this, FoxContext.getInstance().getLoginId()+"\n"+FoxContext.getInstance().getName(),initStartDateTime);
 
         ex_no = getIntent().getStringExtra("ex_no");
-        statue = getIntent().getStringExtra("statue");
         teamList = getIntent().getStringArrayListExtra("teamList");
 
         tvNo.setText(ex_no);
         tvTitle.setText("出貨確認");
         //btnSign.setOnClickListener(signListener);
         btnBack.setOnClickListener(this);
-        if (statue==null){
-            btnUp.setOnClickListener(this);
-            btnUp.setVisibility(View.VISIBLE);
-            btnUp.setText("提交");
-        }
+
+        btnUp.setOnClickListener(this);
+        btnUp.setVisibility(View.VISIBLE);
+        btnUp.setText("提交");
+
         //ivEmpty.setOnClickListener(this);
         mcontext=this.getApplicationContext();
         //門崗下拉列表選擇

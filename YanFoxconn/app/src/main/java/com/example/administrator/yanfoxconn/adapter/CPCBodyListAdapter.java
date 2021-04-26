@@ -109,6 +109,7 @@ public class CPCBodyListAdapter extends RecyclerView.Adapter<CPCBodyListAdapter.
         holder.tvZhanban.setText(cpcBodyMessage.getEx_start_pallet()+"-"+cpcBodyMessage.getEx_end_pallet());
 
         adapterMessageMap.get(position).setNum("0");
+        adapterMessageMap.get(position).setUnit("PCS");
         isConfirmOkMap.put(position,"N");
 
         if (cpcBodyMessage.getEx_count()!=null && !cpcBodyMessage.getEx_count().equals("")){
@@ -132,8 +133,8 @@ public class CPCBodyListAdapter extends RecyclerView.Adapter<CPCBodyListAdapter.
                 holder.etGetNum.setText("0");
                 adapterMessageMap.get(position).setNum("0");
                 holder.etGetNum.setEnabled(false);
-                holder.tvAdd.setEnabled(false);
-                holder.tvSub.setEnabled(false);
+                //holder.tvAdd.setEnabled(false);
+                //holder.tvSub.setEnabled(false);
                 isConfirmOkMap.put(position,"Y");
             }
             isChange = false;
