@@ -31,6 +31,36 @@ public class IGMessage implements Serializable {
 
     private List<BodyONE> body1;//物品及數量
 
+    /**儲位變更 獲取儲位信息**/
+    private String S_DEPOSIT_NAME;//物品類型
+    private String SL_CODE;//儲位編號
+    private String ID;//id
+
+    public String getID() {
+        return ID;
+    }
+
+    public void setID(String ID) {
+        this.ID = ID;
+    }
+
+    public String getSL_CODE() {
+        return SL_CODE;
+    }
+
+    public void setSL_CODE(String SL_CODE) {
+        this.SL_CODE = SL_CODE;
+    }
+
+    public String getS_DEPOSIT_NAME() {
+        return S_DEPOSIT_NAME;
+    }
+
+    public void setS_DEPOSIT_NAME(String s_DEPOSIT_NAME) {
+        S_DEPOSIT_NAME = s_DEPOSIT_NAME;
+    }
+
+
     public List<BodyONE> getBody1() {
         return body1;
     }

@@ -61,12 +61,28 @@
                     android:text="在職掃碼"
                     android:background="@color/color_00CCFF"/>
                 <Button
-                android:id="@+id/btn_leave"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="工號查詢"
-                android:background="@color/color_f5a306"/>
+                    android:id="@+id/btn_leave"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="工號查詢"
+                    android:background="@color/color_f5a306"/>
+
+                <Button
+                    android:id="@+id/btn_check"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="倉庫盤點"
+                    android:background="@color/color_00CCFF"/>
+
+                <Button
+                    android:id="@+id/btn_change"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="儲位變更"
+                    android:background="@color/color_f5a306"/>                                                                      n
             </LinearLayout>
             <com.example.administrator.yanfoxconn.widget.SwipterMenuTest
                 android:id="@+id/lv_people"

@@ -284,10 +284,15 @@ public class QrCodeActivity extends BaseActivity implements Callback, View.OnCli
                 resultIntent.putExtra("type",type);
                 startActivity(resultIntent);
                 finish();
-            }else if (num.equals("cz")){//點位點檢項巡檢
+            }else if (num.equals("cz")){  //點位點檢項巡檢
                 if (FoxContext.getInstance().getType().equals("GCGL")){
                     Intent intent = new Intent(QrCodeActivity.this, GTMainActivity.class);
                     intent.putExtra("flag", "S");
+                    intent.putExtra("result", resultString);
+                    intent.putExtra("from","qr");
+                    startActivity(intent);
+                }else if (FoxContext.getInstance().getType().equals("IG")){
+                    Intent intent = new Intent(QrCodeActivity.this, IGChangeActivity.class);
                     intent.putExtra("result", resultString);
                     intent.putExtra("from","qr");
                     startActivity(intent);
@@ -338,6 +343,13 @@ public class QrCodeActivity extends BaseActivity implements Callback, View.OnCli
 //                resultIntent.putExtra("id", resultString);
                 resultIntent.putExtra("id", resultString);
                 resultIntent.putExtra("from", "storeQr");
+                startActivity(resultIntent);
+                finish();
+            }else if (num.equals("IGChange")){
+                Intent resultIntent = new Intent(QrCodeActivity.this, IGChangeActivity.class);
+//                resultIntent.putExtra("id", resultString);
+                resultIntent.putExtra("id", resultString);
+                resultIntent.putExtra("from", "IGChange");
                 startActivity(resultIntent);
                 finish();
             }

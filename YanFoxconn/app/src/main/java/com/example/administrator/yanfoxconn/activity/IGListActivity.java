@@ -68,6 +68,10 @@ public class IGListActivity extends BaseActivity implements View.OnClickListener
     Button btnQR;//在職掃碼查詢
     @BindView(R.id.btn_leave)
     Button btnLeave;//離職輸入工號
+    @BindView(R.id.btn_check)
+    Button btnCheck;//倉庫盤點
+    @BindView(R.id.btn_change)
+    Button btnChange;//儲位變更
     //    @BindView(R.id.btn_search)
 //    Button btnSearch;//搜索
 //    @BindView(R.id.et_search)
@@ -96,10 +100,14 @@ public class IGListActivity extends BaseActivity implements View.OnClickListener
         btnAdd.setOnClickListener(this);
         btnQR.setOnClickListener(this);
         btnLeave.setOnClickListener(this);
+        btnChange.setOnClickListener(this);
+        btnCheck.setOnClickListener(this);
         tvTitle.setText("排配列表");
         if (from.equals("leave")) {
             btnLeave.setVisibility(View.GONE);
             btnQR.setVisibility(View.GONE);
+            btnCheck.setVisibility(View.GONE);
+            btnChange.setVisibility(View.GONE);
             //初始化
             creator = new SwipeMenuCreator() {
                 @Override
@@ -191,6 +199,16 @@ public class IGListActivity extends BaseActivity implements View.OnClickListener
                 Intent intent1 = new Intent(IGListActivity.this, CarWriteIdActivity.class);
                 intent1.putExtra("from", "leave");
                 startActivity(intent1);
+                break;
+            case R.id.btn_check:
+
+                break;
+            case R.id.btn_change:
+                Log.e("-------","btn_change");
+                Intent intent3 = new Intent(IGListActivity.this, QrCodeActivity.class);
+                intent3.putExtra("title", "二維碼掃描");
+                intent3.putExtra("num", "IGChange");
+                startActivity(intent3);
                 break;
         }
     }
@@ -289,6 +307,7 @@ public class IGListActivity extends BaseActivity implements View.OnClickListener
                                         if (igMessages.get(position).getS_LEAVE_FLAG().equals("N")) {
                                             ToastUtils.showShort(IGListActivity.this, "未離職人員，請掃碼領取！");
                                         } else if (igMessages.get(position).getS_STATUS().equals("已排配")){
+                                            Log.e("--------------","yipaifeiweilingqu==="+igMessages.get(position).getS_ID());
                                             Intent intent2 = new Intent(IGListActivity.this, IGMainActivity.class);
                                             intent2.putExtra("people", (Serializable) igMessages.get(position));
                                             intent2.putExtra("from", "leave");
