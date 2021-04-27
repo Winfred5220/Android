@@ -2,6 +2,7 @@ package com.example.administrator.yanfoxconn.activity;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,8 @@ import com.example.administrator.yanfoxconn.constant.Constants;
 import com.example.administrator.yanfoxconn.constant.FoxContext;
 import com.example.administrator.yanfoxconn.utils.BaseActivity;
 import com.example.administrator.yanfoxconn.utils.ToastUtils;
+
+import org.xml.sax.helpers.DefaultHandler;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -60,6 +63,8 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
             tvTitle.setText("營建設備報表");
         }else if (role.equals("LMNOP")) {
             tvTitle.setText("商鋪物業巡檢");
+        }else if (role.equals("CTPP")) {
+            tvTitle.setText("餐厅排配");
         }else{
             tvTitle.setText("跨區申請單");
         }
@@ -79,8 +84,22 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
 
         mWebSettings.setSupportZoom(true);//设定支持缩放
 
+        //mWebview.setDefaultHandler(new DefaultHandler());
+        mWebview.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
+        //localStorage  允许存储
+        mWebview.getSettings().setDomStorageEnabled(true);
+        mWebview.getSettings().setAppCacheMaxSize(1024*1024*8);//存储的最大容量
+        String appCachePath = getApplicationContext().getCacheDir().getAbsolutePath();
+        mWebview.getSettings().setAppCachePath(appCachePath);
+        mWebview.getSettings().setAllowFileAccess(true);
+        mWebview.getSettings().setAppCacheEnabled(true);
+        mWebview.getSettings().setJavaScriptEnabled(true);
+        mWebview.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
+
+
         if (FoxContext.getInstance().getLoginId().equals("")) {
             ToastUtils.showShort(this, "登錄超時,請重新登陸");
+            return;
         }
         if (role.equals("F0")) {//碼頭出貨信息表
             mWebview.loadUrl(Constants.HTTP_WEBVIEW +"forward/matou/mt.jsp");
@@ -92,6 +111,10 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
 
         }else if (role.equals("LMNOP")){
             mWebview.loadUrl(Constants.HTTP_WEBVIEW+"forward/matou/mt_report.jsp?packing_no="+getIntent().getStringExtra("num"));
+
+        }else if (role.equals("CTPP")){
+            mWebview.loadUrl(Constants.HTTP_WEBVIEW2+"RestPlan/?V=V-0.5.2&P=KNwU9PMmtJmtC9iyeINgPqDGQx4p4AXil9D33L6axfxBOWESPMyxG32r4w5yGwf+#/");
+            Log.e("----url-----", Constants.HTTP_WEBVIEW2+"RestPlan/?V=V-0.5.2&P=KNwU9PMmtJmtC9iyeINgPqDGQx4p4AXil9D33L6axfxBOWESPMyxG32r4w5yGwf+#/" );
 
         }else{//跨區申請單
             mWebview.loadUrl("http://60.212.41.39/exportio/people/info_view.jsp?login_code="+ FoxContext.getInstance().getLoginId());

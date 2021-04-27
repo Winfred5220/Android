@@ -23,6 +23,8 @@ public class Constants {
     public static final String SAFE_SERVER = "http://ytsafeserver.foxconn.com/SafeServer/";//玲姐
     public static final String SERVER = "http://ytsafeserver.foxconn.com/Server/";//杰哥
     public static String HTTP_WEBVIEW = "http://ytlogisticgps.foxconn.com/" ;//WEBVIEW
+    public static String HTTP_WEBVIEW2 = "http://ytsafeserver.foxconn.com/" ;//WEBVIEW
+
 //本地测试服务器
     public static String safeServerlocal = "http://192.168.1.130:8081/SafeServer/";//SafeServer接口測試
     public static String serverlocal = "http://192.168.1.133:8080/Server/";//Server接口測試

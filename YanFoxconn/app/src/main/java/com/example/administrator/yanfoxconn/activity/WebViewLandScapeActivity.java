@@ -95,7 +95,7 @@ public class WebViewLandScapeActivity extends BaseActivity implements View.OnCli
 
         }else if (role.equals("IR")){
             String code = getIntent().getStringExtra("code");
-            mWebview.loadUrl(Constants.safeServerlocal+"baobiao/cpc_view.jsp?code="+code);
+            mWebview.loadUrl(Constants.SAFE_SERVER+"baobiao/cpc_view.jsp?code="+code);
 
         }else{//跨區申請單
             mWebview.loadUrl("http://60.212.41.39/exportio/people/info_view.jsp?login_code="+ FoxContext.getInstance().getLoginId());
