@@ -168,7 +168,7 @@ public class   XunjianFragment extends Fragment implements View.OnClickListener{
             {R.mipmap.icon_ziliaoshi},//工會
             {R.mipmap.icon_pzbzc,R.mipmap.icon_pzbzc,R.mipmap.icon_pzbzc},//品質保證處
             {R.mipmap.icon_zhiyinshui,R.mipmap.icon_jidongx,R.mipmap.icon_yidadui_1},//南寧
-            {R.mipmap.ic_sharp_logo}//夏普
+            {R.mipmap.icon_zhiyinshui}//夏普
     };
 
     /**

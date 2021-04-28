@@ -26,8 +26,8 @@ public class Constants {
     public static String HTTP_WEBVIEW2 = "http://ytsafeserver.foxconn.com/" ;//WEBVIEW
 
 //本地测试服务器
-    public static String safeServerlocal = "http://192.168.1.130:8081/SafeServer/";//SafeServer接口測試
-    public static String serverlocal = "http://192.168.1.133:8080/Server/";//Server接口測試
+    public static String safeServerlocal = "http://192.168.1.124:8081/SafeServer/";//SafeServer接口測試
+    public static String serverlocal = "http://192.168.1.124:8081/Server/";//Server接口測試
 
     public static final String LING_SERVER = "http://192.168.1.113:8080/SafeServer/";//玲姐
 
