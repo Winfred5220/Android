@@ -201,10 +201,12 @@ public class IGListActivity extends BaseActivity implements View.OnClickListener
                 startActivity(intent1);
                 break;
             case R.id.btn_check:
-
+                Intent intent4 = new Intent(IGListActivity.this, QrCodeActivity.class);
+                intent4.putExtra("title", "二維碼掃描");
+                intent4.putExtra("num", "IGCheck");
+                startActivity(intent4);
                 break;
             case R.id.btn_change:
-                Log.e("-------","btn_change");
                 Intent intent3 = new Intent(IGListActivity.this, QrCodeActivity.class);
                 intent3.putExtra("title", "二維碼掃描");
                 intent3.putExtra("num", "IGChange");

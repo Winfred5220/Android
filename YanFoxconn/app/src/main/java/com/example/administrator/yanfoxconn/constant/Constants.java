@@ -168,6 +168,12 @@ public class Constants {
     public static String HTTP_LOCATION_BY_ID = LING_SERVER+"Store/LocationByIdServlet";//更換儲位 sl_code+zwuser
     public static String HTTP_LOCATION_FIND = LING_SERVER+"Store/LocationFindServlet";//更換儲位 sh_code
     public static String HTTP_LOCATION_UPDATE = LING_SERVER+"Store/LocationUpdateServlet";//更換儲位 更新提交
+    public static String HTTP_INVENTORY_STORE_INFO = LING_SERVER+"Store/InventoryStoreInfoServlet";//倉庫盤點 倉庫信息帶出（倉庫代碼+人員）
+    public static String HTTP_INVENTORY_LOCATION_INFO = LING_SERVER+"Store/InventoryLocaltionInfoServlet";//倉庫盤點 儲位信息帶出（倉庫代碼+flag(在用  or 空置)）
+    public static String HTTP_OPTION_INFO = LING_SERVER+"Store/OptionInfoServlet";//倉庫盤點 下拉選項帶出（flag（異常  or  整改））
+    public static String HTTP_INVENTORY_OK = LING_SERVER+"Store/InventoryOKServlet";//倉庫盤點 異常提交  json
+    public static String HTTP_INVENTORY_EXCE_ZG = LING_SERVER+"Store/InventoryExceZGServlet";//倉庫盤點 整改提交  json
+
 
     public static String HTTP_RZ_SCAN_STATUS = SAFE_SERVER+"RZ/ScanStatusServlet";//人資監餐 狀態查詢
     public static String HTTP_RZ_SCAN_SIGNIN = SAFE_SERVER+"RZ/ScanSignInServlet";//人資監餐 簽到

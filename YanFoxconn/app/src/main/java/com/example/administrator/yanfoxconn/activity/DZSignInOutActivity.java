@@ -300,6 +300,7 @@ public class DZSignInOutActivity extends BaseActivity implements View.OnClickLis
 
     //人資監餐簽到，提交前檢查
     private void check() {
+        btnUp.setClickable(false);
         final String url = Constants.HTTP_RZ_SCAN_SIGNIN; //此處寫上自己的URL
 
         JsonObject object = new JsonObject();
@@ -378,6 +379,7 @@ public class DZSignInOutActivity extends BaseActivity implements View.OnClickLis
 
     //人資監餐簽退，提交前檢查
     private void checkOut() {
+        btnUp.setClickable(false);
         final String url = Constants.HTTP_RZ_SCAN_SIGNOUT; //此處寫上自己的URL
 
         JsonObject object = new JsonObject();
@@ -751,8 +753,6 @@ public class DZSignInOutActivity extends BaseActivity implements View.OnClickLis
                         ToastUtils.showLong(DZSignInOutActivity.this, msg.obj.toString());
                         finish();
                     }
-
-
                     break;
                 case MESSAGE_UP://提交響應
                     break;
@@ -830,5 +830,4 @@ public class DZSignInOutActivity extends BaseActivity implements View.OnClickLis
         AlertDialog alert = builder.create();
         alert.show();
     }
-
 }
