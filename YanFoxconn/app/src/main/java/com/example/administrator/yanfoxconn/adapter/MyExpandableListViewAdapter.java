@@ -909,7 +909,14 @@ public class MyExpandableListViewAdapter extends BaseExpandableListAdapter {
                 intent.putExtra("type", "LMNOP");
                 mContext.getActivity().startActivity(intent);
             }
-
+            @Override
+            public void OnClickIR() {
+                FoxContext.getInstance().setType("IR");
+                Intent intent = new Intent(mContext.getActivity(), QrCodeActivity.class);
+                intent.putExtra("title", "掃描二維碼");
+                intent.putExtra("num", "cz");
+                mContext.getActivity().startActivity(intent);
+            }
             @Override
             public void OnClickII() {
                 Intent intent = new Intent(mContext.getActivity(), CPCSearchActivity.class);

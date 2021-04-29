@@ -275,7 +275,9 @@ public class MyGridViewAdapter extends BaseAdapter {
                     tvGridView.setTag("lmnop");
                 } else  if (rolesList.get(i).equals("IQ")) {//sharp 巡檢
                     tvGridView.setTag("iq");
-                } else {
+                } else  if (rolesList.get(i).equals("IR")) {//總務廣播巡檢
+                    tvGridView.setTag("ir");
+                }  else {
                     tvGridView.setTag("true");
                 }
                 break;
@@ -491,7 +493,9 @@ public class MyGridViewAdapter extends BaseAdapter {
                     onClickListener.OnClickII();
                 } else  if (view.getTag().equals("iq")) {//sharp 巡檢
                     onClickListener.OnClickIQ();
-                } else{
+                } else if (view.getTag().equals("ir")) {//
+                    onClickListener.OnClickIR();
+                } else {
                     onClickListener.OnClickListenerFalse(position);
                 }
             }
@@ -601,6 +605,7 @@ public class MyGridViewAdapter extends BaseAdapter {
         void OnClickIG();//宿舍寄存
         void OnClickII();//成品倉出貨
         void OnClickIQ();//sharp 巡檢
+        void OnClickIR();
     }
 
     public void setOnClickListener(OnClickListener onClickListener) {

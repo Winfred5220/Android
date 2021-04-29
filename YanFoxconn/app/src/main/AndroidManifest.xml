@@ -8,6 +8,46 @@
     <!-- <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/> -->
     <!-- <uses-permission android:name="android.permission.INTERNET"/> -->
     <!-- Required -->
+    <permission
+        android:name="com.example.administrator.yanfoxconn.permission.JPUSH_MESSAGE"
+        android:protectionLevel="signature" /> <!-- Required  一些系统要求的权限，如访问网络等 -->
+    <uses-permission android:name="com.example.administrator.yanfoxconn.permission.JPUSH_MESSAGE" />
+    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <!--<uses-permission android:name="android.permission.WRITE_SETTINGS" />-->
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <!--<uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />-->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> <!-- Optional for location -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" /> <!-- 用于开启 debug 版本的应用在6.0 系统上 层叠窗口权限 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.VIBRATE" /> <!-- 开启闪光灯权限 -->
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" /> <!-- 这个权限用于进行网络定位 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- 这个权限用于访问GPS定位 -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- 用于访问wifi网络信息，wifi信息会用于进行网络定位 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> <!-- 获取运营商信息，用于支持提供运营商信息相关的接口 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- 这个权限用于获取wifi的获取权限，wifi信息会用来进行网络定位 -->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" /> <!-- 用于读取手机当前的状态 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" /> <!-- 写入扩展存储，向扩展卡写入数据，用于写入离线定位数据 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- 访问网络，网络定位需要上网 -->
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- SD卡读取权限，用户写入离线定位数据 -->
+    <!--<uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />-->
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/><!-- APP內安裝更新 -->
     <application
         android:name=".constant.FoxApplication"
         android:allowBackup="true"
@@ -15,13 +55,22 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_round_main"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         android:usesCleartextTraffic="true"
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         tools:replace="android:icon, android:theme">
         <activity android:name=".activity.IGCheckListActivity"></activity>
         <activity
             android:name=".activity.BigImageActivity"
             android:theme="@style/Transparent" /> <!-- 声明service组件 -->
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote" /> <!-- AK鉴权 -->
+        <!-- meta-data需要写在application中 -->
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="6YkdNuNLxdBLG28eiwHR0OqgL5rzh0Ms" /> <!-- For test only 测试的主程序 -->
+        <!-- android:name="com.example.administrator.yanfoxconn.JPush.MainActivity" -->
         <activity
             android:name=".activity.WelcomeActivity"
             android:label="@string/app_name">
@@ -30,19 +79,18 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity> <!-- AK鉴权 -->
-        <!-- meta-data需要写在application中 -->
+        </activity> <!-- For test only 测试高级功能 -->
         <activity
             android:name=".JPush.PushSetActivity"
-            android:label="@string/app_name" /> <!-- For test only 测试的主程序 -->
-        <!-- android:name="com.example.administrator.yanfoxconn.JPush.MainActivity" -->
+            android:label="@string/app_name" /> <!-- For test only 测试设置 -->
         <activity
             android:name=".JPush.SettingActivity"
-            android:label="@string/app_name" /> <!-- For test only 测试高级功能 -->
+            android:label="@string/app_name" /> <!-- For test only 测试状态通知栏，需要打开的Activity -->
+        <!-- Rich push 核心功能 since 2.0.6 -->
         <activity
             android:name="cn.jpush.android.ui.PopWinActivity"
             android:exported="false"
-            android:theme="@style/MyDialogStyle" /> <!-- For test only 测试设置 -->
+            android:theme="@style/MyDialogStyle" /> <!-- Required SDK核心功能    通知欄 -->
         <activity
             android:name="cn.jpush.android.ui.PushActivity"
             android:configChanges="orientation|keyboardHidden"
@@ -55,211 +103,39 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="com.example.administrator.yanfoxconn" />
             </intent-filter>
-        </activity> <!-- For test only 测试状态通知栏，需要打开的Activity -->
-        <!-- Rich push 核心功能 since 2.0.6 -->
-        <activity android:name=".activity.LoginActivity" /> <!-- Required SDK核心功能    通知欄 -->
-        <activity android:name=".activity.RouteListActivity" /> <!-- Required SDK 核心功能 -->
+        </activity> <!-- Required SDK 核心功能 -->
         <!-- 可配置android:process参数将PushService放在其他进程中 -->
-        <activity android:name=".activity.QrCodeActivity" /> <!-- since 3.0.9 Required SDK 核心功能 -->
-        <activity android:name=".activity.UpAbnormalActivity" /> <!-- since 1.8.0 option 可选项。用于同一设备中不同应用的JPush服务相互拉起的功能。 -->
-        <!-- 若不启用该功能可删除该组件，将不拉起其他应用也不能被其他应用拉起 -->
-        <activity android:name=".activity.PhotoPickerActivity" /> <!-- since 3.1.0 Required SDK 核心功能 -->
-        <activity android:name=".activity.PhotoPreviewActivity" /> <!-- Required SDK核心功能 -->
-        <activity android:name=".activity.AbnormalListActivity" /> <!-- Required SDK核心功能 -->
-        <activity android:name=".activity.AbnormalSelfListActivity" /> <!-- User defined.  For test only  用户自定义的广播接收器 -->
-        <!-- <receiver -->
-        <!-- android:name="com.example.administrator.yanfoxconn.JPush.MyReceiver" -->
-        <!-- android:exported="false" -->
-        <!-- android:enabled="true"> -->
-        <!-- <intent-filter> -->
-        <!-- <action android:name="cn.jpush.android.intent.REGISTRATION" /> &lt;!&ndash;Required  用户注册SDK的intent&ndash;&gt; -->
-        <!-- <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" /> &lt;!&ndash;Required  用户接收SDK消息的intent&ndash;&gt; -->
-        <!-- <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" /> &lt;!&ndash;Required  用户接收SDK通知栏信息的intent&ndash;&gt; -->
-        <!-- <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" /> &lt;!&ndash;Required  用户打开自定义通知栏的intent&ndash;&gt; -->
-        <!-- <action android:name="cn.jpush.android.intent.CONNECTION" />&lt;!&ndash; 接收网络变化 连接/断开 since 1.6.3 &ndash;&gt; -->
-        <!-- <category android:name="com.example.administrator.yanfoxconn" /> -->
-        <!-- </intent-filter> -->
-        <!-- </receiver> -->
-        <!-- User defined.  For test only  用户自定义接收消息器,3.0.7开始支持,目前新tag/alias接口设置结果会在该广播接收器对应的方法中回调 -->
-        <activity android:name=".activity.AbnormalDetailsActivity" /> <!-- Required  . Enable it you can get statistics data with channel -->
-        <activity android:name=".activity.MainActivity" />
-        <activity android:name=".activity.CheckVersionActivity" /> <!-- </>值来自开发者平台取得的AppKey -->
-        <activity android:name=".activity.WebViewActivity" /> <!-- 欢迎页 -->
-        <!-- <activity -->
-        <!-- android:name=".JPush.MainActivity" -->
-        <!-- android:label="@string/app_name"> -->
-        <!-- <intent-filter> -->
-        <!-- <action android:name="android.intent.action.MAIN" /> -->
-        <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-        <!-- </intent-filter> -->
-        <!-- </activity> -->
-        <!-- 登錄 -->
-        <activity android:name=".activity.ExListViewActivity" /> <!-- 路線進度列表 -->
-        <activity android:name=".activity.ActualPeopleActivity" /> <!-- 二維碼掃描 -->
-        <activity android:name=".activity.CarScanActivity" /> <!-- 異常維護 -->
-        <activity android:name=".activity.SpinnerActivity" /> <!-- 圖片選擇 -->
-        <activity android:name=".activity.CarLogDayActivity" /> <!-- 圖片預覽 -->
-        <activity android:name=".activity.CarLogListActivity" /> <!-- 查看異常列表 -->
-        <activity android:name=".activity.CarLogUpActivity" /> <!-- 查看個人異常列表 -->
-        <activity android:name=".activity.CarLogUpAcE" /> <!-- 異常詳情 -->
-        <activity android:name=".activity.CarLogDetailsActivity" /> <!-- &lt;!&ndash;主頁定位&ndash;&gt; -->
-        <activity android:name=".activity.SpaceImageDetailActivity" /> <!-- 主頁 -->
-        <activity android:name=".activity.CarLogReturnActivity" /> <!-- 網頁跳轉 -->
-        <activity android:name=".activity.OutKeepFirstActivity" /> <!-- 二級菜單主界面 -->
-        <activity android:name=".activity.OutKeepSecondActivity" /> <!-- 實際巡檢人維護 -->
-        <activity android:name=".activity.DimemsionMenuActivity" /> <!-- 條形碼掃描信息顯示 -->
-        <activity android:name=".activity.CrossScanMainActivity" /> <!-- Spinner測試 -->
-        <activity android:name=".activity.CrossScanActivity" /> <!-- 行車日誌-日期選擇 -->
-        <activity android:name=".activity.CarListActivity" /> <!-- 行車日誌_日誌列表 -->
-        <activity android:name=".activity.CarListUpActivity" /> <!-- 行車日誌-日誌提交 -->
-        <activity android:name=".activity.CarWriteIdActivity" />
-        <activity android:name=".activity.EventListActivity" /> <!-- 行車日誌-日誌詳情 -->
-        <activity android:name=".activity.EventBuildActivity" /> <!-- 圖片測試 -->
-        <activity android:name=".activity.EventShowActivity" /> <!-- 行車日誌-退件列表 -->
-        <activity android:name=".activity.EventCheckInActivity" /> <!-- 地圖測試類 -->
-        <!-- <activity android:name=".activity.MyMapActivity" -->
-        <!-- android:screenOrientation="portrait"/> -->
-        <!-- <activity android:name=".activity.MyOptionActivity" -->
-        <!-- android:screenOrientation="portrait"/> -->
-        <!-- 營建 維保巡檢 以及 宿舍一級 -->
-        <activity android:name=".activity.EventTimeLvActivity" /> <!-- 營建 維保巡檢 -->
-        <activity android:name=".activity.OCRMainActivity" /> <!-- 宿舍 二級 -->
-        <activity android:name=".activity.CommonformsActivity" /> <!-- 跨區無紙化作業 主界面 -->
-        <activity android:name=".activity.EmpTurnoverActivity" /> <!-- 跨區無紙化作業 -->
-        <activity android:name=".activity.EmpWrongActivity" /> <!-- 碼頭車輛放行 列表界面 -->
-        <activity android:name=".activity.TwoWheelVehicleActivity" /> <!-- 碼頭車輛放行 圖片上傳 -->
-        <activity android:name=".activity.GoodsGeneralActivity" /> <!-- 手動輸入銷單號 -->
-        <activity android:name=".activity.GoodsReleaseInputActivity" /> <!-- 活動列表 -->
-        <activity android:name=".activity.HubAreaActivity" /> <!-- 活動生成 -->
-        <activity android:name=".activity.HubInputActivity" /> <!-- 活動二維碼 -->
-        <activity android:name=".activity.HubGoodsActivity" /> <!-- 活動簽到 -->
-        <activity android:name=".activity.HubSignActivity" /> <!-- 活動簽到時間 -->
-        <activity android:name=".activity.MobilecontrolInputActivity" /> <!-- 圖像文字識別測試 -->
-        <activity android:name=".activity.MobilecontrolMessageActivity" /> <!-- 安全部 常用表單 -->
-        <activity android:name=".activity.ForkliftEntranceActivity" /> <!-- 常用表單 員工進出異常 -->
-        <activity android:name=".activity.ForkliftMessageToCheckActivity" /> <!-- 常用表單 員工違規 -->
-        <activity android:name=".activity.ForkliftMessageToRepairActivity" /> <!-- 常用表單 二輪車違規 -->
-        <activity android:name=".activity.ForkliftCheckActivity" /> <!-- 普通物品放行 提交界面 -->
-        <activity android:name=".activity.ForkliftMaintenanceActivity" /> <!-- 普通物品放行 輸入界面 -->
-        <activity android:name=".activity.ForkliftMaintenanceListActivity" /> <!-- HUB倉物品 輸入區域界面 -->
-        <activity android:name=".activity.ForkliftRepairActivity" /> <!-- HUB倉物品 輸入界面 -->
-        <activity android:name=".activity.ProductDivisionActivity" /> <!-- HUB倉物品 提交界面 -->
-        <activity android:name=".activity.CrossCarActivity" /> <!-- HUB倉物品 簽收界面 -->
-        <activity android:name=".activity.ScrapLeaveActivity" /> <!-- 移動上網設備 提交界面 -->
-        <activity android:name=".activity.ScrapInputActivity" /> <!-- 移動上網設備 顯示界面 -->
-        <activity android:name=".activity.HubSelectInputActivity" /> <!-- 叉車點檢 進入界面 -->
-        <activity android:name=".activity.HubSelectActivity" /> <!-- 叉車點檢 車輛信息巡檢界面 -->
-        <activity android:name=".activity.GoodsIntelligenceActivity" /> <!-- 叉車點檢 車輛信息報修界面 -->
-        <activity android:name=".activity.IndustrialSafetyActivity" /> <!-- 叉車點檢 點檢信息界面 -->
-        <activity android:name=".activity.IndustrialAddActivity" /> <!-- 叉車點檢 維修界面 -->
-        <activity android:name=".activity.IndustrialAddDangerActivity" /> <!-- 叉車點檢 維修列表界面 -->
-        <activity android:name=".activity.IndustrialPersonActivity" /> <!-- 叉車點檢 報修界面 -->
-        <activity android:name=".activity.IndustrialSuggestActivity" /> <!-- 產品處 點檢界面 -->
-        <activity android:name=".activity.DutySectionChiefActivity" /> <!-- 車輛跨區 -->
-        <activity android:name=".activity.DutyChiefMainActivity" /> <!-- 廢料出廠 -->
-        <activity android:name=".activity.DutyChiefProblemActivity" /> <!-- 廢料出廠輸入 -->
-        <activity android:name=".activity.DutyChiefProblemSeeActivity" /> <!-- HUB倉查詢簽收信息提交 -->
-        <activity android:name=".activity.IndustrialDangerSeeActivity" /> <!-- HUB倉查詢簽收信息 -->
-        <activity android:name=".activity.CyKillActivity" /> <!-- 智慧物品放行 -->
-        <activity android:name=".activity.CyCarListActivity" /> <!-- 工安巡檢專案 巡檢單位列表 -->
-        <activity android:name=".activity.CyKillCheckActivity" /> <!-- 工安巡檢新增巡檢單位 -->
-        <activity android:name=".activity.CyDelListActivity" /> <!-- 工安巡檢新增隱患 -->
-        <activity android:name=".activity.CYInputCarNoActivity" /> <!-- 工安巡檢添加巡查人陪查人 -->
-        <activity android:name=".activity.DNCheckActivity" /> <!-- 工安巡檢添加優缺建議 -->
-        <activity android:name=".activity.DNCheckActivityNew" /> <!-- 安全部值班科長 -->
-        <activity android:name=".activity.DNCheckListActivity" />
-        <activity android:name=".activity.DNLookListActivity" />
-        <activity android:name=".activity.DNLookCheckActivity" />
-        <activity android:name=".activity.DNReformListActivity" />
-        <activity android:name=".activity.SanFangActivity" />
-        <activity android:name=".activity.RetreatTrainingInfoActivity" /> <!-- 消殺點檢提交界面 -->
-        <activity android:name=".activity.BandaoInputActivity" /> <!-- 未消殺車輛列表 -->
-        <activity android:name=".activity.BandaoInfoActivity" /> <!-- 消殺查驗和刪除 -->
-        <activity android:name=".activity.ZhiyinshuiExceListActivity" /> <!-- 已消殺車輛列表 -->
-        <activity android:name=".activity.ZhiyinshuiCheckActivity" /> <!-- 特殊車輛消殺 -->
-        <activity android:name=".activity.ZhiyinshuiMenuActivity" /> <!-- 宿舍查驗異常提交界面1 暫無用 -->
-        <activity android:name=".activity.ZhiyinshuiExceDetailActivity" /> <!-- 宿舍查驗異常提交界面new -->
-        <activity android:name=".activity.ZhiyinshuiExceDeviceListActivity" /> <!-- 宿舍查驗床位信息列表界面 -->
-        <activity android:name=".activity.ZhiyinshuiMaintainListActivity" />
-        <activity android:name=".activity.ZhiyinshuiMaintainActivity" />
-        <activity android:name=".activity.ZhiyinshuiCheckProcessActivity" /> <!-- 宿舍異常整改列表 -->
-        <activity android:name=".activity.ComAbnormalUpActivity" /> <!-- 三防隱患 -->
-        <activity android:name=".activity.ComAbRouteListActivity" /> <!-- 人資退訓放行界面 -->
-        <activity android:name=".activity.ComAbDListActivity" /> <!-- 人資班導輸入界面 -->
-        <activity android:name=".activity.ComAbAbnormalListActivity" />
-        <activity android:name=".activity.ComAbDetailActivity" /> <!-- 直飲水異常列表 -->
-        <activity android:name=".activity.ComAbRouteItemListActivity" /> <!-- 直飲水點檢 -->
-        <activity android:name=".activity.DZFoodCheckActivity" /> <!-- 直飲水菜單 -->
-        <activity android:name=".activity.DZFoodMainActivity" /> <!-- 直飲水維修詳情 -->
-        <activity android:name=".activity.DZSignInOutActivity" /> <!-- 直飲水異常設備列表 -->
-        <activity android:name=".activity.DZFoodPhotoUpActivity" /> <!-- 直飲水維保列表 -->
-        <activity android:name=".activity.DZFoodPhotoCheckActivity" /> <!-- 直飲水維保查看 -->
-        <activity android:name=".activity.DZFoodAbListActivty" /> <!-- 直飲水點檢進度 -->
-        <activity android:name=".activity.DZFoodAbCheckActivity" /> <!-- cz權限,公用的點檢界面 -->
-        <activity android:name=".activity.DZFoodAbUpActivity" /> <!-- 巡檢進度 -->
-        <activity android:name=".activity.FHRestaurantActivity" /> <!-- 公用巡檢 有異常的點位列表 -->
-        <activity android:name=".activity.GAWorkerSingInActivity" /> <!-- 公用巡檢 某點位的異常列表 -->
-        <activity android:name=".activity.GAExceDetailActivity" /> <!-- 新巡檢 某異常詳情頁和刪除 -->
-        <activity android:name=".activity.GAUpAbnormalActivity" /> <!-- 新巡檢 巡檢次數內容 -->
-        <activity android:name=".activity.CarMessageActivity" /> <!-- 人資監餐 餐別選擇 -->
-        <activity android:name=".activity.CarCheckActivity" /> <!-- 人資監餐 主界面 -->
-        <activity android:name=".activity.CarExceListActivity" /> <!-- 人資監餐 簽到簽退 -->
-        <activity android:name=".activity.CarExceDetailActivity" /> <!-- 人資監餐 菜品照片提交 -->
-        <activity android:name=".activity.CommonFormsDayListActivity" /> <!-- 人資監餐 菜品圖片查看 -->
-        <activity android:name=".activity.CommonFormsPrivateCarActivity" /> <!-- 人資監餐 異常列表 -->
-        <activity android:name=".activity.GCCheckIDActivity" /> <!-- 人資監餐 異常查看及刪除 -->
-        <activity android:name=".activity.GCSerchActivityTest" /> <!-- 人資監餐 異常提交界面 -->
-        <activity android:name=".activity.GCUpOrDoneActivity" /> <!-- 總務餐廳巡檢 點檢七大類界面 -->
-        <activity android:name=".activity.GCMainActivity" /> <!-- 總務臨時工 -->
-        <activity android:name=".activity.GTMainActivity" /> <!-- 临时工异常详情，删除，整改 -->
-        <activity android:name=".activity.GTAbUpActivity" /> <!-- 临时工异常上传 -->
-        <activity android:name=".activity.GTCheckActivity" /> <!-- 車輛基本信息 -->
-        <activity android:name=".activity.GTDetailActivity" /> <!-- 車輛巡檢 -->
-        <activity android:name=".activity.DeviceBorrowMainActivity" /> <!-- 車輛異常列表 -->
-        <activity android:name=".activity.DeviceBorrowListActivity" /> <!-- 車輛異常詳情 -->
-        <activity android:name=".activity.AbnormalCantCheckActivity" /> <!-- 二輪車違規查詢當日記錄 -->
-        <activity android:name=".activity.CarCheckProgressTypeListActivity" /> <!-- 私家車違規登記表 -->
-        <activity android:name=".activity.IGMainActivity" /> <!-- 安保部 健康追蹤 -->
-        <activity android:name=".activity.IGListActivity" /> <!-- 安保部 健康追蹤 -->
-        <activity android:name=".activity.IGChangeActivity" /> <!-- 安保部 追蹤he結案 -->
-        <activity android:name=".activity.IGCheckActivity" /> <!-- 安保部 異常處置區 -->
-        <activity android:name=".activity.CommonFormsJqtbActivity" /> <!-- 營建 工程管理主界面 -->
-        <activity android:name=".activity.CommonFormsCjfkActivity" /> <!-- 營建 工程管理點檢提交 -->
-        <activity android:name=".activity.CommonFormsCjfkListActivity" /> <!-- 營建 工程管理搜索列表 -->
-        <activity android:name=".activity.AQ110MenuActivity" /> <!-- 營建 工程管理 異常詳情界面 -->
-        <activity
-            android:name=".activity.CPCSearchActivity"
-            android:screenOrientation="landscape" /> <!-- 設備借用界面 -->
-        <activity
-            android:name=".activity.CPCReleaseActivity"
-            android:screenOrientation="landscape"
-            android:theme="@style/mainStyle" /> <!-- 設備借用狀態查詢界面 -->
-        <meta-data
-            android:name="com.baidu.lbsapi.API_KEY"
-            android:value="6YkdNuNLxdBLG28eiwHR0OqgL5rzh0Ms" /> <!-- 無法點檢上傳原因界面 -->
-        <meta-data
-            android:name="JPUSH_CHANNEL"
-            android:value="developer-default" /> <!-- 車輛點檢進度類別界面 -->
-        <meta-data
-            android:name="JPUSH_APPKEY"
-            android:value="26fa7146f3cd69641688f3aa" /> <!-- 宿舍 寄存主界面 -->
+        <service
+            android:name="cn.jpush.android.service.PushService"
+            android:enabled="true"
+            android:exported="false"
+            android:process=":mult">
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.REGISTER" />
+                <action android:name="cn.jpush.android.intent.REPORT" />
+                <action android:name="cn.jpush.android.intent.PushService" />
+                <action android:name="cn.jpush.android.intent.PUSH_TIME" />
+            </intent-filter>
+        </service> <!-- since 3.0.9 Required SDK 核心功能 -->
         <provider
             android:name="cn.jpush.android.service.DataProvider"
             android:authorities="com.example.administrator.yanfoxconn.DataProvider"
-            android:exported="false" /> <!-- 宿舍 寄存列表界面 -->
+            android:exported="false" /> <!-- since 1.8.0 option 可选项。用于同一设备中不同应用的JPush服务相互拉起的功能。 -->
+        <!-- 若不启用该功能可删除该组件，将不拉起其他应用也不能被其他应用拉起 -->
+        <service
+            android:name="cn.jpush.android.service.DaemonService"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.DaemonService" />
+
+                <category android:name="com.example.administrator.yanfoxconn" />
+            </intent-filter>
+        </service> <!-- since 3.1.0 Required SDK 核心功能 -->
         <provider
             android:name="cn.jpush.android.service.DownloadProvider"
             android:authorities="com.example.administrator.yanfoxconn.DownloadProvider"
-            android:exported="true" /> <!-- 宿舍 儲位變更界面 -->
-        <provider
-            android:name="androidx.core.content.FileProvider"
-            android:authorities="com.example.administrator.yanfoxconn.provider"
-            android:exported="false"
-            android:grantUriPermissions="true">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/provider_paths" />
-        </provider> <!-- 宿舍 倉庫盤點界面 -->
+            android:exported="true" /> <!-- Required SDK核心功能 -->
         <receiver
             android:name="cn.jpush.android.service.PushReceiver"
             android:enabled="true"
@@ -279,83 +155,280 @@
 
                 <data android:scheme="package" />
             </intent-filter>
-        </receiver> <!-- 110接處警 警情通報 -->
+        </receiver> <!-- Required SDK核心功能 -->
         <receiver
             android:name="cn.jpush.android.service.AlarmReceiver"
-            android:exported="false" /> <!-- 110接處警 處警反饋 -->
+            android:exported="false" /> <!-- User defined.  For test only  用户自定义的广播接收器 -->
+        <!-- <receiver -->
+        <!-- android:name="com.example.administrator.yanfoxconn.JPush.MyReceiver" -->
+        <!-- android:exported="false" -->
+        <!-- android:enabled="true"> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="cn.jpush.android.intent.REGISTRATION" /> &lt;!&ndash;Required  用户注册SDK的intent&ndash;&gt; -->
+        <!-- <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" /> &lt;!&ndash;Required  用户接收SDK消息的intent&ndash;&gt; -->
+        <!-- <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" /> &lt;!&ndash;Required  用户接收SDK通知栏信息的intent&ndash;&gt; -->
+        <!-- <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" /> &lt;!&ndash;Required  用户打开自定义通知栏的intent&ndash;&gt; -->
+        <!-- <action android:name="cn.jpush.android.intent.CONNECTION" />&lt;!&ndash; 接收网络变化 连接/断开 since 1.6.3 &ndash;&gt; -->
+        <!-- <category android:name="com.example.administrator.yanfoxconn" /> -->
+        <!-- </intent-filter> -->
+        <!-- </receiver> -->
+        <!-- User defined.  For test only  用户自定义接收消息器,3.0.7开始支持,目前新tag/alias接口设置结果会在该广播接收器对应的方法中回调 -->
         <receiver android:name=".JPush.MyJPushMessageReceiver">
             <intent-filter>
                 <action android:name="cn.jpush.android.intent.RECEIVE_MESSAGE" />
 
                 <category android:name="com.example.administrator.yanfoxconn" />
             </intent-filter>
-        </receiver> <!-- 110接處警 處警反饋列表 -->
-        <service
-            android:name="com.baidu.location.f"
-            android:enabled="true"
-            android:process=":remote" /> <!-- 110菜單 -->
-        <!-- 成品倉無紙化 銷單模糊查詢界面 -->
-        <service
-            android:name="cn.jpush.android.service.PushService"
-            android:enabled="true"
+        </receiver> <!-- Required  . Enable it you can get statistics data with channel -->
+        <meta-data
+            android:name="JPUSH_CHANNEL"
+            android:value="developer-default" />
+        <meta-data
+            android:name="JPUSH_APPKEY"
+            android:value="26fa7146f3cd69641688f3aa" /> <!-- </>值来自开发者平台取得的AppKey -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.example.administrator.yanfoxconn.provider"
             android:exported="false"
-            android:process=":mult">
-            <intent-filter>
-                <action android:name="cn.jpush.android.intent.REGISTER" />
-                <action android:name="cn.jpush.android.intent.REPORT" />
-                <action android:name="cn.jpush.android.intent.PushService" />
-                <action android:name="cn.jpush.android.intent.PUSH_TIME" />
-            </intent-filter>
-        </service> <!-- 成品倉無紙化 貨物放行界面 -->
-        <service
-            android:name="cn.jpush.android.service.DaemonService"
-            android:enabled="true"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="cn.jpush.android.intent.DaemonService" />
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider> <!-- 欢迎页 -->
+        <!-- <activity -->
+        <!-- android:name=".JPush.MainActivity" -->
+        <!-- android:label="@string/app_name"> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="android.intent.action.MAIN" /> -->
+        <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+        <!-- </intent-filter> -->
+        <!-- </activity> -->
+        <!-- 登錄 -->
+        <activity android:name=".activity.LoginActivity" />
+        <!-- 路線進度列表 -->
+        <activity android:name=".activity.RouteListActivity" />
+        <!-- 二維碼掃描 -->
+        <activity android:name=".activity.QrCodeActivity" />
+        <!-- 異常維護 -->
+        <activity android:name=".activity.UpAbnormalActivity" />
+        <!-- 圖片選擇 -->
+        <activity android:name=".activity.PhotoPickerActivity" />
+        <!-- 圖片預覽 -->
+        <activity android:name=".activity.PhotoPreviewActivity" />
+        <!-- 查看異常列表 -->
+        <activity android:name=".activity.AbnormalListActivity" />
+        <!-- 查看個人異常列表 -->
+        <activity android:name=".activity.AbnormalSelfListActivity" />
+        <!-- 異常詳情 -->
+        <activity android:name=".activity.AbnormalDetailsActivity" />
+        <!-- &lt;!&ndash;主頁定位&ndash;&gt; -->
+        <activity android:name=".activity.MainActivity"/>
+        <!-- 主頁 -->
+        <activity android:name=".activity.CheckVersionActivity" />
+        <!-- 網頁跳轉 -->
+        <activity android:name=".activity.WebViewActivity" />
+        <!-- 網頁跳轉橫屏 -->
+        <activity android:name=".activity.WebViewLandScapeActivity"
+            android:screenOrientation="landscape"/>
+        <!-- 二級菜單主界面 -->
+        <activity android:name=".activity.ExListViewActivity" />
+        <!-- 實際巡檢人維護 -->
+        <activity android:name=".activity.ActualPeopleActivity" />
+        <!-- 條形碼掃描信息顯示 -->
+        <activity android:name=".activity.CarScanActivity" />
+        <!-- Spinner測試 -->
+        <activity android:name=".activity.SpinnerActivity" />
+        <!-- 行車日誌-日期選擇 -->
+        <activity android:name=".activity.CarLogDayActivity" />
+        <!-- 行車日誌_日誌列表 -->
+        <activity android:name=".activity.CarLogListActivity" />
+        <!-- 行車日誌-日誌提交 -->
+        <activity android:name=".activity.CarLogUpActivity" />
+        <activity android:name=".activity.CarLogUpAcE" />
+        <!-- 行車日誌-日誌詳情 -->
+        <activity android:name=".activity.CarLogDetailsActivity" />
+        <!-- 圖片測試 -->
+        <activity android:name=".activity.SpaceImageDetailActivity" />
+        <!-- 行車日誌-退件列表 -->
+        <activity android:name=".activity.CarLogReturnActivity" />
+        <!-- 地圖測試類 -->
+        <!-- <activity android:name=".activity.MyMapActivity" -->
+        <!-- android:screenOrientation="portrait"/> -->
+        <!-- <activity android:name=".activity.MyOptionActivity" -->
+        <!-- android:screenOrientation="portrait"/> -->
+        <!-- 營建 維保巡檢 以及 宿舍一級 -->
+        <activity android:name=".activity.OutKeepFirstActivity" />
+        <!-- 營建 維保巡檢 -->
+        <activity android:name=".activity.OutKeepSecondActivity" />
+        <!-- 宿舍 二級 -->
+        <activity android:name=".activity.DimemsionMenuActivity" />
+        <!-- 跨區無紙化作業 主界面 -->
+        <activity android:name=".activity.CrossScanMainActivity" />
+        <!-- 跨區無紙化作業 -->
+        <activity android:name=".activity.CrossScanActivity" />
+        <!-- 碼頭車輛放行 列表界面 -->
+        <activity android:name=".activity.CarListActivity" />
+        <!-- 碼頭車輛放行 圖片上傳 -->
+        <activity android:name=".activity.CarListUpActivity" />
+        <!-- 手動輸入銷單號 -->
+        <activity android:name=".activity.CarWriteIdActivity" />
+        <!-- 活動列表 -->
+        <activity android:name=".activity.EventListActivity" />
+        <!-- 活動生成 -->
+        <activity android:name=".activity.EventBuildActivity" />
+        <!-- 活動二維碼 -->
+        <activity android:name=".activity.EventShowActivity" />
+        <!-- 活動簽到 -->
+        <activity android:name=".activity.EventCheckInActivity" />
+        <!-- 活動簽到時間 -->
+        <activity android:name=".activity.EventTimeLvActivity" />
+        <!-- 圖像文字識別測試 -->
+        <activity android:name=".activity.OCRMainActivity" />
+        <!-- 安全部 常用表單 -->
+        <activity android:name=".activity.CommonformsActivity" />
+        <!-- 常用表單 員工進出異常 -->
+        <activity android:name=".activity.EmpTurnoverActivity" />
+        <!-- 常用表單 員工違規 -->
+        <activity android:name=".activity.EmpWrongActivity" />
+        <!-- 常用表單 二輪車違規 -->
+        <activity android:name=".activity.TwoWheelVehicleActivity" />
+        <!-- 普通物品放行 提交界面 -->
+        <activity android:name=".activity.GoodsGeneralActivity" />
+        <!-- 普通物品放行 輸入界面 -->
+        <activity android:name=".activity.GoodsReleaseInputActivity" />
+        <!-- HUB倉物品 輸入區域界面 -->
+        <activity android:name=".activity.HubAreaActivity" />
+        <!-- HUB倉物品 輸入界面 -->
+        <activity android:name=".activity.HubInputActivity" />
+        <!-- HUB倉物品 提交界面 -->
+        <activity android:name=".activity.HubGoodsActivity" />
+        <!-- HUB倉物品 簽收界面 -->
+        <activity android:name=".activity.HubSignActivity" />
+        <!-- 移動上網設備 提交界面 -->
+        <activity android:name=".activity.MobilecontrolInputActivity" />
+        <!-- 移動上網設備 顯示界面 -->
+        <activity android:name=".activity.MobilecontrolMessageActivity" />
+        <!-- 叉車點檢 進入界面 -->
+        <activity android:name=".activity.ForkliftEntranceActivity" />
+        <!-- 叉車點檢 車輛信息巡檢界面 -->
+        <activity android:name=".activity.ForkliftMessageToCheckActivity" />
+        <!-- 叉車點檢 車輛信息報修界面 -->
+        <activity android:name=".activity.ForkliftMessageToRepairActivity" />
+        <!-- 叉車點檢 點檢信息界面 -->
+        <activity android:name=".activity.ForkliftCheckActivity" />
+        <!-- 叉車點檢 維修界面 -->
+        <activity android:name=".activity.ForkliftMaintenanceActivity" />
+        <!-- 叉車點檢 維修列表界面 -->
+        <activity android:name=".activity.ForkliftMaintenanceListActivity" />
+        <!-- 叉車點檢 報修界面 -->
+        <activity android:name=".activity.ForkliftRepairActivity" />
+        <!-- 產品處 點檢界面 -->
+        <activity android:name=".activity.ProductDivisionActivity" />
+        <!-- 車輛跨區 -->
+        <activity android:name=".activity.CrossCarActivity" />
+        <!-- 廢料出廠 -->
+        <activity android:name=".activity.ScrapLeaveActivity" />
+        <!-- 廢料出廠輸入 -->
+        <activity android:name=".activity.ScrapInputActivity" />
+        <!-- HUB倉查詢簽收信息提交 -->
+        <activity android:name=".activity.HubSelectInputActivity" />
+        <!-- HUB倉查詢簽收信息 -->
+        <activity android:name=".activity.HubSelectActivity" />
+        <!-- 智慧物品放行 -->
+        <activity android:name=".activity.GoodsIntelligenceActivity" />
+        <!-- 工安巡檢專案 巡檢單位列表 -->
+        <activity android:name=".activity.IndustrialSafetyActivity" />
+        <!-- 工安巡檢新增巡檢單位 -->
+        <activity android:name=".activity.IndustrialAddActivity" />
+        <!-- 工安巡檢新增隱患 -->
+        <activity android:name=".activity.IndustrialAddDangerActivity" />
+        <!-- 工安巡檢添加巡查人陪查人 -->
+        <activity android:name=".activity.IndustrialPersonActivity" />
+        <!-- 工安巡檢添加優缺建議 -->
+        <activity android:name=".activity.IndustrialSuggestActivity" />
+        <!-- 安全部值班科長 -->
+        <activity android:name=".activity.DutySectionChiefActivity" />
+        <activity android:name=".activity.DutyChiefMainActivity" />
+        <activity android:name=".activity.DutyChiefProblemActivity" />
+        <activity android:name=".activity.DutyChiefProblemSeeActivity" />
+        <activity android:name=".activity.IndustrialDangerSeeActivity" />
 
-                <category android:name="com.example.administrator.yanfoxconn" />
-            </intent-filter>
-        </service>
-    </application> <!-- Required  一些系统要求的权限，如访问网络等 -->
-    <permission
-        android:name="com.example.administrator.yanfoxconn.permission.JPUSH_MESSAGE"
-        android:protectionLevel="signature" />
-    <uses-feature android:name="android.hardware.camera" />
-    <uses-feature android:name="android.hardware.camera.autofocus" />
-    <uses-permission android:name="com.example.administrator.yanfoxconn.permission.JPUSH_MESSAGE" />
-    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" /> <!-- <uses-permission android:name="android.permission.WRITE_SETTINGS" /> -->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" /> <!-- <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" /> -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> <!-- Optional for location -->
-    <uses-permission android:name="android.permission.VIBRATE" /> <!-- 用于开启 debug 版本的应用在6.0 系统上 层叠窗口权限 -->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+        <activity android:name=".activity.CyKillActivity" /> <!-- 消殺點檢提交界面 -->
+        <activity android:name=".activity.CyCarListActivity" /> <!-- 未消殺車輛列表 -->
+        <activity android:name=".activity.CyKillCheckActivity" /> <!-- 消殺查驗和刪除 -->
+        <activity android:name=".activity.CyDelListActivity" /> <!-- 已消殺車輛列表 -->
+        <activity android:name=".activity.CYInputCarNoActivity"/><!-- 特殊車輛消殺 -->
+        <activity android:name=".activity.DNCheckActivity" /> <!-- 宿舍查驗異常提交界面1 暫無用 -->
+        <activity android:name=".activity.DNCheckActivityNew" /> <!-- 宿舍查驗異常提交界面new -->
+        <activity android:name=".activity.DNCheckListActivity" /> <!-- 宿舍查驗床位信息列表界面 -->
+        <activity android:name=".activity.DNLookListActivity" />
+        <activity android:name=".activity.DNLookCheckActivity" />
+        <activity android:name=".activity.DNReformListActivity"/><!-- 宿舍異常整改列表 -->
+        <activity android:name=".activity.SanFangActivity" /> <!-- 三防隱患 -->
+        <activity android:name=".activity.RetreatTrainingInfoActivity" /> <!-- 人資退訓放行界面 -->
+        <activity android:name=".activity.BandaoInputActivity" /> <!-- 人資班導輸入界面 -->
+        <activity android:name=".activity.BandaoInfoActivity" />
+        <activity android:name=".activity.ZhiyinshuiExceListActivity" /> <!-- 直飲水異常列表 -->
+        <activity android:name=".activity.ZhiyinshuiCheckActivity" /> <!-- 直飲水點檢 -->
+        <activity android:name=".activity.ZhiyinshuiMenuActivity" /> <!-- 直飲水菜單 -->
+        <activity android:name=".activity.ZhiyinshuiExceDetailActivity" /> <!-- 直飲水維修詳情 -->
+        <activity android:name=".activity.ZhiyinshuiExceDeviceListActivity" /> <!-- 直飲水異常設備列表 -->
+        <activity android:name=".activity.ZhiyinshuiMaintainListActivity" /> <!-- 直飲水維保列表 -->
+        <activity android:name=".activity.ZhiyinshuiMaintainActivity" /> <!-- 直飲水維保查看 -->
+        <activity android:name=".activity.ZhiyinshuiCheckProcessActivity" /> <!-- 直飲水點檢進度 -->
+        <activity android:name=".activity.ComAbnormalUpActivity" /> <!-- cz權限,公用的點檢界面 -->
+        <activity android:name=".activity.ComAbRouteListActivity" /> <!-- 巡檢進度 -->
+        <activity android:name=".activity.ComAbDListActivity" /> <!-- 公用巡檢 有異常的點位列表 -->
+        <activity android:name=".activity.ComAbAbnormalListActivity" /> <!-- 公用巡檢 某點位的異常列表 -->
+        <activity android:name=".activity.ComAbDetailActivity" /> <!-- 新巡檢 某異常詳情頁和刪除 -->
+        <activity android:name=".activity.ComAbRouteItemListActivity" /> <!-- 新巡檢 巡檢次數內容 -->
+        <activity android:name=".activity.DZFoodCheckActivity" /> <!-- 人資監餐 餐別選擇 -->
+        <activity android:name=".activity.DZFoodMainActivity" /> <!-- 人資監餐 主界面 -->
+        <activity android:name=".activity.DZSignInOutActivity" /> <!-- 人資監餐 簽到簽退 -->
+        <activity android:name=".activity.DZFoodPhotoUpActivity" /> <!-- 人資監餐 菜品照片提交 -->
+        <activity android:name=".activity.DZFoodPhotoCheckActivity" /> <!-- 人資監餐 菜品圖片查看 -->
+        <activity android:name=".activity.DZFoodAbListActivty" /> <!-- 人資監餐 異常列表 -->
+        <activity android:name=".activity.DZFoodAbCheckActivity" /> <!-- 人資監餐 異常查看及刪除 -->
+        <activity android:name=".activity.DZFoodAbUpActivity" /><!-- 人資監餐 異常提交界面 -->
+        <activity android:name=".activity.FHRestaurantActivity"/><!-- 總務餐廳巡檢 點檢七大類界面 -->
+        <activity android:name=".activity.GAWorkerSingInActivity"/><!--總務臨時工-->
+        <activity android:name=".activity.GAExceDetailActivity"/><!--临时工异常详情，删除，整改-->
+        <activity android:name=".activity.GAUpAbnormalActivity"/><!--临时工异常上传-->
+        <activity android:name=".activity.CarMessageActivity"/><!-- 車輛基本信息 -->
+        <activity android:name=".activity.CarCheckActivity"/><!-- 車輛巡檢 -->
+        <activity android:name=".activity.CarExceListActivity"/><!-- 車輛異常列表 -->
+        <activity android:name=".activity.CarExceDetailActivity"/><!-- 車輛異常詳情 -->
+        <activity android:name=".activity.CommonFormsDayListActivity"/><!-- 二輪車違規查詢當日記錄 -->
+        <activity android:name=".activity.CommonFormsPrivateCarActivity"/><!-- 私家車違規登記表 -->
+        <activity android:name=".activity.GCCheckIDActivity"/><!-- 安保部 健康追蹤 -->
+        <activity android:name=".activity.GCSerchActivityTest"/><!-- 安保部 健康追蹤 -->
+        <activity android:name=".activity.GCUpOrDoneActivity"/><!-- 安保部 追蹤he結案 -->
+        <activity android:name=".activity.GCMainActivity"/><!-- 安保部 異常處置區 -->
+        <activity android:name=".activity.GTMainActivity"/><!-- 營建 工程管理主界面 -->
+        <activity android:name=".activity.GTAbUpActivity"/><!-- 營建 工程管理點檢提交 -->
+        <activity android:name=".activity.GTCheckActivity"/><!-- 營建 工程管理搜索列表 -->
+        <activity android:name=".activity.GTDetailActivity"/><!-- 營建 工程管理 異常詳情界面 -->
+        <activity android:name=".activity.DeviceBorrowMainActivity"/><!-- 設備借用界面 -->
+        <activity android:name=".activity.DeviceBorrowListActivity"/><!-- 設備借用狀態查詢界面 -->
+        <activity android:name=".activity.AbnormalCantCheckActivity"/><!-- 無法點檢上傳原因界面 -->
+        <activity android:name=".activity.CarCheckProgressTypeListActivity"/><!-- 車輛點檢進度類別界面 -->
+        <activity android:name=".activity.IGMainActivity"/><!-- 宿舍 寄存主界面 -->
+        <activity android:name=".activity.IGListActivity"/><!-- 宿舍 寄存列表界面 -->
+        <activity android:name=".activity.IGChangeActivity"/><!-- 宿舍 儲位變更界面 -->
+<!--        <activity android:name=".activity.IG"/>&lt;!&ndash; 宿舍 寄存列表界面 &ndash;&gt;寄存列表界面-->
 
-    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
-    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+        <activity android:name=".activity.CommonFormsJqtbActivity"/><!-- 110接處警 警情通報 -->
+        <activity android:name=".activity.CommonFormsCjfkActivity"/><!-- 110接處警 處警反饋 -->
+        <activity android:name=".activity.CommonFormsCjfkListActivity"/><!-- 110接處警 處警反饋列表 -->
+        <activity android:name=".activity.AQ110MenuActivity"/><!-- 110菜單 -->
 
-    <uses-permission android:name="android.permission.GET_TASKS" />
-    <uses-permission android:name="android.permission.CAMERA" /> <!-- 开启闪光灯权限 -->
-    <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.FLASHLIGHT" /> <!-- 这个权限用于进行网络定位 -->
-    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" /> <!-- 这个权限用于访问GPS定位 -->
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- 用于访问wifi网络信息，wifi信息会用于进行网络定位 -->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- 获取运营商信息，用于支持提供运营商信息相关的接口 -->
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> <!-- 这个权限用于获取wifi的获取权限，wifi信息会用来进行网络定位 -->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- 用于读取手机当前的状态 -->
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" /> <!-- 写入扩展存储，向扩展卡写入数据，用于写入离线定位数据 -->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" /> <!-- 访问网络，网络定位需要上网 -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- SD卡读取权限，用户写入离线定位数据 -->
-    <!-- <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" /> -->
-    <uses-permission android:name="android.permission.INTERNET" />
-
-    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+        <!-- 成品倉無紙化 銷單模糊查詢界面 -->
+        <activity android:name=".activity.CPCSearchActivity"
+            android:screenOrientation="landscape"/>
+        <!-- 成品倉無紙化 貨物放行界面 -->
+        <activity android:name=".activity.CPCReleaseActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/mainStyle"/>
+    </application>
 
 </manifest>

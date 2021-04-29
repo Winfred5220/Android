@@ -322,7 +322,7 @@ public class ZhiyinshuiCheckActivity extends BaseActivity implements View.OnClic
         selectFalseList.clear();//下拉異常
         //遍历map集合
         for (int key : isSelected.keySet()) {
-            Log.e("-----------", "isSelected.get(key)===" + isSelected.get(key));
+            //Log.e("-----------", "isSelected.get(key)===" + isSelected.get(key));
             //判断是否已选择，如果已选择，则添加进selectList
             if (isSelected.get(key).equals("true")) {
                 selectList.add(key);
@@ -367,7 +367,7 @@ public class ZhiyinshuiCheckActivity extends BaseActivity implements View.OnClic
             int j = noselectList.get(i);
             if (etMap.get(j) == null || etMap.get(j).equals("")) {
                 key1++;
-                Log.e("-----------", "key1-----" + key1);
+                //Log.e("-----------", "key1-----" + key1);
             }
             JsonObject jsonObject = new JsonObject();
             jsonObject.addProperty("id", mCheckMsgList.get(j).getId());
@@ -383,21 +383,21 @@ public class ZhiyinshuiCheckActivity extends BaseActivity implements View.OnClic
             if (imagePathsMap.get(j) != null && imagePathsMap.get(j).size()!=0) {
                 for (int k = 0; k < imagePathsMap.get(j).size(); k++) {
                     final String pic_path = imagePathsMap.get(j).get(k);
-                    Log.e("------pic_path-------", pic_path);
+                    //Log.e("------pic_path-------", pic_path);
                     String sign_dir = Environment.getExternalStorageDirectory() + File.separator + "YanFoxconn" + File.separator + "Photos";
                     String _path =  sign_dir + File.separator  + System.currentTimeMillis() +j+k+ ".jpg";
-                    Log.e("------_path-------", _path);
+                    //Log.e("------_path-------", _path);
                     final String compressImage = ImageZipUtils.compressImage(pic_path, _path, 50);
-                    Log.e("----compressImage---", compressImage);
+                    //Log.e("----compressImage---", compressImage);
                     String picBase64Code = ImageZipUtils.imageToBase64(compressImage);
-                    Log.e("----picBase64Code----", "===="+ picBase64Code);
+                    //Log.e("----picBase64Code----", "===="+ picBase64Code);
                     JsonObject jsonObject1 = new JsonObject();
                     jsonObject1.addProperty("file", picBase64Code);
                     photoArray.add(jsonObject1);
                 }
             }else {
                 key2++;
-                Log.e("-----------", "key2-----" + key2);
+                //Log.e("-----------", "key2-----" + key2);
             }
             jsonObject.add("photo", photoArray);
             array.add(jsonObject);
@@ -407,7 +407,7 @@ public class ZhiyinshuiCheckActivity extends BaseActivity implements View.OnClic
             int j = inputTureList.get(i);
             if (etCheckMap.get(j) == null || etCheckMap.get(j).equals("")) {
                 key3++;
-                Log.e("-----------", "key3-----" + key3);
+                //Log.e("-----------", "key3-----" + key3);
             }
             JsonObject jsonObject = new JsonObject();
             jsonObject.addProperty("id", mCheckMsgList.get(j).getId());
@@ -423,7 +423,7 @@ public class ZhiyinshuiCheckActivity extends BaseActivity implements View.OnClic
             int j = inputFalseList.get(i);
             if (etCheckMap.get(j) == null || etCheckMap.get(j).equals("")) {
                 key3++;
-                Log.e("-----------", "key3-----" + key3);
+                //Log.e("-----------", "key3-----" + key3);
             }
             JsonObject jsonObject = new JsonObject();
             jsonObject.addProperty("id", mCheckMsgList.get(j).getId());
@@ -460,14 +460,14 @@ public class ZhiyinshuiCheckActivity extends BaseActivity implements View.OnClic
             if (imagePathsMap.get(j) != null && imagePathsMap.get(j).size()!=0) {
                 for (int k = 0; k < imagePathsMap.get(j).size(); k++) {
                     final String pic_path = imagePathsMap.get(j).get(k);
-                    Log.e("------pic_path-------", pic_path);
+                    //Log.e("------pic_path-------", pic_path);
                     String sign_dir = Environment.getExternalStorageDirectory() + File.separator + "YanFoxconn" + File.separator + "Photos";
                     String _path =  sign_dir + File.separator  + System.currentTimeMillis() +j+k+ ".jpg";
-                    Log.e("------_path-------", _path);
+                    //Log.e("------_path-------", _path);
                     final String compressImage = ImageZipUtils.compressImage(pic_path, _path, 50);
-                    Log.e("----compressImage---", compressImage);
+                    //Log.e("----compressImage---", compressImage);
                     String picBase64Code = ImageZipUtils.imageToBase64(compressImage);
-                    Log.e("----picBase64Code----", "===="+ picBase64Code);
+                    //Log.e("----picBase64Code----", "===="+ picBase64Code);
                     JsonObject jsonObject1 = new JsonObject();
                     jsonObject1.addProperty("file", picBase64Code);
                     photoArray.add(jsonObject1);
@@ -480,7 +480,7 @@ public class ZhiyinshuiCheckActivity extends BaseActivity implements View.OnClic
 
         object.add("info", array);
 
-        Log.e("-----object------",  object.toString());
+        //Log.e("-----object------",  object.toString());
 
         if (FoxContext.getInstance().getLoginId().equals("")) {
             ToastUtils.showShort(this, "登錄超時,請重新登陸");

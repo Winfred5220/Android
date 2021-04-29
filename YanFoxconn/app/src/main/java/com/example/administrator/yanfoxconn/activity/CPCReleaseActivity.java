@@ -16,51 +16,42 @@ import android.os.Message;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
-import android.widget.TableRow;
+import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.baidu.location.BDLocation;
 import com.bumptech.glide.Glide;
 import com.example.administrator.yanfoxconn.R;
-import com.example.administrator.yanfoxconn.adapter.CPCBodyList2Adapter;
 import com.example.administrator.yanfoxconn.adapter.CPCBodyListAdapter;
-import com.example.administrator.yanfoxconn.adapter.EmpListAdapter;
-import com.example.administrator.yanfoxconn.adapter.HubListAdapter;
+import com.example.administrator.yanfoxconn.adapter.JqtbListAdapter;
 import com.example.administrator.yanfoxconn.adapter.ZhiyinshuiCheckAdapter;
 import com.example.administrator.yanfoxconn.bean.CPCMessage;
-import com.example.administrator.yanfoxconn.bean.EmpFile;
-import com.example.administrator.yanfoxconn.bean.HubList;
 import com.example.administrator.yanfoxconn.bean.SelectModel;
 import com.example.administrator.yanfoxconn.constant.Constants;
 import com.example.administrator.yanfoxconn.constant.FoxContext;
 import com.example.administrator.yanfoxconn.constant.ImageCaptureManager;
 import com.example.administrator.yanfoxconn.intent.PhotoPickerIntent;
-import com.example.administrator.yanfoxconn.intent.PhotoPreviewIntent;
 import com.example.administrator.yanfoxconn.utils.BaseActivity;
 import com.example.administrator.yanfoxconn.utils.FileUtil;
 import com.example.administrator.yanfoxconn.utils.HttpConnectionUtil;
-import com.example.administrator.yanfoxconn.utils.HttpUtils;
-import com.example.administrator.yanfoxconn.utils.ImageZipUtils;
 import com.example.administrator.yanfoxconn.utils.ToastUtils;
-import com.example.administrator.yanfoxconn.widget.MyGridView;
+import com.example.administrator.yanfoxconn.utils.WatermarkUtil;
 import com.example.administrator.yanfoxconn.widget.MyListView;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -68,21 +59,15 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
-import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -91,7 +76,7 @@ import butterknife.ButterKnife;
 import taobe.tec.jcc.JChineseConvertor;
 
 /**
- * Created by wangqian on 2021/4/10.成品倉放行貨物確認界面
+ * Created by S1007989 on 2021/4/10.成品倉放行貨物確認界面
  */
 public  class CPCReleaseActivity extends BaseActivity implements OnClickListener {
     @BindView(R.id.btn_title_left)
@@ -101,12 +86,9 @@ public  class CPCReleaseActivity extends BaseActivity implements OnClickListener
     @BindView(R.id.btn_title_right)
     Button btnUp;//提交
 
-    @BindView(R.id.et_gate_post)
-    EditText etGatePost;//放行門崗
-    @BindView(R.id.lv_gate)
-    MyListView lvGate;//放行門崗列表
-    @BindView(R.id.ll_list_gate)
-    LinearLayout llLIstGate;//放行門崗列表
+    @BindView(R.id.sp_gate)
+    Spinner spGate;//放行門崗
+
     @BindView(R.id.tv_no)
     TextView tvNo;//銷單號
     @BindView(R.id.rv_option)
@@ -122,53 +104,52 @@ public  class CPCReleaseActivity extends BaseActivity implements OnClickListener
     private ImageCaptureManager captureManager; // 相机拍照处理类
     private String ex_no;//銷單號
     private List<CPCMessage> cpcBody;//物品列表
-    private CPCBodyList2Adapter cpcBodyListAdapter;//物品列表适配器
+    private CPCBodyListAdapter cpcBodyListAdapter;//物品列表适配器
     private GridAdapter gridAdapter;
     private String url;//地址
-    private String result;//网络获取结果
-    //用户存储条目的选择状态
-    private HashMap<Integer, Boolean> isSelected = new HashMap<>();
-    //用于存放已选择的条目
-    private List<Integer> selectList = new ArrayList<>();
-    private EmpListAdapter mAdapter;
-    private List<String> teamList;
-    private List<EmpFile> empFileList;
+    private String gate = "請選擇";//門崗
+    private String mac = "";//Mac地址
+    private boolean isClicked = true;//判斷是否點擊
+    private ArrayList<String> teamList;
+    HashMap<Integer, String> isConfirmOkMap;//存放editText值的map
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cpc_release);
         ButterKnife.bind(this);
 
+        SimpleDateFormat formatterUse = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        //获取当前时间
+        String initStartDateTime = formatterUse.format(new Date(System.currentTimeMillis()));
+        //加水印
+        WatermarkUtil.getInstance().show(this, FoxContext.getInstance().getLoginId()+"\n"+FoxContext.getInstance().getName(),initStartDateTime);
+
         ex_no = getIntent().getStringExtra("ex_no");
+        teamList = getIntent().getStringArrayListExtra("teamList");
+
         tvNo.setText(ex_no);
         tvTitle.setText("出貨確認");
         //btnSign.setOnClickListener(signListener);
         btnBack.setOnClickListener(this);
+
         btnUp.setOnClickListener(this);
         btnUp.setVisibility(View.VISIBLE);
         btnUp.setText("提交");
+
         //ivEmpty.setOnClickListener(this);
         mcontext=this.getApplicationContext();
-
-        getMessage(ex_no);
-
-        //搜索关键字
-        etGatePost.addTextChangedListener(new TextWatcher() {
+        //門崗下拉列表選擇
+        spGate.setAdapter(new ArrayAdapter<String>(CPCReleaseActivity.this, android.R.layout.simple_list_item_1, teamList));
+        spGate.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+                gate=teamList.get(pos);
             }
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                llLIstGate.setVisibility(View.VISIBLE);
-                String a = etGatePost.getText().toString();
-                //调用适配器里面的搜索方法
-                mAdapter.SearchCity(a);
+            public void onNothingSelected(AdapterView<?> parent) {
             }
-            @Override
-            public void afterTextChanged(Editable editable) {
-            }
-
         });
+        getMessage();
 
 //        int cols = getResources().getDisplayMetrics().widthPixels / getResources().getDisplayMetrics().densityDpi;
 //        cols = cols < 4 ? 4 : cols;
@@ -265,7 +246,18 @@ public  class CPCReleaseActivity extends BaseActivity implements OnClickListener
                 finish();
                 break;
             case R.id.btn_title_right:
-                check();
+                if (isClicked){
+                    check();
+                    isClicked = false;
+                    new Timer().schedule(new TimerTask() {
+                        @Override
+                        public void run() {
+                            isClicked = true;
+                        }
+                    }, 2000);
+                }else{
+                    ToastUtils.showShort(CPCReleaseActivity.this,R.string.multiple_click);
+                }
                 break;
             case R.id.iv_empty:
                 PhotoPickerIntent intent = new PhotoPickerIntent(CPCReleaseActivity.this);
@@ -278,188 +270,75 @@ public  class CPCReleaseActivity extends BaseActivity implements OnClickListener
         }
     }
 
+    //獲取銷單貨物信息
+    private void getMessage() {
 
-    private void getMessage(String ex_no) {
-        showDialog();
+        final String url = Constants.HTTP_CPC_JSON_SERVLET; //此處寫上自己的URL
 
-//        try {
-//            String area1 =  URLEncoder.encode(URLEncoder.encode(area.toString(), "UTF-8"), "UTF-8");
-//            String dep1  =  URLEncoder.encode(URLEncoder.encode(dep.toString(), "UTF-8"), "UTF-8");
-//            String name1 =  URLEncoder.encode(URLEncoder.encode(name.toString(), "UTF-8"), "UTF-8");
+        JsonObject object = new JsonObject();
+        object.addProperty("flag","cpcGetBodyList");
+        object.addProperty("ex_no",ex_no);
+        object.addProperty("mac",mac);
 
-        url = Constants.HTTP_CPC_BODY_LIST_SERVLET + "?ex_no=" + ex_no;
-//        } catch (UnsupportedEncodingException e) {
-//            e.printStackTrace();
-//        }
-        Log.e("-----------", "url-----" + url);
+        Log.e("-----object------",  object.toString());
+
+        if (FoxContext.getInstance().getLoginId().equals("")) {
+            ToastUtils.showShort(this, "登錄超時,請重新登陸");
+            return;
+        }
+
+        //開啟一個新執行緒，向伺服器上傳資料
         new Thread() {
-            @Override
             public void run() {
-                result = HttpUtils.queryStringForGet(url);
-                Gson gson = new Gson();
-                if (result != null) {
-                    Log.e("---------", "result==fff===" + result);
-                    JsonObject jsonObject = new JsonParser().parse(result).getAsJsonObject();
-                    String errCode = jsonObject.get("errCode").getAsString();
-                    if (errCode.equals("200")) {
-//                        String ss = jsonObject.get("data").toString();
-//                        cpcBody = new ArrayList<CPCMessage>();
-//                        try {
-//                            JSONArray array = new JSONArray(ss);
-//                            for(int i=0;i<array.length();i++){
-//                                JSONObject goods = array.getJSONObject(i);// 遍历 jsonarray 数组，把每一个对象转成 json 对象
-//                                CPCMessage hub = new CPCMessage();
-//                                hub.setORDER_NO(goods.getString("ORDER_NO"));
-//                                hub.setMATERIAL_CODE(goods.getString("MATERIAL_CODE"));
-//                                hub.setMATERIAL_NAME(goods.getString("MATERIAL_NAME"));
-//                                hub.setMATERIAL_SPEC(goods.getString("MATERIAL_SPEC"));
-//                                hub.setSY(goods.getString("SY"));
-//                                hub.setAPPLY_COUNT(goods.getString("SY"));
-//                                cpcBody.add(hub);
-//                            }
-//                        } catch (JSONException e) {
-//                            e.printStackTrace();
-//                        }
-
-                        JsonArray array = jsonObject.get("result").getAsJsonArray();
-                        cpcBody = new ArrayList<CPCMessage>();
-                        for (JsonElement type : array) {
-                            CPCMessage humi = gson.fromJson(type, CPCMessage.class);
-                            cpcBody.add(humi);
-                        }
-
-                        //JsonObject jsonObject1 = new JsonParser().parse(String.valueOf(array.get(0))).getAsJsonObject();
-                        JsonArray array1 = jsonObject.get("file").getAsJsonArray();
-                        empFileList = new ArrayList<EmpFile>();
-                        for (JsonElement type1 : array1) {
-                            EmpFile humi1 = gson.fromJson(type1, EmpFile.class);
-                            empFileList.add(humi1);
-                        }
-
-                        Message message = new Message();
-                        message.what = Constants.MESSAGE_SET_TEXT;
-                        message.obj = jsonObject.get("errMessage").getAsString();
-                        mHandler.sendMessage(message);
+                //把网络访问的代码放在这里
+                try {
+                    showDialog();
+                    Log.e("----url-----",  url);
+                    String result = HttpConnectionUtil.doPostJsonObject(url, object);
+                    Gson gson = new Gson();
+                    if (result != null) {
                         dismissDialog();
-
-                    } else{
-                        Message message = new Message();
-                        message.what = Constants.MESSAGE_TOAST;
-                        message.obj = jsonObject.get("errMessage").getAsString();
-                        mHandler.sendMessage(message);
-                    }
-                } else{
-                    Message message = new Message();
-                    message.what = Constants.MESSAGE_NETMISTAKE;
-                    mHandler.sendMessage(message);
-                }
-            } }.start();
-    }
-
-    //提交
-    private void Upload(){
-
-        final String url = Constants.HTTP_CPC_NG_UP_SERVLET; //此處寫上自己的URL
-        final Map<String, String> paramMap = new HashMap<String, String>(); //文本資料全部添加到Map裡
-        final Map<String, File> fileMap = new HashMap<String, File>(); //檔全部添加到Map裡
-
-        //清除之前选择的数据
-        selectList.clear();
-        //遍历map集合
-        for (int key : isSelected.keySet()) {
-            //判断是否已选择，如果已选择，则添加进selectList
-            if(isSelected.get(key)){
-                selectList.add(key);
-            }
-        }
-        Log.e("----------","selectList"+ selectList.toString());
-
-        ArrayList arrayList = new ArrayList();
-        for (int i=0;i<selectList.size();i++){
-            int j = selectList.get(i);
-            JsonObject jsonObject = new JsonObject();
-//            jsonObject.addProperty("order_no", cpcBody.get(j).getORDER_NO());
-//            jsonObject.addProperty("receive_count", cpcBody.get(j).getAPPLY_COUNT());
-//            jsonObject.addProperty("material_code", cpcBody.get(j).getMATERIAL_CODE());
-            arrayList.add(jsonObject);
-        }
-
-        Log.e("-----------", "arrayList-----" + arrayList.toString());
-
-        paramMap.put("updateInfo", arrayList.toString() );
-
-        if (selectList.size()==0) {
-            ToastUtils.showShort(this, "請選擇條目");
-        }  else if (imagePaths==null) {
-            ToastUtils.showShort(this, "請拍照選擇圖片或手寫簽名");
-        } else {
-            for (int i = 0; i < imagePaths.size(); i++) {
-                File pictureFile = new File(imagePaths.get(i)); //通過路徑獲取檔
-//            fileMap.put("file" + i, pictureFile);//添加第一個文件
-                final String pic_path = imagePaths.get(i);
-                String sign_dir = Environment.getExternalStorageDirectory() + File.separator + "YanFoxconn" + File.separator + "Photos";
-                String _path =  sign_dir + File.separator  + System.currentTimeMillis() +i+ ".jpg";
-                //getFilesDir().getAbsolutePath()+"compressPic.jpg";
-                //调用压缩图片的方法，返回压缩后的图片path
-                final String compressImage = ImageZipUtils.compressImage(pic_path, _path, 80);
-                final File compressedPic = new File(compressImage);
-                imgZipPaths.add(i,compressImage);
-                Log.e("----com---",compressImage);
-                if (compressedPic.exists()) {
-                    Log.e("-------------","图片压缩上传");
-                    //  uploadFileByOkHTTP(context, actionUrl, compressedPic);
-//                showDialog("111"+compressImage);
-                    fileMap.put("file"+i,compressedPic);//添加第一個文件
-
-                }else{//直接上传
-                    // uploadFileByOkHTTP(context, actionUrl, pictureFile);
-//                showDialog("222"+entryFile.getValue());
-                    fileMap.put("file"+i,pictureFile);
-                }
-            }
-
-            //開啟一個新執行緒，向伺服器上傳資料
-            new Thread() {
-                public void run() {
-                    try {
-                        showDialog();
-                        HttpURLConnection b = HttpConnectionUtil.doPostPicture(url, paramMap, fileMap);
-                        Log.e("---------", "==fff===" + url);
-                        if (b!=null){
-                            dismissDialog();
-                            Log.e("---------", "==fff===" + b);
-                            if (b.getResponseCode() == 200) {
-                                Message message = new Message();
-                                message.what = Constants.MESSAGE_TOAST;
-                                message.obj = b.getResponseMessage();
-                                mHandler.sendMessage(message);
-                                new Timer().schedule(new TimerTask() {
-                                    @Override
-                                    public void run() {//刪除簽名文件
-                                    FileUtil.deletePhotos(CPCReleaseActivity.this);
-                                    finish();
-                                    }
-                                }, 1000);
-
-                            } else {
-                                Message message = new Message();
-                                message.what = Constants.MESSAGE_TOAST;
-                                message.obj = b.getResponseMessage();
-                                mHandler.sendMessage(message);
+                        Log.e("-----result----", result);
+                        JsonObject jsonObject = new JsonParser().parse(result).getAsJsonObject();
+                        String errCode = jsonObject.get("errCode").getAsString();
+                        if (errCode.equals("200")) {
+                            JsonArray array = jsonObject.get("result").getAsJsonArray();
+                            cpcBody = new ArrayList<CPCMessage>();
+                            for (JsonElement type : array) {
+                                CPCMessage humi = gson.fromJson(type, CPCMessage.class);
+                                cpcBody.add(humi);
                             }
-                        }
 
-                    } catch (Exception e) {
-                        e.printStackTrace();
+                            Message message = new Message();
+                            message.what = Constants.MESSAGE_SET_TEXT;
+                            message.obj = jsonObject.get("errMessage").getAsString();
+                            mHandler.sendMessage(message);
+
+                        } else{
+                            Message message = new Message();
+                            message.what = Constants.MESSAGE_TOAST;
+                            message.obj = jsonObject.get("errMessage").getAsString();
+                            mHandler.sendMessage(message);
+                        }
+                    }else{
+                        Message message = new Message();
+                        message.what = Constants.MESSAGE_NETMISTAKE;
+                        mHandler.sendMessage(message);
+                        finish();
                     }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-            }.start();
-        }
+
+            }
+        }.start();
     }
+
     //單筆確認前檢查
     private void checkAndConfirm(int position) {
 
-        final String url = Constants.HTTP_CPC_CONFIRM_SERVLET; //此處寫上自己的URL
+        final String url = Constants.HTTP_CPC_JSON_SERVLET; //此處寫上自己的URL
 
         JsonObject object = new JsonObject();
         HashMap<Integer, ArrayList<String>> imagePathsMap; //存放圖片地址的map
@@ -469,21 +348,22 @@ public  class CPCReleaseActivity extends BaseActivity implements OnClickListener
 //        if (location == null || location.getLongitude() == 0.0 || location.getLatitude() == 0.0) {
 //            ToastUtils.showLong(this, "位置信息獲取失敗請稍後或移動后重試!");
 //        }
-        String num = CPCBodyList2Adapter.getNumMap().get(position);
+        String num = CPCBodyListAdapter.getAdapterMessageMap().get(position).getNum();
         //Log.e("----num---",num);
-        String unit = CPCBodyList2Adapter.getUnitMap().get(position);
+        String unit = CPCBodyListAdapter.getAdapterMessageMap().get(position).getUnit();
         //Log.e("----unit---",unit);
 
         imagePathsMap = ZhiyinshuiCheckAdapter.getImagePathsMap();
         etMap = ZhiyinshuiCheckAdapter.getEtMap();
 
         //JsonArray array = new JsonArray();
-
+        object.addProperty("flag","cpcConfirm");
         object.addProperty("ex_no",ex_no);
         object.addProperty("ex_lh",cpcBody.get(position).getEx_lh());
+        object.addProperty("ex_item",cpcBody.get(position).getEx_item());
         object.addProperty("ex_release_count", num);
         object.addProperty("ex_release_unit", unit);
-        object.addProperty("ex_release_door", etGatePost.getText().toString());
+        object.addProperty("ex_release_door", gate);
         object.addProperty("ex_releaser", FoxContext.getInstance().getName());
 
         //object.add("info", array);
@@ -494,7 +374,7 @@ public  class CPCReleaseActivity extends BaseActivity implements OnClickListener
             ToastUtils.showShort(this, "登錄超時,請重新登陸");
             return;
         }
-        if (etGatePost.getText().toString().replaceAll(" ","").equals("")) {
+        if (gate.equals("請選擇")) {
             ToastUtils.showShort(this, "請選擇門崗");
             return;
         }
@@ -546,12 +426,11 @@ public  class CPCReleaseActivity extends BaseActivity implements OnClickListener
     //最終確認前檢查
     private void check() {
 
-        final String url = Constants.HTTP_CPC_CONFIRM_ALL_SERVLET; //此處寫上自己的URL
+        final String url = Constants.HTTP_CPC_JSON_SERVLET; //此處寫上自己的URL
 
         JsonObject object = new JsonObject();
 
-        HashMap<Integer, String> isConfirmOkMap;//存放editText值的map
-        isConfirmOkMap = CPCBodyList2Adapter.getIsConfirmOkMap();
+        isConfirmOkMap = CPCBodyListAdapter.getIsConfirmOkMap();
         //遍历map集合
         for (int key : isConfirmOkMap.keySet()) {
             Log.e("-----------", "isConfirmOkMap.get(key)===" + isConfirmOkMap.get(key));
@@ -561,9 +440,9 @@ public  class CPCReleaseActivity extends BaseActivity implements OnClickListener
                 return;
             }
         }
-
+        object.addProperty("flag","cpcConfirmAll");
         object.addProperty("ex_no",ex_no);
-        object.addProperty("ex_release_door", etGatePost.getText().toString());
+        object.addProperty("ex_release_door", gate);
         object.addProperty("ex_releaser", FoxContext.getInstance().getName());
 
         Log.e("-----object------",  object.toString());
@@ -572,7 +451,7 @@ public  class CPCReleaseActivity extends BaseActivity implements OnClickListener
             ToastUtils.showShort(this, "登錄超時,請重新登陸");
             return;
         }
-        if (etGatePost.getText().toString().replaceAll(" ","").equals("")) {
+        if (gate.equals("請選擇")) {
             ToastUtils.showShort(this, "請選擇門崗");
             return;
         }
@@ -618,24 +497,25 @@ public  class CPCReleaseActivity extends BaseActivity implements OnClickListener
         }.start();
     }
     //NG提交
-    private void NGUpload(String text,String ex_lh) {
+    private void NGUpload(String text,String ex_lh,String ex_item) {
 
-        final String url = Constants.HTTP_CPC_NG_UP_SERVLET; //此處寫上自己的URL
+        final String url = Constants.HTTP_CPC_JSON_SERVLET; //此處寫上自己的URL
 
         JsonObject object = new JsonObject();
-
+        object.addProperty("flag","cpcNGUP");
         object.addProperty("REC_SN",ex_no);
-        object.addProperty("REC_MARK", etGatePost.getText().toString());
+        object.addProperty("REC_MARK", gate);
         object.addProperty("REC_NAME", FoxContext.getInstance().getName());
         object.addProperty("REC_STATUE", ex_lh);
         object.addProperty("REC_REMARK", text);
+        object.addProperty("REC_ITEM", ex_item);
         Log.e("-----object------",  object.toString());
 
         if (FoxContext.getInstance().getLoginId().equals("")) {
             ToastUtils.showShort(this, "登錄超時,請重新登陸");
             return;
         }
-        if (etGatePost.getText().toString().replaceAll(" ","").equals("")) {
+        if (gate.equals("請選擇")) {
             ToastUtils.showShort(this, "請選擇門崗");
             return;
         }
@@ -684,14 +564,71 @@ public  class CPCReleaseActivity extends BaseActivity implements OnClickListener
         }.start();
     }
     //取消NG
-    private void NGDelete(String ex_lh) {
+    private void NGDelete(String ex_lh,String ex_item) {
 
-        final String url = Constants.HTTP_CPC_NG_DELETE_SERVLET; //此處寫上自己的URL
+        final String url = Constants.HTTP_CPC_JSON_SERVLET; //此處寫上自己的URL
 
         JsonObject object = new JsonObject();
-
+        object.addProperty("flag","cpcNGDelete");
         object.addProperty("REC_SN",ex_no);
         object.addProperty("REC_STATUE", ex_lh);
+        object.addProperty("REC_ITEM", ex_item);
+        Log.e("-----object------",  object.toString());
+
+        if (FoxContext.getInstance().getLoginId().equals("")) {
+            ToastUtils.showShort(this, "登錄超時,請重新登陸");
+            return;
+        }
+        //開啟一個新執行緒，向伺服器上傳資料
+        new Thread() {
+            public void run() {
+                //把网络访问的代码放在这里
+                try {
+                    showDialog();
+                    Log.e("---------", "==fff===" + url);
+                    String result = HttpConnectionUtil.doPostJsonObject(url, object);
+                    if (result != null) {
+                        dismissDialog();
+                        Log.e("---------", "result==fff===" + result);
+                        JsonObject jsonObject = new JsonParser().parse(result).getAsJsonObject();
+                        String errCode = jsonObject.get("errCode").getAsString();
+                        if (errCode.equals("200")) {
+                            Message message = new Message();
+                            message.what = Constants.MESSAGE_TOAST;
+                            message.obj = jsonObject.get("errMessage").getAsString();
+                            mHandler.sendMessage(message);
+
+                        } else{
+                            Message message = new Message();
+                            message.what = Constants.MESSAGE_TOAST;
+                            message.obj = jsonObject.get("errMessage").getAsString();
+                            mHandler.sendMessage(message);
+                        }
+                    }else{
+                        Message message = new Message();
+                        message.what = Constants.MESSAGE_NETMISTAKE;
+                        mHandler.sendMessage(message);
+                        finish();
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }finally {
+                    FileUtil.deletePhotos(CPCReleaseActivity.this);
+                }
+            }
+        }.start();
+    }
+    //撤回確認
+    private void recall(String ex_lh,String ex_item) {
+
+        final String url = Constants.HTTP_CPC_JSON_SERVLET; //此處寫上自己的URL
+
+        JsonObject object = new JsonObject();
+        object.addProperty("flag","cpcRecall");
+        object.addProperty("ex_no",ex_no);
+        object.addProperty("ex_lh", ex_lh);
+        object.addProperty("ex_item", ex_item);
         Log.e("-----object------",  object.toString());
 
         if (FoxContext.getInstance().getLoginId().equals("")) {
@@ -772,15 +709,16 @@ public  class CPCReleaseActivity extends BaseActivity implements OnClickListener
         LinearLayoutManager layoutManager = new LinearLayoutManager(CPCReleaseActivity.this);
         rvOption.setLayoutManager(layoutManager);
         rvOption.setItemViewCacheSize(500);
-        cpcBodyListAdapter = new CPCBodyList2Adapter(mcontext, cpcBody);
+        cpcBodyListAdapter = new CPCBodyListAdapter(mcontext, cpcBody);
         //列表設置長按菜單
-        cpcBodyListAdapter.setOnItemClickListener(new CPCBodyList2Adapter.OnItemClickListener() {
+        cpcBodyListAdapter.setOnItemClickListener(new CPCBodyListAdapter.OnItemClickListener() {
             @Override
             public void onItemLongClick(View view, int pos) {
                 //View当前PopupMenu显示的相对View的位置
                 PopupMenu popupMenu = new PopupMenu(CPCReleaseActivity.this, view);
                 Menu menu = popupMenu.getMenu();
                 // 通过代码添加菜单项
+                menu.add(Menu.NONE, Menu.FIRST + 0, 1, "撤回");
                 menu.add(Menu.NONE, Menu.FIRST + 1, 1, "NG");
                 menu.add(Menu.NONE, Menu.FIRST + 2, 1, "取消NG");
                 // 通过XML文件添加菜单项,menu布局
@@ -791,13 +729,21 @@ public  class CPCReleaseActivity extends BaseActivity implements OnClickListener
                 PopupMenu.OnMenuItemClickListener menuItem = new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
+                        isConfirmOkMap = CPCBodyListAdapter.getIsConfirmOkMap();
+                        if (isConfirmOkMap.get(pos).equals("Y")){
+                            ToastUtils.showShort(CPCReleaseActivity.this, "已確認OK,不可操作");
+                            return false;
+                        }
                         switch (item.getItemId()) {
+                            case Menu.FIRST + 0:
+                                recall(cpcBody.get(pos).getEx_lh(),cpcBody.get(pos).getEx_item());
+                                break;
                             case Menu.FIRST + 1:
-                                inputAlert(cpcBody.get(pos).getEx_lh());
+                                inputAlert(cpcBody.get(pos).getEx_lh(),cpcBody.get(pos).getEx_item());
                                 break;
                             case Menu.FIRST + 2:
-                                NGDelete(cpcBody.get(pos).getEx_lh());
-
+                                NGDelete(cpcBody.get(pos).getEx_lh(),cpcBody.get(pos).getEx_item());
+                                break;
                         }
                         return false;
                     }
@@ -808,34 +754,26 @@ public  class CPCReleaseActivity extends BaseActivity implements OnClickListener
             }
         });
         //單條信息確認
-        cpcBodyListAdapter.setOnConfirmClickListener(new CPCBodyList2Adapter.OnConfirmClickListener() {
+        cpcBodyListAdapter.setOnConfirmClickListener(new CPCBodyListAdapter.OnConfirmClickListener() {
             @Override
             public void onConfirmclick(int position) {
-                checkAndConfirm(position);
+                if (isClicked){
+                    checkAndConfirm(position);
+                    isClicked = false;
+                    new Timer().schedule(new TimerTask() {
+                        @Override
+                        public void run() {
+                            isClicked = true;
+                        }
+                    }, 2000);
+                }else{
+                    ToastUtils.showShort(CPCReleaseActivity.this,R.string.multiple_click);
+                }
+
             }
         });
         rvOption.setAdapter(cpcBodyListAdapter);
 
-        //門崗列表賦值
-        teamList = new ArrayList<>();
-        for (int i = 0;i<empFileList.size();i++){
-
-            teamList.add(change1(empFileList.get(i).getID()+","+empFileList.get(i).getAQ1()+"-"+empFileList.get(i).getAQ2()+"-"+empFileList.get(i).getAQ3()+"-"+empFileList.get(i).getAQ4()));
-        }
-        mAdapter = new EmpListAdapter(CPCReleaseActivity.this,teamList);
-        lvGate.setAdapter(mAdapter);
-
-        //稽核門崗列表,選中后1:tit賦值,2:列表隱藏
-        mAdapter.OnClickSetText(new EmpListAdapter.OnClickSetText() {
-            @Override
-            public void OnClickxt(String tit) {
-                etGatePost.setText(tit.split(",")[1]);
-                etGatePost.setTag(tit.split(",")[0]);
-                //paramMap.put("mengang", tit.split(",")[0]);
-                mAdapter.SearchCity("");
-                llLIstGate.setVisibility(View.GONE);
-            }
-        });
     }
     //繁体转成简体
     public String change1(String changeText) {
@@ -994,7 +932,8 @@ public  class CPCReleaseActivity extends BaseActivity implements OnClickListener
                         // TODO Auto-generated method stub
                         if (type==Constants.MESSAGE_TOAST){
                            // finish();
-                            getMessage(ex_no);
+                            dismissDialog();
+                            getMessage();
                         }
                     }
                 });
@@ -1020,7 +959,7 @@ public  class CPCReleaseActivity extends BaseActivity implements OnClickListener
         alert.show();
     }
 
-    private void inputAlert(String ex_lh) {
+    private void inputAlert(String ex_lh,String ex_item) {
         final EditText inputServer = new EditText(CPCReleaseActivity.this);
         AlertDialog.Builder builder = new AlertDialog.Builder(CPCReleaseActivity.this);
          builder.setTitle("請输入NG描述").setView(inputServer)
@@ -1035,12 +974,11 @@ public  class CPCReleaseActivity extends BaseActivity implements OnClickListener
                     public void onClick(DialogInterface dialog, int id) {
                         // TODO Auto-generated method stub
                         String text = inputServer.getText().toString();
-                        NGUpload(text,ex_lh);
+                        NGUpload(text,ex_lh,ex_item);
                     }
                 });
         builder.show();
     }
-
 
 
 

@@ -70,13 +70,13 @@ public class BaobiaoFragment extends Fragment {
         /** 總務 */
 
         //餐飲巡檢
-        LinearLayout btnRoom = (LinearLayout) view.findViewById(R.id.btn_room);
+        LinearLayout btnRoom = (LinearLayout) view.findViewById(R.id.ib_sign);
         btnRoom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent= new Intent(getActivity(), WebViewActivity.class);
-                intent.putExtra("role","FX");
-                //startActivity(intent);
+                intent.putExtra("role","CTPP");
+                startActivity(intent);
             }
         });
 

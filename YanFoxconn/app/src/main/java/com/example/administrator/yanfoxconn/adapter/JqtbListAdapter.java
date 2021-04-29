@@ -13,8 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 無紙化 門崗
- * Created by song on 2018/12/4.
+ * 110警情通報 中心處置
+ * Created by S1007989 on 2018/12/4.
  */
 
 public class JqtbListAdapter extends BaseAdapter {

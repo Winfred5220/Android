@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--成品倉出貨 無紙化-->
 <LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:focusable="true"
@@ -9,9 +10,7 @@
 
     <include layout="@layout/common_title"/>
 
-    <com.example.administrator.yanfoxconn.widget.MyScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -50,12 +49,15 @@
                 android:gravity="center"/>
 
         </RelativeLayout>
-
+            <com.example.administrator.yanfoxconn.widget.MyScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
             <com.example.administrator.yanfoxconn.widget.MyListView
                 android:id="@+id/lv_single"
                 android:layout_marginTop="@dimen/dimen_8"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
+            </com.example.administrator.yanfoxconn.widget.MyScrollView>
         </LinearLayout>
-    </com.example.administrator.yanfoxconn.widget.MyScrollView>
+
 </LinearLayout>
