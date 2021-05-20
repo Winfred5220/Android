@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--110接處警查詢-->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/common_title"/>
+
+    <com.example.administrator.yanfoxconn.widget.MyScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/et_search"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="提示：黃色為未處理，白色為已處理未結案"
+                android:inputType="text"
+                android:paddingLeft="10dp"
+                android:textColor="@color/color_f5a306"
+                android:textSize="16sp" />
+            <LinearLayout
+                android:background="@color/color_333333"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    style="@style/TextView110"
+                    android:layout_weight="0.5"
+                    android:text="序號" />
+                <TextView
+                    style="@style/TextView110"
+                    android:text="報警方式" />
+                <TextView
+                    style="@style/TextView110"
+                    android:text="報案日期" />
+                <TextView
+                    style="@style/TextView110"
+                    android:text="警情位置" />
+                <TextView
+                    style="@style/TextView110"
+                    android:text="報警內容" />
+                <TextView
+                    style="@style/TextView110"
+                    android:text="聯繫方式" />
+
+            </LinearLayout>
+
+            <com.example.administrator.yanfoxconn.widget.SwipterMenuTest
+                android:id="@+id/lv_people"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </LinearLayout>
+    </com.example.administrator.yanfoxconn.widget.MyScrollView>
+</LinearLayout>

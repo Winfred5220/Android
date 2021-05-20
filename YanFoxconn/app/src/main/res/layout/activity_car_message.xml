@@ -295,6 +295,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="@dimen/dimen_50"
+            android:layout_marginBottom="@dimen/dimen_20"
             android:gravity="center"
             android:orientation="horizontal">
 
@@ -304,12 +305,20 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:background="#21bb1a"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
                 android:text="點 檢"
                 android:textColor="@color/color_f8f7f7"
                 android:textSize="18dp"/>
+            <Button
+                android:id="@+id/btn_xiaosha"
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
 
+                android:background="#009688"
+                android:text="消 殺"
+                android:textColor="@color/color_f8f7f7"
+                android:textSize="18dp"/>
         </LinearLayout>
     </LinearLayout>
     </ScrollView>

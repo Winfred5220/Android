@@ -118,18 +118,36 @@
                 android:text="登錄"
                 android:textColor="@color/color_ffdedede"
                 android:textSize="18sp"/>
-
-            <!--版本更新-->
-            <TextView
-                android:id="@+id/tv_version_code"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/dimen_20"
-                android:layout_marginLeft="@dimen/dimen_20"
-                android:layout_marginRight="@dimen/dimen_20"
-                android:layout_marginTop="15dp"
-                android:text="版本查看"
-                android:textSize="@dimen/text_size_16"/>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <!--版本更新-->
+                <TextView
+                    android:id="@+id/tv_version_code"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginBottom="@dimen/dimen_20"
+                    android:layout_marginLeft="@dimen/dimen_20"
+                    android:layout_marginRight="@dimen/dimen_20"
+                    android:layout_marginTop="15dp"
+                    android:text="版本查看"
+                    android:textSize="@dimen/text_size_16"/>
+                <!--工作互聯-->
+                <TextView
+                    android:id="@+id/tv_work"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:layout_marginBottom="@dimen/dimen_20"
+                    android:layout_marginLeft="@dimen/dimen_20"
+                    android:layout_marginRight="@dimen/dimen_20"
+                    android:layout_marginTop="15dp"
+                    android:text="工作互聯"
+                    android:textSize="@dimen/text_size_16"/>
+            </LinearLayout>
 
         </LinearLayout>
     </ScrollView>

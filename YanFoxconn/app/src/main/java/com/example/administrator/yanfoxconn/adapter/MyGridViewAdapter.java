@@ -179,7 +179,7 @@ public class MyGridViewAdapter extends BaseAdapter {
                     tvGridView.setTag("hq");
                 } else if (rolesList.get(i).equals("HS")) {//資料室
                     tvGridView.setTag("hs");
-                }  else if (rolesList.get(i).equals("FE")) {//洗眼器點檢
+                } else if (rolesList.get(i).equals("FE")) {//洗眼器點檢
                     tvGridView.setTag("fe");
                 } else if (rolesList.get(i).equals("FF")) {//危化品暫存柜點檢
                     tvGridView.setTag("ff");
@@ -209,7 +209,7 @@ public class MyGridViewAdapter extends BaseAdapter {
                     tvGridView.setTag("fx");
                 } else if (rolesList.get(i).equals("FZ")) {//工業安全-有限空間
                     tvGridView.setTag("fz");
-                }else if (rolesList.get(i).equals("GE")) {//工業安全-室外堆場
+                } else if (rolesList.get(i).equals("GE")) {//工業安全-室外堆場
                     tvGridView.setTag("ge");
                 } else if (rolesList.get(i).equals("GB")) {//越南巡更
                     tvGridView.setTag("gb");
@@ -271,13 +271,15 @@ public class MyGridViewAdapter extends BaseAdapter {
                     tvGridView.setTag("ig");
                 } else if (rolesList.get(i).equals("II")) {//成品倉出貨
                     tvGridView.setTag("ii");
-                } else  if (rolesList.get(i).equals("LMNOP")) {//總務 商鋪物業
+                } else if (rolesList.get(i).equals("LMNOP")) {//總務 商鋪物業
                     tvGridView.setTag("lmnop");
-                } else  if (rolesList.get(i).equals("IQ")) {//sharp 巡檢
+                } else if (rolesList.get(i).equals("IQ")) {//sharp 巡檢
                     tvGridView.setTag("iq");
-                } else  if (rolesList.get(i).equals("IR")) {//總務廣播巡檢
+                } else if (rolesList.get(i).equals("IR")) {//總務廣播巡檢
                     tvGridView.setTag("ir");
-                }  else {
+                } else if (rolesList.get(i).equals("IS")) {//人資活動發佈
+                    tvGridView.setTag("is");
+                } else {
                     tvGridView.setTag("true");
                 }
                 break;
@@ -493,8 +495,10 @@ public class MyGridViewAdapter extends BaseAdapter {
                     onClickListener.OnClickII();
                 } else  if (view.getTag().equals("iq")) {//sharp 巡檢
                     onClickListener.OnClickIQ();
-                } else if (view.getTag().equals("ir")) {//
+                } else if (view.getTag().equals("ir")) {//總務廣播巡檢
                     onClickListener.OnClickIR();
+                } else if (view.getTag().equals("is")) {//人資活動發佈
+                    onClickListener.OnClickIS();
                 } else {
                     onClickListener.OnClickListenerFalse(position);
                 }
@@ -605,7 +609,8 @@ public class MyGridViewAdapter extends BaseAdapter {
         void OnClickIG();//宿舍寄存
         void OnClickII();//成品倉出貨
         void OnClickIQ();//sharp 巡檢
-        void OnClickIR();
+        void OnClickIR();//總務廣播巡檢
+        void OnClickIS();//人資活動發佈
     }
 
     public void setOnClickListener(OnClickListener onClickListener) {

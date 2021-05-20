@@ -10,7 +10,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.ContextMenu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
@@ -27,7 +26,6 @@ import com.baoyz.swipemenulistview.SwipeMenuItem;
 import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.example.administrator.yanfoxconn.R;
 import com.example.administrator.yanfoxconn.adapter.CommonFormsCjfkListAdapter;
-import com.example.administrator.yanfoxconn.adapter.GCPeopleAdapter;
 import com.example.administrator.yanfoxconn.bean.AQ110Message;
 import com.example.administrator.yanfoxconn.constant.Constants;
 import com.example.administrator.yanfoxconn.utils.BaseActivity;
@@ -48,10 +46,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * 110接處警處警反饋列表界面
+ * 人資活動發佈列表
  * Created by S1007989 on 2021/5/18.
  */
-public class CommonFormsCjfkListActivity extends BaseActivity implements View.OnClickListener {
+public class ActListActivity extends BaseActivity implements View.OnClickListener {
     private final int MESSAGE_TOAST = 2;//掃描失敗彈出框
     private final int MESSAGE_SET_TEXT = 1;//掃描成功賦值
     private final int MESSAGE_DELETE_SUCCESS = 3;//刪除成功，刷新列表
@@ -72,7 +70,7 @@ public class CommonFormsCjfkListActivity extends BaseActivity implements View.On
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_110_list);
+        setContentView(R.layout.activity_act_list);
         ButterKnife.bind(this);
         WindowManager wm = this.getWindowManager();
 
@@ -85,7 +83,7 @@ public class CommonFormsCjfkListActivity extends BaseActivity implements View.On
         creator = new SwipeMenuCreator() {
             @Override
             public void create(SwipeMenu menu) {
-                SwipeMenuItem openItem = new SwipeMenuItem(CommonFormsCjfkListActivity.this);
+                SwipeMenuItem openItem = new SwipeMenuItem(ActListActivity.this);
                 //设置背景
                 openItem.setBackground(new ColorDrawable(getResources().getColor(R.color.color_f5a306)));
                 //设置宽，一定要设置不然显示不出来
@@ -99,7 +97,7 @@ public class CommonFormsCjfkListActivity extends BaseActivity implements View.On
                 //添加到listview中
                 menu.addMenuItem(openItem);
 
-                SwipeMenuItem doneItem = new SwipeMenuItem(CommonFormsCjfkListActivity.this);
+                SwipeMenuItem doneItem = new SwipeMenuItem(ActListActivity.this);
                 doneItem.setBackground(new ColorDrawable(getResources().getColor(R.color.color_42D42B)));
                 doneItem.setWidth(dp2px(90));
                 doneItem.setTitle("結案");
@@ -145,21 +143,21 @@ public class CommonFormsCjfkListActivity extends BaseActivity implements View.On
         switch (item.getItemId()) {
             case 0:
                 // 添加操作
-                Toast.makeText(CommonFormsCjfkListActivity.this,
+                Toast.makeText(ActListActivity.this,
                         gcHeads.get(posi).getWJ_REMARK(),
                         Toast.LENGTH_SHORT).show();
                 break;
 
             case 1:
                 // 删除操作
-                Toast.makeText(CommonFormsCjfkListActivity.this,
+                Toast.makeText(ActListActivity.this,
                         gcHeads.get(posi).getOTHER(),
                         Toast.LENGTH_SHORT).show();
                 break;
 
             case 2:
                 // 删除ALL操作
-                Toast.makeText(CommonFormsCjfkListActivity.this,
+                Toast.makeText(ActListActivity.this,
                         gcHeads.get(posi).getJC_TYPE(),
                         Toast.LENGTH_SHORT).show();
                 break;
@@ -197,7 +195,7 @@ private void ItemOnLongClick2() {
         public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
                                        final int position, long id) {
             //list.remove(arg2);
-            new AlertDialog.Builder(CommonFormsCjfkListActivity.this)
+            new AlertDialog.Builder(ActListActivity.this)
                     .setTitle("对Item进行操作")
                     .setItems(R.array.thread_menu,
                             new DialogInterface.OnClickListener() {
@@ -207,7 +205,7 @@ private void ItemOnLongClick2() {
                                             .getStringArray(
                                                     R.array.thread_menu);
                                     Toast.makeText(
-                                            CommonFormsCjfkListActivity.this,
+                                            ActListActivity.this,
                                             PK[which], Toast.LENGTH_LONG)
                                             .show();
                                     if (PK[which].equals("删除")) {
@@ -291,7 +289,7 @@ private void ItemOnLongClick2() {
                 case MESSAGE_TOAST://Toast彈出
 //                    aboutAlert(msg.obj.toString(),MESSAGE_TOAST);
 
-                    ToastUtils.showLong(CommonFormsCjfkListActivity.this, msg.obj.toString());
+                    ToastUtils.showLong(ActListActivity.this, msg.obj.toString());
 //                    finish();
                     break;
                 case MESSAGE_SET_TEXT://text賦值
@@ -316,14 +314,14 @@ private void ItemOnLongClick2() {
                             //从0开始，依次是：0、1、2、3...
                             switch (index) {
                                 case 0:
-                                    Intent intent = new Intent(CommonFormsCjfkListActivity.this, CommonFormsCjfkActivity.class);
+                                    Intent intent = new Intent(ActListActivity.this, CommonFormsCjfkActivity.class);
                                     intent.putExtra("msg", (Serializable) gcHeads.get(position));
                                     intent.putExtra("from", "add");
                                     startActivity(intent);
 //                                    Toast.makeText(GCSerchActivityTest.this, "打开:"+position,Toast.LENGTH_SHORT).show();
                                     break;
                                 case 1:
-                                    Intent intent2 = new Intent(CommonFormsCjfkListActivity.this, CommonFormsCjfkActivity.class);
+                                    Intent intent2 = new Intent(ActListActivity.this, CommonFormsCjfkActivity.class);
                                     intent2.putExtra("msg", (Serializable) gcHeads.get(position));
                                     intent2.putExtra("from", "end");
                                     startActivity(intent2);
@@ -335,14 +333,14 @@ private void ItemOnLongClick2() {
                             return false;
                         }
                     });
-                    gcPeopleAdapter = new CommonFormsCjfkListAdapter(CommonFormsCjfkListActivity.this, gcHeads);
+                    gcPeopleAdapter = new CommonFormsCjfkListAdapter(ActListActivity.this, gcHeads);
                     lvPeople.setAdapter(gcPeopleAdapter);
                     break;
                 case MESSAGE_DELETE_SUCCESS://提交響應
 
                     break;
                 case MESSAGE_NOT_NET:
-                    ToastUtils.showLong(CommonFormsCjfkListActivity.this, "網絡錯誤，請稍後重試！");
+                    ToastUtils.showLong(ActListActivity.this, "網絡錯誤，請稍後重試！");
                     break;
             }
             super.handleMessage(msg);

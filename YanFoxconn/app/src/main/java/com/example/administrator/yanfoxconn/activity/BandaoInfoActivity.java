@@ -149,7 +149,6 @@ public class BandaoInfoActivity extends BaseActivity implements View.OnClickList
                     JsonObject jsonObject = new JsonParser().parse(result).getAsJsonObject();
                     String errCode = jsonObject.get("errCode").getAsString();
                     if (errCode.equals("200")) {
-                        Log.e("--fff---------", "result==" + result);
                         JsonArray array = jsonObject.get("data").getAsJsonArray();
                         retreatMsg = new ArrayList<RetreatMsg>();
                         for (JsonElement type : array) {
@@ -179,7 +178,6 @@ public class BandaoInfoActivity extends BaseActivity implements View.OnClickList
                         mHandler.sendMessage(message);
 
                     } else{
-                        Log.e("-----------", "result==" + result);
                         Message message = new Message();
                         message.what = MESSAGE_TOAST;
                         message.obj = jsonObject.get("errMessage").getAsString();
@@ -322,6 +320,7 @@ public class BandaoInfoActivity extends BaseActivity implements View.OnClickList
 
         paramMap.put("code",retreatMsg.get(0).getCode());
         paramMap.put("sf_code", retreatMsg.get(0).getSf_code());
+        paramMap.put("sign_code", retreatMsg.get(0).getSign_code());
         paramMap.put("name1", retreatMsg.get(0).getName());
         paramMap.put("report_date", retreatMsg.get(0).getReport_date());
         paramMap.put("rl_from",retreatMsg.get(0).getRl_from());

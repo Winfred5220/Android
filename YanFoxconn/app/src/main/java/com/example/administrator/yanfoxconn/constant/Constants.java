@@ -19,15 +19,15 @@ public class Constants {
 //14.19服务器
 //    public static final String SAFE_SERVER = "http://ytlogisticgps.foxconn.com/SafeServer/";//玲姐
 //    public static final String SERVER = "http://ytlogisticgps.foxconn.com/Server/";    //杰哥
+    public static String HTTP_WEBVIEW = "http://ytlogisticgps.foxconn.com/" ;//WEBVIEW
 //14.40服务器
     public static final String SAFE_SERVER = "http://ytsafeserver.foxconn.com/SafeServer/";//玲姐
     public static final String SERVER = "http://ytsafeserver.foxconn.com/Server/";//杰哥
-    public static String HTTP_WEBVIEW = "http://ytlogisticgps.foxconn.com/" ;//WEBVIEW
     public static String HTTP_WEBVIEW2 = "http://ytsafeserver.foxconn.com/" ;//WEBVIEW
-
 //本地测试服务器
-    public static String safeServerlocal = "http://192.168.1.124:8081/SafeServer/";//SafeServer接口測試
-    public static String serverlocal = "http://192.168.1.124:8081/Server/";//Server接口測試
+    public static String ip = "http://192.168.1.152:8081";//SafeServer接口測試
+    public static String safeServerlocal = ip+"/SafeServer/";//SafeServer接口測試
+    public static String serverlocal = ip+"/Server/";//Server接口測試
 
     public static final String LING_SERVER = "http://192.168.1.113:8080/SafeServer/";//玲姐
 
@@ -186,6 +186,7 @@ public class Constants {
 
     public static String HTTP_CAR_MESSAGE_SERVLET = SAFE_SERVER +"servlet/CarServlet";//車輛點檢獲取車輛基本資料
     public static String HTTP_CAR_INSPRCTOK_SERVLET = SAFE_SERVER+"servlet/CarInspectOkServlet";//車輛點檢提交
+    public static String HTTP_CAR_INSPRCTXSOK_SERVLET = SAFE_SERVER+"servlet/CarInspectXSOkServlet";//車輛點檢，消殺提交
     public static String HTTP_CAR_INSPRCT_SERVLET = SAFE_SERVER+"servlet/CarInspectServlet";//車輛點檢項
     public static String HTTP_CAR_EXCE_VIEW_INFO_SERVLET = SAFE_SERVER+"servlet/CarExceViewInfoServlet";//車輛點檢異常列表
     public static String HTTP_CAR_REPAIRED_SERVLET = SAFE_SERVER+"servlet/CarRepairedServlet";//車輛異常維修提交

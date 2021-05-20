@@ -61,6 +61,8 @@ public class WebViewLandScapeActivity extends BaseActivity implements View.OnCli
             tvTitle.setText("商鋪物業巡檢");
         }else if (role.equals("IR")) {
             tvTitle.setText("已放行銷單查詢");
+        }else if (role.equals("WORK")) {
+            tvTitle.setText("工作互聯");
         }else{
             tvTitle.setText("跨區申請單");
         }
@@ -96,6 +98,10 @@ public class WebViewLandScapeActivity extends BaseActivity implements View.OnCli
         }else if (role.equals("IR")){
             String code = getIntent().getStringExtra("code");
             mWebview.loadUrl(Constants.SAFE_SERVER+"baobiao/cpc_view.jsp?code="+code);
+
+        }else if (role.equals("WORK")){
+            mWebview.loadUrl("https://hhs.sdzjdxu.com/healthview/WorkPlatform/login.html");
+            //Log.e("----url-----", Constants.HTTP_WEBVIEW2+"RestPlan/?V=V-0.5.2&P=KNwU9PMmtJmtC9iyeINgPqDGQx4p4AXil9D33L6axfxBOWESPMyxG32r4w5yGwf+#/" );
 
         }else{//跨區申請單
             mWebview.loadUrl("http://60.212.41.39/exportio/people/info_view.jsp?login_code="+ FoxContext.getInstance().getLoginId());

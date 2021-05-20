@@ -95,6 +95,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     TextView tvCode;//版本號操作
     @BindView(R.id.check_box_login)
     CheckBox cbRemember;//記住密碼
+    @BindView(R.id.tv_work)
+    TextView tvWork;//工作互聯
 
     private String result;//登錄返回結果
     private List<UserMessage> userMessageList;
@@ -127,6 +129,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
 
         btnLogin.setOnClickListener(this);
         tvCode.setOnClickListener(this);
+        tvWork.setOnClickListener(this);
         cbRemember.setOnClickListener(this);
 
         isVersionUpdate();
@@ -287,6 +290,10 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                 checkIntent.putExtra("remark", versionMessageList.get(0).getRemark());
                 startActivity(checkIntent);
                 }
+                break;
+            case R.id.tv_work:
+                Intent intent= new Intent(LoginActivity.this, WebViewTestActivity.class);
+                startActivity(intent);
                 break;
         }
     }
