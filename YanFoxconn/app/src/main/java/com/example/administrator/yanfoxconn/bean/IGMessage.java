@@ -40,6 +40,49 @@ public class IGMessage implements Serializable {
     private String KZ;//
     private String YC;//
     private String SI_CREATE_DATE;//上次盤點日期
+    /**倉庫盤點 獲取儲位信息**/
+    private String REMARK;
+    /**異常選項**/
+    private String NAME;
+    private String STATUS;
+    private String FLAG;
+    /**整改 異常詳情**/
+//    private String ID;//編號
+//    private String SL_CODE;//儲位號
+//    private String REMARK;//異常信息
+
+
+    public String getNAME() {
+        return NAME;
+    }
+
+    public void setNAME(String NAME) {
+        this.NAME = NAME;
+    }
+
+    public String getFLAG() {
+        return FLAG;
+    }
+
+    public void setFLAG(String FLAG) {
+        this.FLAG = FLAG;
+    }
+
+    public String getSTATUS() {
+        return STATUS;
+    }
+
+    public void setSTATUS(String STATUS) {
+        this.STATUS = STATUS;
+    }
+
+    public String getREMARK() {
+        return REMARK;
+    }
+
+    public void setREMARK(String REMARK) {
+        this.REMARK = REMARK;
+    }
 
     public String getKZ() {
         return KZ;

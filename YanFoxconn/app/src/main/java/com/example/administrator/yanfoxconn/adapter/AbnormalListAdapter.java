@@ -13,8 +13,10 @@ import com.example.administrator.yanfoxconn.activity.AbnormalSelfListActivity;
 import com.example.administrator.yanfoxconn.activity.ComAbAbnormalListActivity;
 import com.example.administrator.yanfoxconn.activity.ComAbDListActivity;
 import com.example.administrator.yanfoxconn.activity.ComAbRouteItemListActivity;
+import com.example.administrator.yanfoxconn.activity.IGCheckListActivity;
 import com.example.administrator.yanfoxconn.bean.AbnormalMessage;
 import com.example.administrator.yanfoxconn.bean.ComScanViewMessage;
+import com.example.administrator.yanfoxconn.bean.IGMessage;
 import com.example.administrator.yanfoxconn.bean.RouteMessage;
 
 import java.util.List;
@@ -35,6 +37,20 @@ public class AbnormalListAdapter extends BaseAdapter {
     private List<ComScanViewMessage> comScanViewMessages=null;
     private String type = "";
 
+
+    /**
+     * 宿舍寄存 異常整改 查看異常列表
+     */
+    private IGCheckListActivity igCheckListActivity;
+    private List<IGMessage> igMessageList;
+    public  AbnormalListAdapter(IGCheckListActivity igCheckListActivity, List<IGMessage> igMessageList,String type) {
+        this.igCheckListActivity = igCheckListActivity;
+        this.igMessageList = igMessageList;
+        this.type = type;
+        for (int i = 0;i<igMessageList.size();i++){
+            Log.e("--------","messageList==="+igMessageList.get(i).getID());
+        }
+    }
 
     public  AbnormalListAdapter(AbnormalListActivity abnormalActivity, List<AbnormalMessage> messageList) {
         this.abnormalActivity = abnormalActivity;
@@ -77,8 +93,9 @@ public class AbnormalListAdapter extends BaseAdapter {
     public int getCount() {
         if (type.equals("Item")||type.equals("GCGL")){
            return comScanViewMessages.size();
-        }else
-        if (routeMessages!=null){
+        }else  if(type.equals("IG")){
+            return igMessageList.size();
+        }else if (routeMessages!=null){
             return routeMessages.size();
         }else{
         return messageList.size();}
@@ -91,8 +108,9 @@ public class AbnormalListAdapter extends BaseAdapter {
             return comScanViewMessages.get(i);
         }else if(type.equals("GCGL")){
             return comScanViewMessages.get(i);
-        }else
-        if (routeMessages!=null){
+        }else if(type.equals("IG")){
+            return igMessageList.get(i);
+        }else if (routeMessages!=null){
             return routeMessages.get(i);
         }else{
             return messageList.get(i);}
@@ -127,6 +145,11 @@ public class AbnormalListAdapter extends BaseAdapter {
             viewHolder.tvAddress.setText(comScanViewMessages.get(position).getSc_creator());
             viewHolder.tvTime.setText(comScanViewMessages.get(position).getSc_create_date());
             viewHolder.tvDesp.setText(comScanViewMessages.get(position).getCname()+"  異常項數:"+comScanViewMessages.get(position).getCount());
+        }else  if(type.equals("IG")){
+Log.e("----------","IGIGIGIGIGIGIGIGIG"+igMessageList.get(position).getID());
+            viewHolder.tvAddress.setText(igMessageList.get(position).getSL_CODE());
+            viewHolder.tvTime.setText(igMessageList.get(position).getREMARK());
+            viewHolder.tvDesp.setVisibility(View.GONE);
         }else if(type!=""){
             if (routeMessages!=null){
                 viewHolder.tvAddress.setText(routeMessages.get(position).getDim_locale());

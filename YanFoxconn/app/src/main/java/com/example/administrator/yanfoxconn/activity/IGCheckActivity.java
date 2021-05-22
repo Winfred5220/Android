@@ -60,6 +60,7 @@ public class IGCheckActivity extends BaseActivity implements View.OnClickListene
     TextView tvDate;//上次盤點日期
 
     private IGMessage storMessage;
+    private String id;//倉庫代碼
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -74,9 +75,11 @@ public class IGCheckActivity extends BaseActivity implements View.OnClickListene
         tvZY.setOnClickListener(this);
         tvKZ.setOnClickListener(this);
         tvYC.setOnClickListener(this);
+        id = getIntent().getStringExtra("id");
     }
 
     private void getStoreInfoById(String sh_code,String zwuser){
+        showDialog();
         String name = null;
         try {
             name = URLEncoder.encode(URLEncoder.encode(zwuser, "UTF-8"), "UTF-8");
@@ -131,7 +134,7 @@ public class IGCheckActivity extends BaseActivity implements View.OnClickListene
     @Override
     protected void onStart() {
         super.onStart();
-        getStoreInfoById(getIntent().getStringExtra("id"), FoxContext.getInstance().getName());
+        getStoreInfoById(id, FoxContext.getInstance().getName());
     }
     Handler mHandler = new Handler() {
         public void handleMessage(Message msg) {
@@ -160,14 +163,23 @@ public class IGCheckActivity extends BaseActivity implements View.OnClickListene
                 finish();
                 break;
             case R.id.tv_zy://在用
-                //Intent intent = new Intent(IGCheckActivity.this,)
-                //sh_code,flag
+                Intent intent = new Intent(IGCheckActivity.this,IGCheckListActivity.class);
+                intent.putExtra("sh_code",id);
+                intent.putExtra("flag","ZY");
+                startActivity(intent);
                 break;
             case R.id.tv_kz://空置
-                //sh_code,flag
+                Intent intent1 = new Intent(IGCheckActivity.this,IGCheckListActivity.class);
+                intent1.putExtra("sh_code",id);
+                intent1.putExtra("flag","KZ");
+                startActivity(intent1);
                 break;
             case R.id.tv_yc://異常
 
+                Intent intent2 = new Intent(IGCheckActivity.this,IGCheckListActivity.class);
+                intent2.putExtra("sh_code",id);
+                intent2.putExtra("flag","YC");
+                startActivity(intent2);
                 break;
 
         }

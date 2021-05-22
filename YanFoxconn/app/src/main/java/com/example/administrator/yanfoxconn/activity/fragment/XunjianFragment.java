@@ -95,7 +95,8 @@ public class   XunjianFragment extends Fragment implements View.OnClickListener{
             "車輛服務", "海關協管", "人力資源部","華北商務","關愛中心","工會","品規發展服務處","南寧廠區","Sharp研究院"}; //"NME安全部", "VIP安全部", "PME安全部",
     public String[][] gridViewType = {
             {"CY"},//物流防疫
-            {"A0", "T0", "H0", "K0", "I0", "L0", "J0", "M0", "R0", "S0", "CD", "CE", "CL", "CR",
+            {"A0", "T0", "H0", "K0", "I0", "L0",
+                    "J0", "M0", "R0", "S0", "CD", "CE", "CL", "CR",
                      "CX","GC","IH","II"},//安保部 "CU",
             {"CT","FE","FF","FG","FV","FX","FZ","GE","GX","ID"},//工業安全部
             {"BG", "BP", "ZXS", "DN","DQ","DT","FH","GA","HL","HX","IG","LMNOP","IR"},//總務 LMNOP商鋪物業巡檢
