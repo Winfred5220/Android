@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?><!--活動列表 item-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/ll_110"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_60"
+            android:orientation="horizontal">
+            <!--序號-->
+            <TextView
+                android:id="@+id/tv_num"
+                style="@style/TextView110List"
+                android:layout_weight="0.5"
+                android:text="序號" />
+            <!--活動名稱-->
+            <TextView
+                android:id="@+id/tv_cpc"
+                android:text="S9999999"
+                style="@style/TextView110List"
+                />
+            <!--活動類別-->
+            <TextView
+                android:id="@+id/tv_date"
+                style="@style/TextView110List"
+                android:text="歐央大事"
+                />
+            <!--發佈人-->
+            <TextView
+                android:id="@+id/tv_position"
+                style="@style/TextView110List"
+                android:text="女abghd" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_0.5"
+            android:background="@color/color_c3c3c3" />
+    </LinearLayout>
+</LinearLayout>

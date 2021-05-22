@@ -63,8 +63,7 @@ import java.util.List;
  * Created by wang on 2019/11/9.
  */
 
-public class   XunjianFragment extends Fragment implements View.OnClickListener{
-
+public class XunjianFragment extends Fragment implements View.OnClickListener{
     private final int MESSAGE_GPS = 1;//判斷GPS
     private final int MESSAGE_TOAST = 2;//showToast
 
@@ -106,7 +105,7 @@ public class   XunjianFragment extends Fragment implements View.OnClickListener{
             {"BS", "CK", "EA"},//車調服務,"FQ","BV"
             {"BK", "BT", "CQ"},//海關協管
             //{"W0"},//煙台工會
-            {"X0", "Y0", "DO", "DP","DZ","ED","HT","HU","HV","HW"},//人力資源部
+            {"X0", "Y0", "DO", "DP","DZ","ED","HT","HU","HV","HW","IS"},//人力資源部
             {"DS","FT","FU","HZ"},//華北商務
             {"IA","IF"},//關愛中心
             {"IE"},//工會
@@ -129,7 +128,7 @@ public class   XunjianFragment extends Fragment implements View.OnClickListener{
             {"候車亭巡檢", "叉車廠商巡檢","車輛點檢"},//車調服務,"車調車輛巡檢","叉車球車巡檢"
             {"人工跨區", "跨區申請單", "車輛跨區"},//海關協管
             //{"餐監會"},//煙台工會
-            {"活動生成", "活動簽到", "退訓放行", "班導志","人資監餐","教室點檢", "會議室", "資料室","倉庫","文康場館"},//人力資源部
+            {"活動生成", "活動簽到", "退訓放行", "班導志","人資監餐","教室點檢", "會議室", "資料室","倉庫","文康場館","活動發佈"},//人力資源部
             {"販賣機巡檢","流動攤位巡檢","門市房巡檢","倉庫點檢"},//華北商務
             {"屋室點檢","其他工作區"},//關愛中心
             {"空間點檢"},//工會
@@ -163,7 +162,7 @@ public class   XunjianFragment extends Fragment implements View.OnClickListener{
             //{R.mipmap.icon_shijian},//煙台工會
             {R.mipmap.icon_huodong, R.mipmap.icon_qiandao, R.mipmap.icon_retreat, R.mipmap.icon_bandao,
                     R.mipmap.icon_jiancan, R.mipmap.icon_jiaoshi, R.mipmap.icon_huiyishi, R.mipmap.icon_ziliaoshi,
-                    R.mipmap.icon_zhibanshi, R.mipmap.icon_jiaoshi},//人力資源部
+                    R.mipmap.icon_zhibanshi, R.mipmap.icon_jiaoshi, R.mipmap.icon_huodong},//人力資源部
             {R.mipmap.icon_fanmaiji,R.mipmap.icon_tanwei,R.mipmap.icon_menshifang,R.mipmap.icon_ziliaoshi},//華北商務
             {R.mipmap.icon_ziliaoshi,R.mipmap.icon_zhibanshi},//關愛中心
             {R.mipmap.icon_ziliaoshi},//工會
@@ -335,7 +334,7 @@ public class   XunjianFragment extends Fragment implements View.OnClickListener{
             public void onGroupExpand(int groupPosition) {
                 for (int i = 0; i < group.length; i++) {
                     if (groupPosition != i) {
-                        Log.e("--------ex", "d==" + groupPosition);
+                        //Log.e("--------ex", "d==" + groupPosition);
                         expandableListView.collapseGroup(i);
                         FoxContext.getInstance().setGroupPosition(groupPosition);
                     }
@@ -892,12 +891,9 @@ public class   XunjianFragment extends Fragment implements View.OnClickListener{
         public void onReceiveLocation(BDLocation location) {
             // TODO Auto-generated method stub
             if (null != location && location.getLocType() != BDLocation.TypeServerError) {
-//
-                Log.e("----------", "經度==" + location.getLongitude() + "緯度==" + location.getLatitude());
-//                logMsg(sb.toString());
+//               Log.e("----------", "經度==" + location.getLongitude() + "緯度==" + location.getLatitude());
+//               logMsg(sb.toString());
                 FoxContext.getInstance().setLocation(location);
-
-//                Log.e("----gaode", location.getLongitude() + "==" + location.getLatitude());
             } else {
                 Message message = new Message();
                 message.what = MESSAGE_TOAST;
@@ -913,7 +909,7 @@ public class   XunjianFragment extends Fragment implements View.OnClickListener{
     public void onResume() {
         super.onResume();
         setExListView();
-        Log.e("-----onResume", "MainActivityGaoonResume");
+        Log.e("-----onResume", "MainActivityResume");
     }
 
 

@@ -358,7 +358,7 @@ public class CommonFormsPrivateCarActivity extends BaseActivity implements View.
             String _path =  sign_dir + File.separator  + System.currentTimeMillis() +i+ ".jpg";
             //getFilesDir().getAbsolutePath()+"compressPic.jpg";
             //调用压缩图片的方法，返回压缩后的图片path
-            final String compressImage = ImageZipUtils.compressImage(pic_path, _path, 80);
+            final String compressImage = ImageZipUtils.compressImage(pic_path, _path, 50);
             String picBase64Code = ImageZipUtils.imageToBase64(compressImage);
             JsonObject jsonObject = new JsonObject();
             jsonObject.addProperty("file", picBase64Code);
@@ -485,6 +485,60 @@ public class CommonFormsPrivateCarActivity extends BaseActivity implements View.
         alert.show();
     }
 
+    private boolean checkTokenStatus() {
+        if (!hasGotToken) {
+            Toast.makeText(getApplicationContext(), "token还未成功获取", Toast.LENGTH_LONG).show();
+        }
+        return hasGotToken;
+    }
+    /**
+     * 以license文件方式初始化
+     */
+    private void initAccessToken() {
+        OCR.getInstance(this).initAccessToken(new OnResultListener<AccessToken>() {
+            @Override
+            public void onResult(AccessToken accessToken) {
+                String token = accessToken.getAccessToken();
+                hasGotToken = true;
+            }
+
+            @Override
+            public void onError(OCRError error) {
+                error.printStackTrace();
+                alertText("licence方式获取token失败", error.getMessage());
+            }
+        }, getApplicationContext());
+    }
+    /**
+     * 用明文ak，sk初始化
+     */
+    private void initAccessTokenWithAkSk() {
+        OCR.getInstance(this).initAccessTokenWithAkSk(new OnResultListener<AccessToken>() {
+            @Override
+            public void onResult(AccessToken result) {
+                String token = result.getAccessToken();
+                hasGotToken = true;
+            }
+
+            @Override
+            public void onError(OCRError error) {
+                error.printStackTrace();
+                alertText("AK，SK方式获取token失败", error.getMessage());
+            }
+        }, getApplicationContext(),  "d6PEEyy6O8WHXGHnmA4vApQo", "3h2BO8M1Kv4IGhXuRg4ylshPt6mNBeWw");
+    }
+    private void alertText(final String title, final String message) {
+        this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                alertDialog.setTitle(title)
+                        .setMessage(message)
+                        .setPositiveButton("确定", null)
+                        .show();
+            }
+        });
+    }
+
     private class GridAdapter extends BaseAdapter {
         private ArrayList<String> listUrls;
 
@@ -542,59 +596,7 @@ public class CommonFormsPrivateCarActivity extends BaseActivity implements View.
             return convertView;
         }
     }
-    private boolean checkTokenStatus() {
-        if (!hasGotToken) {
-            Toast.makeText(getApplicationContext(), "token还未成功获取", Toast.LENGTH_LONG).show();
-        }
-        return hasGotToken;
-    }
-    /**
-     * 以license文件方式初始化
-     */
-    private void initAccessToken() {
-        OCR.getInstance(this).initAccessToken(new OnResultListener<AccessToken>() {
-            @Override
-            public void onResult(AccessToken accessToken) {
-                String token = accessToken.getAccessToken();
-                hasGotToken = true;
-            }
 
-            @Override
-            public void onError(OCRError error) {
-                error.printStackTrace();
-                alertText("licence方式获取token失败", error.getMessage());
-            }
-        }, getApplicationContext());
-    }
-    /**
-     * 用明文ak，sk初始化
-     */
-    private void initAccessTokenWithAkSk() {
-        OCR.getInstance(this).initAccessTokenWithAkSk(new OnResultListener<AccessToken>() {
-            @Override
-            public void onResult(AccessToken result) {
-                String token = result.getAccessToken();
-                hasGotToken = true;
-            }
-
-            @Override
-            public void onError(OCRError error) {
-                error.printStackTrace();
-                alertText("AK，SK方式获取token失败", error.getMessage());
-            }
-        }, getApplicationContext(),  "d6PEEyy6O8WHXGHnmA4vApQo", "3h2BO8M1Kv4IGhXuRg4ylshPt6mNBeWw");
-    }
-    private void alertText(final String title, final String message) {
-        this.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                alertDialog.setTitle(title)
-                        .setMessage(message)
-                        .setPositiveButton("确定", null)
-                        .show();
-            }
-        });
-    }
     private void loadAdpater(ArrayList<String> paths) {
         if (imagePaths == null) {
             imagePaths = new ArrayList<>();

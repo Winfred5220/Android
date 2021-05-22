@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--110接處警查詢-->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/common_title"/>
+
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/tv_tip"
+        android:gravity="center"
+        android:text="您好，當前暫無活動！"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <com.example.administrator.yanfoxconn.widget.MyScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:background="@color/color_303030"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    style="@style/TextView110"
+                    android:layout_weight="0.5"
+                    android:text="序號" />
+                <TextView
+                    style="@style/TextView110"
+                    android:text="活動名稱" />
+                <TextView
+                    style="@style/TextView110"
+                    android:text="活動類別" />
+                <TextView
+                    style="@style/TextView110"
+                    android:text="發佈人" />
+<!--                <TextView-->
+<!--                    style="@style/TextView110"-->
+<!--                    android:text="報警內容" />-->
+<!--                <TextView-->
+<!--                    style="@style/TextView110"-->
+<!--                    android:text="聯繫方式" />-->
+
+            </LinearLayout>
+
+            <com.example.administrator.yanfoxconn.widget.SwipterMenuTest
+                android:id="@+id/lv_people"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </LinearLayout>
+    </com.example.administrator.yanfoxconn.widget.MyScrollView>
+</LinearLayout>

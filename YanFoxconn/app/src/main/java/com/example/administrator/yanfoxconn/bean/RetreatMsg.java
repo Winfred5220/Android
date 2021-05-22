@@ -9,6 +9,7 @@ public class RetreatMsg {
 
     private String code;//工號
     private String sf_code;//身份證
+    private String sign_code;//人資系統主鍵
     private String name;//姓名
     private String report_date;//報到日期
     private String rl_from;//人力來源
@@ -106,5 +107,13 @@ public class RetreatMsg {
 
     public void setTest_num(String test_num) {
         this.test_num = test_num;
+    }
+
+    public String getSign_code() {
+        return sign_code;
+    }
+
+    public void setSign_code(String sign_code) {
+        this.sign_code = sign_code;
     }
 }

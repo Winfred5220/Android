@@ -17,15 +17,6 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="vertical">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dimen_40"
-                android:gravity="center_vertical"
-                android:paddingLeft="@dimen/dimen_8"
-                android:text="工業安全部"
-                android:textColor="@color/color_303030"
-                android:textSize="18dp"
-                android:textStyle="bold" />
             <LinearLayout
                 android:background="@drawable/border_all"
                 android:gravity="center_vertical"
@@ -52,42 +43,6 @@
 
                 </LinearLayout>
                 <LinearLayout
-                    android:id="@+id/ib_chakan"
-                    android:gravity="center"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-
-                </LinearLayout>
-                <LinearLayout
-                    android:background="@drawable/border_all"
-                    android:gravity="center"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-
-                </LinearLayout>
-            </LinearLayout>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dimen_40"
-                android:gravity="center_vertical"
-                android:paddingLeft="@dimen/dimen_8"
-                android:text="營建"
-                android:textColor="@color/color_303030"
-                android:textSize="18dp"
-                android:textStyle="bold" />
-
-            <LinearLayout
-                android:background="@drawable/border_all"
-                android:gravity="center_vertical"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dimen_120">
-                <LinearLayout
                     android:id="@+id/ib_kaoqin"
                     android:background="@drawable/border_all"
                     android:gravity="center"
@@ -103,6 +58,48 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="設備報表" />
+
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/ib_sign"
+                    android:background="@drawable/border_all"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <ImageView
+                        style="@style/mainbuttonstyle"
+                        android:background="@mipmap/ic_sign"/>
+                    <TextView
+                        android:layout_marginTop="@dimen/dimen_8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="餐厅排配" />
+
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:background="@drawable/border_all"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_120">
+                <LinearLayout
+                    android:id="@+id/ib_work"
+                    android:background="@drawable/border_all"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <ImageView
+                        style="@style/mainbuttonstyle"
+                        android:background="@mipmap/ic_room"/>
+                    <TextView
+                        android:layout_marginTop="@dimen/dimen_8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="工作互聯" />
 
                 </LinearLayout>
                 <LinearLayout
@@ -128,16 +125,6 @@
                 </LinearLayout>
 
             </LinearLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dimen_40"
-                android:gravity="center_vertical"
-                android:paddingLeft="@dimen/dimen_8"
-                android:text="總務"
-                android:textColor="@color/color_303030"
-                android:textSize="18dp"
-                android:textStyle="bold" />
             <LinearLayout
                 android:background="@drawable/border_all"
                 android:gravity="center_vertical"
@@ -145,21 +132,13 @@
                 android:layout_height="@dimen/dimen_120">
 
                 <LinearLayout
-                    android:id="@+id/ib_sign"
                     android:background="@drawable/border_all"
                     android:gravity="center"
                     android:layout_weight="1"
                     android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
-                    <ImageView
-                        style="@style/mainbuttonstyle"
-                        android:background="@mipmap/ic_sign"/>
-                    <TextView
-                        android:layout_marginTop="@dimen/dimen_8"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="餐厅排配" />
+
 
                 </LinearLayout>
                 <LinearLayout

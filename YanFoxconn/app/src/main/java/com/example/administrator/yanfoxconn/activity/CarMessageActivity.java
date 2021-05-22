@@ -172,6 +172,8 @@ public class CarMessageActivity extends BaseActivity {
 
     @BindView(R.id.btn_xunjian)
     Button btnXunjian;//巡檢
+    @BindView(R.id.btn_xiaosha)
+    Button btnXiaosha;//消殺
 
 
     private final int MESSAGE_TOAST = 2;//掃描失敗彈出框
@@ -206,6 +208,11 @@ public class CarMessageActivity extends BaseActivity {
         if (result!=null&&!result.equals("")&&result.length()>=2){
             type = result.substring(0,2);
             Log.e("------------","-----type------"+type);
+
+            if(type.equals("FP")||type.equals("FO")||type.equals("EI")){//車調車輛
+                btnXiaosha.setVisibility(View.VISIBLE);
+            }
+
              if(!type.equals("EV")&&!type.equals("EZ")&&!type.equals("EO")&&!type.equals("EI")&&!type.equals("FO")&&
                 !type.equals("FP")&&!type.equals("GF")&&!type.equals("GG")&&!type.equals("GH")&&!type.equals("GI")&&
                 !type.equals("GJ")&&!type.equals("GK")&&!type.equals("GL")&&!type.equals("GM")&&!type.equals("GN")){
@@ -232,7 +239,13 @@ public class CarMessageActivity extends BaseActivity {
         btnXunjian.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(CarMessageActivity.this,CarCheckActivity.class);
+                Intent intent = null;
+                if(type.equals("FP")||type.equals("FO")||type.equals("EI")){//車調車輛
+                    intent=new Intent(CarMessageActivity.this,CarSystemCheckActivity.class);
+                }else{
+                    intent=new Intent(CarMessageActivity.this,CarCheckActivity.class);
+                }
+
                 intent.putExtra("result",result);
                 intent.putExtra("type",type);
                 intent.putExtra("user_type",user_type);
@@ -241,7 +254,18 @@ public class CarMessageActivity extends BaseActivity {
                 finish();
             }
         });
-
+        btnXiaosha.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(CarMessageActivity.this,CarCheckXSActivity.class);
+                intent.putExtra("result",result);
+                intent.putExtra("type",type);
+                intent.putExtra("user_type","vendor");
+                intent.putExtra("msg", (Serializable) mCarCheckMessage);
+                startActivity(intent);
+                finish();
+            }
+        });
         getMessage();
     }
 

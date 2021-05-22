@@ -4,35 +4,43 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.TableRow;
+import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.baidu.location.BDLocation;
+import com.bumptech.glide.Glide;
 import com.example.administrator.yanfoxconn.R;
-import com.example.administrator.yanfoxconn.adapter.CarSystemCheckAdapter;
 import com.example.administrator.yanfoxconn.adapter.ZhiyinshuiCheckAdapter;
 import com.example.administrator.yanfoxconn.bean.CarCheckMessage;
+import com.example.administrator.yanfoxconn.bean.OCRMessage;
+import com.example.administrator.yanfoxconn.bean.SelectModel;
 import com.example.administrator.yanfoxconn.bean.ZhiyinshuiCheckMsg;
-import com.example.administrator.yanfoxconn.bean.ZhiyinshuiMsg;
 import com.example.administrator.yanfoxconn.constant.Constants;
 import com.example.administrator.yanfoxconn.constant.FoxContext;
 import com.example.administrator.yanfoxconn.constant.ImageCaptureManager;
+import com.example.administrator.yanfoxconn.intent.PhotoPickerIntent;
+import com.example.administrator.yanfoxconn.intent.PhotoPreviewIntent;
 import com.example.administrator.yanfoxconn.utils.BaseActivity;
 import com.example.administrator.yanfoxconn.utils.FileUtil;
 import com.example.administrator.yanfoxconn.utils.HttpConnectionUtil;
 import com.example.administrator.yanfoxconn.utils.HttpUtils;
 import com.example.administrator.yanfoxconn.utils.ImageZipUtils;
-import com.example.administrator.yanfoxconn.utils.TimeDateUtils;
+import com.example.administrator.yanfoxconn.utils.RecognizeService;
 import com.example.administrator.yanfoxconn.utils.ToastUtils;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -40,8 +48,9 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import org.json.JSONArray;
+
 import java.io.File;
-import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -55,10 +64,10 @@ import butterknife.ButterKnife;
 
 /**
  * 車輛點檢
- * 點檢異常提交界面
+ * 消殺異常提交界面
  * Great By WANG
  */
-public class CarCheckActivity extends BaseActivity implements View.OnClickListener ,TimeDatePickerDialog.TimePickerDialogInterface{
+public class CarCheckXSActivity extends BaseActivity implements View.OnClickListener ,TimeDatePickerDialog.TimePickerDialogInterface{
     private final int MESSAGE_SET_TEXT = 1;//掃描成功賦值
     private final int MESSAGE_TOAST = 2;//掃描失敗彈出框
     private final int MESSAGE_UP = 3;//提交信息
@@ -68,7 +77,7 @@ public class CarCheckActivity extends BaseActivity implements View.OnClickListen
     private static final int REQUEST_CAMERA_CODE = 11;
     private static final int REQUEST_PREVIEW_CODE = 22;
     private ImageCaptureManager captureManager; // 相机拍照处理类
-    private Context mcontext;
+
     private String getQrMessage;//二維碼內容
     private List<CarCheckMessage> mMsgList;//基本信息
     private List<ZhiyinshuiCheckMsg> mCheckMsgList;//點檢項
@@ -81,12 +90,13 @@ public class CarCheckActivity extends BaseActivity implements View.OnClickListen
     private List<Integer> selectTureList;//用于存放下拉正常的条目
     private List<Integer> selectFalseList;//用于存放下拉異常的条目
 
-    private String status;//狀態碼
+    private String photoType="";//
     private String nowDateTime;//获取当前时间
     private Calendar noChangeTime = Calendar.getInstance();
     private int key1, key2,key3 = 0;//提交時管控未填寫信息
     private String dim_id;//二維碼主鍵
     private String type,user_type;//類別
+    private ArrayList<String> imagePaths = null;//圖片未壓縮地址
     private boolean isClicked = true;//判斷是否點擊
 
     @BindView(R.id.btn_title_left)
@@ -99,11 +109,15 @@ public class CarCheckActivity extends BaseActivity implements View.OnClickListen
     TextView tvDName;//點位名稱
     @BindView(R.id.rv_option)
     RecyclerView rvOption;//點檢項目列表
-
+    @BindView(R.id.iv_empty)
+    ImageView ivEmpty;//空白图片占位
+    @BindView(R.id.gv_photo)
+    GridView gridView;//图片显示区域
+    private GridAdapter gridAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_com_ab_up);
+        setContentView(R.layout.activity_car_xs_up);
         ButterKnife.bind(this);
 
         tvTitle.setText("點檢");
@@ -111,10 +125,10 @@ public class CarCheckActivity extends BaseActivity implements View.OnClickListen
         btnUp.setVisibility(View.VISIBLE);
         btnUp.setOnClickListener(this);
         btnBack.setOnClickListener(this);
+        ivEmpty.setOnClickListener(this);
         getQrMessage = getIntent().getStringExtra("result");
         type = getIntent().getStringExtra("type");
         user_type= getIntent().getStringExtra("user_type");
-
         mMsgList = (List<CarCheckMessage>) getIntent().getSerializableExtra("msg");
         tvDName.setText(mMsgList.get(0).getChepai());
         if(!getQrMessage.startsWith(type)){
@@ -127,7 +141,31 @@ public class CarCheckActivity extends BaseActivity implements View.OnClickListen
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         nowDateTime = formatter.format(noChangeTime.getTime());
         getCheckMessage();
+//選取圖片
+        int cols = getResources().getDisplayMetrics().widthPixels / getResources().getDisplayMetrics().densityDpi;
+        cols = cols < 4 ? 4 : cols;
+        gridView.setNumColumns(cols);
 
+        // preview
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                photoType="T";
+                if (position == imagePaths.size()) {
+                    PhotoPickerIntent intent = new PhotoPickerIntent(CarCheckXSActivity.this);
+                    intent.setSelectModel(SelectModel.MULTI);
+                    intent.setShowCarema(true); // 是否显示拍照
+                    intent.setMaxTotal(3); // 最多选择照片数量，默认为3
+                    intent.setSelectedPaths(imagePaths); // 已选中的照片地址， 用于回显选中状态
+                    startActivityForResult(intent, REQUEST_CAMERA_CODE);
+                } else {
+                    PhotoPreviewIntent intent = new PhotoPreviewIntent(CarCheckXSActivity.this);
+                    intent.setCurrentItem(position);
+                    intent.setPhotoPaths(imagePaths);
+                    startActivityForResult(intent, REQUEST_CAMERA_CODE);
+                }
+            }
+        });
     }
     @Override
     public void onClick(View view) {
@@ -149,8 +187,17 @@ public class CarCheckActivity extends BaseActivity implements View.OnClickListen
                         }
                     }, 2000);
                 }else{
-                    ToastUtils.showShort(CarCheckActivity.this,R.string.multiple_click);
+                    ToastUtils.showShort(CarCheckXSActivity.this,R.string.multiple_click);
                 }
+                break;
+            case R.id.iv_empty:
+                photoType="T";
+                PhotoPickerIntent intent = new PhotoPickerIntent(CarCheckXSActivity.this);
+                intent.setSelectModel(SelectModel.MULTI);
+                intent.setShowCarema(true); // 是否显示拍照
+                intent.setMaxTotal(3); // 最多选择照片数量，默认为3
+                intent.setSelectedPaths(imagePaths); // 已选中的照片地址， 用于回显选中状态
+                startActivityForResult(intent, REQUEST_CAMERA_CODE);
                 break;
         }
     }
@@ -205,7 +252,7 @@ public class CarCheckActivity extends BaseActivity implements View.OnClickListen
 
 //       final String url = Constants.HTTP_WATER_SCAN_OK_SERVLET; //此處寫上自己的URL
 
-        final String url = Constants.HTTP_CAR_INSPRCTOK_SERVLET;
+        final String url = Constants.HTTP_CAR_INSPRCTXSOK_SERVLET;
         JsonObject object = new JsonObject();
         HashMap<Integer, ArrayList<String>> imagePathsMap; //存放圖片地址的map
         HashMap<Integer, String> etMap;//存放editText值的map
@@ -264,7 +311,7 @@ public class CarCheckActivity extends BaseActivity implements View.OnClickListen
 //        Log.e("----------", "selectList" + selectList.toString());
 //        Log.e("----------", "noselectList" + noselectList.toString());
 //        Log.e("----------", "inputTureList" + inputTureList.toString());
-        Log.e("----------", "inputFalseList" + inputFalseList.toString());
+//        Log.e("----------", "inputFalseList" + inputFalseList.toString());
 //        Log.e("----------", "selectTureList" + selectTureList.toString());
 //        Log.e("----------", "selectFalseList" + selectFalseList.toString());
 
@@ -309,7 +356,7 @@ public class CarCheckActivity extends BaseActivity implements View.OnClickListen
                     String sign_dir = Environment.getExternalStorageDirectory() + File.separator + "YanFoxconn" + File.separator + "Photos";
                     String _path =  sign_dir + File.separator  + System.currentTimeMillis() +j+k+ ".jpg";
                     //Log.e("------_path-------", _path);
-                    final String compressImage = ImageZipUtils.compressImage(pic_path, _path, 50);
+                    final String compressImage = ImageZipUtils.compressImage(pic_path, _path, 30);
                     //Log.e("----compressImage---", compressImage);
                     String picBase64Code = ImageZipUtils.imageToBase64(compressImage);
                     //Log.e("----picBase64Code----", "===="+ picBase64Code);
@@ -386,7 +433,7 @@ public class CarCheckActivity extends BaseActivity implements View.OnClickListen
                     String sign_dir = Environment.getExternalStorageDirectory() + File.separator + "YanFoxconn" + File.separator + "Photos";
                     String _path =  sign_dir + File.separator  + System.currentTimeMillis() +j+k+ ".jpg";
                     //Log.e("------_path-------", _path);
-                    final String compressImage = ImageZipUtils.compressImage(pic_path, _path, 50);
+                    final String compressImage = ImageZipUtils.compressImage(pic_path, _path, 30);
                     //Log.e("----compressImage---", compressImage);
                     String picBase64Code = ImageZipUtils.imageToBase64(compressImage);
                     //Log.e("----picBase64Code----", "===="+ picBase64Code);
@@ -402,10 +449,13 @@ public class CarCheckActivity extends BaseActivity implements View.OnClickListen
 
         object.add("info", array);
 
-        Log.e("-----object------",  object.toString());
 
         if (FoxContext.getInstance().getLoginId().equals("")) {
             ToastUtils.showShort(this, "登錄超時,請重新登陸");
+            return;
+        }
+        if (imagePaths==null) {
+            ToastUtils.showShort(this, "請上傳消殺圖片");
             return;
         }
         if (key1 > 0) {
@@ -419,12 +469,29 @@ public class CarCheckActivity extends BaseActivity implements View.OnClickListen
             return;
         }
         if (key3 > 0) {
-            ToastUtils.showShort(this, "請填寫點檢信息");
+            ToastUtils.showShort(this, "請請填寫點檢信息");
             key3 = 0;
             return;
         }
 
+        JsonArray photoArray = new JsonArray();
+        for (int i = 0; i < imagePaths.size(); i++) {
+            File pictureFile = new File(imagePaths.get(i)); //通過路徑獲取檔
+//            fileMap.put("file" + i, pictureFile);//添加第一個文件
+            final String pic_path = imagePaths.get(i);
+            String sign_dir = Environment.getExternalStorageDirectory() + File.separator + "YanFoxconn" + File.separator + "Photos";
+            String _path =  sign_dir + File.separator  + System.currentTimeMillis() +i+ ".jpg";
+            //getFilesDir().getAbsolutePath()+"compressPic.jpg";
+            //调用压缩图片的方法，返回压缩后的图片path
+            final String compressImage = ImageZipUtils.compressImage(pic_path, _path, 30);
+            String picBase64Code = ImageZipUtils.imageToBase64(compressImage);
+            JsonObject jsonObject = new JsonObject();
+            jsonObject.addProperty("file", picBase64Code);
+            photoArray.add(jsonObject);
+        }
+        object.add("xiaosha", photoArray);
 
+        Log.e("-----object------",  object.toString());
         //開啟一個新執行緒，向伺服器上傳資料
             new Thread() {
                 public void run() {
@@ -461,7 +528,7 @@ public class CarCheckActivity extends BaseActivity implements View.OnClickListen
                     } catch (Exception e) {
                         e.printStackTrace();
                     }finally {
-                        FileUtil.deletePhotos(CarCheckActivity.this);
+                        FileUtil.deletePhotos(CarCheckXSActivity.this);
                     }
                 }
             }.start();
@@ -479,7 +546,7 @@ public class CarCheckActivity extends BaseActivity implements View.OnClickListen
 //                    finish();
                     break;
                 case MESSAGE_NETMISTAKE://Toast彈出
-                    ToastUtils.showLong(CarCheckActivity.this,R.string.net_mistake);
+                    ToastUtils.showLong(CarCheckXSActivity.this,R.string.net_mistake);
                     break;
                 case MESSAGE_UP://提交響應
                     worningAlert(msg.obj.toString(),MESSAGE_TOAST);
@@ -488,13 +555,13 @@ public class CarCheckActivity extends BaseActivity implements View.OnClickListen
                 case MESSAGE_SET_CHECK://點檢項列表賦值
 
                     if (mCheckMsgList != null) {
-                        LinearLayoutManager layoutManager = new LinearLayoutManager(CarCheckActivity.this);
+                        LinearLayoutManager layoutManager = new LinearLayoutManager(CarCheckXSActivity.this);
                         rvOption.setLayoutManager(layoutManager);
                         rvOption.setItemViewCacheSize(500);
-                        mZhiyinshuiCheckAdapter = new ZhiyinshuiCheckAdapter(CarCheckActivity.this,mCheckMsgList,isSelected);
+                        mZhiyinshuiCheckAdapter = new ZhiyinshuiCheckAdapter(CarCheckXSActivity.this,mCheckMsgList,isSelected);
                         rvOption.setAdapter(mZhiyinshuiCheckAdapter);
                     } else {
-                        ToastUtils.showShort(CarCheckActivity.this, "沒有數據!");
+                        ToastUtils.showShort(CarCheckXSActivity.this, "沒有數據!");
                     }
 
                     break;
@@ -549,12 +616,12 @@ public class CarCheckActivity extends BaseActivity implements View.OnClickListen
                         if (t==MESSAGE_TOAST){
                             finish();
                         }else if (t==MESSAGE_JUMP){
-                            Intent intent = new Intent(CarCheckActivity.this, ZhiyinshuiExceListActivity.class);
+                            Intent intent = new Intent(CarCheckXSActivity.this, ZhiyinshuiExceListActivity.class);
                             intent.putExtra("dim_id",dim_id);
                             intent.putExtra("type",type);
                             startActivity(intent);
                             finish();
-                            ToastUtils.showShort(CarCheckActivity.this, "跳轉異常界面!");
+                            ToastUtils.showShort(CarCheckXSActivity.this, "跳轉異常界面!");
                         }
                     }
                 });
@@ -562,34 +629,142 @@ public class CarCheckActivity extends BaseActivity implements View.OnClickListen
         alert.show();
     }
 
+    private class GridAdapter extends BaseAdapter {
+        private ArrayList<String> listUrls;
+
+        public GridAdapter(ArrayList<String> listUrls) {
+            this.listUrls = listUrls;
+        }
+
+        @Override
+        public int getCount() {
+            if (listUrls.size() == 3) {
+                return 3;
+            } else {
+                return listUrls.size() + 1;
+            }
+
+        }
+
+        @Override
+        public String getItem(int position) {
+            return listUrls.get(position);
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            ImageView imageView;
+            if (convertView == null) {
+                convertView = getLayoutInflater().inflate(R.layout.item_image, null);
+                imageView = (ImageView) convertView.findViewById(R.id.imageView);
+                convertView.setTag(imageView);
+                // 重置ImageView宽高
+//                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(columnWidth, columnWidth);
+//                imageView.setLayoutParams(params);
+            } else {
+                imageView = (ImageView) convertView.getTag();
+            }
+            if (position == listUrls.size()) {
+                imageView.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.mipmap.icon_addpic_unfocused));
+                if (position == 3) {
+                    imageView.setVisibility(View.GONE);
+                }
+            } else {
+                Glide.with(CarCheckXSActivity.this)
+                        .load(new File(getItem(position)))
+                        .placeholder(R.mipmap.default_error)
+                        .error(R.mipmap.default_error)
+                        .centerCrop()
+                        .crossFade()
+                        .into(imageView);
+            }
+            return convertView;
+        }
+    }
+
+    private void loadAdpater(ArrayList<String> paths) {
+        if (imagePaths == null) {
+            imagePaths = new ArrayList<>();
+        }
+        imagePaths.clear();
+        if (paths!=null) {
+            imagePaths.addAll(paths);
+
+            if (paths.size() > 0) {
+                ivEmpty.setVisibility(View.GONE);
+            } else {
+                ivEmpty.setVisibility(View.VISIBLE);
+            }
+        }
+        try {
+            JSONArray obj = new JSONArray(imagePaths);
+            Log.e("--", obj.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        if (gridAdapter == null) {
+            gridAdapter = new GridAdapter(imagePaths);
+            gridView.setAdapter(gridAdapter);
+            Log.e("----------------", "ddd==" + imagePaths.size());
+        } else {
+            gridAdapter.notifyDataSetChanged();
+        }
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
-
             switch (requestCode) {
 
                 // 选择照片
                 case REQUEST_CAMERA_CODE:
                     Log.e("==========", "Picker==="+ mZhiyinshuiCheckAdapter.getPosition());
-                    mZhiyinshuiCheckAdapter.loadAdpater(data.getStringArrayListExtra(PhotoPickerActivity.EXTRA_RESULT), mZhiyinshuiCheckAdapter.getPosition());
-
+                    if (photoType.equals("T")){
+                        loadAdpater(data.getStringArrayListExtra(PhotoPickerActivity.EXTRA_RESULT));
+                        photoType="";
+                    }else {
+                        mZhiyinshuiCheckAdapter.loadAdpater(data.getStringArrayListExtra(PhotoPickerActivity.EXTRA_RESULT), mZhiyinshuiCheckAdapter.getPosition());
+                    }
                     break;
                 // 预览
                 case REQUEST_PREVIEW_CODE:
-                    mZhiyinshuiCheckAdapter.loadAdpater(data.getStringArrayListExtra(PhotoPreviewActivity.EXTRA_RESULT), mZhiyinshuiCheckAdapter.getPosition());
-                    Log.e("==========", "Preview==="+ mZhiyinshuiCheckAdapter.getPosition());
+                    if (photoType.equals("T")){
+                        loadAdpater(data.getStringArrayListExtra(PhotoPreviewActivity.EXTRA_RESULT));
+                        photoType="";
+                    }else {
+                        mZhiyinshuiCheckAdapter.loadAdpater(data.getStringArrayListExtra(PhotoPreviewActivity.EXTRA_RESULT), mZhiyinshuiCheckAdapter.getPosition());
+                        Log.e("==========", "Preview===" + mZhiyinshuiCheckAdapter.getPosition());
+                    }
                     break;
                 // 调用相机拍照
                 case ImageCaptureManager.REQUEST_TAKE_PHOTO:
-                    if (captureManager.getCurrentPhotoPath() != null) {
-                        captureManager.galleryAddPic();
-                        ArrayList<String> paths = new ArrayList<>();
-                        paths.add(captureManager.getCurrentPhotoPath());
-                        mZhiyinshuiCheckAdapter.loadAdpater(paths, mZhiyinshuiCheckAdapter.getPosition());
-                        Log.e("==========", paths.get(1));
+                    if (photoType.equals("T")){
+                        if (captureManager.getCurrentPhotoPath() != null) {
+                            captureManager.galleryAddPic();
+                            ArrayList<String> paths = new ArrayList<>();
+                            paths.add(captureManager.getCurrentPhotoPath());
+                            loadAdpater(paths);
+                            Log.e("==========", paths.get(1));
+                            photoType="";
+                        }
+                    }else {
+                        if (captureManager.getCurrentPhotoPath() != null) {
+                            captureManager.galleryAddPic();
+                            ArrayList<String> paths = new ArrayList<>();
+                            paths.add(captureManager.getCurrentPhotoPath());
+                            mZhiyinshuiCheckAdapter.loadAdpater(paths, mZhiyinshuiCheckAdapter.getPosition());
+                            Log.e("==========", paths.get(1));
+                        }
                     }
                     break;
+
             }
         }
     }

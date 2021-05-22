@@ -431,6 +431,19 @@
         <activity android:name=".activity.CPCReleaseActivity"
             android:screenOrientation="landscape"
             android:theme="@style/mainStyle"/>
+        <!-- 車調車輛消殺 -->
+        <activity android:name=".activity.CarCheckXSActivity"/>
+        <!-- 人資活動發佈列表 -->
+        <activity android:name=".activity.ActListActivity"/>
+        <!-- 人資活動發佈 -->
+        <activity android:name=".activity.ActReleaseActivity"/>
+        <!-- 車調車輛點檢 -->
+        <activity android:name=".activity.CarSystemCheckActivity"/>
+        <!-- WebViewTestActivity -->
+        <activity android:name=".activity.WebViewTestActivity"
+            android:hardwareAccelerated="true"/>
+        <!-- 人資活動結束 -->
+        <activity android:name=".activity.ActEndActivity"/>
     </application>
 
 </manifest>

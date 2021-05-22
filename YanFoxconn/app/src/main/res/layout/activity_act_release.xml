@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--人資活動發佈-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+<!--標題-->
+    <include layout="@layout/common_title"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <!--活動類別-->
+            <TableRow style="@style/tableRow">
+
+                <TextView
+                    style="@style/carTextName"
+                    android:lines="1"
+                    android:text="活動類別：" />
+                <RadioGroup
+                    android:orientation="horizontal"
+                    android:layout_weight="1">
+                    <RadioButton
+                        android:id="@+id/rb_person"
+                        android:text="個人賽"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <RadioButton
+                        android:id="@+id/rb_team"
+                        android:text="團體賽"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </RadioGroup>
+            </TableRow>
+            <!--活動名稱-->
+            <TableRow
+                android:id="@+id/tr_phone"
+                style="@style/tableRow">
+                <TextView style="@style/carTextName"
+                    android:text="活動名稱："/>
+
+                <EditText
+                    android:id="@+id/et_act_name"
+                    style="@style/carEditTextBKG"
+                    android:background="@drawable/login_input"
+                    android:layout_weight="1" />
+            </TableRow>
+            <!--活動規則-->
+            <TableRow
+                android:id="@+id/tr_content"
+                style="@style/tableRow">
+                <TextView style="@style/carTextName"
+                    android:text="活動規則："/>
+
+                <EditText
+                    android:id="@+id/et_act_rules"
+                    style="@style/carEditTextBKG"
+                    android:background="@drawable/login_input"
+                    android:layout_weight="1" />
+            </TableRow>
+            <!--獎品設置-->
+            <TableRow style="@style/tableRow">
+
+                <TextView
+                    style="@style/carTextName"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:text="獎品設置：" />
+
+                <EditText
+                    android:id="@+id/et_act_award"
+                    style="@style/carEditTextBKG"
+                    android:background="@drawable/login_input"
+                    android:layout_weight="1" />
+            </TableRow>
+            <!--獎品設置-->
+            <TableRow
+                android:id="@+id/tr_list_gate"
+                style="@style/tableRow"
+                android:visibility="gone">
+
+                <TextView style="@style/carTextName" />
+
+                <com.example.administrator.yanfoxconn.widget.MyListView
+                    android:id="@+id/lv_gate"
+                    style="@style/carTextBKG"
+                    android:layout_weight="1" />
+            </TableRow>
+            <!--活動開始時間-->
+            <TableRow style="@style/tableRow">
+                <TextView
+                    style="@style/forkliftTextName"
+                    android:text="活動開始時間："/>
+                <TextView
+                    android:id="@+id/tv_time_start"
+                    style="@style/mobile_message"
+                    android:layout_weight="1"
+                    android:background="@drawable/login_input"
+                    android:hint="選擇時間"/>
+            </TableRow>
+            <!--報名截止時間-->
+            <TableRow style="@style/tableRow">
+                <TextView
+                    style="@style/forkliftTextName"
+                    android:text="報名截止時間："/>
+                <TextView
+                    android:id="@+id/tv_end_sign"
+                    style="@style/mobile_message"
+                    android:layout_weight="1"
+                    android:background="@drawable/login_input"
+                    android:hint="選擇時間"/>
+            </TableRow>
+            <!--隊伍上限數量-->
+            <TableRow
+                android:id="@+id/tr_team_num"
+                style="@style/tableRow">
+                <TextView style="@style/carTextName"
+                    android:text="隊伍上限數量："/>
+
+                <EditText
+                    android:id="@+id/et_num_team"
+                    style="@style/carEditTextBKG"
+                    android:inputType="number"
+                    android:background="@drawable/login_input"
+                    android:layout_weight="1" />
+            </TableRow>
+            <!--活動上限人數-->
+            <TableRow
+                style="@style/tableRow">
+                <TextView style="@style/carTextName"
+                    android:text="活動上限人數："/>
+
+                <EditText
+                    android:id="@+id/et_num_person"
+                    style="@style/carEditTextBKG"
+                    android:inputType="number"
+                    android:background="@drawable/login_input"
+                    android:layout_weight="1" />
+            </TableRow>
+        </TableLayout>
+
+    </ScrollView>
+</LinearLayout>

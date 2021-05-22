@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * Created by Song
  * on 2020/12/19
- * Description：體症異常 模糊查詢列表
+ * Description：成品倉出貨查詢列表
  */
 public class CPCSearchAdapter extends BaseAdapter {
     public Context mContext;

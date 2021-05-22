@@ -11,7 +11,6 @@ import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TableRow;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -20,10 +19,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.baidu.location.BDLocation;
 import com.example.administrator.yanfoxconn.R;
 import com.example.administrator.yanfoxconn.adapter.CarSystemCheckAdapter;
-import com.example.administrator.yanfoxconn.adapter.ZhiyinshuiCheckAdapter;
 import com.example.administrator.yanfoxconn.bean.CarCheckMessage;
 import com.example.administrator.yanfoxconn.bean.ZhiyinshuiCheckMsg;
-import com.example.administrator.yanfoxconn.bean.ZhiyinshuiMsg;
 import com.example.administrator.yanfoxconn.constant.Constants;
 import com.example.administrator.yanfoxconn.constant.FoxContext;
 import com.example.administrator.yanfoxconn.constant.ImageCaptureManager;
@@ -32,7 +29,6 @@ import com.example.administrator.yanfoxconn.utils.FileUtil;
 import com.example.administrator.yanfoxconn.utils.HttpConnectionUtil;
 import com.example.administrator.yanfoxconn.utils.HttpUtils;
 import com.example.administrator.yanfoxconn.utils.ImageZipUtils;
-import com.example.administrator.yanfoxconn.utils.TimeDateUtils;
 import com.example.administrator.yanfoxconn.utils.ToastUtils;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -41,7 +37,6 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import java.io.File;
-import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -54,11 +49,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * 車輛點檢
+ * 車調車輛點檢
  * 點檢異常提交界面
  * Great By WANG
  */
-public class CarCheckActivity extends BaseActivity implements View.OnClickListener ,TimeDatePickerDialog.TimePickerDialogInterface{
+public class CarSystemCheckActivity extends BaseActivity implements View.OnClickListener ,TimeDatePickerDialog.TimePickerDialogInterface{
     private final int MESSAGE_SET_TEXT = 1;//掃描成功賦值
     private final int MESSAGE_TOAST = 2;//掃描失敗彈出框
     private final int MESSAGE_UP = 3;//提交信息
@@ -72,7 +67,7 @@ public class CarCheckActivity extends BaseActivity implements View.OnClickListen
     private String getQrMessage;//二維碼內容
     private List<CarCheckMessage> mMsgList;//基本信息
     private List<ZhiyinshuiCheckMsg> mCheckMsgList;//點檢項
-    private ZhiyinshuiCheckAdapter mZhiyinshuiCheckAdapter;//點檢列表適配器
+    private CarSystemCheckAdapter mCarSystemCheckAdapter;//車調車輛點檢列表適配器
     private HashMap<Integer, String> isSelected = new HashMap<>();//用户存储条目的选择状态
     private List<Integer> selectList;//用于存放正常的条目
     private List<Integer> noselectList;//用于存放異常的条目
@@ -149,7 +144,7 @@ public class CarCheckActivity extends BaseActivity implements View.OnClickListen
                         }
                     }, 2000);
                 }else{
-                    ToastUtils.showShort(CarCheckActivity.this,R.string.multiple_click);
+                    ToastUtils.showShort(CarSystemCheckActivity.this,R.string.multiple_click);
                 }
                 break;
         }
@@ -214,9 +209,9 @@ public class CarCheckActivity extends BaseActivity implements View.OnClickListen
         if (location == null || location.getLongitude() == 0.0 || location.getLatitude() == 0.0) {
             ToastUtils.showLong(this, "位置信息獲取失敗請稍後或移動后重試!");
         }
-        imagePathsMap = ZhiyinshuiCheckAdapter.getImagePathsMap();
-        etMap = ZhiyinshuiCheckAdapter.getEtMap();
-        etCheckMap = ZhiyinshuiCheckAdapter.getEtCheckMap();
+        imagePathsMap = CarSystemCheckAdapter.getImagePathsMap();
+        etMap = CarSystemCheckAdapter.getEtMap();
+        etCheckMap = CarSystemCheckAdapter.getEtCheckMap();
         JsonArray array = new JsonArray();
 
         object.addProperty("dim_id", mMsgList.get(0).getId());
@@ -461,7 +456,7 @@ public class CarCheckActivity extends BaseActivity implements View.OnClickListen
                     } catch (Exception e) {
                         e.printStackTrace();
                     }finally {
-                        FileUtil.deletePhotos(CarCheckActivity.this);
+                        FileUtil.deletePhotos(CarSystemCheckActivity.this);
                     }
                 }
             }.start();
@@ -479,7 +474,7 @@ public class CarCheckActivity extends BaseActivity implements View.OnClickListen
 //                    finish();
                     break;
                 case MESSAGE_NETMISTAKE://Toast彈出
-                    ToastUtils.showLong(CarCheckActivity.this,R.string.net_mistake);
+                    ToastUtils.showLong(CarSystemCheckActivity.this,R.string.net_mistake);
                     break;
                 case MESSAGE_UP://提交響應
                     worningAlert(msg.obj.toString(),MESSAGE_TOAST);
@@ -488,13 +483,13 @@ public class CarCheckActivity extends BaseActivity implements View.OnClickListen
                 case MESSAGE_SET_CHECK://點檢項列表賦值
 
                     if (mCheckMsgList != null) {
-                        LinearLayoutManager layoutManager = new LinearLayoutManager(CarCheckActivity.this);
+                        LinearLayoutManager layoutManager = new LinearLayoutManager(CarSystemCheckActivity.this);
                         rvOption.setLayoutManager(layoutManager);
                         rvOption.setItemViewCacheSize(500);
-                        mZhiyinshuiCheckAdapter = new ZhiyinshuiCheckAdapter(CarCheckActivity.this,mCheckMsgList,isSelected);
-                        rvOption.setAdapter(mZhiyinshuiCheckAdapter);
+                        mCarSystemCheckAdapter = new CarSystemCheckAdapter(CarSystemCheckActivity.this,mCheckMsgList,isSelected);
+                        rvOption.setAdapter(mCarSystemCheckAdapter);
                     } else {
-                        ToastUtils.showShort(CarCheckActivity.this, "沒有數據!");
+                        ToastUtils.showShort(CarSystemCheckActivity.this, "沒有數據!");
                     }
 
                     break;
@@ -549,12 +544,12 @@ public class CarCheckActivity extends BaseActivity implements View.OnClickListen
                         if (t==MESSAGE_TOAST){
                             finish();
                         }else if (t==MESSAGE_JUMP){
-                            Intent intent = new Intent(CarCheckActivity.this, ZhiyinshuiExceListActivity.class);
+                            Intent intent = new Intent(CarSystemCheckActivity.this, ZhiyinshuiExceListActivity.class);
                             intent.putExtra("dim_id",dim_id);
                             intent.putExtra("type",type);
                             startActivity(intent);
                             finish();
-                            ToastUtils.showShort(CarCheckActivity.this, "跳轉異常界面!");
+                            ToastUtils.showShort(CarSystemCheckActivity.this, "跳轉異常界面!");
                         }
                     }
                 });
@@ -571,14 +566,14 @@ public class CarCheckActivity extends BaseActivity implements View.OnClickListen
 
                 // 选择照片
                 case REQUEST_CAMERA_CODE:
-                    Log.e("==========", "Picker==="+ mZhiyinshuiCheckAdapter.getPosition());
-                    mZhiyinshuiCheckAdapter.loadAdpater(data.getStringArrayListExtra(PhotoPickerActivity.EXTRA_RESULT), mZhiyinshuiCheckAdapter.getPosition());
+                    Log.e("==========", "Picker==="+ mCarSystemCheckAdapter.getPosition());
+                    mCarSystemCheckAdapter.loadAdpater(data.getStringArrayListExtra(PhotoPickerActivity.EXTRA_RESULT), mCarSystemCheckAdapter.getPosition());
 
                     break;
                 // 预览
                 case REQUEST_PREVIEW_CODE:
-                    mZhiyinshuiCheckAdapter.loadAdpater(data.getStringArrayListExtra(PhotoPreviewActivity.EXTRA_RESULT), mZhiyinshuiCheckAdapter.getPosition());
-                    Log.e("==========", "Preview==="+ mZhiyinshuiCheckAdapter.getPosition());
+                    mCarSystemCheckAdapter.loadAdpater(data.getStringArrayListExtra(PhotoPreviewActivity.EXTRA_RESULT), mCarSystemCheckAdapter.getPosition());
+                    Log.e("==========", "Preview==="+ mCarSystemCheckAdapter.getPosition());
                     break;
                 // 调用相机拍照
                 case ImageCaptureManager.REQUEST_TAKE_PHOTO:
@@ -586,7 +581,7 @@ public class CarCheckActivity extends BaseActivity implements View.OnClickListen
                         captureManager.galleryAddPic();
                         ArrayList<String> paths = new ArrayList<>();
                         paths.add(captureManager.getCurrentPhotoPath());
-                        mZhiyinshuiCheckAdapter.loadAdpater(paths, mZhiyinshuiCheckAdapter.getPosition());
+                        mCarSystemCheckAdapter.loadAdpater(paths, mCarSystemCheckAdapter.getPosition());
                         Log.e("==========", paths.get(1));
                     }
                     break;
@@ -596,20 +591,20 @@ public class CarCheckActivity extends BaseActivity implements View.OnClickListen
     //时间选择器----------确定
     @Override
     public void positiveListener() {
-        ZhiyinshuiCheckAdapter.positiveListener();
+        CarSystemCheckAdapter.positiveListener();
     }
 
     //时间选择器-------取消
     @Override
     public void negativeListener() {
-        ZhiyinshuiCheckAdapter.negativeListener();
+        CarSystemCheckAdapter.negativeListener();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        ZhiyinshuiCheckAdapter.getImagePathsMap().clear();
-        ZhiyinshuiCheckAdapter.getEtMap().clear();
-        ZhiyinshuiCheckAdapter.getEtCheckMap().clear();
+        CarSystemCheckAdapter.getImagePathsMap().clear();
+        CarSystemCheckAdapter.getEtMap().clear();
+        CarSystemCheckAdapter.getEtCheckMap().clear();
     }
 }

@@ -15,6 +15,8 @@ import androidx.fragment.app.Fragment;
 
 import com.example.administrator.yanfoxconn.R;
 import com.example.administrator.yanfoxconn.activity.WebViewActivity;
+import com.example.administrator.yanfoxconn.activity.WebViewLandScapeActivity;
+import com.example.administrator.yanfoxconn.activity.WebViewTestActivity;
 
 
 /**
@@ -44,14 +46,14 @@ public class BaobiaoFragment extends Fragment {
                 startActivity(intent);
             }
         });
-        //洗眼器
-        LinearLayout btnChakan = (LinearLayout) view.findViewById(R.id.ib_chakan);
+        //工作互聯
+        LinearLayout btnChakan = (LinearLayout) view.findViewById(R.id.ib_work);
         btnChakan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent= new Intent(getActivity(), WebViewActivity.class);
-                intent.putExtra("role","FX");
-                //startActivity(intent);
+                Intent intent= new Intent(getActivity(), WebViewTestActivity.class);
+                intent.putExtra("role","WORK");
+                startActivity(intent);
             }
         });
         /** 營建 */
@@ -79,6 +81,7 @@ public class BaobiaoFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
 
         return view;
     }

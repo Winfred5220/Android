@@ -48,9 +48,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * song 2020/12/3
- * 110接處警處警反饋
- * 列表界面
+ * 110接處警處警反饋列表界面
+ * Created by S1007989 on 2021/5/18.
  */
 public class CommonFormsCjfkListActivity extends BaseActivity implements View.OnClickListener {
     private final int MESSAGE_TOAST = 2;//掃描失敗彈出框

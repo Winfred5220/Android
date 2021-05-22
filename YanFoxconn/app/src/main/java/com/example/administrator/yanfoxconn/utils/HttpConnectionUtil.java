@@ -34,7 +34,8 @@ public class HttpConnectionUtil {
         conn.setDoInput(true);// 允許輸入
         conn.setDoOutput(true);// 允許輸出
         conn.setUseCaches(false);
-        conn.setReadTimeout(10 * 1000); // 緩存的最長時間
+        conn.setConnectTimeout(30 * 1000); // 设置连接主机超时
+        conn.setReadTimeout(30 * 1000);//设置从主机读取数据超时
         conn.setRequestMethod("POST");
         conn.setRequestProperty("Charset", "UTF-8");
         conn.setRequestProperty("Connection", "Keep-Alive");
@@ -124,7 +125,8 @@ public class HttpConnectionUtil {
         conn.setDoInput(true);// 允許輸入
         conn.setDoOutput(true);// 允許輸出
         conn.setUseCaches(false);
-        conn.setReadTimeout(10 * 1000); // 緩存的最長時間
+        conn.setConnectTimeout(30 * 1000); // 设置连接主机超时
+        conn.setReadTimeout(30 * 1000);//设置从主机读取数据超时
         conn.setRequestMethod("POST");
         conn.setRequestProperty("Connection", "Keep-Alive");
         conn.setRequestProperty("Charset", "UTF-8");
@@ -180,7 +182,8 @@ public class HttpConnectionUtil {
         conn.setDoInput(true);// 允許輸入
         conn.setDoOutput(true);// 允許輸出
         conn.setUseCaches(false);
-        conn.setReadTimeout(10 * 1000); // 緩存的最長時間
+        conn.setConnectTimeout(30 * 1000); // 设置连接主机超时
+        conn.setReadTimeout(30 * 1000);//设置从主机读取数据超时
         conn.setRequestMethod("POST");
         conn.setRequestProperty("Charset", "UTF-8");
         conn.setRequestProperty("Connection", "Keep-Alive");

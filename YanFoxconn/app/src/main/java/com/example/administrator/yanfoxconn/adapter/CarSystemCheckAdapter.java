@@ -3,8 +3,9 @@ package com.example.administrator.yanfoxconn.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.BitmapFactory;
-import android.renderscript.ScriptGroup;
+import android.graphics.Color;
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.InputType;
 import android.text.TextWatcher;
 import android.text.method.DigitsKeyListener;
@@ -29,7 +30,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.administrator.yanfoxconn.R;
-import com.example.administrator.yanfoxconn.activity.DutySectionChiefActivity;
 import com.example.administrator.yanfoxconn.activity.TimeDatePickerDialog;
 import com.example.administrator.yanfoxconn.bean.SelectModel;
 import com.example.administrator.yanfoxconn.bean.ZhiyinshuiCheckMsg;
@@ -39,7 +39,6 @@ import com.example.administrator.yanfoxconn.utils.ToastUtils;
 import com.example.administrator.yanfoxconn.widget.MyGridView;
 
 import java.io.File;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -51,9 +50,9 @@ import static androidx.core.app.ActivityCompat.startActivityForResult;
 
 /**
  * Created by S1007989 on 2020/7/26
- * description：點檢項目點檢共用
+ * description：車調車輛點檢項目點檢共用
  */
-public class ZhiyinshuiCheckAdapter extends RecyclerView.Adapter<ZhiyinshuiCheckAdapter.ViewHolder> {
+public class CarSystemCheckAdapter extends RecyclerView.Adapter<CarSystemCheckAdapter.ViewHolder> {
     private List<ZhiyinshuiCheckMsg> lists;
     private static HashMap<Integer, String> isSelected; //存放checkBox状态的map
     private static HashMap<Integer, ArrayList<String>> imagePathsMap=new HashMap<>(); //存放圖片地址的map
@@ -122,7 +121,7 @@ public class ZhiyinshuiCheckAdapter extends RecyclerView.Adapter<ZhiyinshuiCheck
         mMonth = Integer.parseInt(formatterm.format(noChangeTime.getTime()));
         mDay = Integer.parseInt(formatterd.format(noChangeTime.getTime()));
     }
-    public ZhiyinshuiCheckAdapter(Context context, List<ZhiyinshuiCheckMsg> lists, HashMap<Integer, String> isSelected){
+    public CarSystemCheckAdapter(Context context, List<ZhiyinshuiCheckMsg> lists, HashMap<Integer, String> isSelected){
         this.lists=lists;
         this.isSelected=isSelected;
         this.mContext = context;
@@ -205,11 +204,19 @@ public class ZhiyinshuiCheckAdapter extends RecyclerView.Adapter<ZhiyinshuiCheck
                 isSelected.put(position, "input_true");
 
                 if (lists.get(position).getFlag().equals("Y")&&!holder.etInput.getText().toString().equals("")) {
-                    Log.e("--------", Float.parseFloat(holder.etInput.getText().toString())+"=="+Float.parseFloat(lists.get(position).getMax())+"=="+Float.parseFloat(lists.get(position).getMax()) );
-                        if (Float.parseFloat(holder.etInput.getText().toString()) > Float.parseFloat(lists.get(position).getMax()) ||
-                                Float.parseFloat(holder.etInput.getText().toString()) < Float.parseFloat(lists.get(position).getMin())) {
+                    //365
+                    float temp = Float.parseFloat(holder.etInput.getText().toString());
+                    Log.e("--------", temp+"="+Float.parseFloat(lists.get(position).getMin())+"="+Float.parseFloat(lists.get(position).getMax())  );
+                        if (temp > Float.parseFloat(lists.get(position).getMax()) ) {
+                            ToastUtils.showShort(mContext,"體溫高于最大值");
+                            holder.etInput.setTextColor(mContext.getResources().getColor(R.color.color_d73d19));
                             isSelected.put(position, "input_false");
-                        } else {
+                        }else if (temp < Float.parseFloat(lists.get(position).getMin())){
+                            ToastUtils.showShort(mContext,"體溫低于最小值");
+                            holder.etInput.setTextColor(mContext.getResources().getColor(R.color.color_d73d19));
+                            isSelected.put(position, "input_false");
+                        }else {
+                            holder.etInput.setTextColor(mContext.getResources().getColor(R.color.blank));
                             isSelected.put(position, "input_true");
                         }
                     }
@@ -366,6 +373,7 @@ public class ZhiyinshuiCheckAdapter extends RecyclerView.Adapter<ZhiyinshuiCheck
                //holder.etInput.setInputType(InputType.TYPE_CLASS_NUMBER);
                DigitsKeyListener numericOnlyListener = new DigitsKeyListener(false,true);
                holder.etInput.setKeyListener(numericOnlyListener);
+               holder.etInput.setFilters(new InputFilter[]{new InputFilter.LengthFilter(4)});
 
                if (zhiyinshuiCheckMsg.getFlag().equals("Y")){
                    holder.tvContent.setText(zhiyinshuiCheckMsg.getContent()+"-界值:("+zhiyinshuiCheckMsg.getMin()+"~"+zhiyinshuiCheckMsg.getMax()+")");
@@ -446,7 +454,7 @@ public class ZhiyinshuiCheckAdapter extends RecyclerView.Adapter<ZhiyinshuiCheck
     }
 
     public static void setPosition(int position) {
-        ZhiyinshuiCheckAdapter.pos = position;
+        CarSystemCheckAdapter.pos = position;
     }
 
     public static HashMap<Integer, ArrayList<String>> getImagePathsMap() {
@@ -454,7 +462,7 @@ public class ZhiyinshuiCheckAdapter extends RecyclerView.Adapter<ZhiyinshuiCheck
     }
 
     public static void setImagePathsMap(HashMap<Integer, ArrayList<String>> imagePathsMap) {
-        ZhiyinshuiCheckAdapter.imagePathsMap = imagePathsMap;
+        CarSystemCheckAdapter.imagePathsMap = imagePathsMap;
     }
 
     public static HashMap<Integer, String> getEtMap() {
@@ -462,7 +470,7 @@ public class ZhiyinshuiCheckAdapter extends RecyclerView.Adapter<ZhiyinshuiCheck
     }
 
     public static void setEtMap(HashMap<Integer, String> etMap) {
-        ZhiyinshuiCheckAdapter.etMap = etMap;
+        CarSystemCheckAdapter.etMap = etMap;
     }
 
     public static HashMap<Integer, String> getEtCheckMap() {
@@ -470,7 +478,7 @@ public class ZhiyinshuiCheckAdapter extends RecyclerView.Adapter<ZhiyinshuiCheck
     }
 
     public static void setEtCheckMap(HashMap<Integer, String> etCheckMap) {
-        ZhiyinshuiCheckAdapter.etCheckMap = etCheckMap;
+        CarSystemCheckAdapter.etCheckMap = etCheckMap;
     }
 
     public void loadAdpater(ArrayList<String> paths, int position) {
@@ -484,7 +492,7 @@ public class ZhiyinshuiCheckAdapter extends RecyclerView.Adapter<ZhiyinshuiCheck
             hivEmpty.setVisibility(View.VISIBLE);
         }
 
-        gridMap.put(position,new ZhiyinshuiCheckAdapter.GridAdapter(imagePathsMap.get(position)));
+        gridMap.put(position,new CarSystemCheckAdapter.GridAdapter(imagePathsMap.get(position)));
         hgvPhoto.setAdapter(gridMap.get(position));
 
 
