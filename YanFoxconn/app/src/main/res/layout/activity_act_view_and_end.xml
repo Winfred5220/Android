@@ -1,0 +1,441 @@
+<?xml version="1.0" encoding="utf-8"?><!--人資活動發佈查看和結束-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical">
+    <!--標題-->
+    <include layout="@layout/common_title" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <!--活動類別-->
+                <TableRow style="@style/tableRow">
+
+                    <TextView
+                        style="@style/carTextName"
+                        android:lines="1"
+                        android:text="活動類別：" />
+
+                    <RadioGroup
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/rb_person"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="個人賽" />
+
+                        <RadioButton
+                            android:id="@+id/rb_team"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="團體賽" />
+                    </RadioGroup>
+                </TableRow>
+                <!--活動名稱-->
+                <TableRow
+                    android:id="@+id/tr_phone"
+                    style="@style/tableRow">
+
+                    <TextView
+                        style="@style/carTextName"
+                        android:text="活動名稱：" />
+
+                    <EditText
+                        android:id="@+id/et_act_name"
+                        style="@style/carEditTextBKG"
+                        android:layout_weight="1"
+                        android:background="@drawable/login_input" />
+                </TableRow>
+                <!--活動規則-->
+                <TableRow
+                    android:id="@+id/tr_content"
+                    style="@style/tableRow">
+
+                    <TextView
+                        style="@style/carTextName"
+                        android:text="活動規則：" />
+
+                    <EditText
+                        android:id="@+id/et_act_rules"
+                        style="@style/carEditTextBKG"
+                        android:layout_weight="1"
+                        android:background="@drawable/login_input" />
+                </TableRow>
+                <!--獎品設置-->
+                <TableRow style="@style/tableRow">
+
+                    <TextView
+                        style="@style/carTextName"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:text="獎品設置：" />
+
+                    <EditText
+                        android:id="@+id/et_act_award"
+                        style="@style/carEditTextBKG"
+                        android:layout_weight="1"
+                        android:background="@drawable/login_input" />
+                </TableRow>
+                <!--活動開始時間-->
+                <TableRow style="@style/tableRow">
+
+                    <TextView
+                        style="@style/forkliftTextName"
+                        android:text="活動開始時間：" />
+
+                    <TextView
+                        android:id="@+id/tv_time_start"
+                        style="@style/mobile_message"
+                        android:layout_weight="1"
+                        android:background="@drawable/login_input"
+                        android:hint="選擇時間" />
+                </TableRow>
+                <!--報名截止時間-->
+                <TableRow style="@style/tableRow">
+
+                    <TextView
+                        style="@style/forkliftTextName"
+                        android:text="報名截止時間：" />
+
+                    <TextView
+                        android:id="@+id/tv_end_sign"
+                        style="@style/mobile_message"
+                        android:layout_weight="1"
+                        android:background="@drawable/login_input"
+                        android:hint="選擇時間" />
+                </TableRow>
+                <!--隊伍上限數量-->
+                <TableRow
+                    android:id="@+id/tr_team_num"
+                    style="@style/tableRow">
+
+                    <TextView
+                        style="@style/carTextName"
+                        android:text="隊伍上限數量：" />
+
+                    <EditText
+                        android:id="@+id/et_num_team"
+                        style="@style/carEditTextBKG"
+                        android:layout_weight="1"
+                        android:background="@drawable/login_input"
+                        android:inputType="number" />
+                </TableRow>
+                <!--活動上限人數-->
+                <TableRow style="@style/tableRow">
+
+                    <TextView
+                        style="@style/carTextName"
+                        android:text="活動上限人數：" />
+
+                    <EditText
+                        android:id="@+id/et_num_person"
+                        style="@style/carEditTextBKG"
+                        android:layout_weight="1"
+                        android:background="@drawable/login_input"
+                        android:inputType="number" />
+                </TableRow>
+            </TableLayout>
+
+            <TableLayout
+                android:id="@+id/tl_end"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone">
+
+                <!--活動結束時間-->
+                <TableRow style="@style/tableRow">
+
+                    <TextView
+                        style="@style/forkliftTextName"
+                        android:text="活動結束時間：" />
+
+                    <TextView
+                        android:id="@+id/tv_time_end"
+                        style="@style/mobile_message"
+                        android:layout_weight="1"
+                        android:hint="選擇時間" />
+                </TableRow>
+                <!--現場活動人數-->
+                <TableRow style="@style/tableRow">
+
+                    <TextView
+                        style="@style/carTextName"
+                        android:text="現場活動人數：" />
+
+                    <EditText
+                        android:id="@+id/et_num_now"
+                        style="@style/carEditTextBKG"
+                        android:layout_weight="1"
+                        android:inputType="number" />
+                </TableRow>
+                <!--冠軍-->
+                <TableRow style="@style/tableRow">
+
+                    <TextView
+                        style="@style/carTextName"
+                        android:layout_height="match_parent"
+                        android:text="冠軍："
+                        android:textColor="@color/color_42D42B"
+                        android:textSize="@dimen/text_size_20" />
+
+                    <TextView
+                        style="@style/carTextName"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="" />
+
+                </TableRow>
+                <!--工號-->
+                <TableRow style="@style/tableRow">
+
+                    <TextView
+                        style="@style/carTextName"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:text="工號：" />
+
+                    <EditText
+                        android:id="@+id/et_code"
+                        style="@style/carEditTextBKG"
+                        android:layout_weight="1"/>
+                </TableRow>
+                <!--工號-->
+                <TableRow
+                    android:id="@+id/tr_list_gate"
+                    style="@style/tableRow"
+                    android:visibility="gone">
+
+                    <TextView style="@style/carTextName" />
+
+                    <com.example.administrator.yanfoxconn.widget.MyListView
+                        android:id="@+id/lv_gate"
+                        style="@style/carTextBKG"
+                        android:layout_weight="1" />
+                </TableRow>
+                <!--姓名-->
+                <TableRow style="@style/tableRow">
+
+                    <TextView
+                        style="@style/carTextName"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:text="姓名：" />
+
+                    <EditText
+                        android:id="@+id/et_name"
+                        style="@style/carEditTextBKG"
+                        android:layout_weight="1"
+                        android:background="@drawable/login_input" />
+                </TableRow>
+                <!--分數-->
+                <TableRow style="@style/tableRow">
+
+                    <TextView
+                        style="@style/carTextName"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:text="得分：" />
+
+                    <EditText
+                        android:id="@+id/et_score"
+                        style="@style/carEditTextBKG"
+                        android:layout_weight="1"
+                         />
+                </TableRow>
+                <!--亞軍-->
+                <TableRow style="@style/tableRow">
+
+                    <TextView
+                        style="@style/carTextName"
+                        android:layout_height="match_parent"
+                        android:text="亞軍："
+                        android:textColor="@color/color_42D42B"
+                        android:textSize="@dimen/text_size_20" />
+
+                    <TextView
+                        style="@style/carTextName"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="" />
+
+                </TableRow>
+                <!--工號-->
+                <TableRow style="@style/tableRow">
+
+                    <TextView
+                        style="@style/carTextName"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:text="工號：" />
+
+                    <EditText
+                        android:id="@+id/et_code2"
+                        style="@style/carEditTextBKG"
+                        android:layout_weight="1"/>
+                </TableRow>
+                <!--工號-->
+                <TableRow
+                    android:id="@+id/tr_list_gate2"
+                    style="@style/tableRow"
+                    android:visibility="gone">
+
+                    <TextView style="@style/carTextName" />
+
+                    <com.example.administrator.yanfoxconn.widget.MyListView
+                        android:id="@+id/lv_gate2"
+                        style="@style/carTextBKG"
+                        android:layout_weight="1" />
+                </TableRow>
+                <!--姓名-->
+                <TableRow style="@style/tableRow">
+
+                    <TextView
+                        style="@style/carTextName"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:text="姓名：" />
+
+                    <EditText
+                        android:id="@+id/et_name2"
+                        style="@style/carEditTextBKG"
+                        android:layout_weight="1"
+                        android:background="@drawable/login_input" />
+                </TableRow>
+                <!--分數-->
+                <TableRow style="@style/tableRow">
+
+                    <TextView
+                        style="@style/carTextName"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:text="得分：" />
+
+                    <EditText
+                        android:id="@+id/et_score2"
+                        style="@style/carEditTextBKG"
+                        android:layout_weight="1"
+                        />
+                </TableRow>
+            </TableLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_photo"
+                android:visibility="gone"
+                android:layout_marginBottom="@dimen/dimen_20"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dimen_10"
+                    android:text="參加人員照片" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <GridView
+                        android:id="@+id/gv_photo"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="@dimen/dimen_10"
+                        android:layout_marginTop="@dimen/dimen_10"
+                        android:layout_marginRight="@dimen/dimen_10"
+                        android:horizontalSpacing="@dimen/dimen_2"
+                        android:numColumns="4"
+                        android:scrollbars="none"
+                        android:verticalSpacing="@dimen/dimen_2" />
+                    <!--空白圖片佔位-->
+                    <ImageView
+                        android:id="@+id/iv_empty"
+                        android:layout_width="75dp"
+                        android:layout_height="75dp"
+                        android:layout_alignLeft="@+id/gv_photo"
+                        android:layout_alignTop="@+id/gv_photo"
+                        android:scaleType="centerCrop"
+                        android:src="@mipmap/icon_addpic_unfocused" />
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dimen_10"
+                    android:text="活動期間的照片" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <GridView
+                        android:id="@+id/gv_photo2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="@dimen/dimen_10"
+                        android:layout_marginTop="@dimen/dimen_10"
+                        android:layout_marginRight="@dimen/dimen_10"
+                        android:horizontalSpacing="@dimen/dimen_2"
+                        android:numColumns="4"
+                        android:scrollbars="none"
+                        android:verticalSpacing="@dimen/dimen_2" />
+                    <!--空白圖片佔位-->
+                    <ImageView
+                        android:id="@+id/iv_empty2"
+                        android:layout_width="75dp"
+                        android:layout_height="75dp"
+                        android:layout_alignLeft="@+id/gv_photo2"
+                        android:layout_alignTop="@+id/gv_photo2"
+                        android:scaleType="centerCrop"
+                        android:src="@mipmap/icon_addpic_unfocused" />
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dimen_10"
+                    android:text="獲獎人合影" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <GridView
+                        android:id="@+id/gv_photo3"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="@dimen/dimen_10"
+                        android:layout_marginTop="@dimen/dimen_10"
+                        android:layout_marginRight="@dimen/dimen_10"
+                        android:horizontalSpacing="@dimen/dimen_2"
+                        android:numColumns="4"
+                        android:scrollbars="none"
+                        android:verticalSpacing="@dimen/dimen_2" />
+                    <!--空白圖片佔位-->
+                    <ImageView
+                        android:id="@+id/iv_empty3"
+                        android:layout_width="75dp"
+                        android:layout_height="75dp"
+                        android:layout_alignLeft="@+id/gv_photo3"
+                        android:layout_alignTop="@+id/gv_photo3"
+                        android:scaleType="centerCrop"
+                        android:src="@mipmap/icon_addpic_unfocused" />
+                </RelativeLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

@@ -333,7 +333,7 @@ public class XunjianFragment extends Fragment implements View.OnClickListener{
             public void onGroupExpand(int groupPosition) {
                 for (int i = 0; i < group.length; i++) {
                     if (groupPosition != i) {
-                        Log.e("--------ex", "d==" + groupPosition);
+                        //Log.e("--------ex", "d==" + groupPosition);
                         expandableListView.collapseGroup(i);
                         FoxContext.getInstance().setGroupPosition(groupPosition);
                     }
@@ -890,12 +890,9 @@ public class XunjianFragment extends Fragment implements View.OnClickListener{
         public void onReceiveLocation(BDLocation location) {
             // TODO Auto-generated method stub
             if (null != location && location.getLocType() != BDLocation.TypeServerError) {
-//
-                Log.e("----------", "經度==" + location.getLongitude() + "緯度==" + location.getLatitude());
-//                logMsg(sb.toString());
+//               Log.e("----------", "經度==" + location.getLongitude() + "緯度==" + location.getLatitude());
+//               logMsg(sb.toString());
                 FoxContext.getInstance().setLocation(location);
-
-//                Log.e("----gaode", location.getLongitude() + "==" + location.getLatitude());
             } else {
                 Message message = new Message();
                 message.what = MESSAGE_TOAST;
@@ -911,7 +908,7 @@ public class XunjianFragment extends Fragment implements View.OnClickListener{
     public void onResume() {
         super.onResume();
         setExListView();
-        Log.e("-----onResume", "MainActivityGaoonResume");
+        Log.e("-----onResume", "MainActivityResume");
     }
 
 

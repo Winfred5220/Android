@@ -2,34 +2,28 @@ package com.example.administrator.yanfoxconn.activity;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RadioButton;
-import android.widget.Spinner;
 import android.widget.TableRow;
 import android.widget.TextView;
-
 import com.example.administrator.yanfoxconn.R;
-import com.example.administrator.yanfoxconn.adapter.JqtbListAdapter;
 import com.example.administrator.yanfoxconn.bean.AQ110Message;
 import com.example.administrator.yanfoxconn.constant.Constants;
 import com.example.administrator.yanfoxconn.constant.FoxContext;
 import com.example.administrator.yanfoxconn.utils.BaseActivity;
 import com.example.administrator.yanfoxconn.utils.DateTimePickDialogUtil;
+import com.example.administrator.yanfoxconn.utils.FileUtil;
 import com.example.administrator.yanfoxconn.utils.HttpConnectionUtil;
 import com.example.administrator.yanfoxconn.utils.HttpUtils;
 import com.example.administrator.yanfoxconn.utils.ToastUtils;
-import com.example.administrator.yanfoxconn.widget.MyListView;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -43,7 +37,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -55,17 +48,6 @@ import taobe.tec.jcc.JChineseConvertor;
  */
 
 public class ActReleaseActivity extends BaseActivity implements View.OnClickListener{
-
-    private final int MESSAGE_TOAST = 2;//掃描失敗彈出框
-    private final int MESSAGE_SET_TEXT = 1;//掃描成功賦值
-    private final int MESSAGE_UP = 3;//提交信息回復
-    private final int MESSAGE_SHOW = 4;//顯示提醒
-    private String initStartDateTime; // 初始化开始时间
-    private Date selectTime = null;//所選時間
-    private Date curDate = null;//當前時間
-    private String curDates;//當前時間
-    private SimpleDateFormat formatter;
-
     @BindView(R.id.btn_title_left)
     Button btnBack;//返回
     @BindView(R.id.tv_title)
@@ -77,21 +59,32 @@ public class ActReleaseActivity extends BaseActivity implements View.OnClickList
     RadioButton rbPerson;//個人
     @BindView(R.id.rb_team)
     RadioButton rbTeam;//團隊
-    @BindView(R.id.tv_date)
-    TextView tvDate;//時間
-    @BindView(R.id.et_phone)
-    EditText etPhone;//聯繫方式
-    @BindView(R.id.et_content)
-    EditText etContent;//報警內容
+    @BindView(R.id.et_act_name)
+    EditText etActName;//活動名稱
+    @BindView(R.id.et_act_rules)
+    EditText etActRules;//活動規則
+    @BindView(R.id.et_act_award)
+    EditText etActAward;//獎品設置
+    @BindView(R.id.tv_time_start)
+    TextView tvStartTime;//活動開始時間
+    @BindView(R.id.tv_end_sign)
+    TextView tvEndSignDate;//報名截止時間
     @BindView(R.id.tr_team_num)
-    TableRow trTeamNum;//隊伍上限數量
+    TableRow trTeamNum;//隊伍上限數量TableRow顯示隱藏
+    @BindView(R.id.et_num_team)
+    EditText etNumTeam;//隊伍上限數量
+    @BindView(R.id.et_num_person)
+    EditText etNumPerson;//活動上限人數
 
-
-    private List<String> teamList;
-    private JqtbListAdapter mAdapter;
+    private String initStartDateTime; // 初始化开始时间
+    private Date selectStartTime = null;//所選時間
+    private Date selectSignTime = null;//所選時間
+    private Date curDate = null;//當前時間
+    private String curDates;//當前時間
+    private SimpleDateFormat formatter;
     private List<String> areaList;
     private List<AQ110Message> keduiList;
-    private String teamSp = "";//中心處置
+    private ActReleaseActivity mContext = this;
     @Override
     protected void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -104,14 +97,15 @@ public class ActReleaseActivity extends BaseActivity implements View.OnClickList
         btnUp.setVisibility(View.VISIBLE);
         btnUp.setOnClickListener(this);
         btnBack.setOnClickListener(this);
-        tvDate.setOnClickListener(this);
-
+        tvStartTime.setOnClickListener(this);
+        tvEndSignDate.setOnClickListener(this);
         formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         SimpleDateFormat formatterUse = new SimpleDateFormat("yyyy年MM月dd日 HH:mm");
         curDate = new Date(System.currentTimeMillis());
         //获取当前时间
         initStartDateTime = formatterUse.format(curDate);
-        tvDate.setText(formatter.format(curDate));
+        tvStartTime.setText(formatter.format(curDate));
+        tvEndSignDate.setText(formatter.format(curDate));
         curDates = formatter.format(curDate);
 
         rbPerson.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -126,7 +120,27 @@ public class ActReleaseActivity extends BaseActivity implements View.OnClickList
         });
         rbPerson.setChecked(true);
     }
-
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.btn_title_left://返回
+                finish();
+                break;
+            case R.id.btn_title_right://提交
+                check();
+                break;
+            case R.id.tv_time_start:
+                DateTimePickDialogUtil dateTimePicKDialog = new DateTimePickDialogUtil(
+                        mContext, initStartDateTime);
+                dateTimePicKDialog.dateTimePicKDialog(tvStartTime,"","");
+                break;
+            case R.id.tv_end_sign:
+                DateTimePickDialogUtil dateTimePicKDialog2 = new DateTimePickDialogUtil(
+                        mContext, initStartDateTime);
+                dateTimePicKDialog2.dateTimePicKDialog(tvEndSignDate,"","");
+                break;
+        }
+    }
     //獲取門崗
     private void getMessage(){
         showDialog();
@@ -160,12 +174,12 @@ public class ActReleaseActivity extends BaseActivity implements View.OnClickList
                             keduiList.add(humi1);
                         }
                         Message message = new Message();
-                        message.what = MESSAGE_SET_TEXT;
+                        message.what = Constants.MESSAGE_SET_TEXT;
                         message.obj = jsonObject.get("errMessage").getAsString();
                         mHandler.sendMessage(message);
                     } else{
                         Message message = new Message();
-                        message.what = MESSAGE_TOAST;
+                        message.what = Constants.MESSAGE_TOAST;
                         message.obj = jsonObject.get("errMessage").getAsString();
                         mHandler.sendMessage(message);
                     }
@@ -176,18 +190,17 @@ public class ActReleaseActivity extends BaseActivity implements View.OnClickList
         public void handleMessage(Message msg) {
             switch (msg.what) {
 
-                case MESSAGE_TOAST://Toast彈出
-//                    aboutAlert(msg.obj.toString(),MESSAGE_TOAST);
-
-                    ToastUtils.showLong(ActReleaseActivity.this, msg.obj.toString());
+                case Constants.MESSAGE_TOAST://Toast彈出
+                    worningAlert(msg.obj.toString(),Constants.MESSAGE_TOAST);
+//                   ToastUtils.showLong(mContext, msg.obj.toString());
 //                    finish();
                     break;
-                case MESSAGE_SET_TEXT://text賦值
+                case Constants.MESSAGE_SET_TEXT://text賦值
                     setText();
 //                    aboutAlert(msg.obj.toString(),MESSAGE_SET_TEXT);
                     break;
-                case MESSAGE_UP://提交響應
-                    worningAlert(msg.obj.toString(),MESSAGE_TOAST);
+                case Constants.MESSAGE_UP://提交響應
+                    worningAlert(msg.obj.toString(),Constants.MESSAGE_TOAST);
 //                    ToastUtils.showLong(CrossScanActivity.this, msg.obj.toString());
 
                     break;
@@ -208,96 +221,129 @@ public class ActReleaseActivity extends BaseActivity implements View.OnClickList
         // tvLecel.setText(empMessagesList.get(0).getEMPLOYEELEVEL()+empMessagesList.get(0).getMANAGER());
         // tvJoinDate.setText(empMessagesList.get(0).getJOINGROUPDATE());
 
-
-
     }
     //提交前檢查
     private void check(){
         if(FoxContext.getInstance().getLoginId().equals("")){
-            ToastUtils.showLong(ActReleaseActivity.this,"登錄超時,請退出重新登錄!");
+            ToastUtils.showLong(mContext,"登錄超時,請退出重新登錄!");
             return;
         }
-        if (rbPerson.isChecked()==false&&rbPerson.isChecked()==false){
-            ToastUtils.showShort(ActReleaseActivity.this,"請選擇報警方式！");
+        if (rbPerson.isChecked()==false&&rbTeam.isChecked()==false){
+            ToastUtils.showShort(mContext,"請選擇活動類別！");
+            return;
+        }
+
+        if (etActName.getText().toString().replaceAll(" ","").equals("")){
+            ToastUtils.showShort(mContext,"請輸入活動名稱！");
+            return;
+        }
+        if (etActRules.getText().toString().replaceAll(" ","").equals("")){
+            ToastUtils.showShort(mContext,"請輸入活動規則！");
+            return;
+        }
+        if (etActAward.getText().toString().replaceAll(" ","").equals("")){
+            ToastUtils.showShort(mContext,"請輸入獎品設置！");
             return;
         }
         try {
-            selectTime = formatter.parse(tvDate.getText().toString());
+            selectStartTime = formatter.parse(tvStartTime.getText().toString());
+            selectSignTime = formatter.parse(tvEndSignDate.getText().toString());
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        if (selectTime.getTime()-curDate.getTime()>0){
-            ToastUtils.showShort(ActReleaseActivity.this,"請检查報案日期是否在當前時間之前");
+        if (curDate.getTime()-selectStartTime.getTime()>0){
+            ToastUtils.showShort(mContext,"請检查活動開始時間！");
             return;
         }
-
-        if (etPhone.getText().toString().replaceAll(" ","").equals("")){
-            ToastUtils.showShort(ActReleaseActivity.this,"聯繫方式不能為空！");
+        if (curDate.getTime()-selectSignTime.getTime()>0){
+            ToastUtils.showShort(mContext,"請检查報名截止時間！");
             return;
         }
-        if (etContent.getText().toString().replaceAll(" ","").equals("")){
-            ToastUtils.showShort(ActReleaseActivity.this,"報警內容不能為空！");
+        if (rbTeam.isChecked()) {
+            if (etNumTeam.getText().toString().replaceAll(" ", "").equals("")) {
+                ToastUtils.showShort(mContext, "請輸入隊伍上限數量！");
+                return;
+            }
+        }
+        if (etNumPerson.getText().toString().replaceAll(" ","").equals("")){
+            ToastUtils.showShort(mContext,"請輸入活動上限人數！");
             return;
         }
-
 
         upMsessage();
     }
+
+
     //提交信息
-    private void upMsessage(){
+    private void upMsessage() {
 
-        final String utl = Constants.HTTP_COMMON_FORMS_110JQTB_UP_SERVLET;
+        final String url = Constants.HTTP_ACTIVITY_JSON_SERVLET; //此處寫上自己的URL
 
-        //文本資料全部添加到Map裡
-        final Map<String, String> paramMap = new HashMap<String, String>();
-        paramMap.put("flag", "E");//110接處警
-        if (rbPerson.isChecked()) paramMap.put("cpc", "內線");
-        else paramMap.put("cpc", "外線");//報警方式
-        paramMap.put("login_code", FoxContext.getInstance().getLoginId());//接警人工號
-        paramMap.put("login_name",FoxContext.getInstance().getName());//接警人
-        paramMap.put("wj_remark", etContent.getText().toString());//報警內容
-        paramMap.put("other", etPhone.getText().toString());//聯繫方式
-        paramMap.put("ck_type", "N");//狀態（是否結案）
-
-        if(tvDate.getText().toString().equals(curDates)){
-            paramMap.put("date0", "");
+        JsonObject object = new JsonObject();
+        HashMap<Integer, ArrayList<String>> imagePathsMap; //存放圖片地址的map
+        HashMap<Integer, String> etMap;//存放editText值的map
+        String act_type = "";//活動類別
+        if (rbPerson.isChecked()){
+            act_type = "個人賽";
         }else{
-            paramMap.put("date0", tvDate.getText().toString());//報案日期
+            act_type = "團體賽";
         }
+        //JsonArray array = new JsonArray();
+        object.addProperty("flag","actRelease");
+        object.addProperty("act_type",act_type);
+        object.addProperty("act_name",etActName.getText().toString());
+        object.addProperty("act_rules",etActRules.getText().toString());
+        object.addProperty("act_award",etActAward.getText().toString());
+        object.addProperty("act_time_start",tvStartTime.getText().toString());
+        object.addProperty("act_end_sign",tvEndSignDate.getText().toString());
+        object.addProperty("act_num_team",etNumTeam.getText().toString());
+        object.addProperty("act_num_person",etNumPerson.getText().toString());
+        object.addProperty("create_code", FoxContext.getInstance().getLoginId());
+        object.addProperty("create_name", FoxContext.getInstance().getName());
+        //object.add("info", array);
 
+        Log.e("----object----",  object.toString());
+
+        //開啟一個新執行緒，向伺服器上傳資料
         new Thread() {
-            @Override
             public void run() {
                 //把网络访问的代码放在这里
                 try {
                     showDialog();
-                    String result = HttpConnectionUtil.doPostPictureLog(utl, paramMap, null);
-                    dismissDialog();
-                    Log.e("---------", "==result===" + result);
-                    String tip="";
-                    if (result.equals("success")) {
-                        tip="提交成功！";
+                    Log.e("-----url----",  url);
+                    String result = HttpConnectionUtil.doPostJsonObject(url, object);
+                    if (result != null) {
+                        dismissDialog();
+                        Log.e("----result-----",  result);
+                        JsonObject jsonObject = new JsonParser().parse(result).getAsJsonObject();
+                        String errCode = jsonObject.get("errCode").getAsString();
+                        if (errCode.equals("200")) {
+                            Message message = new Message();
+                            message.what = Constants.MESSAGE_TOAST;
+                            message.obj = jsonObject.get("errMessage").getAsString();
+                            mHandler.sendMessage(message);
+
+                        } else{
+                            Message message = new Message();
+                            message.what = Constants.MESSAGE_TOAST;
+                            message.obj = jsonObject.get("errMessage").getAsString();
+                            mHandler.sendMessage(message);
+                        }
+                    }else{
                         Message message = new Message();
-                        message.what = MESSAGE_UP;
-                        message.obj = tip;
+                        message.what = Constants.MESSAGE_NETMISTAKE;
                         mHandler.sendMessage(message);
-                    } else{
-                        tip="提交失敗！";
-                        Message message = new Message();
-                        message.what = MESSAGE_UP;
-                        message.obj = tip;
-                        mHandler.sendMessage(message);
+                        finish();
                     }
 
                 } catch (Exception e) {
                     e.printStackTrace();
+                }finally {
+                    FileUtil.deletePhotos(mContext);
                 }
             }
         }.start();
     }
-
-
-
 
     //简体转成繁体
     public String change(String changeText) {
@@ -322,7 +368,37 @@ public class ActReleaseActivity extends BaseActivity implements View.OnClickList
         return changeText;
     }
 
-    private void worningAlert(String msg, final int type) {
+    private void aboutAlert(String msg, final int type) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("確認信息")
+                .setMessage(msg)
+                .setCancelable(false)
+                .setPositiveButton("確認", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        // TODO Auto-generated method stub
+                        if (type==Constants.MESSAGE_TOAST){
+                            finish();
+                        }else if(type==Constants.MESSAGE_UP){
+                            check();
+                        }
+                    }
+                })
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        // TODO Auto-generated method stub
+//                        if (type==MESSAGE_TOAST){
+//                            finish();
+//                        }else if(type==MESSAGE_UP){
+//                            check();
+//                        }
+                    }
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+    private void worningAlert(String msg, final int t) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("提示信息")
                 .setMessage(msg)
@@ -331,7 +407,7 @@ public class ActReleaseActivity extends BaseActivity implements View.OnClickList
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         // TODO Auto-generated method stub
-                        if (type==MESSAGE_TOAST){
+                        if (t==Constants.MESSAGE_TOAST) {
                             finish();
                         }
                     }
@@ -342,22 +418,4 @@ public class ActReleaseActivity extends BaseActivity implements View.OnClickList
 
 
 
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()){
-            case R.id.btn_title_left://返回
-                finish();
-                break;
-            case R.id.btn_title_right://提交
-                check();
-                break;
-            case R.id.tv_date:
-
-                DateTimePickDialogUtil dateTimePicKDialog = new DateTimePickDialogUtil(
-                        ActReleaseActivity.this, initStartDateTime);
-
-                dateTimePicKDialog.dateTimePicKDialog(tvDate,"","");
-                break;
-        }
-    }
 }

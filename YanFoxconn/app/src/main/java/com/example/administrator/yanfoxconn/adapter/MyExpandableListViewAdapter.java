@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.example.administrator.yanfoxconn.R;
 import com.example.administrator.yanfoxconn.activity.AQ110MenuActivity;
+import com.example.administrator.yanfoxconn.activity.ActListActivity;
 import com.example.administrator.yanfoxconn.activity.ActReleaseActivity;
 import com.example.administrator.yanfoxconn.activity.BandaoInputActivity;
 import com.example.administrator.yanfoxconn.activity.CPCSearchActivity;
@@ -934,7 +935,7 @@ public class MyExpandableListViewAdapter extends BaseExpandableListAdapter {
             }
             @Override//人資活動發佈
             public void OnClickIS() {
-                Intent intent = new Intent(mContext.getActivity(), ActReleaseActivity.class);
+                Intent intent = new Intent(mContext.getActivity(), ActListActivity.class);
                 mContext.getActivity().startActivity(intent);
             }
         });

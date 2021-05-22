@@ -228,5 +228,6 @@ public class Constants {
     public static String HTTP_CAR_TYPE = SAFE_SERVER +"CarProgressTypeServlet";//  車輛點檢進度-車輛類別
 
     public static String HTTP_CPC_JSON_SERVLET = SAFE_SERVER +"CPCJsonUpServlet";//成品倉無紙化
+    public static String HTTP_ACTIVITY_JSON_SERVLET = safeServerlocal +"ActivityJsonUpServlet";//人資活動發佈
 
 }

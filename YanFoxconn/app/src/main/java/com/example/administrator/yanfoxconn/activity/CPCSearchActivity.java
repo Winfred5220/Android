@@ -114,7 +114,10 @@ public class CPCSearchActivity extends BaseActivity implements View.OnClickListe
 
     //查詢銷單號
     private void search() {
-
+        if (FoxContext.getInstance().getLoginId().equals("")) {
+            ToastUtils.showShort(this, "登錄超時,請重新登陸");
+            return;
+        }
         final String url = Constants.HTTP_CPC_JSON_SERVLET; //此處寫上自己的URL
 
         JsonObject object = new JsonObject();
@@ -123,11 +126,6 @@ public class CPCSearchActivity extends BaseActivity implements View.OnClickListe
         object.addProperty("ex_dep",ex_dep);
 
         Log.e("-----object------",  object.toString());
-
-        if (FoxContext.getInstance().getLoginId().equals("")) {
-            ToastUtils.showShort(this, "登錄超時,請重新登陸");
-            return;
-        }
 
         //開啟一個新執行緒，向伺服器上傳資料
         new Thread() {

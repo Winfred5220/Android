@@ -439,6 +439,8 @@
         <!-- WebViewTestActivity -->
         <activity android:name=".activity.WebViewTestActivity"
             android:hardwareAccelerated="true"/>
+        <!-- 人資活動結束 -->
+        <activity android:name=".activity.ActEndActivity"/>
     </application>
 
 </manifest>
