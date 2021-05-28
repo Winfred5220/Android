@@ -75,5 +75,9 @@
             android:id="@+id/btn_sign_end"
             style="@style/btn_dz_check"
             android:text="上班結束簽退"/>
+        <Button
+            android:id="@+id/btn_leave"
+            style="@style/btn_dz_check"
+            android:text="请假"/>
     </LinearLayout>
 </LinearLayout>

@@ -24,6 +24,7 @@ import com.example.administrator.yanfoxconn.bean.EmpMessage;
 import com.example.administrator.yanfoxconn.constant.Constants;
 import com.example.administrator.yanfoxconn.constant.FoxContext;
 import com.example.administrator.yanfoxconn.utils.BaseActivity;
+import com.example.administrator.yanfoxconn.utils.ChangeTextUtils;
 import com.example.administrator.yanfoxconn.utils.DateTimePickDialogUtil;
 import com.example.administrator.yanfoxconn.utils.HttpConnectionUtil;
 import com.example.administrator.yanfoxconn.utils.HttpUtils;
@@ -107,6 +108,7 @@ public class EmpWrongActivity extends BaseActivity implements View.OnClickListen
 
     private String result;//錄入的工號
     final Map<String, String> paramMap = new HashMap<String, String>(); //文本資料全部添加到Map裡
+    private ChangeTextUtils changeTextUtils = new ChangeTextUtils();
     @Override
     protected void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -312,7 +314,7 @@ public class EmpWrongActivity extends BaseActivity implements View.OnClickListen
         teamList = new ArrayList<>();
         for (int i = 0;i<empFileList.size();i++){
 
-            teamList.add(change1(empFileList.get(i).getID()+","+empFileList.get(i).getAQ1()+"-"+empFileList.get(i).getAQ2()+"-"+empFileList.get(i).getAQ3()+"-"+empFileList.get(i).getAQ4()));
+            teamList.add(changeTextUtils.simToTra(empFileList.get(i).getID()+","+empFileList.get(i).getAQ1()+"-"+empFileList.get(i).getAQ2()+"-"+empFileList.get(i).getAQ3()+"-"+empFileList.get(i).getAQ4()));
 
         }
         mAdapter = new EmpListAdapter(EmpWrongActivity.this,teamList);
@@ -332,16 +334,7 @@ public class EmpWrongActivity extends BaseActivity implements View.OnClickListen
 
     }
 
-    //简体转成繁体
-    public String change(String changeText) {
-        try {
-            JChineseConvertor jChineseConvertor = JChineseConvertor.getInstance();
-            changeText = jChineseConvertor.s2t(changeText);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return changeText;
-    }
+
 
     //繁体转成简体
     public String change1(String changeText) {

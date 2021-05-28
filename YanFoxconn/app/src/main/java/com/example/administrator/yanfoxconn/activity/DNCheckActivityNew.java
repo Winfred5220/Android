@@ -276,7 +276,6 @@ public class DNCheckActivityNew extends BaseActivity implements View.OnClickList
                 if (i == (tag.size() - 1) && dnSpinnerList.get(tag.get(i)).getPhoto_flag().equals("N")) {
                     normal2new();
                 }
-
             }
         }else{
             normal2new();

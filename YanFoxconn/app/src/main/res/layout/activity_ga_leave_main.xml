@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--临时工请假 主界面-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <!--標題-->
+    <include layout="@layout/common_title"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <!--工號-->
+    <TableRow style="@style/tableRow">
+        <TextView
+            style="@style/carTextName"
+            android:lines="1"
+            android:text="工號：" />
+        <TextView
+            android:id="@+id/tv_id"
+            style="@style/carTextBKG"
+            android:layout_weight="1"/>
+    </TableRow>
+        <!--姓名-->
+        <TableRow style="@style/tableRow">
+
+            <TextView
+                style="@style/carTextName"
+                android:text="姓名："/>
+
+            <TextView
+                android:id="@+id/tv_name"
+                style="@style/carTextBKG"
+                android:layout_weight="1" />
+        </TableRow>
+    <!--课组-->
+    <TableRow style="@style/tableRow">
+
+        <TextView
+            style="@style/carTextName"
+            android:text="课组：" />
+
+        <TextView
+            android:id="@+id/tv_gname"
+            style="@style/carTextBKG"
+            android:layout_weight="1" />
+    </TableRow>
+    <!--岗位-->
+    <TableRow style="@style/tableRow">
+
+        <TextView
+            style="@style/carTextName"
+            android:text="岗位：" />
+
+        <TextView
+            android:id="@+id/tv_gpost"
+            style="@style/carTextBKG"
+            android:layout_weight="1" />
+    </TableRow>
+        <!--开始時間-->
+        <TableRow style="@style/tableRow">
+            <TextView
+                style="@style/forkliftTextName"
+                android:text="开始時間："/>
+            <TextView
+                android:id="@+id/tv_start_date"
+                style="@style/mobile_message"
+                android:layout_weight="1"
+                android:background="@drawable/login_input"
+                android:hint="選擇時間"/>
+        </TableRow>
+        <!--结束時間-->
+        <TableRow style="@style/tableRow">
+            <TextView
+                style="@style/forkliftTextName"
+                android:text="结束時間："/>
+            <TextView
+                android:id="@+id/tv_end_date"
+                style="@style/mobile_message"
+                android:layout_weight="1"
+                android:background="@drawable/login_input"
+                android:hint="選擇時間"/>
+        </TableRow>
+        <!--请假时常-->
+        <TableRow style="@style/tableRow">
+
+            <TextView
+                android:id="@+id/textView4"
+                style="@style/carTextName"
+                android:text="请假时常："/>
+
+            <TextView
+                android:id="@+id/tv_time"
+                style="@style/carTextBKG"
+                android:layout_weight="1" />
+
+        </TableRow>
+        <!--班别-->
+        <TableRow style="@style/tableRow">
+
+            <TextView
+                style="@style/carTextName"
+                android:text="班别："/>
+
+            <TextView
+                android:id="@+id/tv_class"
+                style="@style/carTextBKG"
+                android:layout_weight="1" />
+
+        </TableRow>
+        <!--请假原因-->
+        <TableRow
+            android:id="@+id/tr_reason"
+            style="@style/tableRow">
+
+            <TextView style="@style/carTextName"
+                android:text="请假原因："/>
+
+            <EditText
+                android:id="@+id/et_reason"
+                style="@style/carEditTextBKG"
+                android:maxLength="25"
+                android:layout_height="@dimen/dimen_60"
+                android:layout_weight="1" />
+
+        </TableRow>
+    </TableLayout>
+
+    </ScrollView>
+</LinearLayout>

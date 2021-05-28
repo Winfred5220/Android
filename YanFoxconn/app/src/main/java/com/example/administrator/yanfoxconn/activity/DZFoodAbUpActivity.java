@@ -570,7 +570,10 @@ public class DZFoodAbUpActivity extends BaseActivity implements View.OnClickList
                         }else if (FoxContext.getInstance().getType().equals("")){
                             ToastUtils.showLong(DZFoodAbUpActivity.this,"请确认登录状态！重新登录！");
                         }else{
-                            check();}
+                            check();
+                            btnUp.setClickable(false);
+                            btnUp.setVisibility(View.GONE);
+                        }
                     }
                 });
         AlertDialog alert = builder.create();
