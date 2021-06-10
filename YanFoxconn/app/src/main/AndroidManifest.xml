@@ -393,6 +393,8 @@
         <activity android:name=".activity.GAWorkerSingInActivity"/><!--總務臨時工-->
         <activity android:name=".activity.GAExceDetailActivity"/><!--临时工异常详情，删除，整改-->
         <activity android:name=".activity.GAUpAbnormalActivity"/><!--临时工异常上传-->
+        <activity android:name=".activity.GALeaveMainActivity"/><!--临时工请假主界面-->
+        <activity android:name=".activity.GALeaveQHUpActivity"/><!--临时工请假 主管签核主界面-->
         <activity android:name=".activity.CarMessageActivity"/><!-- 車輛基本信息 -->
         <activity android:name=".activity.CarCheckActivity"/><!-- 車輛巡檢 -->
         <activity android:name=".activity.CarExceListActivity"/><!-- 車輛異常列表 -->
@@ -414,7 +416,10 @@
         <activity android:name=".activity.IGMainActivity"/><!-- 宿舍 寄存主界面 -->
         <activity android:name=".activity.IGListActivity"/><!-- 宿舍 寄存列表界面 -->
         <activity android:name=".activity.IGChangeActivity"/><!-- 宿舍 儲位變更界面 -->
-<!--        <activity android:name=".activity.IG"/>&lt;!&ndash; 宿舍 寄存列表界面 &ndash;&gt;寄存列表界面-->
+        <activity android:name=".activity.IGCheckActivity"/><!-- 宿舍 儲位盤點界面 -->
+        <activity android:name=".activity.IGCheckListActivity"/><!-- 宿舍 儲位盤點列表界面 -->
+        <activity android:name=".activity.IGReformListActivity"/><!-- 宿舍 儲位異常列表界面 -->
+<!--        <activity android:name=".activity.IGReformActivity"/>&lt;!&ndash; 宿舍 儲位異常整改界面 &ndash;&gt;-->
 
         <activity android:name=".activity.CommonFormsJqtbActivity"/><!-- 110接處警 警情通報 -->
         <activity android:name=".activity.CommonFormsCjfkActivity"/><!-- 110接處警 處警反饋 -->

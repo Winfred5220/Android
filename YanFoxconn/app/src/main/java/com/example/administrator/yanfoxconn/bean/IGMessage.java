@@ -35,6 +35,86 @@ public class IGMessage implements Serializable {
     private String S_DEPOSIT_NAME;//物品類型
     private String SL_CODE;//儲位編號
     private String ID;//id
+    /**倉庫盤點 獲取倉庫信息**/
+    private String ZY;//在用
+    private String KZ;//
+    private String YC;//
+    private String SI_CREATE_DATE;//上次盤點日期
+    /**倉庫盤點 獲取儲位信息**/
+    private String REMARK;
+    /**異常選項**/
+    private String NAME;
+    private String STATUS;
+    private String FLAG;
+    /**整改 異常詳情**/
+//    private String ID;//編號
+//    private String SL_CODE;//儲位號
+//    private String REMARK;//異常信息
+
+
+    public String getNAME() {
+        return NAME;
+    }
+
+    public void setNAME(String NAME) {
+        this.NAME = NAME;
+    }
+
+    public String getFLAG() {
+        return FLAG;
+    }
+
+    public void setFLAG(String FLAG) {
+        this.FLAG = FLAG;
+    }
+
+    public String getSTATUS() {
+        return STATUS;
+    }
+
+    public void setSTATUS(String STATUS) {
+        this.STATUS = STATUS;
+    }
+
+    public String getREMARK() {
+        return REMARK;
+    }
+
+    public void setREMARK(String REMARK) {
+        this.REMARK = REMARK;
+    }
+
+    public String getKZ() {
+        return KZ;
+    }
+
+    public String getSI_CREATE_DATE() {
+        return SI_CREATE_DATE;
+    }
+
+    public String getYC() {
+        return YC;
+    }
+
+    public String getZY() {
+        return ZY;
+    }
+
+    public void setKZ(String KZ) {
+        this.KZ = KZ;
+    }
+
+    public void setSI_CREATE_DATE(String SI_CREATE_DATE) {
+        this.SI_CREATE_DATE = SI_CREATE_DATE;
+    }
+
+    public void setZY(String ZY) {
+        this.ZY = ZY;
+    }
+
+    public void setYC(String YC) {
+        this.YC = YC;
+    }
 
     public String getID() {
         return ID;

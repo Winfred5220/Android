@@ -215,6 +215,8 @@ public class MyGridViewAdapter extends BaseAdapter {
                     tvGridView.setTag("gb");
                 } else if (rolesList.get(i).equals("GA")) {//總務臨時工
                     tvGridView.setTag("ga");
+                }else if (rolesList.get(i).equals("IV")) {//總務臨時工请假 主管签核
+                    tvGridView.setTag("iv");
                 } else if (rolesList.get(i).equals("FT")) {//華北商務-流動攤位
                     tvGridView.setTag("ft");
                 } else if (rolesList.get(i).equals("FU")) {//華北商務-門市房
@@ -443,6 +445,8 @@ public class MyGridViewAdapter extends BaseAdapter {
                     onClickListener.OnClickGB();
                 } else if (view.getTag().equals("ga")) {//總務臨時工
                     onClickListener.OnClickGA();
+                } else if (view.getTag().equals("iv")) {//總務臨時工请假 主管签核
+                    onClickListener.OnClickIV();
                 } else if (view.getTag().equals("ft")) {//華北商務-流動攤位
                     onClickListener.OnClickFT();
                 } else if (view.getTag().equals("fu")) {//華北商務-門市房
@@ -593,6 +597,7 @@ public class MyGridViewAdapter extends BaseAdapter {
         void OnClickFZ();//工業安全-有限空間
         void OnClickGE();//工業安全-室外堆場
         void OnClickGA();//總務臨時工
+        void OnClickIV();//總務臨時工请假 主管签核
         void OnClickGB();//越南巡更
         void OnClickGQ();//南寧直飲水
         void OnClickGR();//南寧機電

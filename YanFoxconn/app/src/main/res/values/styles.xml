@@ -311,5 +311,18 @@
         <item name="android:divider">@color/color_7edbf4</item>
         <item name="android:dividerHeight">1sp</item>
     </style>
-
+<!--    宿舍 倉庫盤點 標題-->
+    <style name="storeTextName">
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:layout_width">@dimen/dimen_100</item>
+        <item name="android:layout_height">@dimen/dimen_30</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+    <style name="storeTextBKG">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/dimen_30</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingLeft">@dimen/dimen_5</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+    </style>
 </resources>

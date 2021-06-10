@@ -1,16 +1,23 @@
 package com.example.administrator.yanfoxconn.utils;
 
+import java.lang.reflect.Field;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Build;
 import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.LinearLayout;
+import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -24,6 +31,7 @@ public class DateTimePickDialogUtil implements DatePicker.OnDateChangedListener,
         TimePicker.OnTimeChangedListener {
     private DatePicker datePicker;
     private TimePicker timePicker;
+    private NumberPicker mMinuteSpinner;
     private AlertDialog ad;
     private String dateTime;
     private String initDateTime;
@@ -65,7 +73,56 @@ public class DateTimePickDialogUtil implements DatePicker.OnDateChangedListener,
             timePicker.setCurrentMinute(calendar.get(Calendar.MINUTE));
             timePicker.setCurrentHour(calendar.get(Calendar.HOUR_OF_DAY));
         }
+        setNumberPickerTextSize(timePicker);
+    }
+    String[] minuts = new String[]{"00", "30"};//间隔30的数组，用来表示可设置的分钟值
 
+    /** * 获得timePicker里面的android.widget.NumberPicker组件 （有两个android.widget.NumberPicker组件--hour，minute） * @param viewGroup * @return */
+    private List<NumberPicker> findNumberPicker(ViewGroup viewGroup)
+    {
+        List<NumberPicker> npList = new ArrayList<NumberPicker>();
+        View child = null;
+
+        if (null != viewGroup)
+        {
+            for (int i = 0; i < viewGroup.getChildCount(); i++)
+            {
+                child = viewGroup.getChildAt(i);
+                if (child instanceof NumberPicker)
+                {
+                    npList.add((NumberPicker)child);
+                }
+                else if (child instanceof LinearLayout)
+                {
+                    List<NumberPicker> result = findNumberPicker((ViewGroup)child);
+                    if (result.size() > 0)
+                    {
+                        return result;
+                    }
+                }
+            }
+        }
+
+        return npList;
+    }
+
+    /** * 查找timePicker里面的android.widget.NumberPicker组件 ，并对其进行时间间隔设置 * @param viewGroup TimePicker timePicker */
+    private void setNumberPickerTextSize(ViewGroup viewGroup){
+        List<NumberPicker> npList = findNumberPicker(viewGroup);
+        if (null != npList)
+        {
+            for (NumberPicker mMinuteSpinner : npList)
+            {
+// System.out.println("mMinuteSpinner.toString()="+mMinuteSpinner.toString());
+                if(mMinuteSpinner.toString().contains("id/minute")){//对分钟进行间隔设置
+
+                    mMinuteSpinner.setMinValue(0);
+                    mMinuteSpinner.setMaxValue(minuts.length-1);
+                    mMinuteSpinner.setDisplayedValues(minuts);  //这里的minuts是一个String数组，就是要显示的分钟值
+                }
+                //对小时进行间隔设置 使用 if(mMinuteSpinner.toString().contains("id/hour")){}便可
+            }
+        }
     }
     public void initNoTime(DatePicker datePicker) {
         Calendar calendar = Calendar.getInstance();
@@ -90,7 +147,6 @@ public class DateTimePickDialogUtil implements DatePicker.OnDateChangedListener,
      * @param inputDate :为需要设置的日期时间文本编辑框
      * @return
      */
-
     public AlertDialog dateTimePicKDialog(final TextView inputDate, final String minDate, final String maxDate) {
         LinearLayout dateTimeLayout = (LinearLayout) activity
                 .getLayoutInflater().inflate(R.layout.dialog_time_date_picker, null);
@@ -161,6 +217,48 @@ public class DateTimePickDialogUtil implements DatePicker.OnDateChangedListener,
                 }).show();
 
         onDateChanged(null, 0, 0, 0);
+        return ad;
+    }
+    public AlertDialog dateTimePicKDialog30(final TextView inputDate, final String minDate, final String maxDate) {
+        LinearLayout dateTimeLayout = (LinearLayout) activity
+                .getLayoutInflater().inflate(R.layout.dialog_time_date_picker, null);
+        datePicker = (DatePicker) dateTimeLayout.findViewById(R.id.datePicker);
+        timePicker = (TimePicker) dateTimeLayout.findViewById(R.id.timePicker);
+
+        if (!maxDate.equals("") && !minDate.equals("")) {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            try {
+
+                Date dateMax = sdf.parse(maxDate);
+                Date dateMin = sdf.parse(minDate);
+
+                datePicker.setMinDate(dateMin.getTime());
+                datePicker.setMaxDate(dateMax.getTime());
+
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }else{
+            Log.e("-----------","dateMin.getTime()=="+maxDate);
+        }
+        init(datePicker, timePicker);
+        timePicker.setIs24HourView(true);
+        timePicker.setOnTimeChangedListener(this);
+
+        ad = new AlertDialog.Builder(activity)
+                .setTitle(initDateTime)
+                .setView(dateTimeLayout)
+                .setPositiveButton("確認", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        inputDate.setText(dateTime);
+                    }
+                })
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                    }
+                }).show();
+
+        onDateChanged30(null, 0,0,0);
         return ad;
     }
     public AlertDialog dateTimePicKDialog(final TextView inputDate, final String maxDate) {
@@ -276,6 +374,7 @@ public class DateTimePickDialogUtil implements DatePicker.OnDateChangedListener,
     }
 
     public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
+
         onDateChanged(null, 0, 0, 0);
     }
 
@@ -293,6 +392,26 @@ public class DateTimePickDialogUtil implements DatePicker.OnDateChangedListener,
             calendar.set(datePicker.getYear(), datePicker.getMonth(),
                     datePicker.getDayOfMonth(), timePicker.getCurrentHour(),
                     timePicker.getCurrentMinute());
+        }
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+
+        dateTime = sdf.format(calendar.getTime());
+        ad.setTitle(dateTime);
+    }
+
+    public void onDateChanged30(DatePicker view, int year, int monthOfYear,
+                              int dayOfMonth) {
+        // 获得日历实例
+        Calendar calendar = Calendar.getInstance();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            calendar.set(datePicker.getYear(), datePicker.getMonth(),
+                    datePicker.getDayOfMonth(), timePicker.getHour(),
+                    timePicker.getMinute()*30);
+        } else {
+            calendar.set(datePicker.getYear(), datePicker.getMonth(),
+                    datePicker.getDayOfMonth(), timePicker.getCurrentHour(),
+                    timePicker.getCurrentMinute()*30);
         }
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 

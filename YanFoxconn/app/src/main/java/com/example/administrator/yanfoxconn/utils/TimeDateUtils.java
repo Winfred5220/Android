@@ -1,5 +1,8 @@
 package com.example.administrator.yanfoxconn.utils;
 
+import android.util.Log;
+
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -146,4 +149,76 @@ public class TimeDateUtils {
         return timeRight;
     }
 
+    /**
+     * 判断时间大小:小于和等于为true
+     * @param startTime
+     * @param endTime
+     * @return
+     */
+    public static Boolean getTimeLessEqual (String startTime, String endTime) throws ParseException {
+Boolean t =null;
+        Log.e("------",startTime+"===="+endTime);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");//时-分
+
+            Date date1 = dateFormat.parse(startTime);//开始时间
+            Date date2 = dateFormat.parse(endTime);//结束时间
+
+        Log.e("------",date1.toString()+"==Date=="+date2.toString());
+            if (date1.getTime()<date2.getTime()){
+                t = true;
+            }else if (date1.getTime()==date2.getTime()){
+                t = true;
+            }else {
+                t = false;
+            }
+
+        return t;
+    }
+    /**
+     * 判断时间大小:大于为true
+     * @param startTime
+     * @param endTime
+     * @return
+     */
+    public static Boolean getTimeGreater (String startTime, String endTime){
+
+        Log.e("------",startTime+"===="+startTime);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");// 时-分
+        try {
+            Date date1 = dateFormat.parse(startTime);//开始时间
+            Date date2 = dateFormat.parse(endTime);//结束时间
+            // 1 结束时间小于开始时间 2 开始时间与结束时间相同 3 结束时间大于开始时间
+            if (date1.getTime()>date2.getTime()){
+                return true;
+            }else {
+                return false;
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
+
+    /**
+     * 计算相差小时数
+     * @param dateStart
+     * @param dateEnd
+     * @return
+     */
+    private static float hou;
+    public static float getTimeHours(String dateStart, String dateEnd) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");// 时-分
+        try {
+            Date startDate = dateFormat.parse(dateStart);
+            Date endDate = dateFormat.parse(dateEnd);
+            float diff = endDate.getTime() - startDate.getTime();//这样得到的差值是微秒级别
+            float hours = diff / (1000 * 60 * 60);
+            hou = (float) hours;
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+
+            return hou;
+        }
+    }
 }

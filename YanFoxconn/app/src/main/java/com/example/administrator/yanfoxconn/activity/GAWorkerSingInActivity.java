@@ -57,6 +57,8 @@ public class GAWorkerSingInActivity extends BaseActivity implements View.OnClick
     Button btnAbDone;//異常整改
     @BindView(R.id.btn_sign_end)
     Button btnSignEnd;//簽退
+    @BindView(R.id.btn_leave)
+    Button btnLeave;//请假
     private Intent intent;
     private String type;
 
@@ -74,6 +76,7 @@ public class GAWorkerSingInActivity extends BaseActivity implements View.OnClick
         btnUpAb.setOnClickListener(this);
         btnAbDone.setOnClickListener(this);
         btnSignEnd.setOnClickListener(this);
+        btnLeave.setOnClickListener(this);
         intent = new Intent(GAWorkerSingInActivity.this, DZFoodMainActivity.class);
         type = getIntent().getStringExtra("type");
         FoxContext.getInstance().setType(type);
@@ -114,7 +117,14 @@ public class GAWorkerSingInActivity extends BaseActivity implements View.OnClick
                 startActivity(intent1);
                 finish();
                 break;
-
+            case R.id.btn_leave://请假
+//                Intent intentLeave = new Intent(GAWorkerSingInActivity.this,GALeaveMainActivity.class);
+//
+//                startActivity(intentLeave);
+                Intent intentLeave = new Intent(GAWorkerSingInActivity.this,GALeaveQHUpActivity.class);
+                intentLeave.putExtra("from","emp");
+                startActivity(intentLeave);
+                break;
         }
     }
 

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <include layout="@layout/common_title"/>
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <!--倉庫編碼-->
+        <TableRow style="@style/tableRow">
+
+            <TextView
+                style="@style/storeTextName"
+                android:text="倉庫編碼：" />
+            <TextView
+                android:id="@+id/tv_id"
+                style="@style/carTextBKG"
+                android:layout_weight="1"
+                android:text="F3416918"
+                android:autoLink="all"/>
+        </TableRow>
+        <!--在用儲位-->
+        <TableRow style="@style/tableRow">
+
+            <TextView
+                style="@style/storeTextName"
+                android:text="在用儲位：" />
+
+            <TextView
+                android:id="@+id/tv_zy"
+                style="@style/storeTextBKG"
+                android:layout_weight="1"
+                android:textColor="@color/color_f5a306"
+                android:autoLink="all"
+                android:text="黃建超"  />
+        </TableRow>
+        <!--空置儲位-->
+        <TableRow style="@style/tableRow">
+
+            <TextView
+                style="@style/storeTextName"
+                android:text="空置儲位：" />
+
+            <TextView
+                android:id="@+id/tv_kz"
+                style="@style/storeTextBKG"
+                android:autoLink="all"
+                android:textColor="@color/color_00CCFF"
+                android:layout_weight="1"
+                android:text="空置儲位"  />
+        </TableRow>
+        <!--異常-->
+        <TableRow style="@style/tableRow">
+
+            <TextView
+                style="@style/storeTextName"
+                android:text="異常：" />
+
+            <TextView
+                android:id="@+id/tv_yc"
+                style="@style/storeTextBKG"
+                android:layout_weight="1"
+                android:textColor="@color/color_d73d19"
+                android:autoLink="all"
+                android:text="營運中心"  />
+        </TableRow>
+        <!--上次盤點日期-->
+        <TableRow style="@style/tableRow">
+
+            <TextView
+                style="@style/storeTextName"
+                android:text="上次盤點日期：" />
+
+            <TextView
+                android:id="@+id/tv_date"
+                style="@style/storeTextBKG"
+                android:layout_weight="1"
+                android:autoLink="all"
+                android:text="營運中心"  />
+        </TableRow>
+
+    </TableLayout>
+</LinearLayout>
