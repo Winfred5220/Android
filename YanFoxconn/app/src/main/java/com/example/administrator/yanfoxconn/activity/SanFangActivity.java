@@ -138,7 +138,7 @@ public class SanFangActivity extends BaseActivity implements View.OnClickListene
         setContentView(R.layout.activity_san_fang);
         ButterKnife.bind(this);
 
-        tvTitle.setText("三防隱患");
+        tvTitle.setText("8S隐患通报");
         btnBack.setOnClickListener(this);
         tvDate.setOnClickListener(this);
         ivEmpty.setOnClickListener(this);

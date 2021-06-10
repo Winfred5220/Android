@@ -252,8 +252,8 @@
                     style="@style/carTextName"
                     android:text="棟號：" />
 
-                <TextView
-                    android:id="@+id/tv_building"
+                <EditText
+                    android:id="@+id/et_building"
                     style="@style/carTextBKG"
                     android:layout_weight="1"  />
             </LinearLayout>

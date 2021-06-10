@@ -60,6 +60,7 @@
 
                 <EditText
                     android:id="@+id/et_act_rules"
+                    android:layout_height="@dimen/dimen_100"
                     style="@style/carEditTextBKG"
                     android:background="@drawable/login_input"
                     android:layout_weight="1" />
@@ -76,6 +77,7 @@
                 <EditText
                     android:id="@+id/et_act_award"
                     style="@style/carEditTextBKG"
+                    android:layout_height="@dimen/dimen_100"
                     android:background="@drawable/login_input"
                     android:layout_weight="1" />
             </TableRow>
@@ -121,6 +123,7 @@
                 android:id="@+id/tr_team_num"
                 style="@style/tableRow">
                 <TextView style="@style/carTextName"
+                    android:id="@+id/tv_num_team"
                     android:text="隊伍上限數量："/>
 
                 <EditText
@@ -134,6 +137,7 @@
             <TableRow
                 style="@style/tableRow">
                 <TextView style="@style/carTextName"
+                    android:id="@+id/tv_num_person"
                     android:text="活動上限人數："/>
 
                 <EditText

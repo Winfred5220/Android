@@ -206,6 +206,7 @@
                 style="@style/forkliftTextName"
                 android:text="進/出："/>
             <RadioGroup
+                android:id="@+id/rg_j"
                 android:layout_weight="1"
                 android:orientation="horizontal">
                 <RadioButton
@@ -214,8 +215,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
                 <RadioButton
-                    android:id="@+id/rb_c"
                     android:text="出"
+                    android:layout_marginLeft="@dimen/dimen_30"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
             </RadioGroup>

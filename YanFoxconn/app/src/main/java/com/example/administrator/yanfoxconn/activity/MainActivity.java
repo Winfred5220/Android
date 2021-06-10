@@ -6,13 +6,12 @@ import android.view.KeyEvent;
 import android.widget.FrameLayout;
 import android.widget.RadioGroup;
 
-import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.administrator.yanfoxconn.R;
-import com.example.administrator.yanfoxconn.activity.fragment.BaobiaoFragment;
-import com.example.administrator.yanfoxconn.activity.fragment.XunjianFragment;
+import com.example.administrator.yanfoxconn.fragment.BaobiaoFragment;
+import com.example.administrator.yanfoxconn.fragment.XunjianFragment;
 import com.example.administrator.yanfoxconn.utils.BaseActivity;
 
 /**

@@ -115,10 +115,13 @@
                             android:text="處警描述："/>
 
                         <EditText
+                            android:gravity="left"
                             android:id="@+id/et_describe"
                             style="@style/carEditTextBKG"
                             android:background="@drawable/login_input"
-                            android:layout_height="@dimen/dimen_60"
+                            android:layout_height="@dimen/dimen_160"
+                            android:paddingLeft="@dimen/dimen_8"
+                            android:paddingTop="@dimen/dimen_8"
                             android:layout_weight="1" />
                     </TableRow>
                     <!--挽回損失-->

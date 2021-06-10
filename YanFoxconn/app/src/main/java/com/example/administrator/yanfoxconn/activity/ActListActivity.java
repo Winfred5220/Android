@@ -329,6 +329,7 @@ private void ItemOnLongClick2() {
             }
         }.start();
     }
+
     //刪除活動
     private void delMessage(String act_id) {
         if (FoxContext.getInstance().getLoginId().equals("")) {

@@ -12,7 +12,6 @@ import android.widget.TextView;
 import com.example.administrator.yanfoxconn.R;
 import com.example.administrator.yanfoxconn.activity.AQ110MenuActivity;
 import com.example.administrator.yanfoxconn.activity.ActListActivity;
-import com.example.administrator.yanfoxconn.activity.ActReleaseActivity;
 import com.example.administrator.yanfoxconn.activity.BandaoInputActivity;
 import com.example.administrator.yanfoxconn.activity.CPCSearchActivity;
 import com.example.administrator.yanfoxconn.activity.CarListActivity;
@@ -36,8 +35,8 @@ import com.example.administrator.yanfoxconn.activity.SanFangActivity;
 import com.example.administrator.yanfoxconn.activity.ScrapInputActivity;
 import com.example.administrator.yanfoxconn.activity.WebViewActivity;
 import com.example.administrator.yanfoxconn.activity.ZhiyinshuiMenuActivity;
-import com.example.administrator.yanfoxconn.activity.fragment.XunjianFragment;
 import com.example.administrator.yanfoxconn.constant.FoxContext;
+import com.example.administrator.yanfoxconn.fragment.XunjianFragment;
 import com.example.administrator.yanfoxconn.utils.ToastUtils;
 
 import java.util.List;
@@ -936,6 +935,38 @@ public class MyExpandableListViewAdapter extends BaseExpandableListAdapter {
             @Override//人資活動發佈
             public void OnClickIS() {
                 Intent intent = new Intent(mContext.getActivity(), ActListActivity.class);
+                mContext.getActivity().startActivity(intent);
+            }
+            @Override//防火
+            public void OnClickIJ() {
+                FoxContext.getInstance().setType("IJ");
+                Intent intent = new Intent(mContext.getActivity(), QrCodeActivity.class);
+                intent.putExtra("title", "掃描二維碼");
+                intent.putExtra("num", "cz");
+                mContext.getActivity().startActivity(intent);
+            }
+            @Override//安保固定
+            public void OnClickIT() {
+                FoxContext.getInstance().setType("IT");
+                Intent intent = new Intent(mContext.getActivity(), QrCodeActivity.class);
+                intent.putExtra("title", "掃描二維碼");
+                intent.putExtra("num", "cz");
+                mContext.getActivity().startActivity(intent);
+            }
+            @Override//安保巡邏
+            public void OnClickIU() {
+                FoxContext.getInstance().setType("IU");
+                Intent intent = new Intent(mContext.getActivity(), QrCodeActivity.class);
+                intent.putExtra("title", "掃描二維碼");
+                intent.putExtra("num", "cz");
+                mContext.getActivity().startActivity(intent);
+            }
+            @Override//安保巡邏
+            public void OnClickIW() {
+                FoxContext.getInstance().setType("IW");
+                Intent intent = new Intent(mContext.getActivity(), QrCodeActivity.class);
+                intent.putExtra("title", "掃描二維碼");
+                intent.putExtra("num", "cz");
                 mContext.getActivity().startActivity(intent);
             }
         });
