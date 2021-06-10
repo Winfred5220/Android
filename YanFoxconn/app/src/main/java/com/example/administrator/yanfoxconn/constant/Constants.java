@@ -29,8 +29,8 @@ public class Constants {
     public static String safeServerlocal = ip+"/SafeServer/";//SafeServer接口測試
     public static String serverlocal = ip+"/Server/";//Server接口測試
 
-    public static final String LING_SERVER = "http://192.168.1.113:8080/SafeServer/";//玲姐
-    public static final String SONG_SERVER = "http://192.168.1.120:8080/SafeServer/";//玲姐
+    public static final String LING_SERVER = "http://192.168.1.137:8080/SafeServer/";//玲姐
+    public static final String SONG_SERVER = "http://192.168.1.148:8080/SafeServer/";//song
 
     public static String L4 = "http://10.193.22.189:8080/SafeServer/";//玲
 
@@ -208,7 +208,14 @@ public class Constants {
     public static String HTTP_ZW_SCAN_SIGNOUT = SAFE_SERVER+"ZW/ZWScanSignOutServlet";//总务临时工，签退
     public static String HTTP_ZW_SCAN_DUTY = SAFE_SERVER+"ZW/ZWScanDutyServlet";//总务临时工，职能信息
     public static String HTTP_ZW_SCAN_TYPE = SAFE_SERVER+"ZW/ZWScanTypeServlet";//總務臨時工 獲取異常類別
-    public static String HTTP_ZW_LEAVA_PEOPLE_MSG = SONG_SERVER+"ZW/ZWLeavePeopleMsgServlet";//
+    public static String HTTP_ZW_LEAVA_PEOPLE_MSG = SONG_SERVER+"ZW/ZWLeavePeopleMsgServlet";//11.临时工请假 获取班别信息
+    public static String HTTP_ZW_LEAVE_QJ_UP = SONG_SERVER+"ZW/ZWLeaveQJUpServlet";//12.临时工请假 提交
+    public static String HTTP_ZW_LEAVE_GET_QJ_MSG = SONG_SERVER+"ZW/ZWLeaveGetQJMsgServlet";//13.员工获取已请假信息
+    public static String HTTP_ZW_LEAVE_GET_QH_MSG = SONG_SERVER+"ZW/ZWLeaveGetQHMsgServlet";//14。主管获取需要签核的请假信息
+    public static String HTTP_ZW_LEAVE_TJ_UP = SONG_SERVER+"ZW/ZWLeaveTJUpServlet";//15。主管推荐提交
+    public static String HTTP_ZW_LEAVE_QH_UP = SONG_SERVER+"ZW/ZWLeaveQHUpServlet";//16。主管签核提交
+    public static String HTTP_ZW_LEAVE_GET_CLASS = SONG_SERVER+"ZW/ZWLeaveGetClassServlet";//17。获取全部班别信息
+    public static String HTTP_ZW_LEAVE_CHANGE_CLASS_UP = SONG_SERVER+"ZW/ZWLeaveChangeClassUpServlet";//18。班别修改提交
 
     public static String HTTP_HEALTH_SCAN = SAFE_SERVER+"Health/HealthScanServlet";//安全健康追蹤，人員信息查看
     public static String HTTP_HEALTH_COMMIT = SAFE_SERVER+"Health/HealthCommitServlet";//安全健康追蹤，提交生成單頭

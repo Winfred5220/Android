@@ -394,6 +394,7 @@
         <activity android:name=".activity.GAExceDetailActivity"/><!--临时工异常详情，删除，整改-->
         <activity android:name=".activity.GAUpAbnormalActivity"/><!--临时工异常上传-->
         <activity android:name=".activity.GALeaveMainActivity"/><!--临时工请假主界面-->
+        <activity android:name=".activity.GALeaveQHUpActivity"/><!--临时工请假 主管签核主界面-->
         <activity android:name=".activity.CarMessageActivity"/><!-- 車輛基本信息 -->
         <activity android:name=".activity.CarCheckActivity"/><!-- 車輛巡檢 -->
         <activity android:name=".activity.CarExceListActivity"/><!-- 車輛異常列表 -->

@@ -118,8 +118,11 @@ public class GAWorkerSingInActivity extends BaseActivity implements View.OnClick
                 finish();
                 break;
             case R.id.btn_leave://请假
-                Intent intentLeave = new Intent(GAWorkerSingInActivity.this,GALeaveMainActivity.class);
-
+//                Intent intentLeave = new Intent(GAWorkerSingInActivity.this,GALeaveMainActivity.class);
+//
+//                startActivity(intentLeave);
+                Intent intentLeave = new Intent(GAWorkerSingInActivity.this,GALeaveQHUpActivity.class);
+                intentLeave.putExtra("from","emp");
                 startActivity(intentLeave);
                 break;
         }

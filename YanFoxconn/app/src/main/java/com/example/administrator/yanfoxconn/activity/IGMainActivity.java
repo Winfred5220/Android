@@ -351,10 +351,10 @@ public class IGMainActivity extends BaseActivity implements View.OnClickListener
                             if (etDId.getText().toString().equals("") || etDName.getText().toString().equals("")) {
                                 ToastUtils.showShort(IGMainActivity.this, "請填寫代領人資料");
                             } else {
-                                upLeaveView();
+                                upLeaveView(from);
                             }
                         } else {
-                            upLeaveView();
+                            upLeaveView(from);
                         }
                     }
                 } else if (from.equals("leave")) {
@@ -364,10 +364,10 @@ public class IGMainActivity extends BaseActivity implements View.OnClickListener
                         if (etDId.getText().toString().equals("") || etDName.getText().toString().equals("")) {
                             ToastUtils.showShort(IGMainActivity.this, "請填寫代領人資料");
                         } else {
-                            upLeaveView();
+                            upLeaveView(from);
                         }
                     } else {
-                        upLeaveView();
+                        upLeaveView(from);
                     }
                 } else if (from.equals("store")) {
                     if (imagePaths != null && imagePaths.size() != 0){
@@ -1058,10 +1058,14 @@ public class IGMainActivity extends BaseActivity implements View.OnClickListener
     }
 
     //提交領取
-    private void upLeaveView() {
+    private void upLeaveView(String from) {
         final String url = Constants.HTTP_ISSUE_OK;
         JsonObject object = new JsonObject();
+        if (from.equals("storeQr")){
         object.addProperty("s_id", getIntent().getStringExtra("id"));
+        }else{
+            object.addProperty("s_id", peopleMsg.getS_ID());
+        }
         object.addProperty("s_zw_issuer", FoxContext.getInstance().getName());
         object.addProperty("s_agenter_id", etDId.getText().toString());
         object.addProperty("s_agenter_name", etDName.getText().toString());

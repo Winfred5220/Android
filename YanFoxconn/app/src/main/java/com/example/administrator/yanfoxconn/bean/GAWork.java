@@ -12,10 +12,127 @@ public class GAWork {
     private String p_empId;//职能
     private String p_empName;//职能
     private String c_type;//职能
+    private String c_id;//b班别编号
     private String c_up_start;//职能
     private String c_up_end;//职能
     private String c_down_start;//职能
     private String c_down_end;//职能
+    private String zg_no;//主管编号
+    private String zg_name;//主管编号
+    private String qj_id;//请假主键
+    private String qj_start_date;//请假开始时间
+    private String qj_end_date;//请假结束时间
+    private String qj_time;//请假时长
+    private String qj_reason;//请假原因
+    private String qj_statue;//请假状态
+    private String qh_date;//签核时间
+    private String tj_statue;//退件状态
+    private String tj_reason;//退件原因
+    private String tj_date;//退件日期
+
+    public String getZg_name() {
+        return zg_name;
+    }
+
+    public void setZg_name(String zg_name) {
+        this.zg_name = zg_name;
+    }
+
+    public String getQh_date() {
+        return qh_date;
+    }
+
+    public String getQj_statue() {
+        return qj_statue;
+    }
+
+    public String getTj_date() {
+        return tj_date;
+    }
+
+    public String getTj_reason() {
+        return tj_reason;
+    }
+
+    public String getTj_statue() {
+        return tj_statue;
+    }
+
+    public void setQh_date(String qh_date) {
+        this.qh_date = qh_date;
+    }
+
+    public void setQj_statue(String qj_statue) {
+        this.qj_statue = qj_statue;
+    }
+
+    public void setTj_date(String tj_date) {
+        this.tj_date = tj_date;
+    }
+
+    public void setTj_reason(String tj_reason) {
+        this.tj_reason = tj_reason;
+    }
+
+    public void setTj_statue(String tj_statue) {
+        this.tj_statue = tj_statue;
+    }
+
+    public String getQj_id() {
+        return qj_id;
+    }
+
+    public void setQj_id(String qj_id) {
+        this.qj_id = qj_id;
+    }
+
+    public String getQj_reason() {
+        return qj_reason;
+    }
+
+    public void setQj_reason(String qj_reason) {
+        this.qj_reason = qj_reason;
+    }
+
+    public String getQj_time() {
+        return qj_time;
+    }
+
+    public void setQj_time(String qj_time) {
+        this.qj_time = qj_time;
+    }
+
+    public String getQj_end_date() {
+        return qj_end_date;
+    }
+
+    public String getQj_start_date() {
+        return qj_start_date;
+    }
+
+    public void setQj_end_date(String qj_end_date) {
+        this.qj_end_date = qj_end_date;
+    }
+
+    public void setQj_start_date(String qj_start_date) {
+        this.qj_start_date = qj_start_date;
+    }
+
+    public String getC_id() {
+        return c_id;
+    }
+
+    public void setC_id(String c_id) {
+        this.c_id = c_id;
+    }
+
+    public String getZg_no() {
+        return zg_no;
+    }
+
+    public void setZg_no(String zg_no) {
+        this.zg_no = zg_no;
+    }
 
     public String getC_down_end() {
         return c_down_end;

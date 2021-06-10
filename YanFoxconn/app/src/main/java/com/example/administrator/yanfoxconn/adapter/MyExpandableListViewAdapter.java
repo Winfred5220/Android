@@ -23,6 +23,7 @@ import com.example.administrator.yanfoxconn.activity.DZFoodCheckActivity;
 import com.example.administrator.yanfoxconn.activity.DutySectionChiefActivity;
 import com.example.administrator.yanfoxconn.activity.EventCheckInActivity;
 import com.example.administrator.yanfoxconn.activity.ForkliftEntranceActivity;
+import com.example.administrator.yanfoxconn.activity.GALeaveQHUpActivity;
 import com.example.administrator.yanfoxconn.activity.GAWorkerSingInActivity;
 import com.example.administrator.yanfoxconn.activity.GCMainActivity;
 import com.example.administrator.yanfoxconn.activity.GoodsReleaseInputActivity;
@@ -697,6 +698,16 @@ public class MyExpandableListViewAdapter extends BaseExpandableListAdapter {
                 FoxContext.getInstance().setType("GA");
                 Intent intent = new Intent(mContext.getActivity(), GAWorkerSingInActivity.class);
                 intent.putExtra("type","GA");
+                mContext.getActivity().startActivity(intent);
+            }
+
+            @Override
+            public void OnClickIV() {
+
+                FoxContext.getInstance().setType("IV");
+                Intent intent = new Intent(mContext.getActivity(), GALeaveQHUpActivity.class);
+                intent.putExtra("type","IV");
+                intent.putExtra("from","zg");
                 mContext.getActivity().startActivity(intent);
             }
 
