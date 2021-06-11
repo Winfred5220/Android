@@ -281,6 +281,14 @@ public class MyGridViewAdapter extends BaseAdapter {
                     tvGridView.setTag("ir");
                 } else if (rolesList.get(i).equals("IS")) {//人資活動發佈
                     tvGridView.setTag("is");
+                } else if (rolesList.get(i).equals("IJ")) {//防火
+                    tvGridView.setTag("ij");
+                } else if (rolesList.get(i).equals("IT")) {//安保固定
+                    tvGridView.setTag("it");
+                } else if (rolesList.get(i).equals("IU")) {//安保巡邏
+                    tvGridView.setTag("iu");
+                } else if (rolesList.get(i).equals("IW")) {//運動器材
+                    tvGridView.setTag("iw");
                 } else {
                     tvGridView.setTag("true");
                 }
@@ -503,6 +511,14 @@ public class MyGridViewAdapter extends BaseAdapter {
                     onClickListener.OnClickIR();
                 } else if (view.getTag().equals("is")) {//人資活動發佈
                     onClickListener.OnClickIS();
+                } else if (view.getTag().equals("ij")) {//防火
+                    onClickListener.OnClickIJ();
+                } else if (view.getTag().equals("it")) {//安保固定
+                    onClickListener.OnClickIT();
+                } else if (view.getTag().equals("iu")) {//安保巡邏
+                    onClickListener.OnClickIU();
+                } else if (view.getTag().equals("iw")) {//運動器材
+                    onClickListener.OnClickIW();
                 } else {
                     onClickListener.OnClickListenerFalse(position);
                 }
@@ -616,6 +632,10 @@ public class MyGridViewAdapter extends BaseAdapter {
         void OnClickIQ();//sharp 巡檢
         void OnClickIR();//總務廣播巡檢
         void OnClickIS();//人資活動發佈
+        void OnClickIJ();//防火
+        void OnClickIT();//安保固定
+        void OnClickIU();//安保巡邏
+        void OnClickIW();//運動器材
     }
 
     public void setOnClickListener(OnClickListener onClickListener) {

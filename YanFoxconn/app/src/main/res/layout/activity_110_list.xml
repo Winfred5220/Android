@@ -43,9 +43,6 @@
                     android:text="警情位置" />
                 <TextView
                     style="@style/TextView110"
-                    android:text="報警內容" />
-                <TextView
-                    style="@style/TextView110"
                     android:text="聯繫方式" />
 
             </LinearLayout>

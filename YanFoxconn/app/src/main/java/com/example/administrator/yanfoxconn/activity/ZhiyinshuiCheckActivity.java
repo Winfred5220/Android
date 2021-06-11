@@ -144,7 +144,7 @@ public class ZhiyinshuiCheckActivity extends BaseActivity implements View.OnClic
             finish();
         }
 
-        dim_id=getQrMessage;
+        dim_id = getQrMessage;
 
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         nowDateTime = formatter.format(noChangeTime.getTime());

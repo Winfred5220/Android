@@ -1,4 +1,4 @@
-package com.example.administrator.yanfoxconn.activity;
+package com.example.administrator.yanfoxconn.fragment;
 
 
 import android.app.Dialog;

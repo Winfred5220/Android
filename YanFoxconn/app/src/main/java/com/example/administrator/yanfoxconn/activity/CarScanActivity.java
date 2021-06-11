@@ -119,8 +119,8 @@ public class CarScanActivity extends BaseActivity implements View.OnClickListene
     TextView tvDepartment;
     @BindView(R.id.tv_factory)
     TextView tvFactory;
-    @BindView(R.id.tv_building)
-    TextView tvBuilding;
+    @BindView(R.id.et_building)
+    EditText etBuilding;
     @BindView(R.id.tv_term)
     TextView tvTerm;
     @BindView(R.id.tv_cab_scan)
@@ -255,7 +255,7 @@ public class CarScanActivity extends BaseActivity implements View.OnClickListene
         tvDestination.setText(carScanList.get(0).getDestination());
         tvDepartment.setText(carScanList.get(0).getDepartment());
         tvFactory.setText(carScanList.get(0).getFactory());
-        tvBuilding.setText(carScanList.get(0).getBuilding());
+        etBuilding.setText(carScanList.get(0).getBuilding());
         tvTerm.setText(carScanList.get(0).getTerm());
     }
 
@@ -616,6 +616,7 @@ public class CarScanActivity extends BaseActivity implements View.OnClickListene
         paramMap.put("boxgw", etBoxgw.getText().toString());
         paramMap.put("createor", FoxContext.getInstance().getName());
         paramMap.put("packing_no",b[0]);
+        paramMap.put("buildingno", etBuilding.getText().toString());
 //        paramMap.put("exce_desp", etDescription.getText().toString());
 //        paramMap.put("exce_name", FoxContext.getInstance().getName());
 //        paramMap.put("login_id",FoxContext.getInstance().getLoginId());
@@ -662,7 +663,7 @@ public class CarScanActivity extends BaseActivity implements View.OnClickListene
                         if (b.getResponseCode() == 200) {
                             Message message = new Message();
                             message.what = MESSAGE_TOAST;
-                            message.obj = b.getResponseMessage();
+                            message.obj = "成功";
                             mHandler.sendMessage(message);
                             FileUtil.deletePhotos(CarScanActivity.this);
                             finish();

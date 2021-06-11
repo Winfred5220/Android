@@ -5,54 +5,67 @@
     android:orientation="horizontal">
 
     <LinearLayout
+        android:id="@+id/ll_110"
+        android:layout_height="@dimen/dimen_70"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
+        android:orientation="horizontal">
+        <!--序號-->
+        <TextView
+            android:id="@+id/tv_num"
+            style="@style/TextView110List"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:text="序號" />
         <LinearLayout
-            android:id="@+id/ll_110"
+            android:layout_weight="9.5"
             android:gravity="center_vertical"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dimen_60"
-            android:orientation="horizontal">
-            <!--序號-->
-            <TextView
-                android:id="@+id/tv_num"
-                style="@style/TextView110List"
-                android:layout_weight="0.5"
-                android:text="序號" />
-            <!--報警方式-->
-            <TextView
-                android:id="@+id/tv_cpc"
-                android:text="S9999999"
-                style="@style/TextView110List"
-                />
-            <!--報案日期-->
-            <TextView
-                android:id="@+id/tv_date"
-                style="@style/TextView110List"
-                android:text="歐央大事"
-                />
-            <!--警情位置-->
-            <TextView
-                android:id="@+id/tv_position"
-                style="@style/TextView110List"
-                android:text="女abghdbahdancvn" />
-            <!--報警內容-->
-            <TextView
-                android:id="@+id/tv_content"
-                style="@style/TextView110List"
-                android:text="女vagagdavbba" />
-            <!--聯繫方式-->
-            <TextView
-                android:id="@+id/tv_phone"
-                style="@style/TextView110List"
-                android:text="女vafhagfav" />
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_height="0dp"
+                android:orientation="horizontal">
+                <!--報警方式-->
+                <TextView
+                    android:id="@+id/tv_cpc"
+                    android:text="9"
+                    android:layout_weight="1"
+                    style="@style/TextView110List" />
+                <!--報案日期-->
+                <TextView
+                    android:id="@+id/tv_date"
+                    style="@style/TextView110List"
+                    android:text="歐央大事"/>
+                <!--警情位置-->
+                <TextView
+                    android:id="@+id/tv_position"
+                    style="@style/TextView110List"
+                    android:text="女abg" />
+                <!--聯繫方式-->
+                <TextView
+                    android:id="@+id/tv_phone"
+                    style="@style/TextView110List"
+                    android:text="女vafhagfav" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_weight="1"
+                android:layout_height="0dp"
+                android:layout_width="match_parent"
+                android:orientation="horizontal">
+                <!--報警內容-->
+                <TextView
+                    android:layout_weight="0.3"
+                    style="@style/TextView110List"
+                    android:text="報警內容:" />
+                <!--報警內容-->
+                <TextView
+                    android:id="@+id/tv_content"
+                    android:gravity="left|center_vertical"
+                    style="@style/TextView110List"
+                    android:text="女vagagbba" />
+            </LinearLayout>
         </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dimen_0.5"
-            android:background="@color/color_c3c3c3" />
     </LinearLayout>
 </LinearLayout>

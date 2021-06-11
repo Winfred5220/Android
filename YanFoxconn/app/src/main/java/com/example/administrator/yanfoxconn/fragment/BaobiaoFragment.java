@@ -1,4 +1,4 @@
-package com.example.administrator.yanfoxconn.activity.fragment;
+package com.example.administrator.yanfoxconn.fragment;
 
 
 import android.content.Intent;
@@ -15,7 +15,6 @@ import androidx.fragment.app.Fragment;
 
 import com.example.administrator.yanfoxconn.R;
 import com.example.administrator.yanfoxconn.activity.WebViewActivity;
-import com.example.administrator.yanfoxconn.activity.WebViewLandScapeActivity;
 import com.example.administrator.yanfoxconn.activity.WebViewTestActivity;
 
 

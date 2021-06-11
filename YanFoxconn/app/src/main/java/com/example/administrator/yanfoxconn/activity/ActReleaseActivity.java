@@ -76,6 +76,11 @@ public class ActReleaseActivity extends BaseActivity implements View.OnClickList
     @BindView(R.id.et_num_person)
     EditText etNumPerson;//活動上限人數
 
+    @BindView(R.id.tv_num_team)
+    TextView tvNumTeam;//隊伍上限數量TV
+    @BindView(R.id.tv_num_person)
+    TextView tvNumPerson;//活動上限人數TV
+
     private String initStartDateTime; // 初始化开始时间
     private Date selectStartTime = null;//所選時間
     private Date selectSignTime = null;//所選時間
@@ -115,6 +120,7 @@ public class ActReleaseActivity extends BaseActivity implements View.OnClickList
                     trTeamNum.setVisibility(View.GONE);
                 }else{
                     trTeamNum.setVisibility(View.VISIBLE);
+                    tvNumPerson.setText("單個隊伍人數");
                 }
             }
         });
@@ -141,51 +147,7 @@ public class ActReleaseActivity extends BaseActivity implements View.OnClickList
                 break;
         }
     }
-    //獲取門崗
-    private void getMessage(){
-        showDialog();
-        final String url = Constants.HTTP_COMMON_FORMS_SERVLET;
 
-        new Thread() {
-            @Override
-            public void run() {
-                //把网络访问的代码放在这里
-                String result = HttpUtils.queryStringForPost(url);
-                dismissDialog();
-                Log.e("---------", "==fff===" + url);
-                Gson gson = new Gson();
-                if (result != null) {
-                    Log.e("---------", "result==fff===" + result);
-                    JsonObject jsonObject = new JsonParser().parse(result).getAsJsonObject();
-                    String errCode = jsonObject.get("errCode").getAsString();
-                    if (errCode.equals("200")) {
-                        JsonArray array = jsonObject.get("data").getAsJsonArray();
-                        areaList = new ArrayList<String>();
-                        for (int i=0;i<array.size();i++) {
-                           JsonObject humi = array.get(i).getAsJsonObject();
-                           String humis = humi.get("NAME").getAsString();
-                           areaList.add(humis);
-                        }
-                        JsonObject jsonObject1 = new JsonParser().parse(result).getAsJsonObject();
-                        JsonArray array1 = jsonObject1.get("data2").getAsJsonArray();
-                        keduiList = new ArrayList<AQ110Message>();
-                        for (JsonElement type1 : array1) {
-                            AQ110Message humi1 = gson.fromJson(type1, AQ110Message.class);
-                            keduiList.add(humi1);
-                        }
-                        Message message = new Message();
-                        message.what = Constants.MESSAGE_SET_TEXT;
-                        message.obj = jsonObject.get("errMessage").getAsString();
-                        mHandler.sendMessage(message);
-                    } else{
-                        Message message = new Message();
-                        message.what = Constants.MESSAGE_TOAST;
-                        message.obj = jsonObject.get("errMessage").getAsString();
-                        mHandler.sendMessage(message);
-                    }
-                }
-            } }.start();
-    }
     Handler mHandler = new Handler() {
         public void handleMessage(Message msg) {
             switch (msg.what) {
@@ -202,7 +164,6 @@ public class ActReleaseActivity extends BaseActivity implements View.OnClickList
                 case Constants.MESSAGE_UP://提交響應
                     worningAlert(msg.obj.toString(),Constants.MESSAGE_TOAST);
 //                    ToastUtils.showLong(CrossScanActivity.this, msg.obj.toString());
-
                     break;
 //                case MESSAGE_SHOW://顯示提醒
 //                    setText();
@@ -276,7 +237,10 @@ public class ActReleaseActivity extends BaseActivity implements View.OnClickList
 
     //提交信息
     private void upMsessage() {
-
+        if (FoxContext.getInstance().getLoginId().equals("")) {
+            ToastUtils.showShort(this, "登錄超時,請重新登陸");
+            return;
+        }
         final String url = Constants.HTTP_ACTIVITY_JSON_SERVLET; //此處寫上自己的URL
 
         JsonObject object = new JsonObject();
@@ -285,8 +249,12 @@ public class ActReleaseActivity extends BaseActivity implements View.OnClickList
         String act_type = "";//活動類別
         if (rbPerson.isChecked()){
             act_type = "個人賽";
+            object.addProperty("act_num_team",etNumPerson.getText().toString());
+            object.addProperty("act_num_person",1);
         }else{
             act_type = "團體賽";
+            object.addProperty("act_num_team",etNumTeam.getText().toString());
+            object.addProperty("act_num_person",etNumPerson.getText().toString());
         }
         //JsonArray array = new JsonArray();
         object.addProperty("flag","actRelease");
@@ -296,8 +264,7 @@ public class ActReleaseActivity extends BaseActivity implements View.OnClickList
         object.addProperty("act_award",etActAward.getText().toString());
         object.addProperty("act_time_start",tvStartTime.getText().toString());
         object.addProperty("act_end_sign",tvEndSignDate.getText().toString());
-        object.addProperty("act_num_team",etNumTeam.getText().toString());
-        object.addProperty("act_num_person",etNumPerson.getText().toString());
+
         object.addProperty("create_code", FoxContext.getInstance().getLoginId());
         object.addProperty("create_name", FoxContext.getInstance().getName());
         //object.add("info", array);
@@ -322,7 +289,6 @@ public class ActReleaseActivity extends BaseActivity implements View.OnClickList
                             message.what = Constants.MESSAGE_TOAST;
                             message.obj = jsonObject.get("errMessage").getAsString();
                             mHandler.sendMessage(message);
-
                         } else{
                             Message message = new Message();
                             message.what = Constants.MESSAGE_TOAST;

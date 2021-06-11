@@ -775,7 +775,6 @@ public class CarListUpActivity extends BaseActivity implements View.OnClickListe
                 if (compressedPic.exists()) {
                     Log.e("-------------", "图片压缩上传");
                     fileMap.put("file" + (i + 1), compressedPic);//添加第一個文件
-
                 } else {//直接上传
                     fileMap.put("file" + (i + 1), pictureFile);
                 }
@@ -797,7 +796,6 @@ public class CarListUpActivity extends BaseActivity implements View.OnClickListe
                 if (compressedPic.exists()) {
                     Log.e("-------------", "图片压缩上传");
                     fileMap.put("file" + (i + 2), compressedPic);//添加第一個文件
-
                 } else {//直接上传
                     fileMap.put("file" + (i + 2), pictureFile);
                 }
@@ -816,7 +814,6 @@ public class CarListUpActivity extends BaseActivity implements View.OnClickListe
                 if (compressedPic.exists()) {
                     Log.e("-------------", "图片压缩上传");
                     fileMap.put("file" + (i + 3), compressedPic);//添加第一個文件
-
                 } else {//直接上传
                     fileMap.put("file" + (i + 3), pictureFile);
                 }

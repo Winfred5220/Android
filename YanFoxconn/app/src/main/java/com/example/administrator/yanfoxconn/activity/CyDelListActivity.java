@@ -18,6 +18,7 @@ import com.example.administrator.yanfoxconn.constant.FoxContext;
 import com.example.administrator.yanfoxconn.utils.BaseActivity;
 import com.example.administrator.yanfoxconn.utils.HttpUtils;
 import com.example.administrator.yanfoxconn.utils.ToastUtils;
+import com.example.administrator.yanfoxconn.widget.ExListView;
 import com.example.administrator.yanfoxconn.widget.MyListView;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -47,7 +48,7 @@ public class CyDelListActivity extends BaseActivity implements View.OnClickListe
     Button btnBack;//返回
 
     @BindView(R.id.lv_car_list)
-    MyListView lvRouteList;//巡檢進度表
+    ExListView lvRouteList;//巡檢進度表
     @BindView(R.id.tv_title)
     TextView tvTitle;//標題
 
@@ -85,6 +86,18 @@ public class CyDelListActivity extends BaseActivity implements View.OnClickListe
 //            } else {
 //                ToastUtils.showShort(this, "沒有數據!");
 //            }
+        if (from.equals("one")) {
+            getCyCarList("2");
+        }else if (from.equals("two")){
+
+            try {
+                getCyCarList(URLEncoder.encode(URLEncoder.encode(code.toString(), "UTF-8"), "UTF-8"));
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+        }else{
+            getCyCarList("3");
+        }
     }
 
     @Override
@@ -130,6 +143,7 @@ public class CyDelListActivity extends BaseActivity implements View.OnClickListe
     private String url;//請求地址
     private String result;//返回結果
     private List<CyCarMessage> cyCarMessages;//物流消殺車輛
+    private List<CyCarMessage> mList = new ArrayList<>();;//物流消殺車輛
 
     public void getCyCarList(String flag) {
         showDialog();
@@ -186,49 +200,65 @@ public class CyDelListActivity extends BaseActivity implements View.OnClickListe
                 case MESSAGE_TOAST://Toast彈出
                     if (msg.obj.equals("失敗")) {
                         ToastUtils.showShort(CyDelListActivity.this, "沒有車輛數據!");
-
                     } else {
                         ToastUtils.showShort(CyDelListActivity.this, msg.obj.toString());
-
                         if (cyCarMessages!=null) {
                             cyCarMessages.clear();
-                            carListAdapter = new CarListAdapter(CyDelListActivity.this, cyCarMessages, "cydel");
+                            carListAdapter = new CarListAdapter(CyDelListActivity.this, mList, "cydel");
+                            loadData();
                             lvRouteList.setAdapter(carListAdapter);
+                            lvRouteList.setOnLoadMoreListener(new ExListView.OnLoadMoreListener() {
+                                @Override
+                                public void loadMore() {
+                                    loadData();
+                                }
+                            });
+
                         }
                     }
                     break;
                 case MESSAGE_GET_LIST:
 
                     if (from.equals("one")||from.equals("three")){
-                    carListAdapter = new CarListAdapter(CyDelListActivity.this, cyCarMessages, "cydel");
-                    lvRouteList.setAdapter(carListAdapter);
-                    }else{
-
-                        carListAdapter = new CarListAdapter(CyDelListActivity.this, cyCarMessages, "two");
+                        carListAdapter = new CarListAdapter(CyDelListActivity.this, mList, "cydel");
+                        loadData();
                         lvRouteList.setAdapter(carListAdapter);
+                        lvRouteList.setOnLoadMoreListener(new ExListView.OnLoadMoreListener() {
+                            @Override
+                            public void loadMore() {
+                                loadData();
+                            }
+                        });
+                    }else{
+                        carListAdapter = new CarListAdapter(CyDelListActivity.this, mList, "two");
+                        loadData();
+                        lvRouteList.setAdapter(carListAdapter);
+                        lvRouteList.setOnLoadMoreListener(new ExListView.OnLoadMoreListener() {
+                            @Override
+                            public void loadMore() {
+                                loadData();
+                            }
+                        });
                     }
                     break;
             }
             super.handleMessage(msg);
         }
     };
-
+    private void loadData() {
+        int size = mList.size();
+        if (size < cyCarMessages.size()) {
+            for (int i = size; i < size + 20; i++) {
+                mList.add(cyCarMessages.get(i));
+            }
+        }
+        lvRouteList.setLoadCompleted(size >= cyCarMessages.size() ? true : false);
+        carListAdapter.notifyDataSetChanged();
+    }
     @Override
     protected void onStart() {
         super.onStart();
         Log.e("---------", "onStart");
-        if (from.equals("one")) {
-            getCyCarList("2");
-        }else if (from.equals("two")){
-
-            try {
-                getCyCarList(URLEncoder.encode(URLEncoder.encode(code.toString(), "UTF-8"), "UTF-8"));
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            }
-        }else{
-            getCyCarList("3");
-        }
     }
 
 

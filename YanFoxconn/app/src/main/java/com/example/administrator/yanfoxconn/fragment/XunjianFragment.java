@@ -1,4 +1,4 @@
-package com.example.administrator.yanfoxconn.activity.fragment;
+package com.example.administrator.yanfoxconn.fragment;
 
 import android.content.Context;
 import android.content.Intent;
@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.DialogFragment;
@@ -29,8 +30,6 @@ import com.example.administrator.yanfoxconn.activity.CarListActivity;
 import com.example.administrator.yanfoxconn.activity.CarLogDayActivity;
 import com.example.administrator.yanfoxconn.activity.DimemsionMenuActivity;
 import com.example.administrator.yanfoxconn.activity.EventListActivity;
-import com.example.administrator.yanfoxconn.activity.LoadingDialogFragment;
-import com.example.administrator.yanfoxconn.activity.MainActivity;
 import com.example.administrator.yanfoxconn.activity.RouteListActivity;
 import com.example.administrator.yanfoxconn.adapter.MyExpandableListViewAdapter;
 import com.example.administrator.yanfoxconn.bean.CarListMessage;
@@ -94,6 +93,9 @@ public class XunjianFragment extends Fragment implements View.OnClickListener{
             "車輛服務", "海關協管", "人力資源部","華北商務","關愛中心","工會","品規發展服務處","南寧廠區","Sharp研究院"}; //"NME安全部", "VIP安全部", "PME安全部",
     public String[][] gridViewType = {
             {"CY"},//物流防疫
+            {"A0", "T0","H0", "K0", "I0", "L0", "J0", "M0", "R0", "S0", "CD", "CE", "CL", "CR","CX","GC","IH","II","IT","IU"},//安保部"CU",
+            {"CT","FE","FF","FG","FV","FX","FZ","GE","GX","ID","IJ"},//工業安全部
+            {"BG", "BP", "ZXS", "DN","DQ","DT","FH","GA","HL","HX","IG","LMNOP","IR"},//總務 LMNOP商鋪物業巡檢
             {"A0", "T0", "H0", "K0", "I0", "L0",
                     "J0", "M0", "R0", "S0", "CD", "CE", "CL", "CR",
                      "CX","GC","IH","II"},//安保部 "CU",
@@ -105,7 +107,7 @@ public class XunjianFragment extends Fragment implements View.OnClickListener{
             {"BS", "CK", "EA"},//車調服務,"FQ","BV"
             {"BK", "BT", "CQ"},//海關協管
             //{"W0"},//煙台工會
-            {"X0", "Y0", "DO", "DP","DZ","ED","HT","HU","HV","HW","IS"},//人力資源部
+            {"X0", "Y0", "DO", "DP","DZ","ED","HT","HU","HV","HW","IS","IW"},//人力資源部
             {"DS","FT","FU","HZ"},//華北商務
             {"IA","IF"},//關愛中心
             {"IE"},//工會
@@ -115,11 +117,10 @@ public class XunjianFragment extends Fragment implements View.OnClickListener{
     };
     public String[][] gridViewChild = {
             {"消殺點檢"},//物流防疫
-            {"值班室", "春安值星", "一大隊固定崗", "一大隊巡邏崗", "二大隊固定崗", "二大隊巡邏崗",
-                    "三大隊固定崗", "三大隊巡邏崗", "機動隊巡邏崗", "機動隊固定崗", "常用表單", "物品放行",
-                    "移動設備管控", "廢料出廠","三防隱患通報","異常處置區","110接處警","成品倉出貨"},//安全保障服務部"值班課長",
+            {"值班室", "春安值星", "一大隊固定崗", "一大隊巡邏崗", "二大隊固定崗", "二大隊巡邏崗","三大隊固定崗", "三大隊巡邏崗", "機動隊巡邏崗", "機動隊固定崗", "常用表單", "物品放行", "移動設備管控", "廢料出廠","8S隱患通報","異常處置區",
+                    "110接處警","成品倉出貨","固定崗","巡邏崗"},//安全保障服務部"值班課長"
             {"消防巡檢","洗眼器點檢","危化品暫存柜","危化品暫存倉","吸煙區","鋰電池防火","有限空間","室外堆場",
-                    "設備借用","會議室點檢"},//工業安全部
+                    "設備借用","會議室點檢","防火重點部位"},//工業安全部
             {"宿舍巡檢", "餐飲巡檢", "消殺巡檢", "宿舍查驗","直飲水","生活垃圾清運","餐廳巡檢","臨時工簽到",
                     "倉庫巡檢","餐廳及多媒體","宿舍寄存","商鋪物業","廣播巡檢","请假签核"},//總務
             {"A區巡檢", "E區巡檢", "C區巡檢", "D區巡檢", "G區巡檢","A-5區巡檢","維保巡檢","空調防疫點檢","配電箱點檢","路燈射燈點檢","工程管理"},//營建
@@ -128,7 +129,7 @@ public class XunjianFragment extends Fragment implements View.OnClickListener{
             {"候車亭巡檢", "叉車廠商巡檢","車輛點檢"},//車調服務,"車調車輛巡檢","叉車球車巡檢"
             {"人工跨區", "跨區申請單", "車輛跨區"},//海關協管
             //{"餐監會"},//煙台工會
-            {"活動生成", "活動簽到", "退訓放行", "班導志","人資監餐","教室點檢", "會議室", "資料室","倉庫","文康場館","活動發佈"},//人力資源部
+            {"活動生成", "活動簽到", "退訓放行", "班導志","人資監餐","教室點檢", "會議室", "資料室","倉庫","文康場館","活動管理","運動設備點檢"},//人力資源部
             {"販賣機巡檢","流動攤位巡檢","門市房巡檢","倉庫點檢"},//華北商務
             {"屋室點檢","其他工作區"},//關愛中心
             {"空間點檢"},//工會
@@ -138,14 +139,12 @@ public class XunjianFragment extends Fragment implements View.OnClickListener{
     };
     public int[][] img = {
             {R.mipmap.icon_xiaosha},//物流防疫
-            {R.mipmap.icon_anquan, R.mipmap.icon_lianluo, R.mipmap.icon_yidadui1, R.mipmap.icon_yidadui_1,
-                    R.mipmap.icon_yidadui2, R.mipmap.icon_yidadui_2, R.mipmap.icon_yidadui3, R.mipmap.icon_yidadui_3,
-                    R.mipmap.icon_jidongx, R.mipmap.icon_jidongg, R.mipmap.icon_biaodan, R.mipmap.icon_wupin,
+            {R.mipmap.icon_anquan, R.mipmap.icon_lianluo, R.mipmap.icon_yidadui1, R.mipmap.icon_yidadui_1,R.mipmap.icon_yidadui2, R.mipmap.icon_yidadui_2, R.mipmap.icon_yidadui3, R.mipmap.icon_yidadui_3,R.mipmap.icon_jidongx, R.mipmap.icon_jidongg,R.mipmap.icon_biaodan, R.mipmap.icon_wupin,
                     R.mipmap.icon_mobile, R.mipmap.icon_scrap_leave, R.mipmap.icon_sanfang,
-                    R.mipmap.icon_chuzhiqu,R.mipmap.icon_duty, R.mipmap.icon_cpc_leave},//安保部 R.mipmap.icon_duty,
+                    R.mipmap.icon_chuzhiqu,R.mipmap.icon_duty, R.mipmap.icon_cpc_leave,R.mipmap.icon_jidongx, R.mipmap.icon_jidongg},//安保部 R.mipmap.icon_duty,
             {R.mipmap.icon_gongan, R.mipmap.icon_control_room, R.mipmap.icon_gui, R.mipmap.icon_cang,
                     R.mipmap.icon_xiyanqu, R.mipmap.icon_battery, R.mipmap.icon_kongjian, R.mipmap.icon_dui,
-                    R.mipmap.icon_borrow,R.mipmap.icon_huiyishi},//工業安全部
+                    R.mipmap.icon_borrow,R.mipmap.icon_huiyishi,R.mipmap.icon_gongan},//工業安全部
             {R.mipmap.icon_sushe, R.mipmap.icon_canyin, R.mipmap.icon_xiaosha, R.mipmap.icon_sushe2,
                     R.mipmap.icon_zhiyinshui,R.mipmap.icon_laji, R.mipmap.icon_canting, R.mipmap.icon_linshi,
                     R.mipmap.icon_ziliaoshi, R.mipmap.icon_huiyishi, R.mipmap.icon_huiyishi, R.mipmap.icon_huiyishi,
@@ -162,7 +161,7 @@ public class XunjianFragment extends Fragment implements View.OnClickListener{
             //{R.mipmap.icon_shijian},//煙台工會
             {R.mipmap.icon_huodong, R.mipmap.icon_qiandao, R.mipmap.icon_retreat, R.mipmap.icon_bandao,
                     R.mipmap.icon_jiancan, R.mipmap.icon_jiaoshi, R.mipmap.icon_huiyishi, R.mipmap.icon_ziliaoshi,
-                    R.mipmap.icon_zhibanshi, R.mipmap.icon_jiaoshi, R.mipmap.icon_huodong},//人力資源部
+                    R.mipmap.icon_zhibanshi, R.mipmap.icon_jiaoshi, R.mipmap.icon_huodong, R.mipmap.icon_sports},//人力資源部
             {R.mipmap.icon_fanmaiji,R.mipmap.icon_tanwei,R.mipmap.icon_menshifang,R.mipmap.icon_ziliaoshi},//華北商務
             {R.mipmap.icon_ziliaoshi,R.mipmap.icon_zhibanshi},//關愛中心
             {R.mipmap.icon_ziliaoshi},//工會

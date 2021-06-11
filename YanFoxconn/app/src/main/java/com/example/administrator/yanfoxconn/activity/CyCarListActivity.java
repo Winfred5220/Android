@@ -22,6 +22,7 @@ import com.example.administrator.yanfoxconn.utils.BaseActivity;
 import com.example.administrator.yanfoxconn.utils.HttpUtils;
 import com.example.administrator.yanfoxconn.utils.ToastUtils;
 import com.example.administrator.yanfoxconn.widget.ComAbPopupWindow;
+import com.example.administrator.yanfoxconn.widget.ExListView;
 import com.example.administrator.yanfoxconn.widget.IconPopupWindow;
 import com.example.administrator.yanfoxconn.widget.MyListView;
 import com.example.administrator.yanfoxconn.widget.SwipeListView;
@@ -53,7 +54,7 @@ public class CyCarListActivity extends BaseActivity implements View.OnClickListe
     @BindView(R.id.ib_title_right)
     ImageButton ibRight;//右上角菜單
     @BindView(R.id.lv_car_list)
-    MyListView lvRouteList;//巡檢進度表
+    ExListView lvRouteList;//巡檢進度表
     @BindView(R.id.tv_title)
     TextView tvTitle;//標題
     private ThreePopupWindow threePopupWindow;
@@ -61,6 +62,7 @@ public class CyCarListActivity extends BaseActivity implements View.OnClickListe
     private String url;//請求地址
     private String result;//返回結果
     private List<CyCarMessage> cyCarMessages;//物流消殺車輛
+    private List<CyCarMessage> mList = new ArrayList<>();;//物流消殺車輛
     private CarListAdapter carListAdapter;
 
     private int width;
@@ -84,7 +86,7 @@ public class CyCarListActivity extends BaseActivity implements View.OnClickListe
         btnBack.setOnClickListener(this);
         ibRight.setOnClickListener(this);
         lvRouteList.setOnItemClickListener(this);
-
+        getCyCarList();
     }
 
     @Override
@@ -194,24 +196,51 @@ public class CyCarListActivity extends BaseActivity implements View.OnClickListe
                         ToastUtils.showShort(CyCarListActivity.this, "沒有車輛數據!");
                     } else {
                         ToastUtils.showShort(CyCarListActivity.this, msg.obj.toString());
-                        carListAdapter = new CarListAdapter(CyCarListActivity.this, cyCarMessages,"cy");
+                        carListAdapter = new CarListAdapter(CyCarListActivity.this, mList,"cy");
+                        loadData();
                         lvRouteList.setAdapter(carListAdapter);
+                        lvRouteList.setOnLoadMoreListener(new ExListView.OnLoadMoreListener() {
+                            @Override
+                            public void loadMore() {
+                                loadData();
+                            }
+                        });
                     }
                     break;
                 case MESSAGE_GET_LIST:
-                    carListAdapter = new CarListAdapter(CyCarListActivity.this, cyCarMessages,"cy");
+
+                    carListAdapter = new CarListAdapter(CyCarListActivity.this, mList,"cy");
+                    loadData();
                     lvRouteList.setAdapter(carListAdapter);
+                    lvRouteList.setOnLoadMoreListener(new ExListView.OnLoadMoreListener() {
+                        @Override
+                        public void loadMore() {
+                            loadData();
+                        }
+                    });
                     break;
             }
             super.handleMessage(msg);
         }
     };
+    private void loadData() {
+        int size = mList.size();
+        if (size < cyCarMessages.size()) {
+            for (int i = size; i < size + 20; i++) {
+                mList.add(cyCarMessages.get(i));
+            }
+        }
+        lvRouteList.setLoadCompleted(size >= cyCarMessages.size() ? true : false);
+        carListAdapter.notifyDataSetChanged();
+    }
+
+
     @Override
     protected void onStart() {
 
         super.onStart();
         Log.e("---------", "onStart");
-        getCyCarList();
+
     }
     class OnClickLintener implements View.OnClickListener {
 

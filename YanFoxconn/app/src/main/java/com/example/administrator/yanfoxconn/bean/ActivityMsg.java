@@ -24,14 +24,34 @@ public class ActivityMsg implements Serializable {
     private String create_name;//組織人姓名
     private String create_date;//維護時間
     private String act_statue;//活動狀態
+    private String act_sign_now;//已報人數或隊伍
+    //報名人員表
+    private String sign_code;//主鍵
+    private String sign_name;//描述
 
-    //單身表
-    private String B_ID;//主鍵
-    private String B_DESC;//描述
-    private String B_REDEEM;//挽回損失
-    private String B_LOGIN_CODE;//處警工號
-    private String B_LOGIN_NAME;//處警人
-    private String B_CREATE_DATE;//創建時間
+    public String getAct_sign_now() {
+        return act_sign_now;
+    }
+
+    public void setAct_sign_now(String act_sign_now) {
+        this.act_sign_now = act_sign_now;
+    }
+
+    public String getSign_code() {
+        return sign_code;
+    }
+
+    public void setSign_code(String sign_code) {
+        this.sign_code = sign_code;
+    }
+
+    public String getSign_name() {
+        return sign_name;
+    }
+
+    public void setSign_name(String sign_name) {
+        this.sign_name = sign_name;
+    }
 
     public String getAct_id() {
         return act_id;

@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TableRow;
 import android.widget.TextView;
 
@@ -106,10 +107,10 @@ public class GoodsGeneralActivity extends BaseActivity implements View.OnClickLi
     TextView tvReleaseDate;//放行時間
     @BindView(R.id.tr_jc)
     TableRow trJc;//進出
+    @BindView(R.id.rg_j)
+    RadioGroup rgJ;//進
     @BindView(R.id.rb_j)
     RadioButton rbJ;//進
-    @BindView(R.id.rb_c)
-    RadioButton rbC;//進
     @BindView(R.id.tr_list_gate)
     TableRow trListGate;
     @BindView(R.id.lv_gate)
@@ -360,10 +361,10 @@ public class GoodsGeneralActivity extends BaseActivity implements View.OnClickLi
 
         for (Map.Entry<String, String> entry : etMap.entrySet()){
             goodsMsg += entry.getKey()+"-"+entry.getValue()+"_";
-            Log.e("---goodsMap---", entry.getKey()+"--->"+entry.getValue());
+            //Log.e("---goodsMap---", entry.getKey()+"--->"+entry.getValue());
         }
         goodsMsg = goodsMsg.substring(0,goodsMsg.length()-1);
-        Log.e("---goodsMsg---", goodsMsg);
+        //Log.e("---goodsMsg---", goodsMsg);
         try {
             selectTime = formatter.parse(tvReleaseDate.getText().toString());
         } catch (ParseException e) {
@@ -393,17 +394,27 @@ public class GoodsGeneralActivity extends BaseActivity implements View.OnClickLi
             ToastUtils.showShort(GoodsGeneralActivity.this,"放行時間不能超過當前時間");
             return;
         }
-        Log.e("---攜帶人---",  xcode+"--"+xname);
+        //Log.e("---攜帶人---",  xcode+"--"+xname);
+
+        String jc_type="出";
+
+        if(goodsMessage.get(0).getOUT11A().equals("跨廠區")){
+
+            if (rgJ.getCheckedRadioButtonId()==-1){
+                ToastUtils.showShort(GoodsGeneralActivity.this,"請選擇進或出!");
+                return;
+            }
+
+            if (rbJ.isChecked()){
+                jc_type="進";
+            }else {
+                jc_type="出";
+            }
+        }
+
         if (etRelGate.getTag().equals("0")){
             ToastUtils.showShort(GoodsGeneralActivity.this,"請選擇放行門崗!");
             return;
-        }
-
-        String jc_type="";
-        if (rbJ.isChecked()){
-            jc_type="進";
-        }else {
-            jc_type="出";
         }
 
 upMsessage(etCode.getText().toString(),tvEffNum.getText().toString(),change(etRelGate.getText().toString()), etDutyCode.getText().toString(),
@@ -528,8 +539,8 @@ upMsessage(etCode.getText().toString(),tvEffNum.getText().toString(),change(etRe
 
         if(goodsMessage.get(0).getOUT11A().equals("跨廠區")){
             trJc.setVisibility(View.VISIBLE);
-            rbC.setChecked(true);
         }
+
         if (id==null || id.equals("")){
             etDutyGuard.setText(FoxContext.getInstance().getName());
             etDutyGuard.setEnabled(false);

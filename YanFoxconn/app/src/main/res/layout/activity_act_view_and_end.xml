@@ -72,6 +72,7 @@
                     <EditText
                         android:id="@+id/et_act_rules"
                         style="@style/carEditTextBKG"
+                        android:layout_height="@dimen/dimen_100"
                         android:layout_weight="1"
                         android:background="@drawable/login_input" />
                 </TableRow>
@@ -87,6 +88,7 @@
                     <EditText
                         android:id="@+id/et_act_award"
                         style="@style/carEditTextBKG"
+                        android:layout_height="@dimen/dimen_100"
                         android:layout_weight="1"
                         android:background="@drawable/login_input" />
                 </TableRow>
@@ -122,31 +124,43 @@
                 <TableRow
                     android:id="@+id/tr_team_num"
                     style="@style/tableRow">
-
-                    <TextView
-                        style="@style/carTextName"
-                        android:text="隊伍上限數量：" />
+                    <TextView style="@style/carTextName"
+                        android:id="@+id/tv_num_team"
+                        android:text="隊伍上限數量："/>
 
                     <EditText
                         android:id="@+id/et_num_team"
                         style="@style/carEditTextBKG"
-                        android:layout_weight="1"
+                        android:inputType="number"
                         android:background="@drawable/login_input"
-                        android:inputType="number" />
+                        android:layout_weight="1" />
                 </TableRow>
                 <!--活動上限人數-->
-                <TableRow style="@style/tableRow">
-
-                    <TextView
-                        style="@style/carTextName"
-                        android:text="活動上限人數：" />
+                <TableRow
+                    style="@style/tableRow">
+                    <TextView style="@style/carTextName"
+                        android:id="@+id/tv_num_person"
+                        android:text="活動上限人數："/>
 
                     <EditText
                         android:id="@+id/et_num_person"
                         style="@style/carEditTextBKG"
-                        android:layout_weight="1"
+                        android:inputType="number"
                         android:background="@drawable/login_input"
-                        android:inputType="number" />
+                        android:layout_weight="1" />
+                </TableRow>
+                <!--已報名人數/隊伍-->
+                <TableRow
+                    style="@style/tableRow">
+                    <TextView style="@style/carTextName"
+                        android:text="已報人/隊伍："/>
+
+                    <TextView
+                        android:id="@+id/tv_sign_now"
+                        style="@style/carEditTextBKG"
+                        android:inputType="number"
+                        android:background="@drawable/login_input"
+                        android:layout_weight="1" />
                 </TableRow>
             </TableLayout>
 
@@ -235,8 +249,8 @@
                         android:focusableInTouchMode="true"
                         android:text="姓名：" />
 
-                    <EditText
-                        android:id="@+id/et_name"
+                    <TextView
+                        android:id="@+id/tv_name"
                         style="@style/carEditTextBKG"
                         android:layout_weight="1"
                         android:background="@drawable/login_input" />
@@ -308,9 +322,8 @@
                         android:focusable="true"
                         android:focusableInTouchMode="true"
                         android:text="姓名：" />
-
-                    <EditText
-                        android:id="@+id/et_name2"
+                    <TextView
+                        android:id="@+id/tv_name2"
                         style="@style/carEditTextBKG"
                         android:layout_weight="1"
                         android:background="@drawable/login_input" />
@@ -351,7 +364,7 @@
                     android:layout_height="wrap_content">
 
                     <GridView
-                        android:id="@+id/gv_photo"
+                        android:id="@+id/gv_photo1"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="@dimen/dimen_10"
@@ -363,11 +376,11 @@
                         android:verticalSpacing="@dimen/dimen_2" />
                     <!--空白圖片佔位-->
                     <ImageView
-                        android:id="@+id/iv_empty"
+                        android:id="@+id/iv_empty1"
                         android:layout_width="75dp"
                         android:layout_height="75dp"
-                        android:layout_alignLeft="@+id/gv_photo"
-                        android:layout_alignTop="@+id/gv_photo"
+                        android:layout_alignLeft="@+id/gv_photo1"
+                        android:layout_alignTop="@+id/gv_photo1"
                         android:scaleType="centerCrop"
                         android:src="@mipmap/icon_addpic_unfocused" />
                 </RelativeLayout>
