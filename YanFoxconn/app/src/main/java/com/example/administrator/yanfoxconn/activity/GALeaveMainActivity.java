@@ -72,6 +72,7 @@ public class GALeaveMainActivity extends BaseActivity implements View.OnClickLis
     private Date selectTime = null;//所選時間
     private Date curDate = null;//當前時間
     private String curDates;//當前時間
+    private String minDate ;//最小時間
     private SimpleDateFormat formatter;
 
     @BindView(R.id.btn_title_left)
@@ -135,13 +136,14 @@ private String from="";
 
         formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         SimpleDateFormat formatterUse = new SimpleDateFormat("yyyy年MM月dd日 HH:mm");
+        SimpleDateFormat minformatter = new SimpleDateFormat("yyyy-MM-dd");
         curDate = new Date(System.currentTimeMillis());
         //获取当前时间
         initStartDateTime = formatterUse.format(curDate);
         tvStartDate.setText(formatter.format(curDate));
         tvEndDate.setText(formatter.format(curDate));
         curDates = formatter.format(curDate);
-
+        minDate = minformatter.format(curDate);
         from=getIntent().getStringExtra("from");
 if (from.equals("emp")){
 
@@ -341,20 +343,30 @@ if (from.equals("emp")){
                 DateTimePickDialogUtil dateTimeS = new DateTimePickDialogUtil(
                         GALeaveMainActivity.this, initStartDateTime);
 
-                dateTimeS.dateTimePicKDialog30(tvStartDate, "", "");
+                dateTimeS.dateTimePicKDialog30(tvStartDate, minDate, "");
                 break;
             case R.id.tv_end_date:
 
                 DateTimePickDialogUtil dateTimeE = new DateTimePickDialogUtil(
                         GALeaveMainActivity.this, initStartDateTime);
+Log.e("-------------","ddd=minDate="+minDate);
 
-                dateTimeE.dateTimePicKDialog30(tvEndDate, "", "");
+                dateTimeE.dateTimePicKDialog30(tvEndDate, minDate, "");
                 break;
             case R.id.btn_title_right://提交
                 if (from.equals("emp")){
+                    if (tvTime.getText().toString().equals("")){
+                        ToastUtils.showLong(GALeaveMainActivity.this,"請選擇正確時長！");
+                    }else   if (etReason.getText().toString().equals("")){
+                        ToastUtils.showLong(GALeaveMainActivity.this,"請輸入請假原因！");
+                    }else{
                     upLeave();
+                    }
                 }else{
-                    upChangeClass();
+                    if (etReason.getText().toString().equals("")){
+                        ToastUtils.showLong(GALeaveMainActivity.this,"請輸入班別修改原因！");
+                    }else{
+                    upChangeClass();}
                 }
                 break;
             case R.id.btn_title_left:
@@ -362,7 +374,7 @@ if (from.equals("emp")){
                  break;
             case R.id.et_reason:
                 if (from.equals("zg")){
-                    ToastUtils.showLong(GALeaveMainActivity.this,"請確認好選擇時間！");
+                    ToastUtils.showLong(GALeaveMainActivity.this,"請確認好已選擇正確的時間！");
                 }else{
                 try {
                     getLeaveTime(tvStartDate.getText().toString(),tvEndDate.getText().toString(),upStartTime,upEndTime,downStartTime,downEndTime,curDates);

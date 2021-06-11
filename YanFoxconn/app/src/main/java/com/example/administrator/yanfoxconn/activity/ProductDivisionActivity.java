@@ -154,7 +154,7 @@ public class ProductDivisionActivity extends BaseActivity implements View.OnClic
                     startActivity(intent);
                 }else if(FoxContext.getInstance().getRoles().contains(role)&&(role.equals("CZ")||role.equals("DU")||role.equals("DV")
                         ||role.equals("DW")||role.equals("DX")||role.equals("EB")||role.equals("DY")||role.equals("GP")||role.equals("GO")
-                        ||role.equals("HG")||role.equals("HM")||role.equals("HO")||role.equals("HP")||role.equals("HN")||role.equals("CF")
+                        ||role.equals("HG")||role.equals("HM")||role.equals("HO")||role.equals("HP")||role.equals("HN")||role.equals("BF")||role.equals("CF")
                         ||role.equals("IL")||role.equals("IM")||role.equals("IN")||role.equals("IO")||role.equals("IP"))){
                     FoxContext.getInstance().setType(role);
                     Intent intent = new Intent(ProductDivisionActivity.this, QrCodeActivity.class);

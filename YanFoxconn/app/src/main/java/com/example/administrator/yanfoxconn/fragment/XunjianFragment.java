@@ -95,7 +95,7 @@ public class XunjianFragment extends Fragment implements View.OnClickListener{
             {"CY"},//物流防疫
             {"A0", "T0","H0", "K0", "I0", "L0", "J0", "M0", "R0", "S0", "CD", "CE", "CL", "CR","CX","GC","IH","II","IT","IU"},//安保部"CU",
             {"CT","FE","FF","FG","FV","FX","FZ","GE","GX","ID","IJ"},//工業安全部
-            {"BG", "BP", "ZXS", "DN","DQ","DT","FH","GA","HL","HX","IG","LMNOP","IR"},//總務 LMNOP商鋪物業巡檢
+            {"BG", "BP", "ZXS", "DN","DQ","DT","FH","GA","HL","HX","IG","LMNOP","IR","IV"},//總務 LMNOP商鋪物業巡檢
             {"A0", "T0", "H0", "K0", "I0", "L0",
                     "J0", "M0", "R0", "S0", "CD", "CE", "CL", "CR",
                      "CX","GC","IH","II"},//安保部 "CU",
