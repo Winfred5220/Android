@@ -1,5 +1,6 @@
 package com.example.administrator.yanfoxconn.activity;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
@@ -11,8 +12,12 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -59,6 +64,8 @@ public class GALeaveMainActivity extends BaseActivity implements View.OnClickLis
     private final int MESSAGE_SET_TEXT = 1;//獲取狀態后,設置控件內容
     private final int MESSAGE_NOT_NET = 3;//網絡問題
     private final int MESSAGE_UP = 4;//提交响应
+    private final int MESSAGE_SET_CLASS=0;//主管進來 先查詢員工 在查詢班別
+
 
 
     private String initStartDateTime; // 初始化开始时间
@@ -91,8 +98,22 @@ public class GALeaveMainActivity extends BaseActivity implements View.OnClickLis
     TextView tvClass;//班别
     @BindView(R.id.et_reason)
     EditText etReason;//请假原因
+    @BindView(R.id.tr_start)
+    TableRow trStart;//请假开始时间行
+    @BindView(R.id.tr_end)
+    TableRow trEnd;//请假结束时间行
+    @BindView(R.id.tr_time)
+    TableRow trTime;//请假时长行
+    @BindView(R.id.tr_class)
+    TableRow trClass;//班别行
+    @BindView(R.id.tv_title_reason)
+    TextView tvTitReason;//请假或修改班别原因
+    @BindView(R.id.sp_class)
+    Spinner spClass;//異常描述
 
-    private List<GAWork> gaWorks;
+
+private String from="";
+    private List<GAWork> gaWorks,gaClass;
 
     private String upStartTime,upEndTime,downStartTime,downEndTime="";//班别 上午开始，上午结束，下午开始，下午结束 时间
     private Boolean isAllDay=true;//班别是否是全天，true全天，false半天
@@ -121,7 +142,22 @@ public class GALeaveMainActivity extends BaseActivity implements View.OnClickLis
         tvEndDate.setText(formatter.format(curDate));
         curDates = formatter.format(curDate);
 
-        getMessage(FoxContext.getInstance().getLoginId(),FoxContext.getInstance().getType());
+        from=getIntent().getStringExtra("from");
+if (from.equals("emp")){
+
+    Log.e("--------1---","fff原因");
+    getMessage(FoxContext.getInstance().getLoginId(),FoxContext.getInstance().getType());
+}else{
+    trStart.setVisibility(View.GONE);
+    trEnd.setVisibility(View.GONE);
+    trTime.setVisibility(View.GONE);
+    trClass.setVisibility(View.VISIBLE);
+    tvTitReason.setText("修改原因");
+    Log.e("--------0---","修改原因");
+    getMessage(getIntent().getStringExtra("p_empId"),FoxContext.getInstance().getType());
+//    getEmpClass(FoxContext.getInstance().getLoginId(),FoxContext.getInstance().getType());
+//
+}
     }
 
     //獲取临时工信息
@@ -167,6 +203,50 @@ public class GALeaveMainActivity extends BaseActivity implements View.OnClickLis
             } }.start();
     }
 
+    //獲取班別信息
+    private void getEmpClass(String creatorId,String type){
+        showDialog();
+        final String url = Constants.HTTP_ZW_LEAVE_GET_CLASS+"?creator_id="+creatorId+"&type="+type;
+
+        new Thread() {
+            @Override
+            public void run() {
+                //把网络访问的代码放在这里
+                String result = HttpUtils.queryStringForGet(url);
+
+                dismissDialog();
+                Log.e("---------", "==fff===" + url);
+                Gson gson = new Gson();
+                if (result != null) {
+                    Log.e("---------", "result==fff===" + result);
+
+                    JsonObject jsonObject = new JsonParser().parse(result).getAsJsonObject();
+                    String errCode = jsonObject.get("errCode").getAsString();
+                    if (errCode.equals("200")) {
+                        JsonArray array = jsonObject.get("data").getAsJsonArray();
+                        gaClass = new ArrayList<GAWork>();
+
+                        for (JsonElement type : array) {
+                            GAWork humi = gson.fromJson(type, GAWork.class);
+                            gaClass.add(humi);
+                        }
+
+                        Message message = new Message();
+                        message.what = MESSAGE_SET_CLASS;
+                        message.obj = jsonObject.get("errMessage").getAsString();
+                        mHandler.sendMessage(message);
+
+                    } else{
+                        Message message = new Message();
+                        message.what = MESSAGE_TOAST;
+                        message.obj = jsonObject.get("errMessage").getAsString();
+                        mHandler.sendMessage(message);
+                    }
+                }
+            } }.start();
+    }
+   private  List<String> cla,claId;
+    private String newClass="",newClassID="";
     Handler mHandler = new Handler() {
         public void handleMessage(Message msg) {
             switch (msg.what) {
@@ -178,8 +258,40 @@ public class GALeaveMainActivity extends BaseActivity implements View.OnClickLis
                     finish();
                     break;
                 case MESSAGE_SET_TEXT://text賦值
+                    if (from.equals("emp")){
                     setText();
+                    }else{
+                        setText();
+                        Log.e("--------emp","iiiiii");
+                        getEmpClass(FoxContext.getInstance().getLoginId(),FoxContext.getInstance().getType());
+                    }
 //                    aboutAlert(msg.obj.toString(),MESSAGE_SET_TEXT);
+                    break;
+                case MESSAGE_SET_CLASS:
+                    cla = new ArrayList<>();
+                    claId = new ArrayList<>();
+                    if (gaClass.size()>0){
+                        for (int i = 0;i<gaClass.size();i++){
+                            if (gaClass.get(i).getC_up_start().equals(gaClass.get(i).getC_down_start())){
+                                cla.add(gaClass.get(i).getC_up_start() +"-"+ gaClass.get(i).getC_up_end());
+                            }else {
+                                cla.add(gaClass.get(i).getC_up_start() +"-"+ gaClass.get(i).getC_up_end() + "\u3000"+gaClass.get(i).getC_down_start() +"-"+ gaClass.get(i).getC_down_end());
+                            }
+                            claId.add(gaClass.get(i).getC_id());
+                        }
+                    }
+                    spClass.setAdapter(new ArrayAdapter<String>(GALeaveMainActivity.this, android.R.layout.simple_list_item_1, cla));
+                    spClass.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    newClassID=claId.get(position);
+                            newClass = cla.get(position);
+                            Log.e("---------", "異常描述：" + newClass);
+                        }
+                        @Override
+                        public void onNothingSelected(AdapterView<?> parent) {
+                        }
+                    });
                     break;
                 case MESSAGE_UP://提交響應
                     worningAlert(msg.obj.toString(),MESSAGE_TOAST);
@@ -209,12 +321,12 @@ public class GALeaveMainActivity extends BaseActivity implements View.OnClickLis
         }
         if (gaWorks.get(0).getC_up_start().equals(gaWorks.get(0).getC_down_start())){
             isAllDay=false;
-            tvClass.setText(classType+"\u3000\u3000"+gaWorks.get(0).getC_up_start()+"-"+gaWorks.get(0).getC_up_end());
+            tvClass.setText(classType+"\u3000"+gaWorks.get(0).getC_up_start()+"-"+gaWorks.get(0).getC_up_end());
             upStartTime = gaWorks.get(0).getC_up_start();
             upEndTime = gaWorks.get(0).getC_up_end();
         }else{
             isAllDay=true;
-            tvClass.setText(classType+"\u3000\u3000"+gaWorks.get(0).getC_up_start()+"-"+gaWorks.get(0).getC_up_end()+"\u3000\u3000"+gaWorks.get(0).getC_down_start()+"-"+gaWorks.get(0).getC_down_end());
+            tvClass.setText(classType+"\u3000"+gaWorks.get(0).getC_up_start()+"-"+gaWorks.get(0).getC_up_end()+"\u3000"+gaWorks.get(0).getC_down_start()+"-"+gaWorks.get(0).getC_down_end());
             upStartTime = gaWorks.get(0).getC_up_start();
             upEndTime = gaWorks.get(0).getC_up_end();
             downStartTime = gaWorks.get(0).getC_down_start();
@@ -239,17 +351,24 @@ public class GALeaveMainActivity extends BaseActivity implements View.OnClickLis
                 dateTimeE.dateTimePicKDialog30(tvEndDate, "", "");
                 break;
             case R.id.btn_title_right://提交
-                upLeave();
+                if (from.equals("emp")){
+                    upLeave();
+                }else{
+                    upChangeClass();
+                }
                 break;
             case R.id.btn_title_left:
                  finish();
                  break;
             case R.id.et_reason:
+                if (from.equals("zg")){
+                    ToastUtils.showLong(GALeaveMainActivity.this,"請確認好選擇時間！");
+                }else{
                 try {
                     getLeaveTime(tvStartDate.getText().toString(),tvEndDate.getText().toString(),upStartTime,upEndTime,downStartTime,downEndTime,curDates);
                 } catch (ParseException e) {
                     e.printStackTrace();
-                }
+                }}
                 Log.e("---------","etreason");
                 break;
         }
@@ -307,10 +426,12 @@ public class GALeaveMainActivity extends BaseActivity implements View.OnClickLis
                      hours=TimeDateUtils.getTimeHours(downStartTime,downEndTime)+getQuantianKuatian(endDate, upStartTime, upEndTime, downStartTime, downEndTime);
                  }else if (TimeDateUtils.getTimeGreater(getTime(startDate),downStartTime)&&TimeDateUtils.getTimeLessEqual(getTime(startDate),downEndTime)){
                      hours=TimeDateUtils.getTimeHours(getTime(startDate),downEndTime)+getQuantianKuatian(endDate, upStartTime, upEndTime, downStartTime, downEndTime);
-                 }else if (TimeDateUtils.getTimeGreater(getTime(startDate),downStartTime)&&TimeDateUtils.getTimeLessEqual(getTime(startDate),downEndTime)){
+                 }else  if (TimeDateUtils.getTimeGreater(getTime(startDate),downEndTime)){
                      hours=getQuantianKuatian(endDate, upStartTime, upEndTime, downStartTime, downEndTime);
                  }
                  if (TimeDateUtils.daysDeviation(startDate,endDate)>=2){
+                     Log.e("-----------","半一===="+(TimeDateUtils.getTimeHours(upStartTime,upEndTime)+TimeDateUtils.getTimeHours(downStartTime,downEndTime)));
+
                      tvTime.setText(String.valueOf(hours+(TimeDateUtils.daysDeviation(startDate,endDate)-1)*(TimeDateUtils.getTimeHours(upStartTime,upEndTime)+TimeDateUtils.getTimeHours(downStartTime,downEndTime))));
                  }else{
                      tvTime.setText(String.valueOf(hours));
@@ -432,59 +553,115 @@ public class GALeaveMainActivity extends BaseActivity implements View.OnClickLis
      * 请假信息提交
      */
     private  void upLeave(){
-            final String url = Constants.HTTP_ZW_LEAVE_QJ_UP; //此處寫上自己的URL
+        final String url = Constants.HTTP_ZW_LEAVE_QJ_UP; //此處寫上自己的URL
 
-            JsonObject object = new JsonObject();
+        JsonObject object = new JsonObject();
 
         object.addProperty("p_empId", FoxContext.getInstance().getLoginId());
         object.addProperty("p_empName", FoxContext.getInstance().getName());
         object.addProperty("type", FoxContext.getInstance().getType());
-            object.addProperty("qj_start_date", tvStartDate.getText().toString());
-            object.addProperty("qj_end_date", tvEndDate.getText().toString());
-            object.addProperty("qj_time", tvTime.getText().toString());
-            object.addProperty("qj_reason", etReason.getText().toString());
-            object.addProperty("zg_no", gaWorks.get(0).getZg_no());
-            object.addProperty("c_id",gaWorks.get(0).getC_id());
-            object.addProperty("g_id",gaWorks.get(0).getG_id());
+        object.addProperty("qj_start_date", tvStartDate.getText().toString());
+        object.addProperty("qj_end_date", tvEndDate.getText().toString());
+        object.addProperty("qj_time", tvTime.getText().toString());
+        object.addProperty("qj_reason", etReason.getText().toString());
+        object.addProperty("zg_no", gaWorks.get(0).getZg_no());
+        object.addProperty("c_id",gaWorks.get(0).getC_id());
+        object.addProperty("g_id",gaWorks.get(0).getG_id());
 
-            Log.e("-----object------", object.toString());
-            //開啟一個新執行緒，向伺服器上傳資料
-            new Thread() {
-                public void run() {
-                    //把网络访问的代码放在这里
-                    try {
-                        showDialog();
-                        Log.e("---------", "==fff===" + url);
-                        String result = HttpConnectionUtil.doPostJsonObject(url, object);
-                        if (result != null) {
-                            Log.e("---------", "result==fff===" + result);
-                            JsonObject jsonObject = new JsonParser().parse(result).getAsJsonObject();
-                            String errCode = jsonObject.get("errCode").getAsString();
-                            if (errCode.equals("200")) {
-                                Message message = new Message();
-                                message.what = MESSAGE_TOAST;
-                                message.obj = jsonObject.get("errMessage").getAsString();
-                                mHandler.sendMessage(message);
-
-                            } else {
-                                Log.e("-----------", "result==" + result);
-                                Message message = new Message();
-                                message.what = MESSAGE_TOAST;
-                                message.obj = jsonObject.get("errMessage").getAsString();
-                                mHandler.sendMessage(message);
-                            }
-                            dismissDialog();
-                        } else {
+        Log.e("-----object------", object.toString());
+        //開啟一個新執行緒，向伺服器上傳資料
+        new Thread() {
+            public void run() {
+                //把网络访问的代码放在这里
+                try {
+                    showDialog();
+                    Log.e("---------", "==fff===" + url);
+                    String result = HttpConnectionUtil.doPostJsonObject(url, object);
+                    if (result != null) {
+                        Log.e("---------", "result==fff===" + result);
+                        JsonObject jsonObject = new JsonParser().parse(result).getAsJsonObject();
+                        String errCode = jsonObject.get("errCode").getAsString();
+                        if (errCode.equals("200")) {
                             Message message = new Message();
-                            message.what = MESSAGE_NOT_NET;
+                            message.what = MESSAGE_TOAST;
+                            message.obj = jsonObject.get("errMessage").getAsString();
                             mHandler.sendMessage(message);
-                            finish();
+
+                        } else {
+                            Log.e("-----------", "result==" + result);
+                            Message message = new Message();
+                            message.what = MESSAGE_TOAST;
+                            message.obj = jsonObject.get("errMessage").getAsString();
+                            mHandler.sendMessage(message);
                         }
-                    } catch (Exception e) {
-                        e.printStackTrace();
+                        dismissDialog();
+                    } else {
+                        Message message = new Message();
+                        message.what = MESSAGE_NOT_NET;
+                        mHandler.sendMessage(message);
+                        finish();
                     }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-            }.start();
+            }
+        }.start();
+
+
+    }
+    /**
+     * 班別修改提交
+     */
+    private  void upChangeClass(){
+        final String url = Constants.HTTP_ZW_LEAVE_CHANGE_CLASS_UP; //此處寫上自己的URL
+
+        JsonObject object = new JsonObject();
+
+        object.addProperty("zg_id", FoxContext.getInstance().getLoginId());
+        object.addProperty("zg_name", FoxContext.getInstance().getName());
+        object.addProperty("c_now_id",newClassID);
+        object.addProperty("c_old_id",gaWorks.get(0).getC_id());
+        object.addProperty("change_reason",etReason.getText().toString());
+        object.addProperty("p_empId",getIntent().getStringExtra("p_empId"));
+
+        Log.e("-----object------", object.toString());
+        //開啟一個新執行緒，向伺服器上傳資料
+        new Thread() {
+            public void run() {
+                //把网络访问的代码放在这里
+                try {
+                    showDialog();
+                    Log.e("---------", "==fff===" + url);
+                    String result = HttpConnectionUtil.doPostJsonObject(url, object);
+                    if (result != null) {
+                        Log.e("---------", "result==fff===" + result);
+                        JsonObject jsonObject = new JsonParser().parse(result).getAsJsonObject();
+                        String errCode = jsonObject.get("errCode").getAsString();
+                        if (errCode.equals("200")) {
+                            Message message = new Message();
+                            message.what = MESSAGE_TOAST;
+                            message.obj = jsonObject.get("errMessage").getAsString();
+                            mHandler.sendMessage(message);
+
+                        } else {
+                            Log.e("-----------", "result==" + result);
+                            Message message = new Message();
+                            message.what = MESSAGE_TOAST;
+                            message.obj = jsonObject.get("errMessage").getAsString();
+                            mHandler.sendMessage(message);
+                        }
+                        dismissDialog();
+                    } else {
+                        Message message = new Message();
+                        message.what = MESSAGE_NOT_NET;
+                        mHandler.sendMessage(message);
+                        finish();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }.start();
 
 
     }

@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -78,6 +79,10 @@ public class GALeaveQHUpActivity extends BaseActivity implements View.OnClickLis
             btnAdd.setVisibility(View.VISIBLE);
             btnAdd.setText("新增");
             btnAdd.setOnClickListener(this);
+        }else{
+            btnAdd.setVisibility(View.VISIBLE);
+            btnAdd.setText("班别修改");
+            btnAdd.setOnClickListener(this);
         }
     }
 
@@ -88,8 +93,15 @@ public class GALeaveQHUpActivity extends BaseActivity implements View.OnClickLis
                 finish();
                 break;
             case R.id.btn_title_right:
+                if (from.equals("emp")){
                 Intent intent = new Intent(GALeaveQHUpActivity.this,GALeaveMainActivity.class);
+                intent.putExtra("from",from);
                 startActivity(intent);
+                }else{
+                    Intent intent1 = new Intent(GALeaveQHUpActivity.this,CarWriteIdActivity.class);
+                    intent1.putExtra("from","zg");
+                    startActivity(intent1);
+                }
                 break;
         }
     }
@@ -389,23 +401,27 @@ public class GALeaveQHUpActivity extends BaseActivity implements View.OnClickLis
     public String toastText = "";
 
     private void TJReasonAlert(String msg, final int type,int position) {
+
+        final EditText et = new EditText(this);
+
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("提示信息")
-                .setMessage(msg)
+                .setView(et)
 
-        .setSingleChoiceItems(tjReason, 0, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                ToastUtils.showShort(GALeaveQHUpActivity.this,tjReason[which]);
-                TuJianUp(position,tjReason[which]);
-            }
-        })
+//        .setSingleChoiceItems(tjReason, 0, new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                ToastUtils.showShort(GALeaveQHUpActivity.this,tjReason[which]);
+//                TuJianUp(position,tjReason[which]);
+//            }
+//        })
        .setPositiveButton("确定",  new DialogInterface.OnClickListener() {
            @Override
            public void onClick(DialogInterface dialog, int id) {
                // TODO Auto-generated method stub
                if (type==MESSAGE_TOAST){
-                   finish();
+
+                   TuJianUp(position,et.getText().toString());
                }
            }})
         .setNeutralButton("取消", new DialogInterface.OnClickListener() {

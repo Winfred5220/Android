@@ -121,7 +121,7 @@ public class CarWriteIdActivity extends BaseActivity implements View.OnClickList
         } else if (from.equals("IG")){
 
             tvTitle.setText("手動輸入工號");
-        }else if (from.equals("leave")){
+        }else if (from.equals("leave")||from.equals("zg")){
 
             tvTitle.setText("手動輸入工號");
         }else{
@@ -203,6 +203,13 @@ public class CarWriteIdActivity extends BaseActivity implements View.OnClickList
 //                    resultIntent.putExtra("id", etWriteId.getText().toString());
                     resultIntent.putExtra("id", etWriteId.getText().toString());
                     resultIntent.putExtra("from", "leave");
+                    startActivity(resultIntent);
+                    finish();
+                }else if (from.equals("zg")){
+                    Intent resultIntent = new Intent(CarWriteIdActivity.this, GALeaveMainActivity.class);
+//                    resultIntent.putExtra("id", etWriteId.getText().toString());
+                    resultIntent.putExtra("p_empId", etWriteId.getText().toString());
+                    resultIntent.putExtra("from", "zg");
                     startActivity(resultIntent);
                     finish();
                 }

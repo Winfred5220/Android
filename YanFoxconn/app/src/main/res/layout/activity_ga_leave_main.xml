@@ -61,7 +61,8 @@
             android:layout_weight="1" />
     </TableRow>
         <!--开始時間-->
-        <TableRow style="@style/tableRow">
+        <TableRow style="@style/tableRow"
+            android:id="@+id/tr_start">
             <TextView
                 style="@style/forkliftTextName"
                 android:text="开始時間："/>
@@ -73,7 +74,8 @@
                 android:hint="選擇時間"/>
         </TableRow>
         <!--结束時間-->
-        <TableRow style="@style/tableRow">
+        <TableRow style="@style/tableRow"
+            android:id="@+id/tr_end">
             <TextView
                 style="@style/forkliftTextName"
                 android:text="结束時間："/>
@@ -85,7 +87,9 @@
                 android:hint="選擇時間"/>
         </TableRow>
         <!--请假时常-->
-        <TableRow style="@style/tableRow">
+        <TableRow style="@style/tableRow"
+            android:id="@+id/tr_time"
+            android:focusable="true">
 
             <TextView
                 android:id="@+id/textView4"
@@ -111,12 +115,30 @@
                 android:layout_weight="1" />
 
         </TableRow>
-        <!--请假原因-->
+        <!--班别修改-->
+        <TableRow style="@style/tableRow"
+            android:id="@+id/tr_class"
+            android:visibility="gone">
+
+            <TextView
+                style="@style/carTextName"
+                android:text="班别选择：" />
+
+            <Spinner
+                android:id="@+id/sp_class"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+        </TableRow>
+        <!--请假原因 or 班别修改原因-->
         <TableRow
             android:id="@+id/tr_reason"
             style="@style/tableRow">
 
-            <TextView style="@style/carTextName"
+            <TextView
+                android:id="@+id/tv_title_reason"
+                style="@style/carTextName"
                 android:text="请假原因："/>
 
             <EditText

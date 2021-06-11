@@ -92,9 +92,9 @@ public class GALeaveQJMsgAdapter extends BaseAdapter {
             classType="夜班";
         }
         if (gaWorks.get(position).getC_up_start().equals(gaWorks.get(position).getC_down_start())){
-            viewHolder.tvClass.setText(classType+"\u3000\u3000"+gaWorks.get(0).getC_up_start()+"-"+gaWorks.get(0).getC_up_end());
+            viewHolder.tvClass.setText(classType+"\u3000"+gaWorks.get(0).getC_up_start()+"-"+gaWorks.get(0).getC_up_end());
         }else{
-            viewHolder.tvClass.setText(classType+"\u3000\u3000"+gaWorks.get(0).getC_up_start()+"-"+gaWorks.get(0).getC_up_end()+"\u3000\u3000"+gaWorks.get(0).getC_down_start()+"-"+gaWorks.get(0).getC_down_end());
+            viewHolder.tvClass.setText(classType+"\u3000"+gaWorks.get(0).getC_up_start()+"-"+gaWorks.get(0).getC_up_end()+"\u3000"+gaWorks.get(0).getC_down_start()+"-"+gaWorks.get(0).getC_down_end());
 
         }
         viewHolder.etReason.setText(gaWorks.get(position).getQj_reason());
@@ -121,24 +121,24 @@ public class GALeaveQJMsgAdapter extends BaseAdapter {
             if (gaWorks.get(position).getQj_statue().equals("Y")){
                 viewHolder.llTvBtn.setVisibility(View.GONE);
                 viewHolder.tvStatue.setText("已签核");
-                viewHolder.tvStatue.setBackgroundColor(R.color.color_42D42B);
+                viewHolder.tvStatue.setBackgroundColor(activity.getResources().getColor(R.color.color_42D42B));
                 viewHolder.tvZGName.setText(gaWorks.get(position).getZg_name());
                 viewHolder.tvZGDate.setText(gaWorks.get(position).getQh_date());
-            }else if (gaWorks.get(position).getQj_statue().equals("Y")){
+                viewHolder.tvZGReason.setVisibility(View.GONE);
+            }else {
                 if (gaWorks.get(position).getTj_statue().equals("Y")){
                     viewHolder.llTvBtn.setVisibility(View.GONE);
                     viewHolder.tvStatue.setText("已退件");
-                    viewHolder.tvStatue.setBackgroundColor(R.color.color_d73d19);
+                    viewHolder.tvStatue.setBackgroundColor(activity.getResources().getColor(R.color.color_d73d19));
                     viewHolder.tvZGName.setText(gaWorks.get(position).getZg_name());
-                    viewHolder.tvZGDate.setText(gaWorks.get(position).getQh_date());
+                    viewHolder.tvZGDate.setText(gaWorks.get(position).getTj_date());
                     viewHolder.tvZGReason.setText(gaWorks.get(position).getTj_reason());
-                }
-            }else {
+                }else{
                 viewHolder.tvStatue.setText("待处理");
-                viewHolder.tvStatue.setBackgroundColor(R.color.color_00CCFF);
+                viewHolder.tvStatue.setBackgroundColor(activity.getResources().getColor(R.color.color_00CCFF));
                 viewHolder.tvZGDate.setVisibility(View.GONE);
                 viewHolder.tvZGReason.setVisibility(View.GONE);
-                viewHolder.tvZGName.setVisibility(View.GONE);
+                viewHolder.tvZGName.setVisibility(View.GONE);}
             }
         }else{
 

@@ -75,7 +75,7 @@ public class DateTimePickDialogUtil implements DatePicker.OnDateChangedListener,
         }
         setNumberPickerTextSize(timePicker);
     }
-    String[] minuts = new String[]{"00", "30"};//间隔30的数组，用来表示可设置的分钟值
+    String[] minuts = new String[]{ "30","00"};//间隔30的数组，用来表示可设置的分钟值
 
     /** * 获得timePicker里面的android.widget.NumberPicker组件 （有两个android.widget.NumberPicker组件--hour，minute） * @param viewGroup * @return */
     private List<NumberPicker> findNumberPicker(ViewGroup viewGroup)
@@ -244,7 +244,7 @@ public class DateTimePickDialogUtil implements DatePicker.OnDateChangedListener,
         init(datePicker, timePicker);
         timePicker.setIs24HourView(true);
         timePicker.setOnTimeChangedListener(this);
-
+        onTimeChanged30(null, 0,0);
         ad = new AlertDialog.Builder(activity)
                 .setTitle(initDateTime)
                 .setView(dateTimeLayout)
@@ -398,7 +398,10 @@ public class DateTimePickDialogUtil implements DatePicker.OnDateChangedListener,
         dateTime = sdf.format(calendar.getTime());
         ad.setTitle(dateTime);
     }
+    public void onTimeChanged30(TimePicker view, int hourOfDay, int minute) {
 
+        onDateChanged(null, 0, 0, 0);
+    }
     public void onDateChanged30(DatePicker view, int year, int monthOfYear,
                               int dayOfMonth) {
         // 获得日历实例
@@ -415,6 +418,7 @@ public class DateTimePickDialogUtil implements DatePicker.OnDateChangedListener,
         }
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
+        Log.e("----------","000000000calendar.getTime()====="+calendar.getTime().toString());
         dateTime = sdf.format(calendar.getTime());
         ad.setTitle(dateTime);
     }
