@@ -110,6 +110,9 @@ public class DateTimePickDialogUtil implements DatePicker.OnDateChangedListener,
             timePicker.setCurrentHour(calendar.get(Calendar.HOUR_OF_DAY));
         }
         setNumberPickerTextSize(timePicker);
+
+
+
     }
     String[] minuts = new String[]{"00","30"};//间隔30的数组，用来表示可设置的分钟值
 
@@ -269,6 +272,9 @@ public class DateTimePickDialogUtil implements DatePicker.OnDateChangedListener,
         timePicker.setIs24HourView(true);
         timePicker.setOnTimeChangedListener(this);
 
+
+
+
         Log.e("-----------","dateMin.1getTime()=="+minDate);
         ad = new AlertDialog.Builder(activity)
                 .setTitle(initDateTime)
@@ -401,12 +407,17 @@ public class DateTimePickDialogUtil implements DatePicker.OnDateChangedListener,
     }
 
     public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
-
-        onDateChanged(null, 0, 0, 0);
+        if (minDate.equals("")){
+            onDateChanged30(null,0,0,0);
+        }else{
+        Log.e("-----------","dateMin.ttttttgetTime()=="+minDate);
+        onDateChanged(null, 0, 0, 0);}
     }
 
     public void onDateChanged(DatePicker view, int year, int monthOfYear,
                               int dayOfMonth) {
+
+        if (minDate.equals("")){
         // 获得日历实例
         Calendar calendar = Calendar.getInstance();
 
@@ -420,9 +431,11 @@ public class DateTimePickDialogUtil implements DatePicker.OnDateChangedListener,
                     timePicker.getCurrentMinute());
         }
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-
+        Log.e("-----------","dateMin.ddddddgetTime()=="+minDate);
         dateTime = sdf.format(calendar.getTime());
-        ad.setTitle(dateTime);
+        ad.setTitle(dateTime);}else{
+            onDateChanged30(null,0,0,0);
+        }
     }
     public void onTimeChanged30(TimePicker view, int hourOfDay, int minute) {
 
